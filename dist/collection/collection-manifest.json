@@ -1,0 +1,14 @@
+{
+  "entries": [
+    "./components/emprender-credit-simulator/emprender-credit-simulator.js",
+    "./components/emprender-cs-item/emprender-cs-item.js",
+    "./components/emprender-cs-slider/emprender-cs-slider.js"
+  ],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "2.5.2",
+    "typescriptVersion": "4.2.3"
+  },
+  "collections": [],
+  "bundles": []
+}
