@@ -1,0 +1,13 @@
+{
+  "entries": [
+    "./components/emprender-cl-button/emprender-cl-button.js",
+    "./components/emprender-cl-icon/emprender-cl-icon.js"
+  ],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "2.5.2",
+    "typescriptVersion": "4.2.3"
+  },
+  "collections": [],
+  "bundles": []
+}
