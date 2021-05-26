@@ -1,3 +1,4 @@
+export declare const TERM_MODULE = 30;
 export declare function calculateValues(creditAmount: number, term: number, config: RatesEntity): Credit;
 export declare function getBoundaries(creditConfig: CreditLinesEntity): CreditBoundaries;
 export interface CreditBoundaries {

@@ -14,6 +14,7 @@ export interface SliderConfig {
   labelType: 'currency' | 'day';
   formatter?: (value: number) => string;
 }
+export declare function termFormatter(value: any): string;
 /**
  * variables
  */

@@ -2,7 +2,7 @@ import { Component, Host, h, State, Element } from '@stencil/core';
 import { getBoundaries } from '../../modules/credit-simulator.module';
 import state, { getConfigurationById, getCreditConfigurations, setCreditInfo, setCurrentConfiguration } from '../../store/credit-simulator.store';
 import { capitalize, formatNumber, loadCSS, loadScript } from '../../utils/utils';
-import { DEFAULT_CURRENCY_VALUES, DEFAULT_SLIDER_VALUES } from './emprender-credit-simulator-util';
+import { DEFAULT_CURRENCY_VALUES, DEFAULT_SLIDER_VALUES, termFormatter } from './emprender-credit-simulator-util';
 export class EmprenderCreditSimulator {
   constructor() {
     this.sliderValues = [...(DEFAULT_SLIDER_VALUES.map(_item => (Object.assign({}, _item))))];
@@ -59,6 +59,9 @@ export class EmprenderCreditSimulator {
     if (Object.keys(overflowFields).length !== 0)
       setCreditInfo(overflowFields);
   }
+  renderTotal() {
+    return `${termFormatter(state.currentCreditInfo.creditTerm)} de ${formatNumber(state.currentCreditInfo.creditTotal)}`;
+  }
   render() {
     return (h(Host, null,
       h("div", { class: "creditSimulator" },
@@ -78,9 +81,7 @@ export class EmprenderCreditSimulator {
                   h("input", { type: "radio", checked: state.currentCreditInfo.creditTypeId === 2, name: "radio3", onClick: () => this._creditTypeChange(2) }),
                   h("div", { class: "control__indicator" }))))),
           this.sliderValues.map(_sliderValue => h("emprender-cs-slider", { id: _sliderValue.key, label: _sliderValue.label, min: _sliderValue.min, minLabel: _sliderValue.formatter(_sliderValue.min), max: _sliderValue.max, maxLabel: _sliderValue.formatter(_sliderValue.max), step: _sliderValue.step, value: state.currentCreditInfo[`credit${capitalize(_sliderValue.key)}`], formatter: _sliderValue.formatter, onSliderChange: (event) => this._sliderChange(_sliderValue.key, event.detail) })),
-          h("p", { class: "total" },
-            "Total a pagar: ",
-            h("span", null, formatNumber(state.currentCreditInfo.creditTotal))),
+          h("p", { class: "total" }, this.renderTotal()),
           h("p", { class: "small" }, "Este valor corresponde a una simulaci\u00F3n de tu cr\u00E9dito seg\u00FAn los datos seleccionados por ti."),
           h("div", { class: "details" }, this.currencyValues.map(_currencyValue => {
             var _a;

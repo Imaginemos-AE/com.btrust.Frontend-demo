@@ -1,4 +1,9 @@
 import { formatNumber } from '../../utils/utils';
+export function termFormatter(value) {
+  const module = 30;
+  const terms = Math.ceil(value / module);
+  return `${terms} cuota${terms > 1 ? 's' : ''}`;
+}
 /**
  * variables
  */
@@ -25,7 +30,7 @@ export const DEFAULT_SLIDER_VALUES = [
         return `${value} DIAS`;
       }
       else {
-        const terms = Math.floor(value / module);
+        const terms = Math.ceil(value / module);
         return `${terms} CUOTA${terms > 1 ? 'S' : ''}`;
       }
     }
@@ -33,7 +38,7 @@ export const DEFAULT_SLIDER_VALUES = [
 ];
 export const DEFAULT_CURRENCY_VALUES = [
   {
-    key: 'firstCapital',
+    key: 'amount',
     label: 'Monto solicitado:',
   },
   {
@@ -42,10 +47,11 @@ export const DEFAULT_CURRENCY_VALUES = [
     subLabel: "25% EA",
     tooltip: "El interés corriente aplicado a tu crédito es del 25%EA (Efectivo anual) sobre el capital adeudado. Esta tasa es inferior a la tasa de usura establecida por las autoridades nacionales Mayo/2021: 25.83%. Este interés se calcula diariamente por el plazo que escojas para pagar tu crédito.",
   },
-  // {
-  //   key: 'lifeInsurance',
-  //   label: 'Seguro:',
-  // },
+  {
+    key: 'lifeInsurance',
+    label: 'Seguro:',
+    tooltip: "El interés corriente aplicado a tu crédito es del 25%EA (Efectivo anual) sobre el capital adeudado. Esta tasa es inferior a la tasa de usura establecida por las autoridades nacionales Mayo/2021: 25.83%. Este interés se calcula diariamente por el plazo que escojas para pagar tu crédito.",
+  },
   {
     key: 'guarantee',
     label: 'Aval',
@@ -53,10 +59,11 @@ export const DEFAULT_CURRENCY_VALUES = [
     tooltip: "El interés corriente aplicado a tu crédito es del 25%EA (Efectivo anual) sobre el capital adeudado. Esta tasa es inferior a la tasa de usura establecida por las autoridades nacionales Mayo/2021: 25.83%. Este interés se calcula diariamente por el plazo que escojas para pagar tu crédito.",
     space: true
   },
-  // {
-  //   key: 'admin',
-  //   label: 'Administración:',
-  // },
+  {
+    key: 'admin',
+    label: 'Administración:',
+    tooltip: "El interés corriente aplicado a tu crédito es del 25%EA (Efectivo anual) sobre el capital adeudado. Esta tasa es inferior a la tasa de usura establecida por las autoridades nacionales Mayo/2021: 25.83%. Este interés se calcula diariamente por el plazo que escojas para pagar tu crédito.",
+  },
   {
     key: 'platform',
     label: 'Plataforma',
@@ -75,8 +82,8 @@ export const DEFAULT_CURRENCY_VALUES = [
     subLabel: "19%",
     space: true
   },
-  {
-    key: 'total',
-    label: 'Total',
-  }
+  // {
+  //   key: 'total',
+  //   label: 'Total',
+  // }
 ];
