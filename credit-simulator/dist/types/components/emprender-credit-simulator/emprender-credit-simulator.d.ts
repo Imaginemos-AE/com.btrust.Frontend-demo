@@ -12,6 +12,6 @@ export declare class EmprenderCreditSimulator implements ComponentInterface {
     metric?: string;
   }): void;
   _creditTypeChange(creditTypeId: number): void;
-  _calculateBoundaries(): void;
+  _calculateBoundaries(creditTypeId: number): void;
   render(): any;
 }

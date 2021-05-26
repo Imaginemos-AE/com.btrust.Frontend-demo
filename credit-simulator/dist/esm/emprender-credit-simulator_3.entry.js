@@ -240,7 +240,6 @@ async function getCreditConfigurations() {
   }
 }
 function setCreditInfo(newData) {
-  // state.currentCreditInfo = { ...state.currentCreditInfo, ...newData };
   const initialData = Object.assign(Object.assign({}, state.currentCreditInfo), newData);
   const { creditAmount, creditTerm } = initialData;
   const rateConfig = state.curentCofiguration.Rates.find(_rate => creditAmount >= _rate.MinAmount && creditAmount <= _rate.MaxAmount);
@@ -252,6 +251,9 @@ function setCurrentConfiguration(configId) {
     creditTypeId: state.curentCofiguration.id,
     creditTypeLabel: state.curentCofiguration.Name
   });
+}
+function getConfigurationById(configId) {
+  return state.configurations.find(_config => _config.id === configId);
 }
 
 function formatNumber(num, signSpace = false) {
@@ -406,11 +408,11 @@ const EmprenderCreditSimulator = class {
     setCreditInfo({ [`credit${capitalize(field)}`]: data.value });
   }
   _creditTypeChange(creditTypeId) {
+    this._calculateBoundaries(creditTypeId);
     setCurrentConfiguration(creditTypeId);
-    this._calculateBoundaries();
   }
-  _calculateBoundaries() {
-    const boundaries = getBoundaries(state.curentCofiguration);
+  _calculateBoundaries(creditTypeId) {
+    const boundaries = getBoundaries(getConfigurationById(creditTypeId));
     this.sliderValues = this.sliderValues.map(_sliderValue => {
       const [minKey, maxKey] = ['min', 'max'].map(_s => `${_s}${capitalize(_sliderValue.key)}`);
       return Object.assign(Object.assign({}, _sliderValue), { max: boundaries[maxKey], min: boundaries[minKey] });

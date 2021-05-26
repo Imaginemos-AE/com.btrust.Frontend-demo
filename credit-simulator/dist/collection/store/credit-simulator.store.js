@@ -20,7 +20,6 @@ export async function getCreditConfigurations() {
   }
 }
 export function setCreditInfo(newData) {
-  // state.currentCreditInfo = { ...state.currentCreditInfo, ...newData };
   const initialData = Object.assign(Object.assign({}, state.currentCreditInfo), newData);
   const { creditAmount, creditTerm } = initialData;
   const rateConfig = state.curentCofiguration.Rates.find(_rate => creditAmount >= _rate.MinAmount && creditAmount <= _rate.MaxAmount);
@@ -32,5 +31,8 @@ export function setCurrentConfiguration(configId) {
     creditTypeId: state.curentCofiguration.id,
     creditTypeLabel: state.curentCofiguration.Name
   });
+}
+export function getConfigurationById(configId) {
+  return state.configurations.find(_config => _config.id === configId);
 }
 export default state;

@@ -1,6 +1,6 @@
 import { Component, Host, h, State, Element } from '@stencil/core';
 import { getBoundaries } from '../../modules/credit-simulator.module';
-import state, { getCreditConfigurations, setCreditInfo, setCurrentConfiguration } from '../../store/credit-simulator.store';
+import state, { getConfigurationById, getCreditConfigurations, setCreditInfo, setCurrentConfiguration } from '../../store/credit-simulator.store';
 import { capitalize, formatNumber, loadCSS, loadScript } from '../../utils/utils';
 import { DEFAULT_CURRENCY_VALUES, DEFAULT_SLIDER_VALUES } from './emprender-credit-simulator-util';
 export class EmprenderCreditSimulator {
@@ -33,11 +33,11 @@ export class EmprenderCreditSimulator {
     setCreditInfo({ [`credit${capitalize(field)}`]: data.value });
   }
   _creditTypeChange(creditTypeId) {
+    this._calculateBoundaries(creditTypeId);
     setCurrentConfiguration(creditTypeId);
-    this._calculateBoundaries();
   }
-  _calculateBoundaries() {
-    const boundaries = getBoundaries(state.curentCofiguration);
+  _calculateBoundaries(creditTypeId) {
+    const boundaries = getBoundaries(getConfigurationById(creditTypeId));
     this.sliderValues = this.sliderValues.map(_sliderValue => {
       const [minKey, maxKey] = ['min', 'max'].map(_s => `${_s}${capitalize(_sliderValue.key)}`);
       return Object.assign(Object.assign({}, _sliderValue), { max: boundaries[maxKey], min: boundaries[minKey] });
