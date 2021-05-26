@@ -1,5 +1,7 @@
 import { Component, Host, h, State, Element } from '@stencil/core';
-import { formatNumber, loadCSS, loadScript } from '../../utils/utils';
+import { getBoundaries } from '../../modules/credit-simulator.module';
+import state, { getCreditConfigurations, setCreditInfo, setCurrentConfiguration } from '../../store/credit-simulator.store';
+import { capitalize, formatNumber, loadCSS, loadScript } from '../../utils/utils';
 import { DEFAULT_CURRENCY_VALUES, DEFAULT_SLIDER_VALUES } from './emprender-credit-simulator-util';
 export class EmprenderCreditSimulator {
   constructor() {
@@ -13,6 +15,9 @@ export class EmprenderCreditSimulator {
     await loadScript('https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js', 'bootstrap', 'text/javascript');
     await loadScript('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js', 'bootstrap-slider', 'text/javascript');
     await loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
+    /** load credit configurations */
+    await getCreditConfigurations();
+    this._loadDefaultConfig();
   }
   componentDidLoad() {
     const element = this.host.shadowRoot.querySelectorAll('[data-toggle="tooltip"]');
@@ -20,6 +25,39 @@ export class EmprenderCreditSimulator {
     $(element).tooltip({
       container: container
     });
+  }
+  _loadDefaultConfig() {
+    this._creditTypeChange(1); // default configuration
+  }
+  _sliderChange(field, data) {
+    setCreditInfo({ [`credit${capitalize(field)}`]: data.value });
+  }
+  _creditTypeChange(creditTypeId) {
+    setCurrentConfiguration(creditTypeId);
+    this._calculateBoundaries();
+  }
+  _calculateBoundaries() {
+    const boundaries = getBoundaries(state.curentCofiguration);
+    this.sliderValues = this.sliderValues.map(_sliderValue => {
+      const [minKey, maxKey] = ['min', 'max'].map(_s => `${_s}${capitalize(_sliderValue.key)}`);
+      return Object.assign(Object.assign({}, _sliderValue), { max: boundaries[maxKey], min: boundaries[minKey] });
+    });
+    this.sliderValues.forEach(_sliderValue => {
+      const slider = this.host.shadowRoot.querySelector(`emprender-cs-slider#${_sliderValue.key}`);
+      slider === null || slider === void 0 ? void 0 : slider.updateBoundaries(_sliderValue.min, _sliderValue.max, _sliderValue.formatter(_sliderValue.min), _sliderValue.formatter(_sliderValue.max));
+    });
+    /** avoid boundaries overflow */
+    const overflowFields = this.sliderValues.reduce((fields, _sliderValue) => {
+      const [minKey, maxKey] = ['min', 'max'].map(_s => `${_s}${capitalize(_sliderValue.key)}`);
+      const creditValue = state.currentCreditInfo[`credit${capitalize(_sliderValue.key)}`];
+      const val = creditValue > boundaries[maxKey] ? boundaries[maxKey]
+        : (creditValue < boundaries[minKey] ? boundaries[minKey] : -1);
+      if (val === -1)
+        return fields;
+      return Object.assign(Object.assign({}, fields), { [`credit${capitalize(_sliderValue.key)}`]: val });
+    }, {});
+    if (Object.keys(overflowFields).length !== 0)
+      setCreditInfo(overflowFields);
   }
   render() {
     return (h(Host, null,
@@ -32,22 +70,25 @@ export class EmprenderCreditSimulator {
               h("li", null,
                 h("label", { class: "control control--checkbox" },
                   "Empleado",
-                  h("input", { type: "radio", checked: true, name: "radio3" }),
+                  h("input", { type: "radio", checked: state.currentCreditInfo.creditTypeId === 1, name: "radio3", onClick: () => this._creditTypeChange(1) }),
                   h("div", { class: "control__indicator" }))),
               h("li", null,
                 h("label", { class: "control control--checkbox" },
                   "Empresario / Independiente",
-                  h("input", { type: "radio", name: "radio3" }),
+                  h("input", { type: "radio", checked: state.currentCreditInfo.creditTypeId === 2, name: "radio3", onClick: () => this._creditTypeChange(2) }),
                   h("div", { class: "control__indicator" }))))),
-          this.sliderValues.map(_sliderValue => h("emprender-cs-slider", { label: _sliderValue.label, min: _sliderValue.min, minLabel: _sliderValue.labelType === 'currency' ? formatNumber(_sliderValue.min) : `${_sliderValue.min} DIAS`, max: _sliderValue.max, maxLabel: _sliderValue.labelType === 'currency' ? formatNumber(_sliderValue.max) : `${_sliderValue.max} DIAS`, step: _sliderValue.step, value: _sliderValue.value })),
+          this.sliderValues.map(_sliderValue => h("emprender-cs-slider", { id: _sliderValue.key, label: _sliderValue.label, min: _sliderValue.min, minLabel: _sliderValue.formatter(_sliderValue.min), max: _sliderValue.max, maxLabel: _sliderValue.formatter(_sliderValue.max), step: _sliderValue.step, value: state.currentCreditInfo[`credit${capitalize(_sliderValue.key)}`], formatter: _sliderValue.formatter, onSliderChange: (event) => this._sliderChange(_sliderValue.key, event.detail) })),
           h("p", { class: "total" },
             "Total a pagar: ",
-            h("span", null, "$485.443")),
+            h("span", null, formatNumber(state.currentCreditInfo.creditTotal))),
           h("p", { class: "small" }, "Este valor corresponde a una simulaci\u00F3n de tu cr\u00E9dito seg\u00FAn los datos seleccionados por ti."),
-          h("div", { class: "details" }, this.currencyValues.map(_currencyValue => h("emprender-cs-item", { text: _currencyValue.label, subText: _currencyValue.subLabel, value: _currencyValue.value, space: _currencyValue.space }, _currencyValue.tooltip &&
-            h("emprender-cl-icon", { "data-toggle": "tooltip", "data-placement": "top", title: _currencyValue.tooltip, class: "tooltipWhite", icon: "info" })))),
+          h("div", { class: "details" }, this.currencyValues.map(_currencyValue => {
+            var _a;
+            return h("emprender-cs-item", { text: _currencyValue.label, subText: _currencyValue.subLabel, value: (_a = state.currentCreditInfo[`credit${capitalize(_currencyValue.key)}`]) !== null && _a !== void 0 ? _a : 0, space: _currencyValue.space }, _currencyValue.tooltip &&
+              h("emprender-cl-icon", { "data-toggle": "tooltip", "data-placement": "top", title: _currencyValue.tooltip, class: "tooltipWhite", icon: "info" }));
+          })),
           h("div", { class: "contcenter" },
-            h("emprender-cl-button", { text: "Solicita tu cr\u00E9dito", modifiers: "medium primary", onclick: (e) => console.log('output', e) }))))));
+            h("emprender-cl-button", { text: "Solicita tu cr\u00E9dito", modifiers: "medium primary", onclick: () => console.log('Credit Info', state.currentCreditInfo) }))))));
   }
   static get is() { return "emprender-credit-simulator"; }
   static get encapsulation() { return "shadow"; }

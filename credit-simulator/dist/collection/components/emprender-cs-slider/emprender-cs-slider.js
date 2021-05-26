@@ -1,7 +1,14 @@
-import { Component, Host, h, Element, Prop } from '@stencil/core';
+import { Component, Host, h, Element, Prop, Event, Method } from '@stencil/core';
 export class EmprenderCsSlider {
   constructor() {
+    this.refreshSlider = false;
     this.value = null;
+  }
+  async updateBoundaries(min, max, minLabel, maxLabel) {
+    if (this.slider) {
+      [this.min, this.max, this.minLabel, this.maxLabel] = [min, max, minLabel, maxLabel];
+      this.refreshSlider = true;
+    }
   }
   componentDidLoad() {
     if (this.slider)
@@ -9,8 +16,23 @@ export class EmprenderCsSlider {
     const element = this.host.shadowRoot.querySelector(".slider");
     this.slider = $(element).slider({
       tooltip: 'always',
-      tooltip_position: 'bottom'
-    }).on('change', event => { this.value = event.value.newValue; });
+      tooltip_position: 'bottom',
+      formatter: this.formatter
+    }).on('change', event => {
+      this.value = event.value.newValue;
+      this.emitChange();
+    });
+  }
+  componentDidRender() {
+    if (this.refreshSlider) {
+      this.refreshSlider = false;
+      this.slider.slider('setAttribute', 'min', this.min);
+      this.slider.slider('setAttribute', 'max', this.max);
+      this.slider.slider('refresh', { useCurrentValue: true });
+    }
+  }
+  emitChange() {
+    this.sliderChange.emit(Object.assign({ value: this.value }, (this.formatter && { formatedValue: this.formatter(this.value) })));
   }
   render() {
     var _a, _b;
@@ -67,7 +89,7 @@ export class EmprenderCsSlider {
     },
     "min": {
       "type": "number",
-      "mutable": false,
+      "mutable": true,
       "complexType": {
         "original": "number",
         "resolved": "number",
@@ -80,11 +102,11 @@ export class EmprenderCsSlider {
         "text": ""
       },
       "attribute": "min",
-      "reflect": false
+      "reflect": true
     },
     "minLabel": {
       "type": "string",
-      "mutable": false,
+      "mutable": true,
       "complexType": {
         "original": "string",
         "resolved": "string",
@@ -97,11 +119,11 @@ export class EmprenderCsSlider {
         "text": ""
       },
       "attribute": "min-label",
-      "reflect": false
+      "reflect": true
     },
     "max": {
       "type": "number",
-      "mutable": false,
+      "mutable": true,
       "complexType": {
         "original": "number",
         "resolved": "number",
@@ -114,11 +136,11 @@ export class EmprenderCsSlider {
         "text": ""
       },
       "attribute": "max",
-      "reflect": false
+      "reflect": true
     },
     "maxLabel": {
       "type": "string",
-      "mutable": false,
+      "mutable": true,
       "complexType": {
         "original": "string",
         "resolved": "string",
@@ -131,7 +153,7 @@ export class EmprenderCsSlider {
         "text": ""
       },
       "attribute": "max-label",
-      "reflect": false
+      "reflect": true
     },
     "step": {
       "type": "number",
@@ -149,6 +171,67 @@ export class EmprenderCsSlider {
       },
       "attribute": "step",
       "reflect": false
+    },
+    "formatter": {
+      "type": "unknown",
+      "mutable": false,
+      "complexType": {
+        "original": "(value: number) => string",
+        "resolved": "(value: number) => string",
+        "references": {}
+      },
+      "required": false,
+      "optional": true,
+      "docs": {
+        "tags": [],
+        "text": ""
+      }
+    }
+  }; }
+  static get events() { return [{
+      "method": "sliderChange",
+      "name": "sliderChange",
+      "bubbles": true,
+      "cancelable": true,
+      "composed": true,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "complexType": {
+        "original": "{ value: number, formatedValue?: string }",
+        "resolved": "{ value: number; formatedValue?: string; }",
+        "references": {}
+      }
+    }]; }
+  static get methods() { return {
+    "updateBoundaries": {
+      "complexType": {
+        "signature": "(min: number, max: number, minLabel: string, maxLabel: string) => Promise<void>",
+        "parameters": [{
+            "tags": [],
+            "text": ""
+          }, {
+            "tags": [],
+            "text": ""
+          }, {
+            "tags": [],
+            "text": ""
+          }, {
+            "tags": [],
+            "text": ""
+          }],
+        "references": {
+          "Promise": {
+            "location": "global"
+          }
+        },
+        "return": "Promise<void>"
+      },
+      "docs": {
+        "text": "",
+        "tags": []
+      }
     }
   }; }
   static get elementRef() { return "host"; }

@@ -15,12 +15,14 @@ export namespace Components {
         "value": number;
     }
     interface EmprenderCsSlider {
+        "formatter"?: (value: number) => string;
         "label": string;
         "max": number;
         "maxLabel"?: string;
         "min": number;
         "minLabel"?: string;
         "step": number;
+        "updateBoundaries": (min: number, max: number, minLabel: string, maxLabel: string) => Promise<void>;
         "value": number;
     }
 }
@@ -59,11 +61,13 @@ declare namespace LocalJSX {
         "value"?: number;
     }
     interface EmprenderCsSlider {
+        "formatter"?: (value: number) => string;
         "label"?: string;
         "max"?: number;
         "maxLabel"?: string;
         "min"?: number;
         "minLabel"?: string;
+        "onSliderChange"?: (event: CustomEvent<{ value: number, formatedValue?: string }>) => void;
         "step"?: number;
         "value"?: number;
     }

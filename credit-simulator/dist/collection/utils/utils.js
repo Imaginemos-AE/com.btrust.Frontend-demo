@@ -1,6 +1,11 @@
 export function formatNumber(num, signSpace = false) {
   return `$${signSpace ? ' ' : ''}${num.toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}`;
 }
+export function capitalize(s) {
+  if (typeof s !== 'string')
+    return '';
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
 export function loadScript(url, id, type) {
   return new Promise(resolve => {
     document.body.appendChild(Object.assign(document.createElement('script'), {
