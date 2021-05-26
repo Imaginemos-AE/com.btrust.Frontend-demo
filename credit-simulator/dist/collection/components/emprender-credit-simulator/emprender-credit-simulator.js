@@ -47,7 +47,7 @@ export class EmprenderCreditSimulator {
           h("div", { class: "details" }, this.currencyValues.map(_currencyValue => h("emprender-cs-item", { text: _currencyValue.label, subText: _currencyValue.subLabel, value: _currencyValue.value, space: _currencyValue.space }, _currencyValue.tooltip &&
             h("emprender-cl-icon", { "data-toggle": "tooltip", "data-placement": "top", title: _currencyValue.tooltip, class: "tooltipWhite", icon: "info" })))),
           h("div", { class: "contcenter" },
-            h("button", { class: "button medium purple" }, "Solicita tu cr\u00E9dito"))))));
+            h("emprender-cl-button", { text: "Solicita tu cr\u00E9dito", modifiers: "medium primary", onclick: (e) => console.log('output', e) }))))));
   }
   static get is() { return "emprender-credit-simulator"; }
   static get encapsulation() { return "shadow"; }
