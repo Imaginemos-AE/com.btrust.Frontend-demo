@@ -141,7 +141,7 @@ fieldset {
   margin-bottom: 20px;
 }
 .form fieldset label {
-  color: var(--primary-color);
+  color: var(--primary-color, #51215B);
   display: block;
   font-size: 14px;
   font-weight: 600;
@@ -238,12 +238,12 @@ ul.inline li {
 }
 
 .control input:checked ~ .control__indicator {
-  background: var(--primary-color);
+  background: var(--primary-color, #51215B);
 }
 
 .control:hover input:not([disabled]):checked ~ .control__indicator,
 .control input:checked:focus ~ .control__indicator {
-  background: var(--primary-color);
+  background: var(--primary-color, #51215B);
 }
 
 .control input:disabled ~ .control__indicator {
