@@ -18,7 +18,7 @@ function calculateValues(creditAmount, term, config) {
   const creditFirstCapital = single ? creditAmount : creditPMT - creditInterest;
   const creditGuarantee = (creditAmount * (config.GuarateeRate / 100)) / calcTerm;
   const creditLifeInsurance = single ? ((creditAmount / 1000000) * config.LifeInsuranceRate) / (30 / term) : ((creditAmount / 1000000) * config.LifeInsuranceRate) / calcTerm;
-  const creditPlatform = single ? config.PlattformUseFee * term : config.PlattformUseFee;
+  const creditPlatform = config.PlattformUseFee; // single ? config.PlattformUseFee * term : config.PlattformUseFee;
   const creditAdmin = config.AdministrationFee / calcTerm;
   const creditTaxes = ((creditPlatform + config.AdministrationFee) * (config.TaxesRate / 100)) / calcTerm;
   const creditTotal = creditFirstCapital + creditGuarantee + creditLifeInsurance + creditInterest + creditPlatform + creditAdmin + creditTaxes;
