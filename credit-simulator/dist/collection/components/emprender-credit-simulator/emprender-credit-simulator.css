@@ -30,7 +30,7 @@
 .creditSimulator .box {
   background-color: #ffffff;
   border-radius: 20px;
-  padding: 20px 40px;
+  padding: 20px 25px;
 }
 .creditSimulator .box p.total {
   color: #00779a;
