@@ -1,6 +1,6 @@
 export interface CurrencyValue {
   key: string;
-  label: string;
+  label: string | ((value: string) => string);
   subLabel?: string;
   tooltip?: string;
   space?: boolean;
@@ -10,7 +10,7 @@ export interface SliderConfig {
   label: string;
   min: number;
   max: number;
-  step: number;
+  step: number | ((value: string) => number);
   labelType: 'currency' | 'day';
   formatter?: (value: number) => string;
 }

@@ -15,7 +15,7 @@ export declare class EmprenderCsSlider implements ComponentInterface {
     formatedValue?: string;
   }>;
   host: HTMLElement;
-  updateBoundaries(min: number, max: number, minLabel: string, maxLabel: string): Promise<void>;
+  updateBoundaries(min: number, max: number, step: number, minLabel: string, maxLabel: string): Promise<void>;
   componentDidLoad(): void;
   componentDidRender(): void;
   emitChange(): void;

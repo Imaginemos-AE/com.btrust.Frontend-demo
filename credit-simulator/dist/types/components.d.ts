@@ -22,7 +22,7 @@ export namespace Components {
         "min": number;
         "minLabel"?: string;
         "step": number;
-        "updateBoundaries": (min: number, max: number, minLabel: string, maxLabel: string) => Promise<void>;
+        "updateBoundaries": (min: number, max: number, step: number, minLabel: string, maxLabel: string) => Promise<void>;
         "value": number;
     }
 }

@@ -12,7 +12,7 @@ export function calculateValues(creditAmount, term, config) {
   const creditFirstCapital = single ? creditAmount : creditPMT - creditInterest;
   const creditGuarantee = (creditAmount * (config.GuarateeRate / 100)) / calcTerm;
   const creditLifeInsurance = single ? ((creditAmount / 1000000) * config.LifeInsuranceRate) / (30 / term) : ((creditAmount / 1000000) * config.LifeInsuranceRate) / calcTerm;
-  const creditPlatform = config.PlattformUseFee; // single ? config.PlattformUseFee * term : config.PlattformUseFee;
+  const creditPlatform = single ? config.PlattformUseFee * term : config.PlattformUseFee;
   const creditAdmin = config.AdministrationFee / calcTerm;
   const creditTaxes = ((creditPlatform + config.AdministrationFee) * (config.TaxesRate / 100)) / calcTerm;
   const creditTotal = creditFirstCapital + creditGuarantee + creditLifeInsurance + creditInterest + creditPlatform + creditAdmin + creditTaxes;
@@ -30,13 +30,15 @@ export function calculateValues(creditAmount, term, config) {
   };
   // }
 }
-export function getBoundaries(creditConfig) {
+export function getAmountBoundaries(creditConfig) {
   const minAmount = Math.min(...creditConfig.Rates.map(rate => rate.MinAmount));
   const maxAmount = Math.max(...creditConfig.Rates.map(rate => rate.MaxAmount));
-  const minTerm = Math.min(...creditConfig.Rates.map(rate => rate.MinTerm));
-  const maxTerm = Math.max(...creditConfig.Rates.map(rate => rate.Maxterm));
-  // const rateConfig = creditConfig.Rates.find(_rate => amount >= _rate.MinAmount && amount <= _rate.MaxAmount);
-  // const minTerm = rateConfig.MinTerm // Math.min(...creditConfig.Rates.map(rate => rate.MinTerm));
-  // const maxTerm = rateConfig.Maxterm // Math.max(...creditConfig.Rates.map(rate => rate.Maxterm));
-  return { minAmount, maxAmount, minTerm, maxTerm };
+  return { minAmount, maxAmount };
+}
+export function getTermBoundaries(amount, creditConfig) {
+  const rateConfig = creditConfig.Rates.find(_rate => amount >= _rate.MinAmount && amount <= _rate.MaxAmount);
+  const minTerm = rateConfig.MinTerm;
+  const maxTerm = rateConfig.Maxterm;
+  const typeOfTerm = minTerm < TERM_MODULE ? 'daily' : 'monthly';
+  return { minTerm, maxTerm, typeOfTerm };
 }

@@ -4,9 +4,9 @@ export class EmprenderCsSlider {
     this.refreshSlider = false;
     this.value = null;
   }
-  async updateBoundaries(min, max, minLabel, maxLabel) {
+  async updateBoundaries(min, max, step, minLabel, maxLabel) {
     if (this.slider) {
-      [this.min, this.max, this.minLabel, this.maxLabel] = [min, max, minLabel, maxLabel];
+      [this.min, this.max, this.minLabel, this.maxLabel, this.step] = [min, max, minLabel, maxLabel, step];
       this.refreshSlider = true;
     }
   }
@@ -28,6 +28,7 @@ export class EmprenderCsSlider {
       this.refreshSlider = false;
       this.slider.slider('setAttribute', 'min', this.min);
       this.slider.slider('setAttribute', 'max', this.max);
+      this.slider.slider('setAttribute', 'step', this.step);
       this.slider.slider('refresh', { useCurrentValue: true });
     }
   }
@@ -157,7 +158,7 @@ export class EmprenderCsSlider {
     },
     "step": {
       "type": "number",
-      "mutable": false,
+      "mutable": true,
       "complexType": {
         "original": "number",
         "resolved": "number",
@@ -170,7 +171,7 @@ export class EmprenderCsSlider {
         "text": ""
       },
       "attribute": "step",
-      "reflect": false
+      "reflect": true
     },
     "formatter": {
       "type": "unknown",
@@ -207,8 +208,11 @@ export class EmprenderCsSlider {
   static get methods() { return {
     "updateBoundaries": {
       "complexType": {
-        "signature": "(min: number, max: number, minLabel: string, maxLabel: string) => Promise<void>",
+        "signature": "(min: number, max: number, step: number, minLabel: string, maxLabel: string) => Promise<void>",
         "parameters": [{
+            "tags": [],
+            "text": ""
+          }, {
             "tags": [],
             "text": ""
           }, {

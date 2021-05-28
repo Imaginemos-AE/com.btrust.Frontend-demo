@@ -1,7 +1,7 @@
 import { formatNumber } from '../../utils/utils';
+const TERM_MODULE = 30;
 export function termFormatter(value) {
-  const module = 30;
-  const terms = Math.ceil(value / module);
+  const terms = Math.ceil(value / TERM_MODULE);
   return `${terms} cuota${terms > 1 ? 's' : ''}`;
 }
 /**
@@ -22,15 +22,14 @@ export const DEFAULT_SLIDER_VALUES = [
     label: '¿Cuándo podrías pagarlo?',
     min: 5,
     max: 150,
-    step: 1,
+    step: (config) => config === 'monthly' ? TERM_MODULE : 1,
     labelType: 'day',
     formatter: (value) => {
-      const module = 30;
-      if (value <= module) {
+      if (value <= TERM_MODULE) {
         return `${value} DIAS`;
       }
       else {
-        const terms = Math.ceil(value / module);
+        const terms = Math.ceil(value / TERM_MODULE);
         return `${terms} CUOTA${terms > 1 ? 'S' : ''}`;
       }
     }
@@ -39,7 +38,7 @@ export const DEFAULT_SLIDER_VALUES = [
 export const DEFAULT_CURRENCY_VALUES = [
   {
     key: 'amount',
-    label: 'Monto solicitado:',
+    label: (config) => config === 'monthly' ? 'Capital 1a. cuota:' : 'Monto solicitado:',
   },
   {
     key: 'interest',

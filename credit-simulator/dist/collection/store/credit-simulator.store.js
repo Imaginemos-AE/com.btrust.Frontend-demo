@@ -7,7 +7,7 @@ const { state } = createStore({
   currentCreditInfo: {
     creditTypeId: 1,
     creditAmount: 1000000,
-    creditTerm: 30,
+    creditTerm: 60,
     creditTotal: 0,
   }
 });
