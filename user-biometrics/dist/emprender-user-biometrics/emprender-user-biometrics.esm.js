@@ -1,0 +1,1 @@
+import{p as e,b as r}from"./p-bba40622.js";(()=>{const r=import.meta.url,m={};return""!==r&&(m.resourcesUrl=new URL(".",r).href),e(m)})().then((e=>r([["p-32682f79",[[1,"emprender-user-biometrics"],[1,"emprender-ub-home"]]]],e)));
