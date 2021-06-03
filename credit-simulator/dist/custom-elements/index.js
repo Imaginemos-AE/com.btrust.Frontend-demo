@@ -253,8 +253,12 @@ async function getCreditConfigurations() {
 function loadDefaultData() {
   const [storageConfig, storageCredit] = [storageConfigKey, storageCreditKey].map(key => localStorage.getItem(key));
   state.curentCofiguration = storageConfig ? JSON.parse(storageConfig) : (state.configurations.length > 0 ? state.configurations[0] : null);
-  if (storageCredit)
+  if (storageCredit) {
     state.currentCreditInfo = JSON.parse(storageCredit);
+  }
+  else {
+    setCreditInfo({});
+  }
 }
 function setCreditInfo(newData) {
   const initialData = Object.assign(Object.assign({}, state.currentCreditInfo), newData);
