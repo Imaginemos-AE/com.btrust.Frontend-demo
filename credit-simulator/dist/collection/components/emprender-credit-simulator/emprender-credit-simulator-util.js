@@ -37,13 +37,14 @@ export const DEFAULT_SLIDER_VALUES = [
 ];
 export const DEFAULT_CURRENCY_VALUES = [
   {
-    key: 'amount',
+    key: 'firstCapital',
     label: (config) => config === 'monthly' ? 'Capital 1a. cuota:' : 'Monto solicitado:',
+    tooltip: "Si tomas un crédito a una cuota corresponde al valor de tu desembolso; si tu crédito es a dos cuotas o más, corresponde al valor que abonarás a tu préstamo al pagar la primera cuota;"
   },
   {
     key: 'interest',
     label: 'Intereses',
-    subLabel: "25% EA",
+    subLabel: (credit) => `${credit.creditAnualEffectiverate}% EA`,
     tooltip: "El interés corriente aplicado a tu crédito es del 25%EA (Efectivo anual) sobre el capital adeudado. Esta tasa es inferior a la tasa de usura establecida por las autoridades nacionales Mayo/2021: 25.83%. Este interés se calcula diariamente por el plazo que escojas para pagar tu crédito.",
   },
   {
@@ -79,7 +80,8 @@ export const DEFAULT_CURRENCY_VALUES = [
     key: 'taxes',
     label: 'IVA',
     subLabel: "19%",
-    space: true
+    space: true,
+    tooltip: "Corresponde al impuesto que por ley debes pagar por el uso de nuestra plataforma y la administración de tu crédito"
   },
   // {
   //   key: 'total',

@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
+import { Credit } from "./modules/credit-simulator.module";
 export namespace Components {
     interface EmprenderCreditSimulator {
     }
@@ -53,6 +54,7 @@ declare global {
 }
 declare namespace LocalJSX {
     interface EmprenderCreditSimulator {
+        "onCreditRequested"?: (event: CustomEvent<Credit>) => void;
     }
     interface EmprenderCsItem {
         "space"?: boolean;

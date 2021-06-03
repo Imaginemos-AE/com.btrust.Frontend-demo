@@ -26,6 +26,8 @@ export interface Credit {
   creditPlatform: number;
   creditFirstCapital: number;
   creditAdmin: number;
+  creditAnualEffectiverate: number;
+  creditMonthlyEffectiverate: number;
 }
 export interface CreditConfiguration {
   CreditLines: CreditLinesEntity[];

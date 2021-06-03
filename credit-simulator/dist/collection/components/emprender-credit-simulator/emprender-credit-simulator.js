@@ -1,6 +1,6 @@
-import { Component, Host, h, State, Element } from '@stencil/core';
+import { Component, Host, h, State, Element, Event } from '@stencil/core';
 import { getAmountBoundaries, getTermBoundaries } from '../../modules/credit-simulator.module';
-import state, { getConfigurationById, getCreditConfigurations, setCreditInfo, setCurrentConfiguration } from '../../store/credit-simulator.store';
+import state, { getConfigurationById, getCreditConfigurations, loadDefaultData, setCreditInfo, setCurrentConfiguration } from '../../store/credit-simulator.store';
 import { capitalize, formatNumber, loadCSS, loadScript } from '../../utils/utils';
 import { DEFAULT_CURRENCY_VALUES, DEFAULT_SLIDER_VALUES, termFormatter } from './emprender-credit-simulator-util';
 export class EmprenderCreditSimulator {
@@ -28,7 +28,8 @@ export class EmprenderCreditSimulator {
     });
   }
   _loadDefaultConfig() {
-    this._creditTypeChange(1, false); // default configuration
+    loadDefaultData();
+    this._calculateBoundaries(state.curentCofiguration.id, false);
   }
   _sliderChange(field, data) {
     setCreditInfo({ [`credit${capitalize(field)}`]: data.value });
@@ -38,14 +39,14 @@ export class EmprenderCreditSimulator {
         this.calculateFieldBoundaries(sliderConfig, state.currentCreditInfo.creditTypeId);
     }
   }
-  _creditTypeChange(creditTypeId, avoidBoundaries = true) {
-    this._calculateBoundaries(creditTypeId, avoidBoundaries);
+  _creditTypeChange(creditTypeId, calcBoundaries = true) {
+    this._calculateBoundaries(creditTypeId, calcBoundaries);
     setCurrentConfiguration(creditTypeId);
   }
-  _calculateBoundaries(creditTypeId, avoidBoundaries) {
-    this.sliderValues.forEach(_sliderValue => this.calculateFieldBoundaries(_sliderValue, creditTypeId, avoidBoundaries));
+  _calculateBoundaries(creditTypeId, calcBoundaries) {
+    this.sliderValues.forEach(_sliderValue => this.calculateFieldBoundaries(_sliderValue, creditTypeId, calcBoundaries));
   }
-  calculateFieldBoundaries(sliderConfig, creditTypeId, avoidBoundaries = true) {
+  calculateFieldBoundaries(sliderConfig, creditTypeId, calcBoundaries = true) {
     // get new boundaries for field
     const boundaries = this.getFieldBoundaries(sliderConfig.key, creditTypeId);
     if (boundaries.typeOfTerm)
@@ -59,8 +60,8 @@ export class EmprenderCreditSimulator {
     // set field slider values
     const slider = this.host.shadowRoot.querySelector(`emprender-cs-slider#${sliderConfig.key}`);
     slider === null || slider === void 0 ? void 0 : slider.updateBoundaries(newSliderValue.min, newSliderValue.max, (typeof newSliderValue.step === 'number') ? newSliderValue.step : newSliderValue.step(this.termSliderOrder), newSliderValue.formatter(newSliderValue.min), newSliderValue.formatter(newSliderValue.max));
-    /** avoid boundaries overflow */
-    if (avoidBoundaries) {
+    /** calc boundaries overflow */
+    if (calcBoundaries) {
       const creditValue = state.currentCreditInfo[`credit${capitalize(sliderConfig.key)}`];
       const overflowValue = creditValue > boundaries[maxKey] ? boundaries[maxKey]
         : (creditValue < boundaries[minKey] ? boundaries[minKey] : -1);
@@ -71,6 +72,11 @@ export class EmprenderCreditSimulator {
   getFieldBoundaries(field, creditTypeId) {
     const creditConfig = getConfigurationById(creditTypeId);
     return field === 'amount' ? getAmountBoundaries(creditConfig) : getTermBoundaries(state.currentCreditInfo.creditAmount, creditConfig);
+  }
+  getFieldSubLabel(subLabel) {
+    if (subLabel) {
+      return (typeof subLabel === 'string') ? subLabel : subLabel(state.currentCreditInfo);
+    }
   }
   renderTotal() {
     if (this.termSliderOrder === 'daily') {
@@ -103,11 +109,11 @@ export class EmprenderCreditSimulator {
           h("p", { class: "small" }, "Este valor corresponde a una simulaci\u00F3n de tu cr\u00E9dito seg\u00FAn los datos seleccionados por ti."),
           h("div", { class: "details" }, this.currencyValues.map(_currencyValue => {
             var _a;
-            return h("emprender-cs-item", { text: (typeof _currencyValue.label === 'string') ? _currencyValue.label : _currencyValue.label(this.termSliderOrder), subText: _currencyValue.subLabel, value: (_a = state.currentCreditInfo[`credit${capitalize(_currencyValue.key)}`]) !== null && _a !== void 0 ? _a : 0, space: _currencyValue.space }, _currencyValue.tooltip &&
+            return h("emprender-cs-item", { text: (typeof _currencyValue.label === 'string') ? _currencyValue.label : _currencyValue.label(this.termSliderOrder), subText: this.getFieldSubLabel(_currencyValue.subLabel), value: (_a = state.currentCreditInfo[`credit${capitalize(_currencyValue.key)}`]) !== null && _a !== void 0 ? _a : 0, space: _currencyValue.space }, _currencyValue.tooltip &&
               h("emprender-cl-icon", { "data-toggle": "tooltip", "data-placement": "top", title: _currencyValue.tooltip, class: "tooltipWhite", icon: "info" }));
           })),
           h("div", { class: "contcenter" },
-            h("emprender-cl-button", { text: "Solicita tu cr\u00E9dito", modifiers: "medium primary", onclick: () => console.log('Credit Info', state.currentCreditInfo) }))))));
+            h("emprender-cl-button", { text: "Solicita tu cr\u00E9dito", modifiers: "medium primary", onclick: () => this.creditRequested.emit(state.currentCreditInfo) }))))));
   }
   static get is() { return "emprender-credit-simulator"; }
   static get encapsulation() { return "shadow"; }
@@ -122,5 +128,26 @@ export class EmprenderCreditSimulator {
     "currencyValues": {},
     "termSliderOrder": {}
   }; }
+  static get events() { return [{
+      "method": "creditRequested",
+      "name": "creditRequested",
+      "bubbles": true,
+      "cancelable": true,
+      "composed": true,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "complexType": {
+        "original": "Credit",
+        "resolved": "Credit",
+        "references": {
+          "Credit": {
+            "location": "import",
+            "path": "../../modules/credit-simulator.module"
+          }
+        }
+      }
+    }]; }
   static get elementRef() { return "host"; }
 }

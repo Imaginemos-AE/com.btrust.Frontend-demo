@@ -5,6 +5,7 @@ declare const state: {
   currentCreditInfo: Credit;
 };
 export declare function getCreditConfigurations(): Promise<void>;
+export declare function loadDefaultData(): void;
 export declare function setCreditInfo(newData: any): void;
 export declare function setCurrentConfiguration(configId: number): void;
 export declare function getConfigurationById(configId: number): any;

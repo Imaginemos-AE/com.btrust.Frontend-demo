@@ -22,6 +22,8 @@ function calculateValues(creditAmount, term, config) {
   const creditAdmin = config.AdministrationFee / calcTerm;
   const creditTaxes = ((creditPlatform + config.AdministrationFee) * (config.TaxesRate / 100)) / calcTerm;
   const creditTotal = creditFirstCapital + creditGuarantee + creditLifeInsurance + creditInterest + creditPlatform + creditAdmin + creditTaxes;
+  const creditAnualEffectiverate = config.AnualEffectiverate;
+  const creditMonthlyEffectiverate = config.MonthlyEffectiveRate;
   return {
     creditInterest,
     creditPMT,
@@ -32,7 +34,9 @@ function calculateValues(creditAmount, term, config) {
     creditAdmin,
     creditTaxes,
     creditTotal,
-    creditAmount
+    creditAmount,
+    creditAnualEffectiverate,
+    creditMonthlyEffectiverate,
   };
   // }
 }
@@ -230,6 +234,7 @@ function getCreditConfigurationsService() {
   return fetch(url).then(result => result.json());
 }
 
+const [storageConfigKey, storageCreditKey] = ["muiiCurentCofiguration", "muiiCurrentCreditInfo"];
 const { state } = createStore({
   configurations: [],
   curentCofiguration: null,
@@ -248,14 +253,22 @@ async function getCreditConfigurations() {
     state.configurations = [];
   }
 }
+function loadDefaultData() {
+  const [storageConfig, storageCredit] = [storageConfigKey, storageCreditKey].map(key => localStorage.getItem(key));
+  state.curentCofiguration = storageConfig ? JSON.parse(storageConfig) : (state.configurations.length > 0 ? state.configurations[0] : null);
+  if (storageCredit)
+    state.currentCreditInfo = JSON.parse(storageCredit);
+}
 function setCreditInfo(newData) {
   const initialData = Object.assign(Object.assign({}, state.currentCreditInfo), newData);
   const { creditAmount, creditTerm } = initialData;
   const rateConfig = state.curentCofiguration.Rates.find(_rate => creditAmount >= _rate.MinAmount && creditAmount <= _rate.MaxAmount);
   state.currentCreditInfo = Object.assign(Object.assign({}, initialData), calculateValues(creditAmount, creditTerm, rateConfig));
+  localStorage.setItem(storageCreditKey, JSON.stringify(state.currentCreditInfo));
 }
 function setCurrentConfiguration(configId) {
   state.curentCofiguration = state.configurations.find(_config => _config.id === configId);
+  localStorage.setItem(storageConfigKey, JSON.stringify(state.curentCofiguration));
   setCreditInfo({
     creditTypeId: state.curentCofiguration.id,
     creditTypeLabel: state.curentCofiguration.Name
@@ -340,13 +353,14 @@ const DEFAULT_SLIDER_VALUES = [
 ];
 const DEFAULT_CURRENCY_VALUES = [
   {
-    key: 'amount',
+    key: 'firstCapital',
     label: (config) => config === 'monthly' ? 'Capital 1a. cuota:' : 'Monto solicitado:',
+    tooltip: "Si tomas un crédito a una cuota corresponde al valor de tu desembolso; si tu crédito es a dos cuotas o más, corresponde al valor que abonarás a tu préstamo al pagar la primera cuota;"
   },
   {
     key: 'interest',
     label: 'Intereses',
-    subLabel: "25% EA",
+    subLabel: (credit) => `${credit.creditAnualEffectiverate}% EA`,
     tooltip: "El interés corriente aplicado a tu crédito es del 25%EA (Efectivo anual) sobre el capital adeudado. Esta tasa es inferior a la tasa de usura establecida por las autoridades nacionales Mayo/2021: 25.83%. Este interés se calcula diariamente por el plazo que escojas para pagar tu crédito.",
   },
   {
@@ -382,7 +396,8 @@ const DEFAULT_CURRENCY_VALUES = [
     key: 'taxes',
     label: 'IVA',
     subLabel: "19%",
-    space: true
+    space: true,
+    tooltip: "Corresponde al impuesto que por ley debes pagar por el uso de nuestra plataforma y la administración de tu crédito"
   },
   // {
   //   key: 'total',
@@ -395,6 +410,7 @@ const emprenderCreditSimulatorCss = "/*!\n * Bootstrap v4.6.0 (https://getbootst
 const EmprenderCreditSimulator = class {
   constructor(hostRef) {
     index.registerInstance(this, hostRef);
+    this.creditRequested = index.createEvent(this, "creditRequested", 7);
     this.sliderValues = [...(DEFAULT_SLIDER_VALUES.map(_item => (Object.assign({}, _item))))];
     this.currencyValues = [...(DEFAULT_CURRENCY_VALUES.map(_item => (Object.assign({}, _item))))];
     this.termSliderOrder = 'daily';
@@ -418,7 +434,8 @@ const EmprenderCreditSimulator = class {
     });
   }
   _loadDefaultConfig() {
-    this._creditTypeChange(1, false); // default configuration
+    loadDefaultData();
+    this._calculateBoundaries(state.curentCofiguration.id, false);
   }
   _sliderChange(field, data) {
     setCreditInfo({ [`credit${capitalize(field)}`]: data.value });
@@ -428,14 +445,14 @@ const EmprenderCreditSimulator = class {
         this.calculateFieldBoundaries(sliderConfig, state.currentCreditInfo.creditTypeId);
     }
   }
-  _creditTypeChange(creditTypeId, avoidBoundaries = true) {
-    this._calculateBoundaries(creditTypeId, avoidBoundaries);
+  _creditTypeChange(creditTypeId, calcBoundaries = true) {
+    this._calculateBoundaries(creditTypeId, calcBoundaries);
     setCurrentConfiguration(creditTypeId);
   }
-  _calculateBoundaries(creditTypeId, avoidBoundaries) {
-    this.sliderValues.forEach(_sliderValue => this.calculateFieldBoundaries(_sliderValue, creditTypeId, avoidBoundaries));
+  _calculateBoundaries(creditTypeId, calcBoundaries) {
+    this.sliderValues.forEach(_sliderValue => this.calculateFieldBoundaries(_sliderValue, creditTypeId, calcBoundaries));
   }
-  calculateFieldBoundaries(sliderConfig, creditTypeId, avoidBoundaries = true) {
+  calculateFieldBoundaries(sliderConfig, creditTypeId, calcBoundaries = true) {
     // get new boundaries for field
     const boundaries = this.getFieldBoundaries(sliderConfig.key, creditTypeId);
     if (boundaries.typeOfTerm)
@@ -449,8 +466,8 @@ const EmprenderCreditSimulator = class {
     // set field slider values
     const slider = this.host.shadowRoot.querySelector(`emprender-cs-slider#${sliderConfig.key}`);
     slider === null || slider === void 0 ? void 0 : slider.updateBoundaries(newSliderValue.min, newSliderValue.max, (typeof newSliderValue.step === 'number') ? newSliderValue.step : newSliderValue.step(this.termSliderOrder), newSliderValue.formatter(newSliderValue.min), newSliderValue.formatter(newSliderValue.max));
-    /** avoid boundaries overflow */
-    if (avoidBoundaries) {
+    /** calc boundaries overflow */
+    if (calcBoundaries) {
       const creditValue = state.currentCreditInfo[`credit${capitalize(sliderConfig.key)}`];
       const overflowValue = creditValue > boundaries[maxKey] ? boundaries[maxKey]
         : (creditValue < boundaries[minKey] ? boundaries[minKey] : -1);
@@ -461,6 +478,11 @@ const EmprenderCreditSimulator = class {
   getFieldBoundaries(field, creditTypeId) {
     const creditConfig = getConfigurationById(creditTypeId);
     return field === 'amount' ? getAmountBoundaries(creditConfig) : getTermBoundaries(state.currentCreditInfo.creditAmount, creditConfig);
+  }
+  getFieldSubLabel(subLabel) {
+    if (subLabel) {
+      return (typeof subLabel === 'string') ? subLabel : subLabel(state.currentCreditInfo);
+    }
   }
   renderTotal() {
     if (this.termSliderOrder === 'daily') {
@@ -473,9 +495,9 @@ const EmprenderCreditSimulator = class {
   render() {
     return (index.h(index.Host, null, index.h("div", { class: "creditSimulator" }, index.h("h2", { class: "title" }, "Calcula tu cr\u00E9dito en l\u00EDnea ya"), index.h("div", { class: "box" }, index.h("fieldset", { class: "flex-center-center" }, index.h("label", null, "Soy"), index.h("ul", { class: "inline" }, index.h("li", null, index.h("label", { class: "control control--checkbox" }, "Empleado", index.h("input", { type: "radio", checked: state.currentCreditInfo.creditTypeId === 1, name: "radio3", onClick: () => this._creditTypeChange(1) }), index.h("div", { class: "control__indicator" }))), index.h("li", null, index.h("label", { class: "control control--checkbox" }, "Empresario / Independiente", index.h("input", { type: "radio", checked: state.currentCreditInfo.creditTypeId === 2, name: "radio3", onClick: () => this._creditTypeChange(2) }), index.h("div", { class: "control__indicator" }))))), this.sliderValues.map(_sliderValue => index.h("emprender-cs-slider", { id: _sliderValue.key, label: _sliderValue.label, min: _sliderValue.min, minLabel: _sliderValue.formatter(_sliderValue.min), max: _sliderValue.max, maxLabel: _sliderValue.formatter(_sliderValue.max), step: (typeof _sliderValue.step === 'number') ? _sliderValue.step : _sliderValue.step(this.termSliderOrder), value: state.currentCreditInfo[`credit${capitalize(_sliderValue.key)}`], formatter: _sliderValue.formatter, onSliderChange: (event) => this._sliderChange(_sliderValue.key, event.detail) })), index.h("p", { class: "total" }, this.renderTotal()), index.h("p", { class: "small" }, "Este valor corresponde a una simulaci\u00F3n de tu cr\u00E9dito seg\u00FAn los datos seleccionados por ti."), index.h("div", { class: "details" }, this.currencyValues.map(_currencyValue => {
       var _a;
-      return index.h("emprender-cs-item", { text: (typeof _currencyValue.label === 'string') ? _currencyValue.label : _currencyValue.label(this.termSliderOrder), subText: _currencyValue.subLabel, value: (_a = state.currentCreditInfo[`credit${capitalize(_currencyValue.key)}`]) !== null && _a !== void 0 ? _a : 0, space: _currencyValue.space }, _currencyValue.tooltip &&
+      return index.h("emprender-cs-item", { text: (typeof _currencyValue.label === 'string') ? _currencyValue.label : _currencyValue.label(this.termSliderOrder), subText: this.getFieldSubLabel(_currencyValue.subLabel), value: (_a = state.currentCreditInfo[`credit${capitalize(_currencyValue.key)}`]) !== null && _a !== void 0 ? _a : 0, space: _currencyValue.space }, _currencyValue.tooltip &&
         index.h("emprender-cl-icon", { "data-toggle": "tooltip", "data-placement": "top", title: _currencyValue.tooltip, class: "tooltipWhite", icon: "info" }));
-    })), index.h("div", { class: "contcenter" }, index.h("emprender-cl-button", { text: "Solicita tu cr\u00E9dito", modifiers: "medium primary", onclick: () => console.log('Credit Info', state.currentCreditInfo) }))))));
+    })), index.h("div", { class: "contcenter" }, index.h("emprender-cl-button", { text: "Solicita tu cr\u00E9dito", modifiers: "medium primary", onclick: () => this.creditRequested.emit(state.currentCreditInfo) }))))));
   }
   get host() { return index.getElement(this); }
 };

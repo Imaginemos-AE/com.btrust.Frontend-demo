@@ -1,7 +1,8 @@
+import { Credit } from './../../modules/credit-simulator.module';
 export interface CurrencyValue {
   key: string;
   label: string | ((value: string) => string);
-  subLabel?: string;
+  subLabel?: string | ((credit: Credit) => string);
   tooltip?: string;
   space?: boolean;
 }

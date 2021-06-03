@@ -16,6 +16,8 @@ export function calculateValues(creditAmount, term, config) {
   const creditAdmin = config.AdministrationFee / calcTerm;
   const creditTaxes = ((creditPlatform + config.AdministrationFee) * (config.TaxesRate / 100)) / calcTerm;
   const creditTotal = creditFirstCapital + creditGuarantee + creditLifeInsurance + creditInterest + creditPlatform + creditAdmin + creditTaxes;
+  const creditAnualEffectiverate = config.AnualEffectiverate;
+  const creditMonthlyEffectiverate = config.MonthlyEffectiveRate;
   return {
     creditInterest,
     creditPMT,
@@ -26,7 +28,9 @@ export function calculateValues(creditAmount, term, config) {
     creditAdmin,
     creditTaxes,
     creditTotal,
-    creditAmount
+    creditAmount,
+    creditAnualEffectiverate,
+    creditMonthlyEffectiverate,
   };
   // }
 }
