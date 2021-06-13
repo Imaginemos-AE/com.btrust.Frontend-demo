@@ -25,13 +25,13 @@ export const DEFAULT_SLIDER_VALUES = [
     step: (config) => config === 'monthly' ? TERM_MODULE : 1,
     labelType: 'day',
     formatter: (value) => {
-      if (value <= TERM_MODULE) {
-        return `${value} DIAS`;
-      }
-      else {
-        const terms = Math.ceil(value / TERM_MODULE);
-        return `${terms} CUOTA${terms > 1 ? 'S' : ''}`;
-      }
+      return `${value} DIAS`;
+      // if (value <= TERM_MODULE) {
+      //   return `${value} DIAS`;
+      // } else {
+      //   const terms = Math.ceil(value / TERM_MODULE);
+      //   return `${terms} CUOTA${terms > 1 ? 'S' : ''}`;
+      // }
     }
   }
 ];
@@ -50,31 +50,31 @@ export const DEFAULT_CURRENCY_VALUES = [
   {
     key: 'lifeInsurance',
     label: 'Seguro:',
-    tooltip: "El interés corriente aplicado a tu crédito es del 25%EA (Efectivo anual) sobre el capital adeudado. Esta tasa es inferior a la tasa de usura establecida por las autoridades nacionales Mayo/2021: 25.83%. Este interés se calcula diariamente por el plazo que escojas para pagar tu crédito.",
+    tooltip: "Valor fijo que se aplica como factor por millón sobre el monto desembolsado y se distribuye uniformemente en cada cuota según el plazo del crédito.",
   },
   {
     key: 'guarantee',
     label: 'Aval',
     subLabel: "opcional",
-    tooltip: "El interés corriente aplicado a tu crédito es del 25%EA (Efectivo anual) sobre el capital adeudado. Esta tasa es inferior a la tasa de usura establecida por las autoridades nacionales Mayo/2021: 25.83%. Este interés se calcula diariamente por el plazo que escojas para pagar tu crédito.",
+    tooltip: "Porcentaje fijo que se aplica sobre el monto desembolsado distribuído uniformemente en cada cuota según el plazo del crédito, que varía según el tipo de crédito y el plazo.",
     space: true
   },
   {
     key: 'admin',
     label: 'Administración:',
-    tooltip: "El interés corriente aplicado a tu crédito es del 25%EA (Efectivo anual) sobre el capital adeudado. Esta tasa es inferior a la tasa de usura establecida por las autoridades nacionales Mayo/2021: 25.83%. Este interés se calcula diariamente por el plazo que escojas para pagar tu crédito.",
+    tooltip: "Valor fijo distribuído uniformemente en cada cuota según el plazo del crédito, que varía según el tipo de crédito y el plazo.",
   },
   {
     key: 'platform',
     label: 'Plataforma',
     subLabel: "opcional",
-    tooltip: "El interés corriente aplicado a tu crédito es del 25%EA (Efectivo anual) sobre el capital adeudado. Esta tasa es inferior a la tasa de usura establecida por las autoridades nacionales Mayo/2021: 25.83%. Este interés se calcula diariamente por el plazo que escojas para pagar tu crédito.",
+    tooltip: "Valor fijo cobrado mensualmente en cada cuota que varía según el tipo de crédito y el plazo. Para créditos con plazo < 1 mes se cobra en función del número de días y para créditos con plazos >= 1 se cobra un valor mensual.",
   },
   {
     key: 'discount',
     label: 'Descuento',
     subLabel: "por inclusión financiera",
-    tooltip: "El interés corriente aplicado a tu crédito es del 25%EA (Efectivo anual) sobre el capital adeudado. Esta tasa es inferior a la tasa de usura establecida por las autoridades nacionales Mayo/2021: 25.83%. Este interés se calcula diariamente por el plazo que escojas para pagar tu crédito.",
+    tooltip: "Descuento por inclusión financiera",
   },
   {
     key: 'taxes',

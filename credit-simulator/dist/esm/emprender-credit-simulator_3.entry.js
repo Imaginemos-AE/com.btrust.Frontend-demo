@@ -271,7 +271,9 @@ function setCurrentConfiguration(configId) {
   localStorage.setItem(storageConfigKey, JSON.stringify(state.curentCofiguration));
   setCreditInfo({
     creditTypeId: state.curentCofiguration.id,
-    creditTypeLabel: state.curentCofiguration.Name
+    creditTypeLabel: state.curentCofiguration.Name,
+    creditAmount: state.curentCofiguration.Rates[0].MinAmount,
+    creditTerm: state.curentCofiguration.Rates[0].MinTerm
   });
 }
 function getConfigurationById(configId) {
@@ -341,13 +343,13 @@ const DEFAULT_SLIDER_VALUES = [
     step: (config) => config === 'monthly' ? TERM_MODULE : 1,
     labelType: 'day',
     formatter: (value) => {
-      if (value <= TERM_MODULE) {
-        return `${value} DIAS`;
-      }
-      else {
-        const terms = Math.ceil(value / TERM_MODULE);
-        return `${terms} CUOTA${terms > 1 ? 'S' : ''}`;
-      }
+      return `${value} DIAS`;
+      // if (value <= TERM_MODULE) {
+      //   return `${value} DIAS`;
+      // } else {
+      //   const terms = Math.ceil(value / TERM_MODULE);
+      //   return `${terms} CUOTA${terms > 1 ? 'S' : ''}`;
+      // }
     }
   }
 ];
@@ -366,31 +368,31 @@ const DEFAULT_CURRENCY_VALUES = [
   {
     key: 'lifeInsurance',
     label: 'Seguro:',
-    tooltip: "El interés corriente aplicado a tu crédito es del 25%EA (Efectivo anual) sobre el capital adeudado. Esta tasa es inferior a la tasa de usura establecida por las autoridades nacionales Mayo/2021: 25.83%. Este interés se calcula diariamente por el plazo que escojas para pagar tu crédito.",
+    tooltip: "Valor fijo que se aplica como factor por millón sobre el monto desembolsado y se distribuye uniformemente en cada cuota según el plazo del crédito.",
   },
   {
     key: 'guarantee',
     label: 'Aval',
     subLabel: "opcional",
-    tooltip: "El interés corriente aplicado a tu crédito es del 25%EA (Efectivo anual) sobre el capital adeudado. Esta tasa es inferior a la tasa de usura establecida por las autoridades nacionales Mayo/2021: 25.83%. Este interés se calcula diariamente por el plazo que escojas para pagar tu crédito.",
+    tooltip: "Porcentaje fijo que se aplica sobre el monto desembolsado distribuído uniformemente en cada cuota según el plazo del crédito, que varía según el tipo de crédito y el plazo.",
     space: true
   },
   {
     key: 'admin',
     label: 'Administración:',
-    tooltip: "El interés corriente aplicado a tu crédito es del 25%EA (Efectivo anual) sobre el capital adeudado. Esta tasa es inferior a la tasa de usura establecida por las autoridades nacionales Mayo/2021: 25.83%. Este interés se calcula diariamente por el plazo que escojas para pagar tu crédito.",
+    tooltip: "Valor fijo distribuído uniformemente en cada cuota según el plazo del crédito, que varía según el tipo de crédito y el plazo.",
   },
   {
     key: 'platform',
     label: 'Plataforma',
     subLabel: "opcional",
-    tooltip: "El interés corriente aplicado a tu crédito es del 25%EA (Efectivo anual) sobre el capital adeudado. Esta tasa es inferior a la tasa de usura establecida por las autoridades nacionales Mayo/2021: 25.83%. Este interés se calcula diariamente por el plazo que escojas para pagar tu crédito.",
+    tooltip: "Valor fijo cobrado mensualmente en cada cuota que varía según el tipo de crédito y el plazo. Para créditos con plazo < 1 mes se cobra en función del número de días y para créditos con plazos >= 1 se cobra un valor mensual.",
   },
   {
     key: 'discount',
     label: 'Descuento',
     subLabel: "por inclusión financiera",
-    tooltip: "El interés corriente aplicado a tu crédito es del 25%EA (Efectivo anual) sobre el capital adeudado. Esta tasa es inferior a la tasa de usura establecida por las autoridades nacionales Mayo/2021: 25.83%. Este interés se calcula diariamente por el plazo que escojas para pagar tu crédito.",
+    tooltip: "Descuento por inclusión financiera",
   },
   {
     key: 'taxes',
@@ -445,32 +447,33 @@ const EmprenderCreditSimulator = class {
         this.calculateFieldBoundaries(sliderConfig, state.currentCreditInfo.creditTypeId);
     }
   }
-  _creditTypeChange(creditTypeId, calcBoundaries = true) {
-    this._calculateBoundaries(creditTypeId, calcBoundaries);
+  _creditTypeChange(creditTypeId) {
     setCurrentConfiguration(creditTypeId);
+    this._calculateBoundaries(creditTypeId, true);
   }
   _calculateBoundaries(creditTypeId, calcBoundaries) {
-    this.sliderValues.forEach(_sliderValue => this.calculateFieldBoundaries(_sliderValue, creditTypeId, calcBoundaries));
+    this.sliderValues.forEach(_sliderValue => this.calculateFieldBoundaries(_sliderValue, creditTypeId, calcBoundaries, true));
   }
-  calculateFieldBoundaries(sliderConfig, creditTypeId, calcBoundaries = true) {
+  calculateFieldBoundaries(sliderConfig, creditTypeId, calcBoundaries = true, resetSlider = false) {
     // get new boundaries for field
     const boundaries = this.getFieldBoundaries(sliderConfig.key, creditTypeId);
     if (boundaries.typeOfTerm)
       this.termSliderOrder = boundaries.typeOfTerm;
-    // set new boundaries for field
+    // calculate boundaries for field
     const sliderConfigIndex = this.sliderValues.indexOf(sliderConfig);
     const [minKey, maxKey] = ['min', 'max'].map(_s => `${_s}${capitalize(sliderConfig.key)}`);
+    // set new boundaries for field
     const newSliderValue = Object.assign(Object.assign({}, sliderConfig), { max: boundaries[maxKey], min: boundaries[minKey] });
     this.sliderValues.splice(sliderConfigIndex, 1, newSliderValue);
     this.sliderValues = [...this.sliderValues];
     // set field slider values
     const slider = this.host.shadowRoot.querySelector(`emprender-cs-slider#${sliderConfig.key}`);
-    slider === null || slider === void 0 ? void 0 : slider.updateBoundaries(newSliderValue.min, newSliderValue.max, (typeof newSliderValue.step === 'number') ? newSliderValue.step : newSliderValue.step(this.termSliderOrder), newSliderValue.formatter(newSliderValue.min), newSliderValue.formatter(newSliderValue.max));
+    const sliderVal = resetSlider ? newSliderValue.min : null;
+    slider === null || slider === void 0 ? void 0 : slider.updateBoundaries(newSliderValue.min, newSliderValue.max, (typeof newSliderValue.step === 'number') ? newSliderValue.step : newSliderValue.step(this.termSliderOrder), newSliderValue.formatter(newSliderValue.min), newSliderValue.formatter(newSliderValue.max), sliderVal);
     /** calc boundaries overflow */
     if (calcBoundaries) {
       const creditValue = state.currentCreditInfo[`credit${capitalize(sliderConfig.key)}`];
-      const overflowValue = creditValue > boundaries[maxKey] ? boundaries[maxKey]
-        : (creditValue < boundaries[minKey] ? boundaries[minKey] : -1);
+      const overflowValue = (creditValue > boundaries[maxKey]) || (creditValue < boundaries[minKey]) ? boundaries[minKey] : -1;
       if (overflowValue !== -1)
         setCreditInfo({ [`credit${capitalize(sliderConfig.key)}`]: overflowValue });
     }
@@ -524,10 +527,12 @@ const EmprenderCsSlider = class {
     this.refreshSlider = false;
     this.value = null;
   }
-  async updateBoundaries(min, max, step, minLabel, maxLabel) {
+  async updateBoundaries(min, max, step, minLabel, maxLabel, newValue) {
     if (this.slider) {
       [this.min, this.max, this.minLabel, this.maxLabel, this.step] = [min, max, minLabel, maxLabel, step];
       this.refreshSlider = true;
+      if (newValue)
+        this.value = newValue;
     }
   }
   componentDidLoad() {
@@ -549,6 +554,7 @@ const EmprenderCsSlider = class {
       this.slider.slider('setAttribute', 'min', this.min);
       this.slider.slider('setAttribute', 'max', this.max);
       this.slider.slider('setAttribute', 'step', this.step);
+      this.slider.slider('setValue', this.value);
       this.slider.slider('refresh', { useCurrentValue: true });
     }
   }

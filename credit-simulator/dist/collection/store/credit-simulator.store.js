@@ -43,7 +43,9 @@ export function setCurrentConfiguration(configId) {
   localStorage.setItem(storageConfigKey, JSON.stringify(state.curentCofiguration));
   setCreditInfo({
     creditTypeId: state.curentCofiguration.id,
-    creditTypeLabel: state.curentCofiguration.Name
+    creditTypeLabel: state.curentCofiguration.Name,
+    creditAmount: state.curentCofiguration.Rates[0].MinAmount,
+    creditTerm: state.curentCofiguration.Rates[0].MinTerm
   });
 }
 export function getConfigurationById(configId) {

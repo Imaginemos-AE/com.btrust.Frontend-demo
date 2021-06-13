@@ -39,32 +39,33 @@ export class EmprenderCreditSimulator {
         this.calculateFieldBoundaries(sliderConfig, state.currentCreditInfo.creditTypeId);
     }
   }
-  _creditTypeChange(creditTypeId, calcBoundaries = true) {
-    this._calculateBoundaries(creditTypeId, calcBoundaries);
+  _creditTypeChange(creditTypeId) {
     setCurrentConfiguration(creditTypeId);
+    this._calculateBoundaries(creditTypeId, true);
   }
   _calculateBoundaries(creditTypeId, calcBoundaries) {
-    this.sliderValues.forEach(_sliderValue => this.calculateFieldBoundaries(_sliderValue, creditTypeId, calcBoundaries));
+    this.sliderValues.forEach(_sliderValue => this.calculateFieldBoundaries(_sliderValue, creditTypeId, calcBoundaries, true));
   }
-  calculateFieldBoundaries(sliderConfig, creditTypeId, calcBoundaries = true) {
+  calculateFieldBoundaries(sliderConfig, creditTypeId, calcBoundaries = true, resetSlider = false) {
     // get new boundaries for field
     const boundaries = this.getFieldBoundaries(sliderConfig.key, creditTypeId);
     if (boundaries.typeOfTerm)
       this.termSliderOrder = boundaries.typeOfTerm;
-    // set new boundaries for field
+    // calculate boundaries for field
     const sliderConfigIndex = this.sliderValues.indexOf(sliderConfig);
     const [minKey, maxKey] = ['min', 'max'].map(_s => `${_s}${capitalize(sliderConfig.key)}`);
+    // set new boundaries for field
     const newSliderValue = Object.assign(Object.assign({}, sliderConfig), { max: boundaries[maxKey], min: boundaries[minKey] });
     this.sliderValues.splice(sliderConfigIndex, 1, newSliderValue);
     this.sliderValues = [...this.sliderValues];
     // set field slider values
     const slider = this.host.shadowRoot.querySelector(`emprender-cs-slider#${sliderConfig.key}`);
-    slider === null || slider === void 0 ? void 0 : slider.updateBoundaries(newSliderValue.min, newSliderValue.max, (typeof newSliderValue.step === 'number') ? newSliderValue.step : newSliderValue.step(this.termSliderOrder), newSliderValue.formatter(newSliderValue.min), newSliderValue.formatter(newSliderValue.max));
+    const sliderVal = resetSlider ? newSliderValue.min : null;
+    slider === null || slider === void 0 ? void 0 : slider.updateBoundaries(newSliderValue.min, newSliderValue.max, (typeof newSliderValue.step === 'number') ? newSliderValue.step : newSliderValue.step(this.termSliderOrder), newSliderValue.formatter(newSliderValue.min), newSliderValue.formatter(newSliderValue.max), sliderVal);
     /** calc boundaries overflow */
     if (calcBoundaries) {
       const creditValue = state.currentCreditInfo[`credit${capitalize(sliderConfig.key)}`];
-      const overflowValue = creditValue > boundaries[maxKey] ? boundaries[maxKey]
-        : (creditValue < boundaries[minKey] ? boundaries[minKey] : -1);
+      const overflowValue = (creditValue > boundaries[maxKey]) || (creditValue < boundaries[minKey]) ? boundaries[minKey] : -1;
       if (overflowValue !== -1)
         setCreditInfo({ [`credit${capitalize(sliderConfig.key)}`]: overflowValue });
     }
