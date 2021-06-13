@@ -1,1 +1,1 @@
-import{p as e,b as r}from"./p-24d5c00b.js";(()=>{const r=import.meta.url,n={};return""!==r&&(n.resourcesUrl=new URL(".",r).href),e(n)})().then((e=>r([["p-f8062be8",[[1,"emprender-cl-button",{text:[513],modifiers:[513]}],[1,"emprender-cl-icon",{icon:[513]}]]]],e)));
+import{p as e,b as r}from"./p-24d5c00b.js";(()=>{const r=import.meta.url,n={};return""!==r&&(n.resourcesUrl=new URL(".",r).href),e(n)})().then((e=>r([["p-6aa5bb7f",[[1,"emprender-cl-button",{text:[513],modifiers:[513]}],[1,"emprender-cl-icon",{icon:[513]}]]]],e)));
