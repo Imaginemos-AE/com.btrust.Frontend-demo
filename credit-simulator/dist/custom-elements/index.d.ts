@@ -20,6 +20,12 @@ export const EmprenderCsSlider: {
   new (): EmprenderCsSlider;
 };
 
+interface EmprenderMiniCalculator extends Components.EmprenderMiniCalculator, HTMLElement {}
+export const EmprenderMiniCalculator: {
+  prototype: EmprenderMiniCalculator;
+  new (): EmprenderMiniCalculator;
+};
+
 /**
  * Utility to define all custom elements within this package using the tag name provided in the component's source. 
  * When defining each custom element, it will also check it's safe to define by:

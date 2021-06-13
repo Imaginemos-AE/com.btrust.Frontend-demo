@@ -4,7 +4,7 @@ import { getCreditConfigurationsService } from "../services/credit-simulator.ser
 const [storageConfigKey, storageCreditKey] = ["muiiCurentCofiguration", "muiiCurrentCreditInfo"];
 const { state } = createStore({
   configurations: [],
-  curentCofiguration: null,
+  currentCofiguration: null,
   currentCreditInfo: {
     creditTypeId: 1,
     creditAmount: 1000000,
@@ -22,7 +22,7 @@ export async function getCreditConfigurations() {
 }
 export function loadDefaultData() {
   const [storageConfig, storageCredit] = [storageConfigKey, storageCreditKey].map(key => localStorage.getItem(key));
-  state.curentCofiguration = storageConfig ? JSON.parse(storageConfig) : (state.configurations.length > 0 ? state.configurations[0] : null);
+  state.currentCofiguration = storageConfig ? JSON.parse(storageConfig) : (state.configurations.length > 0 ? state.configurations[0] : null);
   if (storageCredit) {
     state.currentCreditInfo = JSON.parse(storageCredit);
   }
@@ -34,18 +34,18 @@ export function loadDefaultData() {
 export function setCreditInfo(newData) {
   const initialData = Object.assign(Object.assign({}, state.currentCreditInfo), newData);
   const { creditAmount, creditTerm } = initialData;
-  const rateConfig = state.curentCofiguration.Rates.find(_rate => creditAmount >= _rate.MinAmount && creditAmount <= _rate.MaxAmount);
+  const rateConfig = state.currentCofiguration.Rates.find(_rate => creditAmount >= _rate.MinAmount && creditAmount <= _rate.MaxAmount);
   state.currentCreditInfo = Object.assign(Object.assign({}, initialData), calculateValues(creditAmount, creditTerm, rateConfig));
   localStorage.setItem(storageCreditKey, JSON.stringify(state.currentCreditInfo));
 }
 export function setCurrentConfiguration(configId) {
-  state.curentCofiguration = state.configurations.find(_config => _config.id === configId);
-  localStorage.setItem(storageConfigKey, JSON.stringify(state.curentCofiguration));
+  state.currentCofiguration = state.configurations.find(_config => _config.id === configId);
+  localStorage.setItem(storageConfigKey, JSON.stringify(state.currentCofiguration));
   setCreditInfo({
-    creditTypeId: state.curentCofiguration.id,
-    creditTypeLabel: state.curentCofiguration.Name,
-    creditAmount: state.curentCofiguration.Rates[0].MinAmount,
-    creditTerm: state.curentCofiguration.Rates[0].MinTerm
+    creditTypeId: state.currentCofiguration.id,
+    creditTypeLabel: state.currentCofiguration.Name,
+    creditAmount: state.currentCofiguration.Rates[0].MinAmount,
+    creditTerm: state.currentCofiguration.Rates[0].MinTerm
   });
 }
 export function getConfigurationById(configId) {

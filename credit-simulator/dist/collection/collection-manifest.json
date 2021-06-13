@@ -2,7 +2,8 @@
   "entries": [
     "./components/emprender-credit-simulator/emprender-credit-simulator.js",
     "./components/emprender-cs-item/emprender-cs-item.js",
-    "./components/emprender-cs-slider/emprender-cs-slider.js"
+    "./components/emprender-cs-slider/emprender-cs-slider.js",
+    "./components/emprender-mini-calculator/emprender-mini-calculator.js"
   ],
   "compiler": {
     "name": "@stencil/core",

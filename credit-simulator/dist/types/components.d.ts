@@ -26,6 +26,8 @@ export namespace Components {
         "updateBoundaries": (min: number, max: number, step: number, minLabel: string, maxLabel: string, newValue?: number) => Promise<void>;
         "value": number;
     }
+    interface EmprenderMiniCalculator {
+    }
 }
 declare global {
     interface HTMLEmprenderCreditSimulatorElement extends Components.EmprenderCreditSimulator, HTMLStencilElement {
@@ -46,10 +48,17 @@ declare global {
         prototype: HTMLEmprenderCsSliderElement;
         new (): HTMLEmprenderCsSliderElement;
     };
+    interface HTMLEmprenderMiniCalculatorElement extends Components.EmprenderMiniCalculator, HTMLStencilElement {
+    }
+    var HTMLEmprenderMiniCalculatorElement: {
+        prototype: HTMLEmprenderMiniCalculatorElement;
+        new (): HTMLEmprenderMiniCalculatorElement;
+    };
     interface HTMLElementTagNameMap {
         "emprender-credit-simulator": HTMLEmprenderCreditSimulatorElement;
         "emprender-cs-item": HTMLEmprenderCsItemElement;
         "emprender-cs-slider": HTMLEmprenderCsSliderElement;
+        "emprender-mini-calculator": HTMLEmprenderMiniCalculatorElement;
     }
 }
 declare namespace LocalJSX {
@@ -73,10 +82,13 @@ declare namespace LocalJSX {
         "step"?: number;
         "value"?: number;
     }
+    interface EmprenderMiniCalculator {
+    }
     interface IntrinsicElements {
         "emprender-credit-simulator": EmprenderCreditSimulator;
         "emprender-cs-item": EmprenderCsItem;
         "emprender-cs-slider": EmprenderCsSlider;
+        "emprender-mini-calculator": EmprenderMiniCalculator;
     }
 }
 export { LocalJSX as JSX };
@@ -86,6 +98,7 @@ declare module "@stencil/core" {
             "emprender-credit-simulator": LocalJSX.EmprenderCreditSimulator & JSXBase.HTMLAttributes<HTMLEmprenderCreditSimulatorElement>;
             "emprender-cs-item": LocalJSX.EmprenderCsItem & JSXBase.HTMLAttributes<HTMLEmprenderCsItemElement>;
             "emprender-cs-slider": LocalJSX.EmprenderCsSlider & JSXBase.HTMLAttributes<HTMLEmprenderCsSliderElement>;
+            "emprender-mini-calculator": LocalJSX.EmprenderMiniCalculator & JSXBase.HTMLAttributes<HTMLEmprenderMiniCalculatorElement>;
         }
     }
 }

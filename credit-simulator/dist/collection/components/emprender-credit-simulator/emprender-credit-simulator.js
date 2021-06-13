@@ -29,7 +29,7 @@ export class EmprenderCreditSimulator {
   }
   _loadDefaultConfig() {
     loadDefaultData();
-    this._calculateBoundaries(state.curentCofiguration.id, false);
+    this._calculateBoundaries(state.currentCofiguration.id, false);
   }
   _sliderChange(field, data) {
     setCreditInfo({ [`credit${capitalize(field)}`]: data.value });

@@ -1,7 +1,7 @@
 import { Credit, CreditLinesEntity } from './../modules/credit-simulator.module';
 declare const state: {
   configurations: any[];
-  curentCofiguration: CreditLinesEntity;
+  currentCofiguration: CreditLinesEntity;
   currentCreditInfo: Credit;
 };
 export declare function getCreditConfigurations(): Promise<void>;
