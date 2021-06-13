@@ -1,7 +1,10 @@
 {
   "entries": [
+    "./components/emprender-ub-failure/emprender-ub-failure.js",
     "./components/emprender-ub-home/emprender-ub-home.js",
-    "./components/emprender-user-biometrics/emprender-user-biometrics.js"
+    "./components/emprender-ub-success/emprender-ub-success.js",
+    "./components/emprender-user-biometrics/emprender-user-biometrics.js",
+    "./components/emprender-user-biometrics-result/emprender-user-biometrics-result.js"
   ],
   "compiler": {
     "name": "@stencil/core",

@@ -1,6 +1,5 @@
 import { EventEmitter } from '../../stencil-public-runtime';
-export declare class EmprenderUbHome {
+export declare class EmprenderUbFailure {
   continue: EventEmitter<void>;
-  requestToADO(): void;
   render(): any;
 }

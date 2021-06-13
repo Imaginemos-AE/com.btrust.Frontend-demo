@@ -2,16 +2,34 @@
 
 import type { Components, JSX } from "../types/components";
 
+interface EmprenderUbFailure extends Components.EmprenderUbFailure, HTMLElement {}
+export const EmprenderUbFailure: {
+  prototype: EmprenderUbFailure;
+  new (): EmprenderUbFailure;
+};
+
 interface EmprenderUbHome extends Components.EmprenderUbHome, HTMLElement {}
 export const EmprenderUbHome: {
   prototype: EmprenderUbHome;
   new (): EmprenderUbHome;
 };
 
+interface EmprenderUbSuccess extends Components.EmprenderUbSuccess, HTMLElement {}
+export const EmprenderUbSuccess: {
+  prototype: EmprenderUbSuccess;
+  new (): EmprenderUbSuccess;
+};
+
 interface EmprenderUserBiometrics extends Components.EmprenderUserBiometrics, HTMLElement {}
 export const EmprenderUserBiometrics: {
   prototype: EmprenderUserBiometrics;
   new (): EmprenderUserBiometrics;
+};
+
+interface EmprenderUserBiometricsResult extends Components.EmprenderUserBiometricsResult, HTMLElement {}
+export const EmprenderUserBiometricsResult: {
+  prototype: EmprenderUserBiometricsResult;
+  new (): EmprenderUserBiometricsResult;
 };
 
 /**

@@ -1,5 +1,14 @@
-import { Component, Host, h, getAssetPath } from '@stencil/core';
+import { Component, Host, h, getAssetPath, Event } from '@stencil/core';
+import state from '../../store/user-biometrics.store';
 export class EmprenderUbHome {
+  requestToADO() {
+    if (state.adoCofiguration) {
+      const { url, redirectUrl, key, projectName, product } = state.adoCofiguration;
+      const _redirect = redirectUrl !== null && redirectUrl !== void 0 ? redirectUrl : location.href;
+      const adoURL = `${url}?callback=${_redirect}&key=${key}&projectName=${projectName}&product=${product}`;
+      window.location.assign(adoURL);
+    }
+  }
   render() {
     return (h(Host, null,
       h("section", { class: "validation" },
@@ -10,7 +19,7 @@ export class EmprenderUbHome {
               h("span", { class: "img" },
                 h("img", { src: getAssetPath("./assets/img/illustration6.svg") })),
               h("h4", null, "Ahora validaremos tu identidad"),
-              h("emprender-cl-button", { text: "Continua aqu\u00ED", modifiers: "medium primary", onclick: () => console.log('User Validation') }),
+              h("emprender-cl-button", { text: "Continua aqu\u00ED", modifiers: "medium primary", onclick: () => this.requestToADO() }),
               h("div", { class: "row" },
                 h("div", { class: "col-6" },
                   h("div", { class: "item" },
@@ -33,4 +42,20 @@ export class EmprenderUbHome {
     "$": ["emprender-ub-home.css"]
   }; }
   static get assetsDirs() { return ["assets"]; }
+  static get events() { return [{
+      "method": "continue",
+      "name": "continue",
+      "bubbles": true,
+      "cancelable": true,
+      "composed": true,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "complexType": {
+        "original": "void",
+        "resolved": "void",
+        "references": {}
+      }
+    }]; }
 }

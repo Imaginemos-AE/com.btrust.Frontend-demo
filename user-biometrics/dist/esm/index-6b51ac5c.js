@@ -1,30 +1,9 @@
-'use strict';
-
-function _interopNamespace(e) {
-  if (e && e.__esModule) return e;
-  var n = Object.create(null);
-  if (e) {
-    Object.keys(e).forEach(function (k) {
-      if (k !== 'default') {
-        var d = Object.getOwnPropertyDescriptor(e, k);
-        Object.defineProperty(n, k, d.get ? d : {
-          enumerable: true,
-          get: function () {
-            return e[k];
-          }
-        });
-      }
-    });
-  }
-  n['default'] = e;
-  return Object.freeze(n);
-}
-
 const NAMESPACE = 'emprender-user-biometrics';
 
 let scopeId;
 let hostTagName;
 let isSvgMode = false;
+let renderingRef = null;
 let queuePending = false;
 const win = typeof window !== 'undefined' ? window : {};
 const doc = win.document || { head: {} };
@@ -226,13 +205,50 @@ const isHost = (node) => node && node.$tag$ === Host;
 const setAccessor = (elm, memberName, oldValue, newValue, isSvg, flags) => {
     if (oldValue !== newValue) {
         let isProp = isMemberInElement(elm, memberName);
-        memberName.toLowerCase();
+        let ln = memberName.toLowerCase();
         if (memberName === 'class') {
             const classList = elm.classList;
             const oldClasses = parseClassList(oldValue);
             const newClasses = parseClassList(newValue);
             classList.remove(...oldClasses.filter(c => c && !newClasses.includes(c)));
             classList.add(...newClasses.filter(c => c && !oldClasses.includes(c)));
+        }
+        else if ((!isProp ) && memberName[0] === 'o' && memberName[1] === 'n') {
+            // Event Handlers
+            // so if the member name starts with "on" and the 3rd characters is
+            // a capital letter, and it's not already a member on the element,
+            // then we're assuming it's an event listener
+            if (memberName[2] === '-') {
+                // on- prefixed events
+                // allows to be explicit about the dom event to listen without any magic
+                // under the hood:
+                // <my-cmp on-click> // listens for "click"
+                // <my-cmp on-Click> // listens for "Click"
+                // <my-cmp on-ionChange> // listens for "ionChange"
+                // <my-cmp on-EVENTS> // listens for "EVENTS"
+                memberName = memberName.slice(3);
+            }
+            else if (isMemberInElement(win, ln)) {
+                // standard event
+                // the JSX attribute could have been "onMouseOver" and the
+                // member name "onmouseover" is on the window's prototype
+                // so let's add the listener "mouseover", which is all lowercased
+                memberName = ln.slice(2);
+            }
+            else {
+                // custom event
+                // the JSX attribute could have been "onMyCustomEvent"
+                // so let's trim off the "on" prefix and lowercase the first character
+                // and add the listener "myCustomEvent"
+                // except for the first character, we keep the event name case
+                memberName = ln[2] + memberName.slice(3);
+            }
+            if (oldValue) {
+                plt.rel(elm, memberName, oldValue, false);
+            }
+            if (newValue) {
+                plt.ael(elm, memberName, newValue, false);
+            }
         }
         else {
             // Set property if it exists and it's not a SVG
@@ -281,6 +297,14 @@ const updateElement = (oldVnode, newVnode, isSvgMode, memberName) => {
     const elm = newVnode.$elm$.nodeType === 11 /* DocumentFragment */ && newVnode.$elm$.host ? newVnode.$elm$.host : newVnode.$elm$;
     const oldVnodeAttrs = (oldVnode && oldVnode.$attrs$) || EMPTY_OBJ;
     const newVnodeAttrs = newVnode.$attrs$ || EMPTY_OBJ;
+    {
+        // remove attributes no longer present on the vnode by setting them to undefined
+        for (memberName in oldVnodeAttrs) {
+            if (!(memberName in newVnodeAttrs)) {
+                setAccessor(elm, memberName, oldVnodeAttrs[memberName], undefined, isSvgMode, newVnode.$flags$);
+            }
+        }
+    }
     // add new & update changed attributes
     for (memberName in newVnodeAttrs) {
         setAccessor(elm, memberName, oldVnodeAttrs[memberName], newVnodeAttrs[memberName], isSvgMode, newVnode.$flags$);
@@ -338,8 +362,92 @@ const addVnodes = (parentElm, before, parentVNode, vnodes, startIdx, endIdx) => 
         }
     }
 };
+const removeVnodes = (vnodes, startIdx, endIdx, vnode, elm) => {
+    for (; startIdx <= endIdx; ++startIdx) {
+        if ((vnode = vnodes[startIdx])) {
+            elm = vnode.$elm$;
+            // remove the vnode's element from the dom
+            elm.remove();
+        }
+    }
+};
+const updateChildren = (parentElm, oldCh, newVNode, newCh) => {
+    let oldStartIdx = 0;
+    let newStartIdx = 0;
+    let oldEndIdx = oldCh.length - 1;
+    let oldStartVnode = oldCh[0];
+    let oldEndVnode = oldCh[oldEndIdx];
+    let newEndIdx = newCh.length - 1;
+    let newStartVnode = newCh[0];
+    let newEndVnode = newCh[newEndIdx];
+    let node;
+    while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+        if (oldStartVnode == null) {
+            // Vnode might have been moved left
+            oldStartVnode = oldCh[++oldStartIdx];
+        }
+        else if (oldEndVnode == null) {
+            oldEndVnode = oldCh[--oldEndIdx];
+        }
+        else if (newStartVnode == null) {
+            newStartVnode = newCh[++newStartIdx];
+        }
+        else if (newEndVnode == null) {
+            newEndVnode = newCh[--newEndIdx];
+        }
+        else if (isSameVnode(oldStartVnode, newStartVnode)) {
+            patch(oldStartVnode, newStartVnode);
+            oldStartVnode = oldCh[++oldStartIdx];
+            newStartVnode = newCh[++newStartIdx];
+        }
+        else if (isSameVnode(oldEndVnode, newEndVnode)) {
+            patch(oldEndVnode, newEndVnode);
+            oldEndVnode = oldCh[--oldEndIdx];
+            newEndVnode = newCh[--newEndIdx];
+        }
+        else if (isSameVnode(oldStartVnode, newEndVnode)) {
+            patch(oldStartVnode, newEndVnode);
+            parentElm.insertBefore(oldStartVnode.$elm$, oldEndVnode.$elm$.nextSibling);
+            oldStartVnode = oldCh[++oldStartIdx];
+            newEndVnode = newCh[--newEndIdx];
+        }
+        else if (isSameVnode(oldEndVnode, newStartVnode)) {
+            patch(oldEndVnode, newStartVnode);
+            parentElm.insertBefore(oldEndVnode.$elm$, oldStartVnode.$elm$);
+            oldEndVnode = oldCh[--oldEndIdx];
+            newStartVnode = newCh[++newStartIdx];
+        }
+        else {
+            {
+                // new element
+                node = createElm(oldCh && oldCh[newStartIdx], newVNode, newStartIdx);
+                newStartVnode = newCh[++newStartIdx];
+            }
+            if (node) {
+                {
+                    oldStartVnode.$elm$.parentNode.insertBefore(node, oldStartVnode.$elm$);
+                }
+            }
+        }
+    }
+    if (oldStartIdx > oldEndIdx) {
+        addVnodes(parentElm, newCh[newEndIdx + 1] == null ? null : newCh[newEndIdx + 1].$elm$, newVNode, newCh, newStartIdx, newEndIdx);
+    }
+    else if (newStartIdx > newEndIdx) {
+        removeVnodes(oldCh, oldStartIdx, oldEndIdx);
+    }
+};
+const isSameVnode = (vnode1, vnode2) => {
+    // compare if two vnode to see if they're "technically" the same
+    // need to have the same element tag, and same key to be the same
+    if (vnode1.$tag$ === vnode2.$tag$) {
+        return true;
+    }
+    return false;
+};
 const patch = (oldVNode, newVNode) => {
     const elm = (newVNode.$elm$ = oldVNode.$elm$);
+    const oldChildren = oldVNode.$children$;
     const newChildren = newVNode.$children$;
     const text = newVNode.$text$;
     if (text === null) {
@@ -352,11 +460,23 @@ const patch = (oldVNode, newVNode) => {
                 updateElement(oldVNode, newVNode, isSvgMode);
             }
         }
-        if (newChildren !== null) {
+        if (oldChildren !== null && newChildren !== null) {
+            // looks like there's child vnodes for both the old and new vnodes
+            updateChildren(elm, oldChildren, newVNode, newChildren);
+        }
+        else if (newChildren !== null) {
+            // no old child vnodes, but there are new child vnodes to add
+            if (oldVNode.$text$ !== null) {
+                // the old vnode was text, so be sure to clear it out
+                elm.textContent = '';
+            }
             // add the new vnode children
             addVnodes(elm, null, newVNode, newChildren, 0, newChildren.length - 1);
         }
-        else ;
+        else if (oldChildren !== null) {
+            // no new child vnodes, but there are old child vnodes to remove
+            removeVnodes(oldChildren, 0, oldChildren.length - 1);
+        }
     }
     else if (oldVNode.$text$ !== text) {
         // update the text content for the text only vnode
@@ -379,6 +499,20 @@ const renderVdom = (hostRef, renderFnResults) => {
     // synchronous patch
     patch(oldVNode, rootVnode);
 };
+const getElement = (ref) => (getHostRef(ref).$hostElement$ );
+const createEvent = (ref, name, flags) => {
+    const elm = getElement(ref);
+    return {
+        emit: (detail) => {
+            return emitEvent(elm, name, {
+                bubbles: !!(flags & 4 /* Bubbles */),
+                composed: !!(flags & 2 /* Composed */),
+                cancelable: !!(flags & 1 /* Cancellable */),
+                detail,
+            });
+        },
+    };
+};
 const emitEvent = (elm, name, opts) => {
     const ev = plt.ce(name, opts);
     elm.dispatchEvent(ev);
@@ -390,6 +524,9 @@ const attachToAncestor = (hostRef, ancestorComponent) => {
     }
 };
 const scheduleUpdate = (hostRef, isInitialLoad) => {
+    {
+        hostRef.$flags$ |= 16 /* isQueuedForUpdate */;
+    }
     if (hostRef.$flags$ & 4 /* isWaitingForChildren */) {
         hostRef.$flags$ |= 512 /* needsRerender */;
         return;
@@ -450,7 +587,11 @@ const updateComponent = async (hostRef, instance, isInitialLoad) => {
 };
 const callRender = (hostRef, instance, elm) => {
     try {
+        renderingRef = instance;
         instance = instance.render() ;
+        {
+            hostRef.$flags$ &= ~16 /* isQueuedForUpdate */;
+        }
         {
             hostRef.$flags$ |= 2 /* hasRendered */;
         }
@@ -468,8 +609,10 @@ const callRender = (hostRef, instance, elm) => {
     catch (e) {
         consoleError(e, hostRef.$hostElement$);
     }
+    renderingRef = null;
     return null;
 };
+const getRenderingRef = () => renderingRef;
 const postUpdateComponent = (hostRef) => {
     const tagName = hostRef.$cmpMeta$.$tagName$;
     const elm = hostRef.$hostElement$;
@@ -508,6 +651,17 @@ const postUpdateComponent = (hostRef) => {
     // ( •_•)>⌐■-■
     // (⌐■_■)
 };
+const forceUpdate = (ref) => {
+    {
+        const hostRef = getHostRef(ref);
+        const isConnected = hostRef.$hostElement$.isConnected;
+        if (isConnected && (hostRef.$flags$ & (2 /* hasRendered */ | 16 /* isQueuedForUpdate */)) === 2 /* hasRendered */) {
+            scheduleUpdate(hostRef, false);
+        }
+        // Returns "true" when the forced update was successfully scheduled
+        return isConnected;
+    }
+};
 const appDidLoad = (who) => {
     // on appload
     // we have finish the first big initial render
@@ -531,12 +685,84 @@ const then = (promise, thenFn) => {
     return promise && promise.then ? promise.then(thenFn) : thenFn();
 };
 const addHydratedFlag = (elm) => (elm.classList.add('hydrated') );
+const parsePropertyValue = (propValue, propType) => {
+    // ensure this value is of the correct prop type
+    if (propValue != null && !isComplexType(propValue)) {
+        if (propType & 1 /* String */) {
+            // could have been passed as a number or boolean
+            // but we still want it as a string
+            return String(propValue);
+        }
+        // redundant return here for better minification
+        return propValue;
+    }
+    // not sure exactly what type we want
+    // so no need to change to a different type
+    return propValue;
+};
+const getValue = (ref, propName) => getHostRef(ref).$instanceValues$.get(propName);
+const setValue = (ref, propName, newVal, cmpMeta) => {
+    // check our new property value against our internal value
+    const hostRef = getHostRef(ref);
+    const oldVal = hostRef.$instanceValues$.get(propName);
+    const flags = hostRef.$flags$;
+    const instance = hostRef.$lazyInstance$ ;
+    newVal = parsePropertyValue(newVal, cmpMeta.$members$[propName][0]);
+    if ((!(flags & 8 /* isConstructingInstance */) || oldVal === undefined) && newVal !== oldVal) {
+        // gadzooks! the property's value has changed!!
+        // set our new value!
+        hostRef.$instanceValues$.set(propName, newVal);
+        if (instance) {
+            if ((flags & (2 /* hasRendered */ | 16 /* isQueuedForUpdate */)) === 2 /* hasRendered */) {
+                // looks like this value actually changed, so we've got work to do!
+                // but only if we've already rendered, otherwise just chill out
+                // queue that we need to do an update, but don't worry about queuing
+                // up millions cuz this function ensures it only runs once
+                scheduleUpdate(hostRef, false);
+            }
+        }
+    }
+};
 const proxyComponent = (Cstr, cmpMeta, flags) => {
     if (cmpMeta.$members$) {
         // It's better to have a const than two Object.entries()
         const members = Object.entries(cmpMeta.$members$);
+        const prototype = Cstr.prototype;
         members.map(([memberName, [memberFlags]]) => {
+            if ((memberFlags & 31 /* Prop */ || ((flags & 2 /* proxyState */) && memberFlags & 32 /* State */))) {
+                // proxyComponent - prop
+                Object.defineProperty(prototype, memberName, {
+                    get() {
+                        // proxyComponent, get value
+                        return getValue(this, memberName);
+                    },
+                    set(newValue) {
+                        // proxyComponent, set value
+                        setValue(this, memberName, newValue, cmpMeta);
+                    },
+                    configurable: true,
+                    enumerable: true,
+                });
+            }
         });
+        if ((flags & 1 /* isElementConstructor */)) {
+            const attrNameToPropName = new Map();
+            prototype.attributeChangedCallback = function (attrName, _oldValue, newValue) {
+                plt.jmp(() => {
+                    const propName = attrNameToPropName.get(attrName);
+                    this[propName] = newValue === null && typeof this[propName] === 'boolean' ? false : newValue;
+                });
+            };
+            // create an array of attributes to observe
+            // and also create a map of html attribute name to js property name
+            Cstr.observedAttributes = members
+                .filter(([_, m]) => m[0] & 15 /* HasAttribute */) // filter to only keep props that should match attributes
+                .map(([propName, m]) => {
+                const attrName = m[1] || propName;
+                attrNameToPropName.set(attrName, propName);
+                return attrName;
+            });
+        }
     }
     return Cstr;
 };
@@ -557,7 +783,7 @@ const initializeComponent = async (elm, hostRef, cmpMeta, hmrVersionId, Cstr) =>
                 endLoad();
             }
             if (!Cstr.isProxied) {
-                proxyComponent(Cstr, cmpMeta);
+                proxyComponent(Cstr, cmpMeta, 2 /* proxyState */);
                 Cstr.isProxied = true;
             }
             const endNewInstance = createTime('createInstance', cmpMeta.$tagName$);
@@ -631,6 +857,17 @@ const connectedCallback = (elm) => {
                         break;
                     }
                 }
+            }
+            // Lazy properties
+            // https://developers.google.com/web/fundamentals/web-components/best-practices#lazy-properties
+            if (cmpMeta.$members$) {
+                Object.entries(cmpMeta.$members$).map(([memberName, [memberFlags]]) => {
+                    if (memberFlags & 31 /* Prop */ && elm.hasOwnProperty(memberName)) {
+                        const value = elm[memberName];
+                        delete elm[memberName];
+                        elm[memberName] = value;
+                    }
+                });
             }
             {
                 initializeComponent(elm, hostRef, cmpMeta);
@@ -710,7 +947,7 @@ const bootstrapLazy = (lazyBundles, options = {}) => {
         cmpMeta.$lazyBundleId$ = lazyBundle[0];
         if (!exclude.includes(tagName) && !customElements.get(tagName)) {
             cmpTags.push(tagName);
-            customElements.define(tagName, proxyComponent(HostElement, cmpMeta));
+            customElements.define(tagName, proxyComponent(HostElement, cmpMeta, 1 /* isElementConstructor */));
         }
     }));
     {
@@ -763,11 +1000,11 @@ const loadModule = (cmpMeta, hostRef, hmrVersionId) => {
     if (module) {
         return module[exportName];
     }
-    return Promise.resolve().then(function () { return /*#__PURE__*/_interopNamespace(require(
+    return import(
     /* webpackInclude: /\.entry\.js$/ */
     /* webpackExclude: /\.system\.entry\.js$/ */
     /* webpackMode: "lazy" */
-    `./${bundleId}.entry.js${''}`)); }).then(importedModule => {
+    `./${bundleId}.entry.js${''}`).then(importedModule => {
         {
             cmpModules.set(bundleId, importedModule);
         }
@@ -818,9 +1055,4 @@ const flush = () => {
 const nextTick = /*@__PURE__*/ (cb) => promiseResolve().then(cb);
 const writeTask = /*@__PURE__*/ queueTask(queueDomWrites, true);
 
-exports.Host = Host;
-exports.bootstrapLazy = bootstrapLazy;
-exports.getAssetPath = getAssetPath;
-exports.h = h;
-exports.promiseResolve = promiseResolve;
-exports.registerInstance = registerInstance;
+export { Host as H, getRenderingRef as a, bootstrapLazy as b, createEvent as c, forceUpdate as f, getAssetPath as g, h, promiseResolve as p, registerInstance as r };

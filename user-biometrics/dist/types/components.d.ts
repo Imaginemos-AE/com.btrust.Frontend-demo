@@ -6,17 +6,36 @@
  */
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
 export namespace Components {
+    interface EmprenderUbFailure {
+    }
     interface EmprenderUbHome {
     }
+    interface EmprenderUbSuccess {
+    }
     interface EmprenderUserBiometrics {
+        "adoConfig": string;
+    }
+    interface EmprenderUserBiometricsResult {
     }
 }
 declare global {
+    interface HTMLEmprenderUbFailureElement extends Components.EmprenderUbFailure, HTMLStencilElement {
+    }
+    var HTMLEmprenderUbFailureElement: {
+        prototype: HTMLEmprenderUbFailureElement;
+        new (): HTMLEmprenderUbFailureElement;
+    };
     interface HTMLEmprenderUbHomeElement extends Components.EmprenderUbHome, HTMLStencilElement {
     }
     var HTMLEmprenderUbHomeElement: {
         prototype: HTMLEmprenderUbHomeElement;
         new (): HTMLEmprenderUbHomeElement;
+    };
+    interface HTMLEmprenderUbSuccessElement extends Components.EmprenderUbSuccess, HTMLStencilElement {
+    }
+    var HTMLEmprenderUbSuccessElement: {
+        prototype: HTMLEmprenderUbSuccessElement;
+        new (): HTMLEmprenderUbSuccessElement;
     };
     interface HTMLEmprenderUserBiometricsElement extends Components.EmprenderUserBiometrics, HTMLStencilElement {
     }
@@ -24,27 +43,53 @@ declare global {
         prototype: HTMLEmprenderUserBiometricsElement;
         new (): HTMLEmprenderUserBiometricsElement;
     };
+    interface HTMLEmprenderUserBiometricsResultElement extends Components.EmprenderUserBiometricsResult, HTMLStencilElement {
+    }
+    var HTMLEmprenderUserBiometricsResultElement: {
+        prototype: HTMLEmprenderUserBiometricsResultElement;
+        new (): HTMLEmprenderUserBiometricsResultElement;
+    };
     interface HTMLElementTagNameMap {
+        "emprender-ub-failure": HTMLEmprenderUbFailureElement;
         "emprender-ub-home": HTMLEmprenderUbHomeElement;
+        "emprender-ub-success": HTMLEmprenderUbSuccessElement;
         "emprender-user-biometrics": HTMLEmprenderUserBiometricsElement;
+        "emprender-user-biometrics-result": HTMLEmprenderUserBiometricsResultElement;
     }
 }
 declare namespace LocalJSX {
+    interface EmprenderUbFailure {
+        "onContinue"?: (event: CustomEvent<void>) => void;
+    }
     interface EmprenderUbHome {
+        "onContinue"?: (event: CustomEvent<void>) => void;
+    }
+    interface EmprenderUbSuccess {
+        "onContinue"?: (event: CustomEvent<void>) => void;
     }
     interface EmprenderUserBiometrics {
+        "adoConfig"?: string;
+    }
+    interface EmprenderUserBiometricsResult {
+        "onContinue"?: (event: CustomEvent<string>) => void;
     }
     interface IntrinsicElements {
+        "emprender-ub-failure": EmprenderUbFailure;
         "emprender-ub-home": EmprenderUbHome;
+        "emprender-ub-success": EmprenderUbSuccess;
         "emprender-user-biometrics": EmprenderUserBiometrics;
+        "emprender-user-biometrics-result": EmprenderUserBiometricsResult;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "emprender-ub-failure": LocalJSX.EmprenderUbFailure & JSXBase.HTMLAttributes<HTMLEmprenderUbFailureElement>;
             "emprender-ub-home": LocalJSX.EmprenderUbHome & JSXBase.HTMLAttributes<HTMLEmprenderUbHomeElement>;
+            "emprender-ub-success": LocalJSX.EmprenderUbSuccess & JSXBase.HTMLAttributes<HTMLEmprenderUbSuccessElement>;
             "emprender-user-biometrics": LocalJSX.EmprenderUserBiometrics & JSXBase.HTMLAttributes<HTMLEmprenderUserBiometricsElement>;
+            "emprender-user-biometrics-result": LocalJSX.EmprenderUserBiometricsResult & JSXBase.HTMLAttributes<HTMLEmprenderUserBiometricsResultElement>;
         }
     }
 }
