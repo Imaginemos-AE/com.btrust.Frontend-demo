@@ -32,3 +32,19 @@ select.form-control {
   background-position-x: 97%;
   background-position-y: 8px;
 }
+
+label {
+  color: var(--primary-color, #51215B);
+  font-family: var(--secondary-font, "Varela Round", sans-serif);
+  display: block;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  padding: 0px 10px;
+  margin-bottom: 5px;
+}
+label span.req {
+  color: #e13d4c;
+  display: inline-block;
+  padding-left: 5px;
+}

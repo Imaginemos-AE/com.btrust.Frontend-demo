@@ -18,6 +18,7 @@ input[type=checkbox]:focus {
 input.text {
   background-color: #eeeeee;
   border: 1px solid #eaeaea;
+  box-sizing: border-box;
   border-radius: 7px;
   font-size: 14px;
   height: 36px;
