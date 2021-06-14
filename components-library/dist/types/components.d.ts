@@ -13,6 +13,19 @@ export namespace Components {
     interface EmprenderClIcon {
         "icon": string;
     }
+    interface EmprenderClInput {
+        "inputOptions": any;
+        "label": string;
+        "requiredIndicator": boolean;
+        "value": string;
+    }
+    interface EmprenderClSelect {
+        "label": string;
+        "options": { name: string, id: string }[];
+        "requiredIndicator": boolean;
+        "selectInputOptions": any;
+        "value": string;
+    }
 }
 declare global {
     interface HTMLEmprenderClButtonElement extends Components.EmprenderClButton, HTMLStencilElement {
@@ -27,9 +40,23 @@ declare global {
         prototype: HTMLEmprenderClIconElement;
         new (): HTMLEmprenderClIconElement;
     };
+    interface HTMLEmprenderClInputElement extends Components.EmprenderClInput, HTMLStencilElement {
+    }
+    var HTMLEmprenderClInputElement: {
+        prototype: HTMLEmprenderClInputElement;
+        new (): HTMLEmprenderClInputElement;
+    };
+    interface HTMLEmprenderClSelectElement extends Components.EmprenderClSelect, HTMLStencilElement {
+    }
+    var HTMLEmprenderClSelectElement: {
+        prototype: HTMLEmprenderClSelectElement;
+        new (): HTMLEmprenderClSelectElement;
+    };
     interface HTMLElementTagNameMap {
         "emprender-cl-button": HTMLEmprenderClButtonElement;
         "emprender-cl-icon": HTMLEmprenderClIconElement;
+        "emprender-cl-input": HTMLEmprenderClInputElement;
+        "emprender-cl-select": HTMLEmprenderClSelectElement;
     }
 }
 declare namespace LocalJSX {
@@ -40,9 +67,26 @@ declare namespace LocalJSX {
     interface EmprenderClIcon {
         "icon"?: string;
     }
+    interface EmprenderClInput {
+        "inputOptions"?: any;
+        "label"?: string;
+        "onInputChange"?: (event: CustomEvent<string>) => void;
+        "requiredIndicator"?: boolean;
+        "value"?: string;
+    }
+    interface EmprenderClSelect {
+        "label"?: string;
+        "onSelectChange"?: (event: CustomEvent<string>) => void;
+        "options"?: { name: string, id: string }[];
+        "requiredIndicator"?: boolean;
+        "selectInputOptions"?: any;
+        "value"?: string;
+    }
     interface IntrinsicElements {
         "emprender-cl-button": EmprenderClButton;
         "emprender-cl-icon": EmprenderClIcon;
+        "emprender-cl-input": EmprenderClInput;
+        "emprender-cl-select": EmprenderClSelect;
     }
 }
 export { LocalJSX as JSX };
@@ -51,6 +95,8 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "emprender-cl-button": LocalJSX.EmprenderClButton & JSXBase.HTMLAttributes<HTMLEmprenderClButtonElement>;
             "emprender-cl-icon": LocalJSX.EmprenderClIcon & JSXBase.HTMLAttributes<HTMLEmprenderClIconElement>;
+            "emprender-cl-input": LocalJSX.EmprenderClInput & JSXBase.HTMLAttributes<HTMLEmprenderClInputElement>;
+            "emprender-cl-select": LocalJSX.EmprenderClSelect & JSXBase.HTMLAttributes<HTMLEmprenderClSelectElement>;
         }
     }
 }

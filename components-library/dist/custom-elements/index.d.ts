@@ -14,6 +14,18 @@ export const EmprenderClIcon: {
   new (): EmprenderClIcon;
 };
 
+interface EmprenderClInput extends Components.EmprenderClInput, HTMLElement {}
+export const EmprenderClInput: {
+  prototype: EmprenderClInput;
+  new (): EmprenderClInput;
+};
+
+interface EmprenderClSelect extends Components.EmprenderClSelect, HTMLElement {}
+export const EmprenderClSelect: {
+  prototype: EmprenderClSelect;
+  new (): EmprenderClSelect;
+};
+
 /**
  * Utility to define all custom elements within this package using the tag name provided in the component's source. 
  * When defining each custom element, it will also check it's safe to define by:

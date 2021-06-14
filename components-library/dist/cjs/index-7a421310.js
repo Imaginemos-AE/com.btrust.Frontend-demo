@@ -48,6 +48,7 @@ const supportsConstructibleStylesheets = /*@__PURE__*/ (() => {
     })()
     ;
 const HYDRATED_CSS = '{visibility:hidden}.hydrated{visibility:inherit}';
+const XLINK_NS = 'http://www.w3.org/1999/xlink';
 const createTime = (fnName, tagName = '') => {
     {
         return () => {
@@ -154,6 +155,7 @@ const isComplexType = (o) => {
 // export function h(nodeName: string | d.FunctionalComponent, vnodeData: d.PropsType, ...children: d.ChildType[]): d.VNode;
 const h = (nodeName, vnodeData, ...children) => {
     let child = null;
+    let key = null;
     let simple = false;
     let lastSimple = false;
     let vNodeChildren = [];
@@ -181,6 +183,10 @@ const h = (nodeName, vnodeData, ...children) => {
     };
     walk(children);
     if (vnodeData) {
+        // normalize class / classname attributes
+        if (vnodeData.key) {
+            key = vnodeData.key;
+        }
         {
             const classData = vnodeData.className || vnodeData.class;
             if (classData) {
@@ -198,6 +204,9 @@ const h = (nodeName, vnodeData, ...children) => {
     if (vNodeChildren.length > 0) {
         vnode.$children$ = vNodeChildren;
     }
+    {
+        vnode.$key$ = key;
+    }
     return vnode;
 };
 const newVNode = (tag, text) => {
@@ -210,6 +219,9 @@ const newVNode = (tag, text) => {
     };
     {
         vnode.$attrs$ = null;
+    }
+    {
+        vnode.$key$ = null;
     }
     return vnode;
 };
@@ -226,13 +238,83 @@ const isHost = (node) => node && node.$tag$ === Host;
 const setAccessor = (elm, memberName, oldValue, newValue, isSvg, flags) => {
     if (oldValue !== newValue) {
         let isProp = isMemberInElement(elm, memberName);
-        memberName.toLowerCase();
+        let ln = memberName.toLowerCase();
         if (memberName === 'class') {
             const classList = elm.classList;
             const oldClasses = parseClassList(oldValue);
             const newClasses = parseClassList(newValue);
             classList.remove(...oldClasses.filter(c => c && !newClasses.includes(c)));
             classList.add(...newClasses.filter(c => c && !oldClasses.includes(c)));
+        }
+        else if (memberName === 'style') {
+            // update style attribute, css properties and values
+            {
+                for (const prop in oldValue) {
+                    if (!newValue || newValue[prop] == null) {
+                        if (prop.includes('-')) {
+                            elm.style.removeProperty(prop);
+                        }
+                        else {
+                            elm.style[prop] = '';
+                        }
+                    }
+                }
+            }
+            for (const prop in newValue) {
+                if (!oldValue || newValue[prop] !== oldValue[prop]) {
+                    if (prop.includes('-')) {
+                        elm.style.setProperty(prop, newValue[prop]);
+                    }
+                    else {
+                        elm.style[prop] = newValue[prop];
+                    }
+                }
+            }
+        }
+        else if (memberName === 'key')
+            ;
+        else if (memberName === 'ref') {
+            // minifier will clean this up
+            if (newValue) {
+                newValue(elm);
+            }
+        }
+        else if ((!isProp ) && memberName[0] === 'o' && memberName[1] === 'n') {
+            // Event Handlers
+            // so if the member name starts with "on" and the 3rd characters is
+            // a capital letter, and it's not already a member on the element,
+            // then we're assuming it's an event listener
+            if (memberName[2] === '-') {
+                // on- prefixed events
+                // allows to be explicit about the dom event to listen without any magic
+                // under the hood:
+                // <my-cmp on-click> // listens for "click"
+                // <my-cmp on-Click> // listens for "Click"
+                // <my-cmp on-ionChange> // listens for "ionChange"
+                // <my-cmp on-EVENTS> // listens for "EVENTS"
+                memberName = memberName.slice(3);
+            }
+            else if (isMemberInElement(win, ln)) {
+                // standard event
+                // the JSX attribute could have been "onMouseOver" and the
+                // member name "onmouseover" is on the window's prototype
+                // so let's add the listener "mouseover", which is all lowercased
+                memberName = ln.slice(2);
+            }
+            else {
+                // custom event
+                // the JSX attribute could have been "onMyCustomEvent"
+                // so let's trim off the "on" prefix and lowercase the first character
+                // and add the listener "myCustomEvent"
+                // except for the first character, we keep the event name case
+                memberName = ln[2] + memberName.slice(3);
+            }
+            if (oldValue) {
+                plt.rel(elm, memberName, oldValue, false);
+            }
+            if (newValue) {
+                plt.ael(elm, memberName, newValue, false);
+            }
         }
         else {
             // Set property if it exists and it's not a SVG
@@ -256,16 +338,36 @@ const setAccessor = (elm, memberName, oldValue, newValue, isSvg, flags) => {
                 }
                 catch (e) { }
             }
+            /**
+             * Need to manually update attribute if:
+             * - memberName is not an attribute
+             * - if we are rendering the host element in order to reflect attribute
+             * - if it's a SVG, since properties might not work in <svg>
+             * - if the newValue is null/undefined or 'false'.
+             */
+            let xlink = false;
+            {
+                if (ln !== (ln = ln.replace(/^xlink\:?/, ''))) {
+                    memberName = ln;
+                    xlink = true;
+                }
+            }
             if (newValue == null || newValue === false) {
                 if (newValue !== false || elm.getAttribute(memberName) === '') {
-                    {
+                    if (xlink) {
+                        elm.removeAttributeNS(XLINK_NS, memberName);
+                    }
+                    else {
                         elm.removeAttribute(memberName);
                     }
                 }
             }
             else if ((!isProp || flags & 4 /* isHost */ || isSvg) && !isComplex) {
                 newValue = newValue === true ? '' : newValue;
-                {
+                if (xlink) {
+                    elm.setAttributeNS(XLINK_NS, memberName, newValue);
+                }
+                else {
                     elm.setAttribute(memberName, newValue);
                 }
             }
@@ -350,6 +452,7 @@ const removeVnodes = (vnodes, startIdx, endIdx, vnode, elm) => {
     for (; startIdx <= endIdx; ++startIdx) {
         if ((vnode = vnodes[startIdx])) {
             elm = vnode.$elm$;
+            callNodeRefs(vnode);
             // remove the vnode's element from the dom
             elm.remove();
         }
@@ -358,6 +461,8 @@ const removeVnodes = (vnodes, startIdx, endIdx, vnode, elm) => {
 const updateChildren = (parentElm, oldCh, newVNode, newCh) => {
     let oldStartIdx = 0;
     let newStartIdx = 0;
+    let idxInOld = 0;
+    let i = 0;
     let oldEndIdx = oldCh.length - 1;
     let oldStartVnode = oldCh[0];
     let oldEndVnode = oldCh[oldEndIdx];
@@ -365,6 +470,7 @@ const updateChildren = (parentElm, oldCh, newVNode, newCh) => {
     let newStartVnode = newCh[0];
     let newEndVnode = newCh[newEndIdx];
     let node;
+    let elmToMove;
     while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
         if (oldStartVnode == null) {
             // Vnode might have been moved left
@@ -402,7 +508,29 @@ const updateChildren = (parentElm, oldCh, newVNode, newCh) => {
             newStartVnode = newCh[++newStartIdx];
         }
         else {
+            // createKeyToOldIdx
+            idxInOld = -1;
             {
+                for (i = oldStartIdx; i <= oldEndIdx; ++i) {
+                    if (oldCh[i] && oldCh[i].$key$ !== null && oldCh[i].$key$ === newStartVnode.$key$) {
+                        idxInOld = i;
+                        break;
+                    }
+                }
+            }
+            if (idxInOld >= 0) {
+                elmToMove = oldCh[idxInOld];
+                if (elmToMove.$tag$ !== newStartVnode.$tag$) {
+                    node = createElm(oldCh && oldCh[newStartIdx], newVNode, idxInOld);
+                }
+                else {
+                    patch(elmToMove, newStartVnode);
+                    oldCh[idxInOld] = undefined;
+                    node = elmToMove.$elm$;
+                }
+                newStartVnode = newCh[++newStartIdx];
+            }
+            else {
                 // new element
                 node = createElm(oldCh && oldCh[newStartIdx], newVNode, newStartIdx);
                 newStartVnode = newCh[++newStartIdx];
@@ -425,7 +553,9 @@ const isSameVnode = (vnode1, vnode2) => {
     // compare if two vnode to see if they're "technically" the same
     // need to have the same element tag, and same key to be the same
     if (vnode1.$tag$ === vnode2.$tag$) {
-        return true;
+        {
+            return vnode1.$key$ === vnode2.$key$;
+        }
     }
     return false;
 };
@@ -468,6 +598,12 @@ const patch = (oldVNode, newVNode) => {
         elm.data = text;
     }
 };
+const callNodeRefs = (vNode) => {
+    {
+        vNode.$attrs$ && vNode.$attrs$.ref && vNode.$attrs$.ref(null);
+        vNode.$children$ && vNode.$children$.map(callNodeRefs);
+    }
+};
 const renderVdom = (hostRef, renderFnResults) => {
     const hostElm = hostRef.$hostElement$;
     const cmpMeta = hostRef.$cmpMeta$;
@@ -489,6 +625,19 @@ const renderVdom = (hostRef, renderFnResults) => {
     patch(oldVNode, rootVnode);
 };
 const getElement = (ref) => (getHostRef(ref).$hostElement$ );
+const createEvent = (ref, name, flags) => {
+    const elm = getElement(ref);
+    return {
+        emit: (detail) => {
+            return emitEvent(elm, name, {
+                bubbles: !!(flags & 4 /* Bubbles */),
+                composed: !!(flags & 2 /* Composed */),
+                cancelable: !!(flags & 1 /* Cancellable */),
+                detail,
+            });
+        },
+    };
+};
 const emitEvent = (elm, name, opts) => {
     const ev = plt.ce(name, opts);
     elm.dispatchEvent(ev);
@@ -650,6 +799,11 @@ const addHydratedFlag = (elm) => (elm.classList.add('hydrated') );
 const parsePropertyValue = (propValue, propType) => {
     // ensure this value is of the correct prop type
     if (propValue != null && !isComplexType(propValue)) {
+        if (propType & 4 /* Boolean */) {
+            // per the HTML spec, any string value means it is a boolean true value
+            // but we'll cheat here and say that the string "false" is the boolean false
+            return propValue === 'false' ? false : propValue === '' || !!propValue;
+        }
         if (propType & 1 /* String */) {
             // could have been passed as a number or boolean
             // but we still want it as a string
@@ -1021,6 +1175,7 @@ const writeTask = /*@__PURE__*/ queueTask(queueDomWrites, true);
 
 exports.Host = Host;
 exports.bootstrapLazy = bootstrapLazy;
+exports.createEvent = createEvent;
 exports.getElement = getElement;
 exports.h = h;
 exports.promiseResolve = promiseResolve;
