@@ -1,1 +1,1 @@
-import{p as e,b as r}from"./p-72dee1e8.js";(()=>{const r=import.meta.url,o={};return""!==r&&(o.resourcesUrl=new URL(".",r).href),e(o)})().then((e=>r([["p-166b8c2f",[[1,"emprender-uf-personal-information",{model:[32]}]]]],e)));
+import{p as e,b as r}from"./p-caf1238e.js";(()=>{const r=import.meta.url,n={};return""!==r&&(n.resourcesUrl=new URL(".",r).href),e(n)})().then((e=>r([["p-4407934c",[[1,"emprender-uf-personal-information",{model:[32],departments:[32]}]]],["p-056e5f3e",[[1,"emprender-uf-personal-information-2",{model:[32],departments:[32]}]]]],e)));

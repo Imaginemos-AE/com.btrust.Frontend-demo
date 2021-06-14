@@ -1,6 +1,7 @@
 {
   "entries": [
-    "./components/emprender-uf-personal-information/emprender-uf-personal-information.js"
+    "./components/emprender-uf-personal-information/emprender-uf-personal-information.js",
+    "./components/emprender-uf-personal-information-2/emprender-uf-personal-information-2.js"
   ],
   "compiler": {
     "name": "@stencil/core",

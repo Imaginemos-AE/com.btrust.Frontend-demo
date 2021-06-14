@@ -17,3 +17,17 @@ export interface PersonalInformation {
   departmentOfBirth: string;
   gender: string;
 }
+export interface PersonalInformation2 {
+  academicLevel: string;
+  childrenNumber: number;
+  dependents: number;
+  civilState: string;
+  cityOfResidence: string;
+  departmentOfResidence: string;
+  address: string;
+  stratus: number;
+  dwellingType: string;
+  rent: number;
+  residenceTime: string;
+  employment: string;
+}
