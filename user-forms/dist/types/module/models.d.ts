@@ -43,3 +43,25 @@ export interface WorkingInformation {
   companyPhoneExtension: string;
   otherPhone: string;
 }
+export interface FinancialInformation {
+  salaryIncome: number;
+  variableSalaryIncome: number;
+  otherIncomes: number;
+  otherIncomesDescription: string;
+  totalAssets: number;
+  personalExpenses: number;
+  rentExpenses: number;
+  debtExpenses: number;
+  otherExpenses: number;
+  otherExpensesDescription: string;
+  totalExpenses: number;
+  totalLiabilities: number;
+}
+export interface References {
+  familyContactName: string;
+  familyContactPhone: string;
+  familyContactRelationship: string;
+  friendContactName: string;
+  friendContactPhone: string;
+  friendContactRelationship: string;
+}

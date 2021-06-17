@@ -5,16 +5,26 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
-import { PersonalInformation, PersonalInformation2, WorkingInformation } from "./module/models";
+import { FinancialInformation, PersonalInformation, PersonalInformation2, References, WorkingInformation } from "./module/models";
 export namespace Components {
+    interface EmprenderUfFinancialInformation {
+    }
     interface EmprenderUfPersonalInformation {
     }
     interface EmprenderUfPersonalInformation2 {
+    }
+    interface EmprenderUfReferences {
     }
     interface EmprenderUfWorkingInformation {
     }
 }
 declare global {
+    interface HTMLEmprenderUfFinancialInformationElement extends Components.EmprenderUfFinancialInformation, HTMLStencilElement {
+    }
+    var HTMLEmprenderUfFinancialInformationElement: {
+        prototype: HTMLEmprenderUfFinancialInformationElement;
+        new (): HTMLEmprenderUfFinancialInformationElement;
+    };
     interface HTMLEmprenderUfPersonalInformationElement extends Components.EmprenderUfPersonalInformation, HTMLStencilElement {
     }
     var HTMLEmprenderUfPersonalInformationElement: {
@@ -27,6 +37,12 @@ declare global {
         prototype: HTMLEmprenderUfPersonalInformation2Element;
         new (): HTMLEmprenderUfPersonalInformation2Element;
     };
+    interface HTMLEmprenderUfReferencesElement extends Components.EmprenderUfReferences, HTMLStencilElement {
+    }
+    var HTMLEmprenderUfReferencesElement: {
+        prototype: HTMLEmprenderUfReferencesElement;
+        new (): HTMLEmprenderUfReferencesElement;
+    };
     interface HTMLEmprenderUfWorkingInformationElement extends Components.EmprenderUfWorkingInformation, HTMLStencilElement {
     }
     var HTMLEmprenderUfWorkingInformationElement: {
@@ -34,24 +50,34 @@ declare global {
         new (): HTMLEmprenderUfWorkingInformationElement;
     };
     interface HTMLElementTagNameMap {
+        "emprender-uf-financial-information": HTMLEmprenderUfFinancialInformationElement;
         "emprender-uf-personal-information": HTMLEmprenderUfPersonalInformationElement;
         "emprender-uf-personal-information-2": HTMLEmprenderUfPersonalInformation2Element;
+        "emprender-uf-references": HTMLEmprenderUfReferencesElement;
         "emprender-uf-working-information": HTMLEmprenderUfWorkingInformationElement;
     }
 }
 declare namespace LocalJSX {
+    interface EmprenderUfFinancialInformation {
+        "onInfoSaved"?: (event: CustomEvent<FinancialInformation>) => void;
+    }
     interface EmprenderUfPersonalInformation {
         "onInfoSaved"?: (event: CustomEvent<PersonalInformation>) => void;
     }
     interface EmprenderUfPersonalInformation2 {
         "onInfoSaved"?: (event: CustomEvent<PersonalInformation2>) => void;
     }
+    interface EmprenderUfReferences {
+        "onInfoSaved"?: (event: CustomEvent<References>) => void;
+    }
     interface EmprenderUfWorkingInformation {
         "onInfoSaved"?: (event: CustomEvent<WorkingInformation>) => void;
     }
     interface IntrinsicElements {
+        "emprender-uf-financial-information": EmprenderUfFinancialInformation;
         "emprender-uf-personal-information": EmprenderUfPersonalInformation;
         "emprender-uf-personal-information-2": EmprenderUfPersonalInformation2;
+        "emprender-uf-references": EmprenderUfReferences;
         "emprender-uf-working-information": EmprenderUfWorkingInformation;
     }
 }
@@ -59,8 +85,10 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "emprender-uf-financial-information": LocalJSX.EmprenderUfFinancialInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfFinancialInformationElement>;
             "emprender-uf-personal-information": LocalJSX.EmprenderUfPersonalInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfPersonalInformationElement>;
             "emprender-uf-personal-information-2": LocalJSX.EmprenderUfPersonalInformation2 & JSXBase.HTMLAttributes<HTMLEmprenderUfPersonalInformation2Element>;
+            "emprender-uf-references": LocalJSX.EmprenderUfReferences & JSXBase.HTMLAttributes<HTMLEmprenderUfReferencesElement>;
             "emprender-uf-working-information": LocalJSX.EmprenderUfWorkingInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfWorkingInformationElement>;
         }
     }

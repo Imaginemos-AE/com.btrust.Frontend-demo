@@ -1,7 +1,9 @@
 {
   "entries": [
+    "./components/emprender-uf-financial-information/emprender-uf-financial-information.js",
     "./components/emprender-uf-personal-information/emprender-uf-personal-information.js",
     "./components/emprender-uf-personal-information-2/emprender-uf-personal-information-2.js",
+    "./components/emprender-uf-references/emprender-uf-references.js",
     "./components/emprender-uf-working-information/emprender-uf-working-information.js"
   ],
   "compiler": {

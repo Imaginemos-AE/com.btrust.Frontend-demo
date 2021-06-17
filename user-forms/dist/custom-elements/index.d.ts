@@ -2,6 +2,12 @@
 
 import type { Components, JSX } from "../types/components";
 
+interface EmprenderUfFinancialInformation extends Components.EmprenderUfFinancialInformation, HTMLElement {}
+export const EmprenderUfFinancialInformation: {
+  prototype: EmprenderUfFinancialInformation;
+  new (): EmprenderUfFinancialInformation;
+};
+
 interface EmprenderUfPersonalInformation extends Components.EmprenderUfPersonalInformation, HTMLElement {}
 export const EmprenderUfPersonalInformation: {
   prototype: EmprenderUfPersonalInformation;
@@ -12,6 +18,12 @@ interface EmprenderUfPersonalInformation2 extends Components.EmprenderUfPersonal
 export const EmprenderUfPersonalInformation2: {
   prototype: EmprenderUfPersonalInformation2;
   new (): EmprenderUfPersonalInformation2;
+};
+
+interface EmprenderUfReferences extends Components.EmprenderUfReferences, HTMLElement {}
+export const EmprenderUfReferences: {
+  prototype: EmprenderUfReferences;
+  new (): EmprenderUfReferences;
 };
 
 interface EmprenderUfWorkingInformation extends Components.EmprenderUfWorkingInformation, HTMLElement {}
