@@ -5,11 +5,13 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
-import { PersonalInformation, PersonalInformation2 } from "./module/models";
+import { PersonalInformation, PersonalInformation2, WorkingInformation } from "./module/models";
 export namespace Components {
     interface EmprenderUfPersonalInformation {
     }
     interface EmprenderUfPersonalInformation2 {
+    }
+    interface EmprenderUfWorkingInformation {
     }
 }
 declare global {
@@ -25,9 +27,16 @@ declare global {
         prototype: HTMLEmprenderUfPersonalInformation2Element;
         new (): HTMLEmprenderUfPersonalInformation2Element;
     };
+    interface HTMLEmprenderUfWorkingInformationElement extends Components.EmprenderUfWorkingInformation, HTMLStencilElement {
+    }
+    var HTMLEmprenderUfWorkingInformationElement: {
+        prototype: HTMLEmprenderUfWorkingInformationElement;
+        new (): HTMLEmprenderUfWorkingInformationElement;
+    };
     interface HTMLElementTagNameMap {
         "emprender-uf-personal-information": HTMLEmprenderUfPersonalInformationElement;
         "emprender-uf-personal-information-2": HTMLEmprenderUfPersonalInformation2Element;
+        "emprender-uf-working-information": HTMLEmprenderUfWorkingInformationElement;
     }
 }
 declare namespace LocalJSX {
@@ -37,9 +46,13 @@ declare namespace LocalJSX {
     interface EmprenderUfPersonalInformation2 {
         "onInfoSaved"?: (event: CustomEvent<PersonalInformation2>) => void;
     }
+    interface EmprenderUfWorkingInformation {
+        "onInfoSaved"?: (event: CustomEvent<WorkingInformation>) => void;
+    }
     interface IntrinsicElements {
         "emprender-uf-personal-information": EmprenderUfPersonalInformation;
         "emprender-uf-personal-information-2": EmprenderUfPersonalInformation2;
+        "emprender-uf-working-information": EmprenderUfWorkingInformation;
     }
 }
 export { LocalJSX as JSX };
@@ -48,6 +61,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "emprender-uf-personal-information": LocalJSX.EmprenderUfPersonalInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfPersonalInformationElement>;
             "emprender-uf-personal-information-2": LocalJSX.EmprenderUfPersonalInformation2 & JSXBase.HTMLAttributes<HTMLEmprenderUfPersonalInformation2Element>;
+            "emprender-uf-working-information": LocalJSX.EmprenderUfWorkingInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfWorkingInformationElement>;
         }
     }
 }

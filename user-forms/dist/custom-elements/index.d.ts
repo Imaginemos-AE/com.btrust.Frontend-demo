@@ -14,6 +14,12 @@ export const EmprenderUfPersonalInformation2: {
   new (): EmprenderUfPersonalInformation2;
 };
 
+interface EmprenderUfWorkingInformation extends Components.EmprenderUfWorkingInformation, HTMLElement {}
+export const EmprenderUfWorkingInformation: {
+  prototype: EmprenderUfWorkingInformation;
+  new (): EmprenderUfWorkingInformation;
+};
+
 /**
  * Utility to define all custom elements within this package using the tag name provided in the component's source. 
  * When defining each custom element, it will also check it's safe to define by:

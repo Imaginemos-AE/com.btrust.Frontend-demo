@@ -1,6 +1,6 @@
-import { EventEmitter } from '../../stencil-public-runtime';
+import { EventEmitter, ComponentInterface } from '../../stencil-public-runtime';
 import { PersonalInformation2 } from '../../module/models';
-export declare class EmprenderUfPersonalInformation2 {
+export declare class EmprenderUfPersonalInformation2 implements ComponentInterface {
   model: PersonalInformation2;
   departments: {
     id: number;

@@ -31,3 +31,15 @@ export interface PersonalInformation2 {
   residenceTime: string;
   employment: string;
 }
+export interface WorkingInformation {
+  companyName: string;
+  position: string;
+  companyType: string;
+  companySeniority: string;
+  contractType: string;
+  companyActivity: string;
+  creditDestination: string;
+  companyPhone: string;
+  companyPhoneExtension: string;
+  otherPhone: string;
+}
