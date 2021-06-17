@@ -43,7 +43,7 @@ export class EmprenderUfReferences {
                     h("fieldset", null,
                       h("emprender-cl-input", { label: "Relaci\u00F3n", onInputChange: (ev) => this._setModel("friendContactRelationship", ev.detail) })))),
                 h("div", { class: "contcenter" },
-                  h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => console.log(this.model) }))),
+                  h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this.infoSaved.emit(this.model) }))),
               h("slot", null)))))));
   }
   static get is() { return "emprender-uf-references"; }
