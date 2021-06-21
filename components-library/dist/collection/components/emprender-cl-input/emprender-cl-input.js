@@ -10,7 +10,7 @@ export class EmprenderClInput {
       this.label && h("label", { htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id },
         this.label,
         this.requiredIndicator && h("span", { class: "req" }, "*")),
-      h("input", Object.assign({ class: "text", ref: (el) => this.textInput = el }, this.inputOptions, { onInput: () => this.onInputChange() }))));
+      h("input", Object.assign({ class: "text", ref: (el) => this.textInput = el, value: this.value }, this.inputOptions, { onInput: () => this.onInputChange() }))));
   }
   static get is() { return "emprender-cl-input"; }
   static get encapsulation() { return "shadow"; }

@@ -77,7 +77,7 @@ const EmprenderClInput = class {
   }
   render() {
     var _a;
-    return (index.h(index.Host, null, this.label && index.h("label", { htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && index.h("span", { class: "req" }, "*")), index.h("input", Object.assign({ class: "text", ref: (el) => this.textInput = el }, this.inputOptions, { onInput: () => this.onInputChange() }))));
+    return (index.h(index.Host, null, this.label && index.h("label", { htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && index.h("span", { class: "req" }, "*")), index.h("input", Object.assign({ class: "text", ref: (el) => this.textInput = el, value: this.value }, this.inputOptions, { onInput: () => this.onInputChange() }))));
   }
 };
 EmprenderClInput.style = emprenderClInputCss;
