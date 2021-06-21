@@ -101,7 +101,7 @@ export class EmprenderMiniCalculator {
               h("span", null, formatNumber(state.currentCreditInfo.creditTotal)),
               h("button", { type: "button", "data-container": ".calculator", "data-placement": "bottom", "data-html": "true", "data-toggle": "popover", "data-content": '<div class="detailsPopOver"><div class="line"><label>Monto solicitado:</label><p class="value">$380.000</p></div><div class="line"><label>Intereses<span>(25% EA)</span></label><p class="value">$ 6.174</p></div><div class="line"><label>Aval <span>(opcional)</span></label><p class="value">$ 60.594</p></div><div class="line"><label>Plataforma<span>(opcional)</span></label><p class="value">$ 112.500</p></div><div class="line"><label>Descuento<span>(por inclusi\u00F3n financiera)</span></label><p class="value">$ -80.000</p></div><div class="line"><label>IVA <span>(19%)</span></label><p class="value">$ 6.175</p></div><div class="line"><label>Total</label><p class="value">$ 485.443</p></div></div>', class: "btnInfoPopover" },
                 h("i", { class: "icon-info" }))),
-            h("emprender-cl-button", { text: "Modificar", modifiers: "xsmall primary", onclick: () => this._toggleButtons() }))));
+            h("emprender-cl-button", { text: "Modificar", modifiers: `xsmall ${screen.width > 991 ? "primary" : "secondary"}`, onclick: () => this._toggleButtons() }))));
     }
   }
   render() {
