@@ -1,3 +1,11 @@
+export declare class UserForm {
+  financialInformation: FinancialInformation;
+  references: References;
+}
+export declare class UserFormEmployee extends UserForm {
+}
+export declare class UserFormIndependend extends UserForm {
+}
 export interface PersonalInformation {
   firstName: string;
   middleName: string;

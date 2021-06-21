@@ -1,6 +1,6 @@
-import { EventEmitter, ComponentInterface } from '../../stencil-public-runtime';
+import { EventEmitter } from '../../stencil-public-runtime';
 import { PersonalInformation2 } from '../../module/models';
-export declare class EmprenderUfPersonalInformation2 implements ComponentInterface {
+export declare class EmprenderUfPersonalInformation2 {
   model: PersonalInformation2;
   departments: {
     id: number;
@@ -8,7 +8,6 @@ export declare class EmprenderUfPersonalInformation2 implements ComponentInterfa
     ciudades: string[];
   }[];
   infoSaved: EventEmitter<PersonalInformation2>;
-  componentWillLoad(): Promise<void>;
   _setModel(field: string, value: string): void;
   _getSelectDepartmentOptions(): {
     id: string;

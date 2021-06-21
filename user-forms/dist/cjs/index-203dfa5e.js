@@ -1,8 +1,31 @@
+'use strict';
+
+function _interopNamespace(e) {
+  if (e && e.__esModule) return e;
+  var n = Object.create(null);
+  if (e) {
+    Object.keys(e).forEach(function (k) {
+      if (k !== 'default') {
+        var d = Object.getOwnPropertyDescriptor(e, k);
+        Object.defineProperty(n, k, d.get ? d : {
+          enumerable: true,
+          get: function () {
+            return e[k];
+          }
+        });
+      }
+    });
+  }
+  n['default'] = e;
+  return Object.freeze(n);
+}
+
 const NAMESPACE = 'emprender-user-forms';
 
 let scopeId;
 let hostTagName;
 let isSvgMode = false;
+let renderingRef = null;
 let queuePending = false;
 const win = typeof window !== 'undefined' ? window : {};
 const doc = win.document || { head: {} };
@@ -171,6 +194,10 @@ const h = (nodeName, vnodeData, ...children) => {
             }
         }
     }
+    if (typeof nodeName === 'function') {
+        // nodeName is a functional component
+        return nodeName(vnodeData === null ? {} : vnodeData, vNodeChildren, vdomFnUtils);
+    }
     const vnode = newVNode(nodeName, null);
     vnode.$attrs$ = vnodeData;
     if (vNodeChildren.length > 0) {
@@ -193,6 +220,36 @@ const newVNode = (tag, text) => {
 };
 const Host = {};
 const isHost = (node) => node && node.$tag$ === Host;
+const vdomFnUtils = {
+    forEach: (children, cb) => children.map(convertToPublic).forEach(cb),
+    map: (children, cb) => children.map(convertToPublic).map(cb).map(convertToPrivate),
+};
+const convertToPublic = (node) => ({
+    vattrs: node.$attrs$,
+    vchildren: node.$children$,
+    vkey: node.$key$,
+    vname: node.$name$,
+    vtag: node.$tag$,
+    vtext: node.$text$,
+});
+const convertToPrivate = (node) => {
+    if (typeof node.vtag === 'function') {
+        const vnodeData = Object.assign({}, node.vattrs);
+        if (node.vkey) {
+            vnodeData.key = node.vkey;
+        }
+        if (node.vname) {
+            vnodeData.name = node.vname;
+        }
+        return h(node.vtag, vnodeData, ...(node.vchildren || []));
+    }
+    const vnode = newVNode(node.vtag, node.vtext);
+    vnode.$attrs$ = node.vattrs;
+    vnode.$children$ = node.vchildren;
+    vnode.$key$ = node.vkey;
+    vnode.$name$ = node.vname;
+    return vnode;
+};
 /**
  * Production setAccessor() function based on Preact by
  * Jason Miller (@developit)
@@ -488,9 +545,14 @@ const patch = (oldVNode, newVNode) => {
 };
 const renderVdom = (hostRef, renderFnResults) => {
     const hostElm = hostRef.$hostElement$;
+    const cmpMeta = hostRef.$cmpMeta$;
     const oldVNode = hostRef.$vnode$ || newVNode(null, null);
     const rootVnode = isHost(renderFnResults) ? renderFnResults : h(null, null, renderFnResults);
     hostTagName = hostElm.tagName;
+    if (cmpMeta.$attrsToReflect$) {
+        rootVnode.$attrs$ = rootVnode.$attrs$ || {};
+        cmpMeta.$attrsToReflect$.map(([propName, attribute]) => (rootVnode.$attrs$[attribute] = hostElm[propName]));
+    }
     rootVnode.$tag$ = null;
     rootVnode.$flags$ |= 4 /* isHost */;
     hostRef.$vnode$ = rootVnode;
@@ -589,6 +651,7 @@ const updateComponent = async (hostRef, instance, isInitialLoad) => {
 };
 const callRender = (hostRef, instance, elm) => {
     try {
+        renderingRef = instance;
         instance = instance.render() ;
         {
             hostRef.$flags$ &= ~16 /* isQueuedForUpdate */;
@@ -610,8 +673,10 @@ const callRender = (hostRef, instance, elm) => {
     catch (e) {
         consoleError(e, hostRef.$hostElement$);
     }
+    renderingRef = null;
     return null;
 };
+const getRenderingRef = () => renderingRef;
 const postUpdateComponent = (hostRef) => {
     const tagName = hostRef.$cmpMeta$.$tagName$;
     const elm = hostRef.$hostElement$;
@@ -650,6 +715,17 @@ const postUpdateComponent = (hostRef) => {
     // ( •_•)>⌐■-■
     // (⌐■_■)
 };
+const forceUpdate = (ref) => {
+    {
+        const hostRef = getHostRef(ref);
+        const isConnected = hostRef.$hostElement$.isConnected;
+        if (isConnected && (hostRef.$flags$ & (2 /* hasRendered */ | 16 /* isQueuedForUpdate */)) === 2 /* hasRendered */) {
+            scheduleUpdate(hostRef, false);
+        }
+        // Returns "true" when the forced update was successfully scheduled
+        return isConnected;
+    }
+};
 const appDidLoad = (who) => {
     // on appload
     // we have finish the first big initial render
@@ -676,6 +752,15 @@ const addHydratedFlag = (elm) => (elm.classList.add('hydrated') );
 const parsePropertyValue = (propValue, propType) => {
     // ensure this value is of the correct prop type
     if (propValue != null && !isComplexType(propValue)) {
+        if (propType & 2 /* Number */) {
+            // force it to be a number
+            return parseFloat(propValue);
+        }
+        if (propType & 1 /* String */) {
+            // could have been passed as a number or boolean
+            // but we still want it as a string
+            return String(propValue);
+        }
         // redundant return here for better minification
         return propValue;
     }
@@ -690,7 +775,7 @@ const setValue = (ref, propName, newVal, cmpMeta) => {
     const oldVal = hostRef.$instanceValues$.get(propName);
     const flags = hostRef.$flags$;
     const instance = hostRef.$lazyInstance$ ;
-    newVal = parsePropertyValue(newVal);
+    newVal = parsePropertyValue(newVal, cmpMeta.$members$[propName][0]);
     if ((!(flags & 8 /* isConstructingInstance */) || oldVal === undefined) && newVal !== oldVal) {
         // gadzooks! the property's value has changed!!
         // set our new value!
@@ -721,13 +806,34 @@ const proxyComponent = (Cstr, cmpMeta, flags) => {
                     },
                     set(newValue) {
                         // proxyComponent, set value
-                        setValue(this, memberName, newValue);
+                        setValue(this, memberName, newValue, cmpMeta);
                     },
                     configurable: true,
                     enumerable: true,
                 });
             }
         });
+        if ((flags & 1 /* isElementConstructor */)) {
+            const attrNameToPropName = new Map();
+            prototype.attributeChangedCallback = function (attrName, _oldValue, newValue) {
+                plt.jmp(() => {
+                    const propName = attrNameToPropName.get(attrName);
+                    this[propName] = newValue === null && typeof this[propName] === 'boolean' ? false : newValue;
+                });
+            };
+            // create an array of attributes to observe
+            // and also create a map of html attribute name to js property name
+            Cstr.observedAttributes = members
+                .filter(([_, m]) => m[0] & 15 /* HasAttribute */) // filter to only keep props that should match attributes
+                .map(([propName, m]) => {
+                const attrName = m[1] || propName;
+                attrNameToPropName.set(attrName, propName);
+                if (m[0] & 512 /* ReflectAttr */) {
+                    cmpMeta.$attrsToReflect$.push([propName, attrName]);
+                }
+                return attrName;
+            });
+        }
     }
     return Cstr;
 };
@@ -823,6 +929,17 @@ const connectedCallback = (elm) => {
                     }
                 }
             }
+            // Lazy properties
+            // https://developers.google.com/web/fundamentals/web-components/best-practices#lazy-properties
+            if (cmpMeta.$members$) {
+                Object.entries(cmpMeta.$members$).map(([memberName, [memberFlags]]) => {
+                    if (memberFlags & 31 /* Prop */ && elm.hasOwnProperty(memberName)) {
+                        const value = elm[memberName];
+                        delete elm[memberName];
+                        elm[memberName] = value;
+                    }
+                });
+            }
             {
                 initializeComponent(elm, hostRef, cmpMeta);
             }
@@ -857,6 +974,9 @@ const bootstrapLazy = (lazyBundles, options = {}) => {
         };
         {
             cmpMeta.$members$ = compactMeta[2];
+        }
+        {
+            cmpMeta.$attrsToReflect$ = [];
         }
         const tagName = cmpMeta.$tagName$;
         const HostElement = class extends HTMLElement {
@@ -950,11 +1070,11 @@ const loadModule = (cmpMeta, hostRef, hmrVersionId) => {
     if (module) {
         return module[exportName];
     }
-    return import(
+    return Promise.resolve().then(function () { return /*#__PURE__*/_interopNamespace(require(
     /* webpackInclude: /\.entry\.js$/ */
     /* webpackExclude: /\.system\.entry\.js$/ */
     /* webpackMode: "lazy" */
-    `./${bundleId}.entry.js${''}`).then(importedModule => {
+    `./${bundleId}.entry.js${''}`)); }).then(importedModule => {
         {
             cmpModules.set(bundleId, importedModule);
         }
@@ -1005,4 +1125,11 @@ const flush = () => {
 const nextTick = /*@__PURE__*/ (cb) => promiseResolve().then(cb);
 const writeTask = /*@__PURE__*/ queueTask(queueDomWrites, true);
 
-export { Host as H, bootstrapLazy as b, createEvent as c, h, promiseResolve as p, registerInstance as r };
+exports.Host = Host;
+exports.bootstrapLazy = bootstrapLazy;
+exports.createEvent = createEvent;
+exports.forceUpdate = forceUpdate;
+exports.getRenderingRef = getRenderingRef;
+exports.h = h;
+exports.promiseResolve = promiseResolve;
+exports.registerInstance = registerInstance;

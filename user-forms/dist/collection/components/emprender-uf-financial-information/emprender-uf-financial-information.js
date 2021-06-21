@@ -1,5 +1,4 @@
-import { Component, Host, h, State, Event } from '@stencil/core';
-import { loadCSS, loadScript } from '../../utils/utils';
+import { Component, Host, h, Event, Prop } from '@stencil/core';
 export class EmprenderUfFinancialInformation {
   constructor() {
     this.model = {
@@ -17,10 +16,6 @@ export class EmprenderUfFinancialInformation {
       totalLiabilities: 0,
     };
   }
-  async componentWillLoad() {
-    await loadCSS("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500&family=Varela+Round&display=swap");
-    await loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
-  }
   _setModel(field, value) {
     this.model = Object.assign(Object.assign({}, this.model), { [field]: value });
   }
@@ -36,7 +31,7 @@ export class EmprenderUfFinancialInformation {
                 h("div", { class: "row mb20" },
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Ingresos mensuales por concepto de salario fijo", inputOptions: { type: 'number', min: 0 }, onInputChange: (ev) => this._setModel("salaryIncome", ev.detail) })),
+                      h("emprender-cl-input", { label: "Ingresos mensuales por concepto de salario fijo", value: this.model.salaryIncome, inputOptions: { type: 'number', min: 0 }, onInputChange: (ev) => this._setModel("salaryIncome", ev.detail) })),
                     h("fieldset", null,
                       h("emprender-cl-input", { label: "Ingresos mensuales por concepto de salario variable (promedio)", inputOptions: { type: 'number', min: 0 }, onInputChange: (ev) => this._setModel("variableSalaryIncome", ev.detail) })),
                     h("fieldset", null,
@@ -72,8 +67,28 @@ export class EmprenderUfFinancialInformation {
   static get styleUrls() { return {
     "$": ["emprender-uf-financial-information.css"]
   }; }
-  static get states() { return {
-    "model": {}
+  static get properties() { return {
+    "model": {
+      "type": "unknown",
+      "mutable": true,
+      "complexType": {
+        "original": "FinancialInformation",
+        "resolved": "FinancialInformation",
+        "references": {
+          "FinancialInformation": {
+            "location": "import",
+            "path": "../../module/models"
+          }
+        }
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "defaultValue": "{\n    salaryIncome: 0,\n    variableSalaryIncome: 0,\n    otherIncomes: 0,\n    otherIncomesDescription: \"\",\n    totalAssets: 0,\n    personalExpenses: 0,\n    rentExpenses: 0,\n    debtExpenses: 0,\n    otherExpenses: 0,\n    otherExpensesDescription: \"\",\n    totalExpenses: 0,\n    totalLiabilities: 0,\n  }"
+    }
   }; }
   static get events() { return [{
       "method": "infoSaved",

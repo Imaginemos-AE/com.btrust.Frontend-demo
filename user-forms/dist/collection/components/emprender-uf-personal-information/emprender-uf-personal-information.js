@@ -1,6 +1,5 @@
-import { Component, h, State, Host, Event } from '@stencil/core';
+import { Component, h, State, Host, Event, Prop } from '@stencil/core';
 import { COUNTRY } from '../../utils/country';
-import { loadCSS, loadScript } from '../../utils/utils';
 export class EmprenderUfPersonalInformation {
   constructor() {
     this.model = {
@@ -23,10 +22,6 @@ export class EmprenderUfPersonalInformation {
       gender: ""
     };
     this.departments = COUNTRY;
-  }
-  async componentWillLoad() {
-    await loadCSS("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500&family=Varela+Round&display=swap");
-    await loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
   }
   _setModel(field, value) {
     this.model = Object.assign(Object.assign({}, this.model), { [field]: value });
@@ -58,19 +53,19 @@ export class EmprenderUfPersonalInformation {
                 h("div", { class: "row mb22" },
                   h("div", { class: "col-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Primer nombre", onInputChange: (ev) => this._setModel("firstName", ev.detail) }))),
+                      h("emprender-cl-input", { label: "Primer nombre", value: this.model.firstName, onInputChange: (ev) => this._setModel("firstName", ev.detail) }))),
                   h("div", { class: "col-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Segundo nombre", onInputChange: (ev) => this._setModel("middleName", ev.detail) }))),
+                      h("emprender-cl-input", { label: "Segundo nombre", value: this.model.middleName, onInputChange: (ev) => this._setModel("middleName", ev.detail) }))),
                   h("div", { class: "col-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Primer apellido", onInputChange: (ev) => this._setModel("surName", ev.detail) }))),
+                      h("emprender-cl-input", { label: "Primer apellido", value: this.model.surName, onInputChange: (ev) => this._setModel("surName", ev.detail) }))),
                   h("div", { class: "col-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Segundo apellido", onInputChange: (ev) => this._setModel("secondSurName", ev.detail) }))),
+                      h("emprender-cl-input", { label: "Segundo apellido", value: this.model.secondSurName, onInputChange: (ev) => this._setModel("secondSurName", ev.detail) }))),
                   h("div", { class: "col-md-6 col-lg-4" },
                     h("fieldset", { class: "mb17" },
-                      h("emprender-cl-select", { label: "Tipo de Documento", onSelectChange: (ev) => this._setModel("documentType", ev.detail) },
+                      h("emprender-cl-select", { label: "Tipo de Documento", value: this.model.documentType, onSelectChange: (ev) => this._setModel("documentType", ev.detail) },
                         h("option", { value: "cedula_ciudadania" }, "C\u00E9dula de ciudadan\u00EDa"),
                         h("option", { value: "cedula_extranjeria" }, "C\u00E9dula de extranjer\u00EDa"),
                         h("option", { value: "nit" }, "NIT")))),
@@ -79,7 +74,7 @@ export class EmprenderUfPersonalInformation {
                       h("emprender-cl-input", { label: "N\u00FAmero de documento", onInputChange: (ev) => this._setModel("documentNumber", ev.detail) }))),
                   h("div", { class: "col-lg-4" },
                     h("fieldset", { class: "mb17" },
-                      h("emprender-cl-input", { label: "Fecha de expedici\u00F3n", inputOptions: { type: 'date' }, onInputChange: (ev) => this._setModel("expeditionDate", ev.detail) }))),
+                      h("emprender-cl-input", { label: "Fecha de expedici\u00F3n", value: this.model.expeditionDate, inputOptions: { type: 'date' }, onInputChange: (ev) => this._setModel("expeditionDate", ev.detail) }))),
                   h("div", { class: "col-lg-6" },
                     h("fieldset", { class: "mb2" },
                       h("label", null, "Ciudad y departamento de expedici\u00F3n del documento"),
@@ -132,8 +127,30 @@ export class EmprenderUfPersonalInformation {
   static get styleUrls() { return {
     "$": ["emprender-uf-personal-information.css"]
   }; }
+  static get properties() { return {
+    "model": {
+      "type": "unknown",
+      "mutable": true,
+      "complexType": {
+        "original": "PersonalInformation",
+        "resolved": "PersonalInformation",
+        "references": {
+          "PersonalInformation": {
+            "location": "import",
+            "path": "../../module/models"
+          }
+        }
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "defaultValue": "{\n    firstName: \"\",\n    middleName: \"\",\n    surName: \"\",\n    secondSurName: \"\",\n    documentType: \"\",\n    documentNumber: \"\",\n    expeditionDate: \"\",\n    expeditionDepartment: \"\",\n    expeditionCity: \"\",\n    mobilePhone: \"\",\n    phone: \"\",\n    email: \"\",\n    birthDate: \"\",\n    nationality: \"\",\n    cityOfBirth: \"\",\n    departmentOfBirth: \"\",\n    gender: \"\"\n  }"
+    }
+  }; }
   static get states() { return {
-    "model": {},
     "departments": {}
   }; }
   static get events() { return [{
