@@ -4177,25 +4177,43 @@ const EmprenderClInput$1 = class extends HTMLElement {
     this.__registerHost();
     attachShadow(this);
     this.inputChange = createEvent(this, "inputChange", 7);
+    this.maskValue = "unmasked";
   }
   changeMaskValue() {
-    if (this.inputMask && !this.internalChange)
-      this.inputMask.updateValue();
-    if (this.internalChange)
-      this.internalChange = false;
+    if (this.inputMask) {
+      if (this.maskValue === "unmasked") {
+        this.inputMask.unmaskedValue = this.value;
+      }
+      else {
+        this.inputMask.value = this.value;
+      }
+    }
   }
   componentDidLoad() {
-    if (this.maskOptions)
+    var _a;
+    this.textInput.value = (_a = this.value) !== null && _a !== void 0 ? _a : "";
+    if (this.maskOptions) {
       this.inputMask = IMask(this.textInput, this.maskOptions);
+      this.inputMask.on("accept", (_ev) => {
+        this.setValue(this.getMaskCalculatedValue());
+      });
+    }
   }
   onInputChange() {
-    this.internalChange = true;
-    this.value = this.textInput.value;
+    if (!this.inputMask) {
+      this.setValue(this.textInput.value);
+    }
+  }
+  getMaskCalculatedValue() {
+    return this.inputMask ? (this.maskValue === "unmasked" ? this.inputMask.unmaskedValue : this.inputMask.value) : null;
+  }
+  setValue(newValue) {
+    this.value = newValue;
     this.inputChange.emit(this.value);
   }
   render() {
     var _a;
-    return (h(Host, null, this.label && h("label", { htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && h("span", { class: "req" }, "*")), h("input", Object.assign({ class: "text", ref: (el) => this.textInput = el, value: this.value }, this.inputOptions, { onInput: () => this.onInputChange() }))));
+    return (h(Host, null, this.label && h("label", { htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && h("span", { class: "req" }, "*")), h("input", Object.assign({ class: "text", ref: (el) => this.textInput = el }, this.inputOptions, { onInput: () => this.onInputChange() }))));
   }
   static get watchers() { return {
     "value": ["changeMaskValue"]
@@ -4236,7 +4254,7 @@ const EmprenderClSelect$1 = class extends HTMLElement {
 
 const EmprenderClButton = /*@__PURE__*/proxyCustomElement(EmprenderClButton$1, [1,"emprender-cl-button",{"text":[513],"modifiers":[513]}]);
 const EmprenderClIcon = /*@__PURE__*/proxyCustomElement(EmprenderClIcon$1, [1,"emprender-cl-icon",{"icon":[513]}]);
-const EmprenderClInput = /*@__PURE__*/proxyCustomElement(EmprenderClInput$1, [1,"emprender-cl-input",{"label":[1],"inputOptions":[8,"input-options"],"requiredIndicator":[4,"required-indicator"],"maskOptions":[8,"mask-options"],"value":[1537]}]);
+const EmprenderClInput = /*@__PURE__*/proxyCustomElement(EmprenderClInput$1, [1,"emprender-cl-input",{"label":[1],"inputOptions":[8,"input-options"],"requiredIndicator":[4,"required-indicator"],"maskOptions":[8,"mask-options"],"maskValue":[1,"mask-value"],"value":[1537]}]);
 const EmprenderClSelect = /*@__PURE__*/proxyCustomElement(EmprenderClSelect$1, [1,"emprender-cl-select",{"label":[1],"options":[16],"value":[1537],"selectInputOptions":[8,"select-input-options"],"requiredIndicator":[4,"required-indicator"]}]);
 const defineCustomElements = (opts) => {
   if (typeof customElements !== 'undefined') {

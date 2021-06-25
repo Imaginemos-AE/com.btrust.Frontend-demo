@@ -17,6 +17,7 @@ export namespace Components {
         "inputOptions": any;
         "label": string;
         "maskOptions": any;
+        "maskValue": "masked" | "unmasked";
         "requiredIndicator": boolean;
         "value": string;
     }
@@ -72,6 +73,7 @@ declare namespace LocalJSX {
         "inputOptions"?: any;
         "label"?: string;
         "maskOptions"?: any;
+        "maskValue"?: "masked" | "unmasked";
         "onInputChange"?: (event: CustomEvent<string>) => void;
         "requiredIndicator"?: boolean;
         "value"?: string;

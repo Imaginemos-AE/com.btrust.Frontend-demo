@@ -1,19 +1,39 @@
 import { Component, Host, h, Prop, Event, Watch } from '@stencil/core';
 import IMask from 'imask';
 export class EmprenderClInput {
+  constructor() {
+    this.maskValue = "unmasked";
+  }
   changeMaskValue() {
-    if (this.inputMask && !this.internalChange)
-      this.inputMask.updateValue();
-    if (this.internalChange)
-      this.internalChange = false;
+    if (this.inputMask) {
+      if (this.maskValue === "unmasked") {
+        this.inputMask.unmaskedValue = this.value;
+      }
+      else {
+        this.inputMask.value = this.value;
+      }
+    }
   }
   componentDidLoad() {
-    if (this.maskOptions)
+    var _a;
+    this.textInput.value = (_a = this.value) !== null && _a !== void 0 ? _a : "";
+    if (this.maskOptions) {
       this.inputMask = IMask(this.textInput, this.maskOptions);
+      this.inputMask.on("accept", (_ev) => {
+        this.setValue(this.getMaskCalculatedValue());
+      });
+    }
   }
   onInputChange() {
-    this.internalChange = true;
-    this.value = this.textInput.value;
+    if (!this.inputMask) {
+      this.setValue(this.textInput.value);
+    }
+  }
+  getMaskCalculatedValue() {
+    return this.inputMask ? (this.maskValue === "unmasked" ? this.inputMask.unmaskedValue : this.inputMask.value) : null;
+  }
+  setValue(newValue) {
+    this.value = newValue;
     this.inputChange.emit(this.value);
   }
   render() {
@@ -22,7 +42,7 @@ export class EmprenderClInput {
       this.label && h("label", { htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id },
         this.label,
         this.requiredIndicator && h("span", { class: "req" }, "*")),
-      h("input", Object.assign({ class: "text", ref: (el) => this.textInput = el, value: this.value }, this.inputOptions, { onInput: () => this.onInputChange() }))));
+      h("input", Object.assign({ class: "text", ref: (el) => this.textInput = el }, this.inputOptions, { onInput: () => this.onInputChange() }))));
   }
   static get is() { return "emprender-cl-input"; }
   static get encapsulation() { return "shadow"; }
@@ -100,6 +120,24 @@ export class EmprenderClInput {
       },
       "attribute": "mask-options",
       "reflect": false
+    },
+    "maskValue": {
+      "type": "string",
+      "mutable": false,
+      "complexType": {
+        "original": "\"masked\" | \"unmasked\"",
+        "resolved": "\"masked\" | \"unmasked\"",
+        "references": {}
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "mask-value",
+      "reflect": false,
+      "defaultValue": "\"unmasked\""
     },
     "value": {
       "type": "string",

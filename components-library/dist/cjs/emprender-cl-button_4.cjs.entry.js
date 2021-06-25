@@ -4174,25 +4174,43 @@ const EmprenderClInput = class {
   constructor(hostRef) {
     index.registerInstance(this, hostRef);
     this.inputChange = index.createEvent(this, "inputChange", 7);
+    this.maskValue = "unmasked";
   }
   changeMaskValue() {
-    if (this.inputMask && !this.internalChange)
-      this.inputMask.updateValue();
-    if (this.internalChange)
-      this.internalChange = false;
+    if (this.inputMask) {
+      if (this.maskValue === "unmasked") {
+        this.inputMask.unmaskedValue = this.value;
+      }
+      else {
+        this.inputMask.value = this.value;
+      }
+    }
   }
   componentDidLoad() {
-    if (this.maskOptions)
+    var _a;
+    this.textInput.value = (_a = this.value) !== null && _a !== void 0 ? _a : "";
+    if (this.maskOptions) {
       this.inputMask = IMask(this.textInput, this.maskOptions);
+      this.inputMask.on("accept", (_ev) => {
+        this.setValue(this.getMaskCalculatedValue());
+      });
+    }
   }
   onInputChange() {
-    this.internalChange = true;
-    this.value = this.textInput.value;
+    if (!this.inputMask) {
+      this.setValue(this.textInput.value);
+    }
+  }
+  getMaskCalculatedValue() {
+    return this.inputMask ? (this.maskValue === "unmasked" ? this.inputMask.unmaskedValue : this.inputMask.value) : null;
+  }
+  setValue(newValue) {
+    this.value = newValue;
     this.inputChange.emit(this.value);
   }
   render() {
     var _a;
-    return (index.h(index.Host, null, this.label && index.h("label", { htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && index.h("span", { class: "req" }, "*")), index.h("input", Object.assign({ class: "text", ref: (el) => this.textInput = el, value: this.value }, this.inputOptions, { onInput: () => this.onInputChange() }))));
+    return (index.h(index.Host, null, this.label && index.h("label", { htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && index.h("span", { class: "req" }, "*")), index.h("input", Object.assign({ class: "text", ref: (el) => this.textInput = el }, this.inputOptions, { onInput: () => this.onInputChange() }))));
   }
   static get watchers() { return {
     "value": ["changeMaskValue"]
