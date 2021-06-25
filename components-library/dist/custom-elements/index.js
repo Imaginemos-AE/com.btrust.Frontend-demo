@@ -4178,12 +4178,18 @@ const EmprenderClInput$1 = class extends HTMLElement {
     attachShadow(this);
     this.inputChange = createEvent(this, "inputChange", 7);
   }
+  changeMaskValue() {
+    if (this.inputMask && !this.internalChange)
+      this.inputMask.updateValue();
+    if (this.internalChange)
+      this.internalChange = false;
+  }
   componentDidLoad() {
-    if (this.maskOptions) {
-      this.numberMask = IMask(this.textInput, this.maskOptions);
-    }
+    if (this.maskOptions)
+      this.inputMask = IMask(this.textInput, this.maskOptions);
   }
   onInputChange() {
+    this.internalChange = true;
     this.value = this.textInput.value;
     this.inputChange.emit(this.value);
   }
@@ -4191,6 +4197,9 @@ const EmprenderClInput$1 = class extends HTMLElement {
     var _a;
     return (h(Host, null, this.label && h("label", { htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && h("span", { class: "req" }, "*")), h("input", Object.assign({ class: "text", ref: (el) => this.textInput = el, value: this.value }, this.inputOptions, { onInput: () => this.onInputChange() }))));
   }
+  static get watchers() { return {
+    "value": ["changeMaskValue"]
+  }; }
   static get style() { return emprenderClInputCss; }
 };
 

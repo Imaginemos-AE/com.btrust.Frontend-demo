@@ -1,12 +1,18 @@
-import { Component, Host, h, Prop, Event } from '@stencil/core';
+import { Component, Host, h, Prop, Event, Watch } from '@stencil/core';
 import IMask from 'imask';
 export class EmprenderClInput {
+  changeMaskValue() {
+    if (this.inputMask && !this.internalChange)
+      this.inputMask.updateValue();
+    if (this.internalChange)
+      this.internalChange = false;
+  }
   componentDidLoad() {
-    if (this.maskOptions) {
-      this.numberMask = IMask(this.textInput, this.maskOptions);
-    }
+    if (this.maskOptions)
+      this.inputMask = IMask(this.textInput, this.maskOptions);
   }
   onInputChange() {
+    this.internalChange = true;
     this.value = this.textInput.value;
     this.inputChange.emit(this.value);
   }
@@ -128,5 +134,9 @@ export class EmprenderClInput {
         "resolved": "string",
         "references": {}
       }
+    }]; }
+  static get watchers() { return [{
+      "propName": "value",
+      "methodName": "changeMaskValue"
     }]; }
 }
