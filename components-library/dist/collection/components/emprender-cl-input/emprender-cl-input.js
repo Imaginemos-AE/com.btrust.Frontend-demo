@@ -1,5 +1,11 @@
 import { Component, Host, h, Prop, Event } from '@stencil/core';
+import IMask from 'imask';
 export class EmprenderClInput {
+  componentDidLoad() {
+    if (this.maskOptions) {
+      this.numberMask = IMask(this.textInput, this.maskOptions);
+    }
+  }
   onInputChange() {
     this.value = this.textInput.value;
     this.inputChange.emit(this.value);
@@ -70,6 +76,23 @@ export class EmprenderClInput {
         "text": ""
       },
       "attribute": "required-indicator",
+      "reflect": false
+    },
+    "maskOptions": {
+      "type": "any",
+      "mutable": false,
+      "complexType": {
+        "original": "any",
+        "resolved": "any",
+        "references": {}
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "mask-options",
       "reflect": false
     },
     "value": {

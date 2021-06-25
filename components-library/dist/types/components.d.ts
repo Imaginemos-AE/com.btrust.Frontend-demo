@@ -16,6 +16,7 @@ export namespace Components {
     interface EmprenderClInput {
         "inputOptions": any;
         "label": string;
+        "maskOptions": any;
         "requiredIndicator": boolean;
         "value": string;
     }
@@ -70,6 +71,7 @@ declare namespace LocalJSX {
     interface EmprenderClInput {
         "inputOptions"?: any;
         "label"?: string;
+        "maskOptions"?: any;
         "onInputChange"?: (event: CustomEvent<string>) => void;
         "requiredIndicator"?: boolean;
         "value"?: string;
