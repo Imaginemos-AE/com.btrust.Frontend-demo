@@ -16,6 +16,8 @@
   text-transform: none;
   text-align: center;
   max-width: 100%;
+  min-width: var(--emprender-cl-button-min-width);
+  margin: var(--emprender-cl-button-margin);
 }
 .button.xsmall {
   height: 20px;
