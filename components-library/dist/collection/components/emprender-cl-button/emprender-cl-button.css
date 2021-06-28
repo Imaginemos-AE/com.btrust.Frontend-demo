@@ -77,14 +77,14 @@
 }
 .button.tertiary {
   background-color: var(--tertiary-color, #00779a);
-  color: var(--secondary-color);
+  color: var(--secondary-color, #f8b23f);
 }
 .button.tertiary:hover {
   opacity: 0.9;
 }
 .button.quaternary {
   background-color: var(--quaternary-color, #e13d4c);
-  color: var(--secondary-color);
+  color: var(--secondary-color, #f8b23f);
 }
 .button.quaternary:hover {
   opacity: 0.9;
