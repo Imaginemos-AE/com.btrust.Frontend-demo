@@ -1,4 +1,4 @@
-import { Component, Host, h, State, Event } from '@stencil/core';
+import { Component, Host, h, Event, Prop } from '@stencil/core';
 import { loadCSS, loadScript } from '../../utils/utils';
 export class EmprenderUserBiometricsResult {
   constructor() {
@@ -36,8 +36,25 @@ export class EmprenderUserBiometricsResult {
   static get styleUrls() { return {
     "$": ["emprender-user-biometrics-result.css"]
   }; }
-  static get states() { return {
-    "state": {}
+  static get properties() { return {
+    "state": {
+      "type": "string",
+      "mutable": false,
+      "complexType": {
+        "original": "'initial' | 'loading' | 'failure' | 'success'",
+        "resolved": "\"failure\" | \"initial\" | \"loading\" | \"success\"",
+        "references": {}
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "state",
+      "reflect": false,
+      "defaultValue": "'initial'"
+    }
   }; }
   static get events() { return [{
       "method": "continue",

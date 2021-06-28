@@ -16,6 +16,7 @@ export namespace Components {
         "adoConfig": string;
     }
     interface EmprenderUserBiometricsResult {
+        "state": 'initial' | 'loading' | 'failure' | 'success';
     }
 }
 declare global {
@@ -72,6 +73,7 @@ declare namespace LocalJSX {
     }
     interface EmprenderUserBiometricsResult {
         "onContinue"?: (event: CustomEvent<string>) => void;
+        "state"?: 'initial' | 'loading' | 'failure' | 'success';
     }
     interface IntrinsicElements {
         "emprender-ub-failure": EmprenderUbFailure;

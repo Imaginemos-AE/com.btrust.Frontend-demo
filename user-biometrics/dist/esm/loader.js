@@ -10,7 +10,7 @@ const patchEsm = () => {
 const defineCustomElements = (win, options) => {
   if (typeof window === 'undefined') return Promise.resolve();
   return patchEsm().then(() => {
-  return bootstrapLazy([["emprender-ub-failure_2",[[1,"emprender-ub-failure"],[1,"emprender-ub-success"]]],["emprender-user-biometrics-result",[[1,"emprender-user-biometrics-result",{"state":[32]}]]],["emprender-ub-home_2",[[1,"emprender-user-biometrics",{"adoConfig":[1,"ado-config"]}],[1,"emprender-ub-home"]]]], options);
+  return bootstrapLazy([["emprender-ub-failure_2",[[1,"emprender-ub-failure"],[1,"emprender-ub-success"]]],["emprender-user-biometrics-result",[[1,"emprender-user-biometrics-result",{"state":[1]}]]],["emprender-ub-home_2",[[1,"emprender-user-biometrics",{"adoConfig":[1,"ado-config"]}],[1,"emprender-ub-home"]]]], options);
   });
 };
 

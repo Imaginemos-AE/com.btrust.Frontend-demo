@@ -214,8 +214,6 @@ const EmprenderUserBiometrics = class {
     index.registerInstance(this, hostRef);
   }
   async componentWillLoad() {
-    console.log(this.adoConfig);
-    console.log(typeof this.adoConfig);
     state.adoCofiguration = JSON.parse(this.adoConfig);
     await utils.loadCSS("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Varela+Round&display=swap");
     await utils.loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');

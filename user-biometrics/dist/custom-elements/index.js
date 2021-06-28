@@ -275,8 +275,6 @@ const EmprenderUserBiometrics$1 = class extends HTMLElement {
     attachShadow(this);
   }
   async componentWillLoad() {
-    console.log(this.adoConfig);
-    console.log(typeof this.adoConfig);
     state.adoCofiguration = JSON.parse(this.adoConfig);
     await loadCSS("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Varela+Round&display=swap");
     await loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
@@ -327,7 +325,7 @@ const EmprenderUbFailure = /*@__PURE__*/proxyCustomElement(EmprenderUbFailure$1,
 const EmprenderUbHome = /*@__PURE__*/proxyCustomElement(EmprenderUbHome$1, [1,"emprender-ub-home"]);
 const EmprenderUbSuccess = /*@__PURE__*/proxyCustomElement(EmprenderUbSuccess$1, [1,"emprender-ub-success"]);
 const EmprenderUserBiometrics = /*@__PURE__*/proxyCustomElement(EmprenderUserBiometrics$1, [1,"emprender-user-biometrics",{"adoConfig":[1,"ado-config"]}]);
-const EmprenderUserBiometricsResult = /*@__PURE__*/proxyCustomElement(EmprenderUserBiometricsResult$1, [1,"emprender-user-biometrics-result",{"state":[32]}]);
+const EmprenderUserBiometricsResult = /*@__PURE__*/proxyCustomElement(EmprenderUserBiometricsResult$1, [1,"emprender-user-biometrics-result",{"state":[1]}]);
 const defineCustomElements = (opts) => {
   if (typeof customElements !== 'undefined') {
     [
