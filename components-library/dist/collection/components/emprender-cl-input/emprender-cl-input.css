@@ -33,7 +33,7 @@ input.text:focus {
 }
 
 label {
-  color: var(--primary-color, #51215B);
+  color: var(--primary-color, #51215b);
   font-family: var(--secondary-font, "Varela Round", sans-serif);
   display: block;
   font-size: 14px;

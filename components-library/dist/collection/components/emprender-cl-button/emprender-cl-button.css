@@ -61,18 +61,32 @@
   margin-left: 15px;
 }
 .button.primary {
-  background-color: var(--primary-color, #51215B);
-  color: var(--secondary-color, #F8B23F);
+  background-color: var(--primary-color, #51215b);
+  color: var(--secondary-color, #f8b23f);
 }
 .button.primary:hover {
-  background-color: var(--secondary-color, #F8B23F);
-  color: var(--primary-color, #51215B);
+  background-color: var(--secondary-color, #f8b23f);
+  color: var(--primary-color, #51215b);
 }
 .button.secondary {
-  background-color: var(--secondary-color, #F8B23F);
-  color: var(--primary-color, #51215B);
+  background-color: var(--secondary-color, #f8b23f);
+  color: var(--primary-color, #51215b);
 }
 .button.secondary:hover {
+  opacity: 0.9;
+}
+.button.tertiary {
+  background-color: var(--tertiary-color, #00779a);
+  color: var(--secondary-color);
+}
+.button.tertiary:hover {
+  opacity: 0.9;
+}
+.button.quaternary {
+  background-color: var(--quaternary-color, #e13d4c);
+  color: var(--secondary-color);
+}
+.button.quaternary:hover {
   opacity: 0.9;
 }
 .button.disabled {
