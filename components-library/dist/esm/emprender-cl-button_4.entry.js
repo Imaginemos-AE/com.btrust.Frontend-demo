@@ -8,7 +8,7 @@ const EmprenderClButton = class {
   }
   render() {
     var _a;
-    return (h(Host, null, h("button", { class: `button ${(_a = this.modifiers) !== null && _a !== void 0 ? _a : ''}` }, this.text)));
+    return (h(Host, null, h("button", { class: `button ${(_a = this.modifiers) !== null && _a !== void 0 ? _a : ''}`, style: this.buttonStyle }, this.text)));
   }
 };
 EmprenderClButton.style = emprenderClButtonCss;

@@ -3,7 +3,7 @@ export class EmprenderClButton {
   render() {
     var _a;
     return (h(Host, null,
-      h("button", { class: `button ${(_a = this.modifiers) !== null && _a !== void 0 ? _a : ''}` }, this.text)));
+      h("button", { class: `button ${(_a = this.modifiers) !== null && _a !== void 0 ? _a : ''}`, style: this.buttonStyle }, this.text)));
   }
   static get is() { return "emprender-cl-button"; }
   static get encapsulation() { return "shadow"; }
@@ -46,6 +46,23 @@ export class EmprenderClButton {
         "text": ""
       },
       "attribute": "modifiers",
+      "reflect": true
+    },
+    "buttonStyle": {
+      "type": "any",
+      "mutable": false,
+      "complexType": {
+        "original": "any",
+        "resolved": "any",
+        "references": {}
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "button-style",
       "reflect": true
     }
   }; }

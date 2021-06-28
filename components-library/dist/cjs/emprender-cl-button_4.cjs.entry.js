@@ -12,7 +12,7 @@ const EmprenderClButton = class {
   }
   render() {
     var _a;
-    return (index.h(index.Host, null, index.h("button", { class: `button ${(_a = this.modifiers) !== null && _a !== void 0 ? _a : ''}` }, this.text)));
+    return (index.h(index.Host, null, index.h("button", { class: `button ${(_a = this.modifiers) !== null && _a !== void 0 ? _a : ''}`, style: this.buttonStyle }, this.text)));
   }
 };
 EmprenderClButton.style = emprenderClButtonCss;

@@ -7,6 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
 export namespace Components {
     interface EmprenderClButton {
+        "buttonStyle": any;
         "modifiers": string;
         "text": string;
     }
@@ -63,6 +64,7 @@ declare global {
 }
 declare namespace LocalJSX {
     interface EmprenderClButton {
+        "buttonStyle"?: any;
         "modifiers"?: string;
         "text"?: string;
     }

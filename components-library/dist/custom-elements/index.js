@@ -11,7 +11,7 @@ const EmprenderClButton$1 = class extends HTMLElement {
   }
   render() {
     var _a;
-    return (h(Host, null, h("button", { class: `button ${(_a = this.modifiers) !== null && _a !== void 0 ? _a : ''}` }, this.text)));
+    return (h(Host, null, h("button", { class: `button ${(_a = this.modifiers) !== null && _a !== void 0 ? _a : ''}`, style: this.buttonStyle }, this.text)));
   }
   static get style() { return emprenderClButtonCss; }
 };
@@ -4252,7 +4252,7 @@ const EmprenderClSelect$1 = class extends HTMLElement {
   static get style() { return emprenderClSelectCss; }
 };
 
-const EmprenderClButton = /*@__PURE__*/proxyCustomElement(EmprenderClButton$1, [1,"emprender-cl-button",{"text":[513],"modifiers":[513]}]);
+const EmprenderClButton = /*@__PURE__*/proxyCustomElement(EmprenderClButton$1, [1,"emprender-cl-button",{"text":[513],"modifiers":[513],"buttonStyle":[520,"button-style"]}]);
 const EmprenderClIcon = /*@__PURE__*/proxyCustomElement(EmprenderClIcon$1, [1,"emprender-cl-icon",{"icon":[513]}]);
 const EmprenderClInput = /*@__PURE__*/proxyCustomElement(EmprenderClInput$1, [1,"emprender-cl-input",{"label":[1],"inputOptions":[8,"input-options"],"requiredIndicator":[4,"required-indicator"],"maskOptions":[8,"mask-options"],"maskValue":[1,"mask-value"],"value":[1537]}]);
 const EmprenderClSelect = /*@__PURE__*/proxyCustomElement(EmprenderClSelect$1, [1,"emprender-cl-select",{"label":[1],"options":[16],"value":[1537],"selectInputOptions":[8,"select-input-options"],"requiredIndicator":[4,"required-indicator"]}]);
