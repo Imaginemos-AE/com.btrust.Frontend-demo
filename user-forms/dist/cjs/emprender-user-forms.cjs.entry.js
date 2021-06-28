@@ -3,6 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const index = require('./index-203dfa5e.js');
+const utils = require('./utils-8944f962.js');
 
 const appendToMap = (map, propName, value) => {
     const items = map.get(propName);
@@ -202,35 +203,6 @@ function setUserInformation(field, newData) {
   setData(state.currentUserInformation);
 }
 
-function loadScript(url, id, type) {
-  return new Promise(resolve => {
-    document.body.appendChild(Object.assign(document.createElement('script'), {
-      type: type,
-      async: true,
-      defer: true,
-      id: id,
-      src: url,
-      onload: resolve
-    }));
-  });
-}
-function loadCSS(url) {
-  return new Promise(resolve => {
-    const links = document.getElementsByTagName('link');
-    const exist = Array.from(links).some(_link => _link.href === url);
-    if (!exist) {
-      const link = document.createElement('link');
-      link.onload = resolve;
-      link.href = url;
-      link.rel = 'stylesheet';
-      document.head.appendChild(link);
-    }
-    else {
-      resolve(true);
-    }
-  });
-}
-
 const emprenderUserFormsCss = ":host{display:block}";
 
 const EMPLOYEE_FLOW = [
@@ -251,27 +223,42 @@ const EmprenderUserForms = class {
   constructor(hostRef) {
     index.registerInstance(this, hostRef);
     this.infoSaved = index.createEvent(this, "infoSaved", 7);
+    this.backSaved = index.createEvent(this, "backSaved", 7);
     this.flowType = 'employee';
     this.step = 0;
     this._getFlow = () => this.flowType === 'employee' ? EMPLOYEE_FLOW : INDEPENDENT_FLOW;
     this._getData = (field) => { var _a; return ((_a = state.currentUserInformation) !== null && _a !== void 0 ? _a : {})[field]; };
   }
   async componentWillLoad() {
-    await loadCSS("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500&family=Varela+Round&display=swap");
-    await loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
+    await utils.loadCSS("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500&family=Varela+Round&display=swap");
+    await utils.loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
     loadDefaultData();
   }
   _renderCurrentStep() {
     if (this.step >= 0 && this.step < this._getFlow().length) {
       const { tag, field } = this._getFlow()[this.step];
       const _tag = `emprender-uf-${tag}`;
-      return index.h(_tag, { model: this._getData(field), onInfoSaved: (ev) => this.saveInfo(field, ev.detail) });
+      return index.h(_tag, { model: this._getData(field), flow: this.flowType, onInfoSaved: (ev) => this.saveInfo(field, ev.detail), onBack: (ev) => this.onBackPressed(field, ev.detail) });
+    }
+  }
+  _updateStep(direction) {
+    if (direction === 'up') {
+      const max = (this._getFlow().length - 1);
+      this.step = this.step < max ? this.step + 1 : max;
+    }
+    else {
+      this.step = this.step != 0 ? this.step - 1 : 0;
     }
   }
   saveInfo(field, data) {
     setUserInformation(field, data);
-    this.step = this.step + 1;
+    this._updateStep("up");
     this.infoSaved.emit(state.currentUserInformation);
+  }
+  onBackPressed(field, data) {
+    setUserInformation(field, data);
+    this._updateStep("down");
+    this.backSaved.emit(state.currentUserInformation);
   }
   render() {
     return (index.h(index.Host, null, this._renderCurrentStep()));

@@ -73,6 +73,7 @@ declare global {
 declare namespace LocalJSX {
     interface EmprenderUfFinancialInformation {
         "model"?: FinancialInformation;
+        "onBack"?: (event: CustomEvent<FinancialInformation>) => void;
         "onInfoSaved"?: (event: CustomEvent<FinancialInformation>) => void;
     }
     interface EmprenderUfPersonalInformation {
@@ -80,16 +81,20 @@ declare namespace LocalJSX {
         "onInfoSaved"?: (event: CustomEvent<PersonalInformation>) => void;
     }
     interface EmprenderUfPersonalInformation2 {
+        "onBack"?: (event: CustomEvent<PersonalInformation2>) => void;
         "onInfoSaved"?: (event: CustomEvent<PersonalInformation2>) => void;
     }
     interface EmprenderUfReferences {
+        "onBack"?: (event: CustomEvent<References>) => void;
         "onInfoSaved"?: (event: CustomEvent<References>) => void;
     }
     interface EmprenderUfWorkingInformation {
+        "onBack"?: (event: CustomEvent<WorkingInformation>) => void;
         "onInfoSaved"?: (event: CustomEvent<WorkingInformation>) => void;
     }
     interface EmprenderUserForms {
         "flowType"?: 'employee' | 'independent';
+        "onBackSaved"?: (event: CustomEvent<UserForm>) => void;
         "onInfoSaved"?: (event: CustomEvent<UserForm>) => void;
         "step"?: number;
     }

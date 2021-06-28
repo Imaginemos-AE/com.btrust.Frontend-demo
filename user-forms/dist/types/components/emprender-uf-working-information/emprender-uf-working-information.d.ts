@@ -3,6 +3,7 @@ import { WorkingInformation } from '../../module/models';
 export declare class EmprenderUfWorkingInformation {
   model: WorkingInformation;
   infoSaved: EventEmitter<WorkingInformation>;
+  back: EventEmitter<WorkingInformation>;
   _setModel(field: string, value: string): void;
   render(): any;
 }

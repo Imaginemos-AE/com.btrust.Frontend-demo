@@ -8,6 +8,7 @@ export declare class EmprenderUfPersonalInformation2 {
     ciudades: string[];
   }[];
   infoSaved: EventEmitter<PersonalInformation2>;
+  back: EventEmitter<PersonalInformation2>;
   _setModel(field: string, value: string): void;
   _getSelectDepartmentOptions(): {
     id: string;

@@ -45,7 +45,7 @@ export class EmprenderUfPersonalInformation2 {
               h("h2", { class: "title" }, "Informaci\u00F3n Personal"),
               h("h4", null, "Completa la siguiente informaci\u00F3n"),
               h("div", { class: "boxForm form p5" },
-                h("div", { class: "row mb20" },
+                h("div", { class: "row" },
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
                       h("emprender-cl-select", { label: "Nivel acad\u00E9mico", onSelectChange: (ev) => this._setModel("academicLevel", ev.detail) },
@@ -103,8 +103,11 @@ export class EmprenderUfPersonalInformation2 {
                       h("emprender-cl-select", { label: "Ocupaci\u00F3n", value: this.model.employment, onSelectChange: (ev) => this._setModel("employment", ev.detail) },
                         h("option", { value: "Empleado" }, "Empleado"),
                         h("option", { value: "Independiente" }, "Independiente"),
-                        h("option", { value: "Pensionado" }, "Pensionado"))))),
-                h("div", { class: "contcenter" },
+                        h("option", { value: "Pensionado" }, "Pensionado")))))),
+              h("ul", { class: "inline flex-center-center mb20" },
+                h("li", null,
+                  h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })),
+                h("li", null,
                   h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this.infoSaved.emit(this.model) }))),
               h("slot", null)))))));
   }
@@ -123,6 +126,26 @@ export class EmprenderUfPersonalInformation2 {
   static get events() { return [{
       "method": "infoSaved",
       "name": "infoSaved",
+      "bubbles": true,
+      "cancelable": true,
+      "composed": true,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "complexType": {
+        "original": "PersonalInformation2",
+        "resolved": "PersonalInformation2",
+        "references": {
+          "PersonalInformation2": {
+            "location": "import",
+            "path": "../../module/models"
+          }
+        }
+      }
+    }, {
+      "method": "back",
+      "name": "back",
       "bubbles": true,
       "cancelable": true,
       "composed": true,

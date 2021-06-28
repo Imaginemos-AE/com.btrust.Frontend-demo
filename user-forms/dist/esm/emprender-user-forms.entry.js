@@ -1,4 +1,5 @@
 import { g as getRenderingRef, f as forceUpdate, r as registerInstance, c as createEvent, h, H as Host } from './index-f70aa622.js';
+import { l as loadCSS, a as loadScript } from './utils-e62f0916.js';
 
 const appendToMap = (map, propName, value) => {
     const items = map.get(propName);
@@ -198,35 +199,6 @@ function setUserInformation(field, newData) {
   setData(state.currentUserInformation);
 }
 
-function loadScript(url, id, type) {
-  return new Promise(resolve => {
-    document.body.appendChild(Object.assign(document.createElement('script'), {
-      type: type,
-      async: true,
-      defer: true,
-      id: id,
-      src: url,
-      onload: resolve
-    }));
-  });
-}
-function loadCSS(url) {
-  return new Promise(resolve => {
-    const links = document.getElementsByTagName('link');
-    const exist = Array.from(links).some(_link => _link.href === url);
-    if (!exist) {
-      const link = document.createElement('link');
-      link.onload = resolve;
-      link.href = url;
-      link.rel = 'stylesheet';
-      document.head.appendChild(link);
-    }
-    else {
-      resolve(true);
-    }
-  });
-}
-
 const emprenderUserFormsCss = ":host{display:block}";
 
 const EMPLOYEE_FLOW = [
@@ -247,6 +219,7 @@ const EmprenderUserForms = class {
   constructor(hostRef) {
     registerInstance(this, hostRef);
     this.infoSaved = createEvent(this, "infoSaved", 7);
+    this.backSaved = createEvent(this, "backSaved", 7);
     this.flowType = 'employee';
     this.step = 0;
     this._getFlow = () => this.flowType === 'employee' ? EMPLOYEE_FLOW : INDEPENDENT_FLOW;
@@ -261,13 +234,27 @@ const EmprenderUserForms = class {
     if (this.step >= 0 && this.step < this._getFlow().length) {
       const { tag, field } = this._getFlow()[this.step];
       const _tag = `emprender-uf-${tag}`;
-      return h(_tag, { model: this._getData(field), onInfoSaved: (ev) => this.saveInfo(field, ev.detail) });
+      return h(_tag, { model: this._getData(field), flow: this.flowType, onInfoSaved: (ev) => this.saveInfo(field, ev.detail), onBack: (ev) => this.onBackPressed(field, ev.detail) });
+    }
+  }
+  _updateStep(direction) {
+    if (direction === 'up') {
+      const max = (this._getFlow().length - 1);
+      this.step = this.step < max ? this.step + 1 : max;
+    }
+    else {
+      this.step = this.step != 0 ? this.step - 1 : 0;
     }
   }
   saveInfo(field, data) {
     setUserInformation(field, data);
-    this.step = this.step + 1;
+    this._updateStep("up");
     this.infoSaved.emit(state.currentUserInformation);
+  }
+  onBackPressed(field, data) {
+    setUserInformation(field, data);
+    this._updateStep("down");
+    this.backSaved.emit(state.currentUserInformation);
   }
   render() {
     return (h(Host, null, this._renderCurrentStep()));

@@ -113,6 +113,20 @@ fieldset {
   font-style: italic;
 }
 
+.totalBox {
+  background-color: #706e6e;
+  border-radius: 5px;
+  padding: 9px;
+  margin-top: 37px;
+  margin-bottom: 0 !important;
+  width: 100%;
+}
+.totalBox label {
+  color: #ffffff;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
 /* Forms
 ============================================================ */
 .form fieldset {
@@ -194,81 +208,29 @@ fieldset.password .showpassword:hover {
   color: var(--primary-color, #51215b);
 }
 
-/* Buttons
+/* Input type file
 ============================================================ */
-.button {
-  box-shadow: none !important;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  font-family: var(--secondary-font, "Varela Round", sans-serif);
-  font-weight: 600;
-  display: inline-block;
-  text-transform: none;
-  text-align: center;
-  max-width: 100%;
+.control {
+  position: relative;
 }
-.button.xsmall {
-  height: 20px;
-  font-size: 12px;
-  padding: 0 15px;
-  line-height: 20px;
+.control .file {
+  display: none;
+  color: white;
+  position: absolute;
 }
-.button.xsmall i {
-  display: inline-block;
+.control .file + label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  line-height: 35px;
+}
+.control .file + label .fakebutton {
+  display: block;
+  margin-right: 10px;
+}
+.control .file + label .filetext {
+  display: block;
   font-size: 13px;
-  position: relative;
-  top: 3px;
-  margin-left: 5px;
-}
-.button.small {
-  height: 26px;
-  font-size: 13px;
-  padding: 0 15px;
-  line-height: 26px;
-}
-.button.small i {
-  display: inline-block;
-  font-size: 16px;
-  position: relative;
-  top: 3px;
-  margin-left: 5px;
-}
-.button.medium {
-  height: 40px;
-  font-size: 15px;
-  padding: 0 40px;
-  line-height: 40px;
-}
-.button.medium.withicon {
-  text-align: left;
-  padding: 0px 20px 0 25px;
-}
-.button.medium.withicon i {
-  display: inline-block;
-  font-size: 20px;
-  position: relative;
-  top: 4px;
-  margin-left: 15px;
-}
-.button.primary {
-  background-color: var(--primary-color, #51215b);
-  color: var(--secondary-color, #f8b23f);
-}
-.button.primary:hover {
-  background-color: var(--secondary-color, #f8b23f);
-  color: var(--primary-color, #51215b);
-}
-.button.secondary {
-  background-color: var(--secondary-color, secondary-color);
-  color: var(--primary-color, #51215b);
-}
-.button.secondary:hover {
-  opacity: 0.9;
-}
-.button.disabled {
-  opacity: 0.8;
-  pointer-events: none;
 }
 
 ul.inline {
@@ -448,6 +410,10 @@ section.employeeRegistration .boxForm .fieldtypeOfCompany label.control {
   padding-top: 0 !important;
 }
 
+.mt0 {
+  margin-top: 0px !important;
+}
+
 .mb10 {
   margin-bottom: 10px !important;
 }
@@ -522,4 +488,19 @@ section.employeeRegistration .boxForm .fieldtypeOfCompany label.control {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+}
+
+ul.inline {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+ul.inline li {
+  margin-right: 8px;
+}
+ul.inline li emprender-cl-button {
+  --emprender-cl-button-min-width: 250px;
+  --emprender-cl-button-margin: 5px;
 }

@@ -31,13 +31,27 @@ export class EmprenderUserForms {
     if (this.step >= 0 && this.step < this._getFlow().length) {
       const { tag, field } = this._getFlow()[this.step];
       const _tag = `emprender-uf-${tag}`;
-      return h(_tag, { model: this._getData(field), onInfoSaved: (ev) => this.saveInfo(field, ev.detail) });
+      return h(_tag, { model: this._getData(field), flow: this.flowType, onInfoSaved: (ev) => this.saveInfo(field, ev.detail), onBack: (ev) => this.onBackPressed(field, ev.detail) });
+    }
+  }
+  _updateStep(direction) {
+    if (direction === 'up') {
+      const max = (this._getFlow().length - 1);
+      this.step = this.step < max ? this.step + 1 : max;
+    }
+    else {
+      this.step = this.step != 0 ? this.step - 1 : 0;
     }
   }
   saveInfo(field, data) {
     setUserInformation(field, data);
-    this.step = this.step + 1;
+    this._updateStep("up");
     this.infoSaved.emit(state.currentUserInformation);
+  }
+  onBackPressed(field, data) {
+    setUserInformation(field, data);
+    this._updateStep("down");
+    this.backSaved.emit(state.currentUserInformation);
   }
   render() {
     return (h(Host, null, this._renderCurrentStep()));
@@ -91,6 +105,26 @@ export class EmprenderUserForms {
   static get events() { return [{
       "method": "infoSaved",
       "name": "infoSaved",
+      "bubbles": true,
+      "cancelable": true,
+      "composed": true,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "complexType": {
+        "original": "UserForm",
+        "resolved": "UserForm",
+        "references": {
+          "UserForm": {
+            "location": "import",
+            "path": "../../module/models"
+          }
+        }
+      }
+    }, {
+      "method": "backSaved",
+      "name": "backSaved",
       "bubbles": true,
       "cancelable": true,
       "composed": true,

@@ -36,8 +36,11 @@ export class EmprenderUfReferences {
                     h("fieldset", null,
                       h("emprender-cl-input", { label: "Tel\u00E9fono contacto comercial/amigo", onInputChange: (ev) => this._setModel("friendContactPhone", ev.detail) })),
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Relaci\u00F3n", onInputChange: (ev) => this._setModel("friendContactRelationship", ev.detail) })))),
-                h("div", { class: "contcenter" },
+                      h("emprender-cl-input", { label: "Relaci\u00F3n", onInputChange: (ev) => this._setModel("friendContactRelationship", ev.detail) }))))),
+              h("ul", { class: "inline flex-center-center mb20" },
+                h("li", null,
+                  h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })),
+                h("li", null,
                   h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this.infoSaved.emit(this.model) }))),
               h("slot", null)))))));
   }
@@ -55,6 +58,26 @@ export class EmprenderUfReferences {
   static get events() { return [{
       "method": "infoSaved",
       "name": "infoSaved",
+      "bubbles": true,
+      "cancelable": true,
+      "composed": true,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "complexType": {
+        "original": "References",
+        "resolved": "References",
+        "references": {
+          "References": {
+            "location": "import",
+            "path": "../../module/models"
+          }
+        }
+      }
+    }, {
+      "method": "back",
+      "name": "back",
       "bubbles": true,
       "cancelable": true,
       "composed": true,

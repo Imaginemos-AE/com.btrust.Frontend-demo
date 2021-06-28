@@ -50,7 +50,7 @@ export class EmprenderUfPersonalInformation {
               h("h2", { class: "title" }, "Informaci\u00F3n Personal"),
               h("h4", null, "Completa la siguiente informaci\u00F3n"),
               h("div", { class: "boxForm form p5" },
-                h("div", { class: "row mb22" },
+                h("div", { class: "row" },
                   h("div", { class: "col-6" },
                     h("fieldset", null,
                       h("emprender-cl-input", { label: "Primer nombre", value: this.model.firstName, onInputChange: (ev) => this._setModel("firstName", ev.detail) }))),
@@ -114,8 +114,9 @@ export class EmprenderUfPersonalInformation {
                     h("fieldset", null,
                       h("emprender-cl-select", { label: "G\u00E9nero", onSelectChange: (ev) => this._setModel("gender", ev.detail) },
                         h("option", { value: "femenino" }, "Femenino"),
-                        h("option", { value: "masculino" }, "Masculino"))))),
-                h("div", { class: "contcenter" },
+                        h("option", { value: "masculino" }, "Masculino")))))),
+              h("ul", { class: "inline flex-center-center mb20" },
+                h("li", null,
                   h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this.infoSaved.emit(this.model) }))),
               h("slot", null)))))));
   }

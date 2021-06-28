@@ -1,7 +1,9 @@
-export function formatNumber(num, signSpace = false) {
+'use strict';
+
+function formatNumber(num, signSpace = false) {
   return `$${signSpace ? ' ' : ''}${num.toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}`;
 }
-export function loadScript(url, id, type) {
+function loadScript(url, id, type) {
   return new Promise(resolve => {
     document.body.appendChild(Object.assign(document.createElement('script'), {
       type: type,
@@ -13,7 +15,7 @@ export function loadScript(url, id, type) {
     }));
   });
 }
-export function loadCSS(url) {
+function loadCSS(url) {
   return new Promise(resolve => {
     const links = document.getElementsByTagName('link');
     const exist = Array.from(links).some(_link => _link.href === url);
@@ -29,3 +31,7 @@ export function loadCSS(url) {
     }
   });
 }
+
+exports.formatNumber = formatNumber;
+exports.loadCSS = loadCSS;
+exports.loadScript = loadScript;
