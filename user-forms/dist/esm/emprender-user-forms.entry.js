@@ -1,5 +1,5 @@
 import { g as getRenderingRef, f as forceUpdate, r as registerInstance, c as createEvent, h, H as Host } from './index-f70aa622.js';
-import { l as loadCSS, a as loadScript } from './utils-e62f0916.js';
+import { l as loadCSS, a as loadScript } from './utils-84851d0f.js';
 
 const appendToMap = (map, propName, value) => {
     const items = map.get(propName);
@@ -221,7 +221,7 @@ const EmprenderUserForms = class {
     this.infoSaved = createEvent(this, "infoSaved", 7);
     this.backSaved = createEvent(this, "backSaved", 7);
     this.flowType = 'employee';
-    this.step = 0;
+    this.step = 3;
     this._getFlow = () => this.flowType === 'employee' ? EMPLOYEE_FLOW : INDEPENDENT_FLOW;
     this._getData = (field) => { var _a; return ((_a = state.currentUserInformation) !== null && _a !== void 0 ? _a : {})[field]; };
   }

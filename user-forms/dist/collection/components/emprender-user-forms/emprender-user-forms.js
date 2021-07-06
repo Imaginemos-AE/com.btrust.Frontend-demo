@@ -18,7 +18,7 @@ const INDEPENDENT_FLOW = [
 export class EmprenderUserForms {
   constructor() {
     this.flowType = 'employee';
-    this.step = 0;
+    this.step = 3;
     this._getFlow = () => this.flowType === 'employee' ? EMPLOYEE_FLOW : INDEPENDENT_FLOW;
     this._getData = (field) => { var _a; return ((_a = state.currentUserInformation) !== null && _a !== void 0 ? _a : {})[field]; };
   }
@@ -99,7 +99,7 @@ export class EmprenderUserForms {
       },
       "attribute": "step",
       "reflect": true,
-      "defaultValue": "0"
+      "defaultValue": "3"
     }
   }; }
   static get events() { return [{

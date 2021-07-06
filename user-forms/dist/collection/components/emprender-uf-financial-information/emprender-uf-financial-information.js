@@ -18,28 +18,42 @@ export class EmprenderUfFinancialInformation {
       variableSalaryIncome: null,
       otherIncomes: null,
       otherIncomesDescription: "",
-      totalAssets: 0,
+      totalIncomes: 0,
       personalExpenses: null,
       rentExpenses: null,
       debtExpenses: null,
       otherExpenses: null,
       otherExpensesDescription: "",
-      totalExpenses: null,
+      totalExpenses: 0,
+      totalAssets: null,
       totalLiabilities: null,
     };
   }
-  _setModel(field, value) {
-    this.model = Object.assign(Object.assign({}, this.model), { [field]: value });
+  _setModel(field, value, reloadModel = true) {
+    if (reloadModel) {
+      this.model = Object.assign(Object.assign({}, this.model), { [field]: value });
+    }
+    else {
+      this.model[field] = value;
+    }
   }
   _calculateTotalIncomes(field, value) {
-    this.model[field] = value;
-    const totalAssets = ["salaryIncome", "variableSalaryIncome", "otherIncomes"].reduce((state, field) => {
+    this._setModel(field, value, false);
+    this._calculateTotalField("totalIncomes", ["salaryIncome", "variableSalaryIncome", "otherIncomes"]);
+  }
+  _calculateTotalExpenses(field, value) {
+    this._setModel(field, value, false);
+    this._calculateTotalField("totalExpenses", ["personalExpenses", "rentExpenses", "debtExpenses", "otherExpenses"]);
+  }
+  _calculateTotalField(targetField, fields) {
+    const total = fields.reduce((state, field) => {
       const fieldValue = !!this.model[field] && !isNaN(this.model[field]) ? this.model[field] : 0;
       return state + parseFloat(fieldValue);
     }, 0);
-    this._setModel("totalAssets", totalAssets);
+    this._setModel(targetField, total);
   }
   render() {
+    console.log("render was called");
     return (h(Host, null,
       h("section", { class: "employeeRegistration" },
         h("div", { class: "container" },
@@ -57,31 +71,40 @@ export class EmprenderUfFinancialInformation {
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
                       h("emprender-cl-input", { label: "Otros ingresos mensuales", value: this.model.otherIncomes, maskOptions: FINANCIAL_OPTIONS, onInputChange: (ev) => this._calculateTotalIncomes("otherIncomes", ev.detail) })),
-                    h("fieldset", null,
-                      h("emprender-cl-input", { label: "Descripci\u00F3n otros ingresos mensuales", inputOptions: { type: 'text' }, onInputChange: (ev) => this._setModel("otherIncomesDescription", ev.detail) }))),
+                    this.model.otherIncomes &&
+                      h("fieldset", null,
+                        h("emprender-cl-input", { label: "Descripci\u00F3n otros ingresos mensuales", value: this.model.otherIncomesDescription, inputOptions: { type: 'text' }, onInputChange: (ev) => this._setModel("otherIncomesDescription", ev.detail) }))),
                   h("fieldset", { class: "totalBox mt0" },
                     h("label", null,
                       "Total ingresos mensuales: ",
-                      h("span", null, formatNumber(this.model.totalAssets)))))),
+                      h("span", null, formatNumber(this.model.totalIncomes)))))),
               h("div", { class: "boxForm form p5" },
                 h("div", { class: "row" },
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Egresos mensuales personales / familiares", inputOptions: { type: 'number', min: 0 }, onInputChange: (ev) => this._setModel("personalExpenses", ev.detail) })),
+                      h("emprender-cl-input", { label: "Egresos mensuales personales / familiares", value: this.model.personalExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: (ev) => this._calculateTotalExpenses("personalExpenses", ev.detail) })),
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Egresos mensuales por pago de arriendos", inputOptions: { type: 'number', min: 0 }, onInputChange: (ev) => this._setModel("rentExpenses", ev.detail) })),
+                      h("emprender-cl-input", { label: "Egresos mensuales por pago de arriendos", value: this.model.rentExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: (ev) => this._calculateTotalExpenses("rentExpenses", ev.detail) })),
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Egresos mensuales por pago de deuda", inputOptions: { type: 'number', min: 0 }, onInputChange: (ev) => this._setModel("debtExpenses", ev.detail) }))),
+                      h("emprender-cl-input", { label: "Egresos mensuales por pago de deuda", value: this.model.debtExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: (ev) => this._calculateTotalExpenses("debtExpenses", ev.detail) }))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Otros egresos mensuales", maskOptions: FINANCIAL_OPTIONS, onInputChange: (ev) => this._setModel("otherExpenses", ev.detail) })),
+                      h("emprender-cl-input", { label: "Otros egresos mensuales", value: this.model.otherExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: (ev) => this._calculateTotalExpenses("otherExpenses", ev.detail) })),
                     this.model.otherExpenses &&
                       h("fieldset", null,
-                        h("emprender-cl-input", { label: "Descripci\u00F3n otros egresos mensuales", onInputChange: (ev) => this._setModel("otherExpensesDescription", ev.detail) })),
+                        h("emprender-cl-input", { label: "Descripci\u00F3n otros egresos mensuales", value: this.model.otherExpensesDescription, inputOptions: { type: 'text' }, onInputChange: (ev) => this._setModel("otherExpensesDescription", ev.detail) })),
+                    h("fieldset", { class: "totalBox" },
+                      h("label", null,
+                        "Total egresos mensuales: ",
+                        h("span", null, formatNumber(this.model.totalExpenses))))))),
+              h("div", { class: "boxForm form p5" },
+                h("div", { class: "row" },
+                  h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Total egresos mensuales", inputOptions: { type: 'number', min: 0 }, onInputChange: (ev) => this._setModel("totalExpenses", ev.detail) })),
+                      h("emprender-cl-input", { label: "Total Activos", value: this.model.totalAssets, maskOptions: FINANCIAL_OPTIONS, onInputChange: (ev) => this._setModel("totalAssets", ev.detail) }))),
+                  h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Total Pasivos", inputOptions: { type: 'number', min: 0 }, onInputChange: (ev) => this._setModel("totalLiabilities", ev.detail) }))))),
+                      h("emprender-cl-input", { label: "Total Pasivos", value: this.model.totalLiabilities, maskOptions: FINANCIAL_OPTIONS, onInputChange: (ev) => this._setModel("totalLiabilities", ev.detail) }))))),
               h("ul", { class: "inline flex-center-center mb20" },
                 h("li", null,
                   h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })),
@@ -117,7 +140,7 @@ export class EmprenderUfFinancialInformation {
         "tags": [],
         "text": ""
       },
-      "defaultValue": "{\n    salaryIncome: null,\n    variableSalaryIncome: null,\n    otherIncomes: null,\n    otherIncomesDescription: \"\",\n    totalAssets: 0,\n    personalExpenses: null,\n    rentExpenses: null,\n    debtExpenses: null,\n    otherExpenses: null,\n    otherExpensesDescription: \"\",\n    totalExpenses: null,\n    totalLiabilities: null,\n  }"
+      "defaultValue": "{\n    salaryIncome: null,\n    variableSalaryIncome: null,\n    otherIncomes: null,\n    otherIncomesDescription: \"\",\n    totalIncomes: 0,\n    personalExpenses: null,\n    rentExpenses: null,\n    debtExpenses: null,\n    otherExpenses: null,\n    otherExpensesDescription: \"\",\n    totalExpenses: 0,\n    totalAssets: null,\n    totalLiabilities: null,\n  }"
     }
   }; }
   static get events() { return [{

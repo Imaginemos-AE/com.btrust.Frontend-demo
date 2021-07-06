@@ -56,13 +56,14 @@ export interface FinancialInformation {
   variableSalaryIncome: number;
   otherIncomes: number;
   otherIncomesDescription: string;
-  totalAssets: number;
+  totalIncomes: number;
   personalExpenses: number;
   rentExpenses: number;
   debtExpenses: number;
   otherExpenses: number;
   otherExpensesDescription: string;
   totalExpenses: number;
+  totalAssets: number;
   totalLiabilities: number;
 }
 export interface References {

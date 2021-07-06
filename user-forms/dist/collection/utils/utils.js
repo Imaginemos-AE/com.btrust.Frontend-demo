@@ -1,5 +1,5 @@
 export function formatNumber(num, signSpace = false) {
-  return `$${signSpace ? ' ' : ''}${num.toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}`;
+  return `$${signSpace ? ' ' : ''}${num === null || num === void 0 ? void 0 : num.toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}`;
 }
 export function loadScript(url, id, type) {
   return new Promise(resolve => {

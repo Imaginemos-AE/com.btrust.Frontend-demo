@@ -357,7 +357,7 @@ section.employeeRegistration .boxForm {
   border-radius: 20px;
   padding: 20px 30px;
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   z-index: 1;
 }
 section.employeeRegistration .boxForm .fieldtypeOfCompany {

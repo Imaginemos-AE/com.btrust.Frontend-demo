@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const index = require('./index-203dfa5e.js');
-const utils = require('./utils-8944f962.js');
+const utils = require('./utils-2fe1da8e.js');
 
 const appendToMap = (map, propName, value) => {
     const items = map.get(propName);
@@ -225,7 +225,7 @@ const EmprenderUserForms = class {
     this.infoSaved = index.createEvent(this, "infoSaved", 7);
     this.backSaved = index.createEvent(this, "backSaved", 7);
     this.flowType = 'employee';
-    this.step = 0;
+    this.step = 3;
     this._getFlow = () => this.flowType === 'employee' ? EMPLOYEE_FLOW : INDEPENDENT_FLOW;
     this._getData = (field) => { var _a; return ((_a = state.currentUserInformation) !== null && _a !== void 0 ? _a : {})[field]; };
   }
