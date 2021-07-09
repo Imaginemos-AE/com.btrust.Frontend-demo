@@ -16,6 +16,7 @@ export namespace Components {
     interface EmprenderUfPersonalInformation2 {
     }
     interface EmprenderUfReferences {
+        "model": References;
     }
     interface EmprenderUfWorkingInformation {
     }
@@ -85,6 +86,7 @@ declare namespace LocalJSX {
         "onInfoSaved"?: (event: CustomEvent<PersonalInformation2>) => void;
     }
     interface EmprenderUfReferences {
+        "model"?: References;
         "onBack"?: (event: CustomEvent<References>) => void;
         "onInfoSaved"?: (event: CustomEvent<References>) => void;
     }
