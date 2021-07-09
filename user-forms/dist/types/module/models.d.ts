@@ -27,8 +27,8 @@ export interface PersonalInformation {
 }
 export interface PersonalInformation2 {
   academicLevel: string;
-  childrenNumber: number;
-  dependents: number;
+  childrenNumber: string;
+  dependents: string;
   civilState: string;
   cityOfResidence: string;
   departmentOfResidence: string;
