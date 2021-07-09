@@ -483,7 +483,7 @@ const EmprenderUserForms$1 = class extends HTMLElement {
     this.infoSaved = createEvent(this, "infoSaved", 7);
     this.backSaved = createEvent(this, "backSaved", 7);
     this.flowType = 'employee';
-    this.step = 4;
+    this.step = 0;
     this._getFlow = () => this.flowType === 'employee' ? EMPLOYEE_FLOW : INDEPENDENT_FLOW;
     this._getData = (field) => { var _a; return ((_a = state.currentUserInformation) !== null && _a !== void 0 ? _a : {})[field]; };
   }
