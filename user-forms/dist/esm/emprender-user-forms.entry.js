@@ -1,4 +1,5 @@
 import { g as getRenderingRef, f as forceUpdate, r as registerInstance, c as createEvent, h, H as Host } from './index-f70aa622.js';
+import { g as getData, s as setData } from './helper-e28a20d9.js';
 import { l as loadCSS, a as loadScript } from './utils-84851d0f.js';
 
 const appendToMap = (map, propName, value) => {
@@ -176,17 +177,6 @@ const createStore = (defaultState, shouldUpdate) => {
     stencilSubscription(map);
     return map;
 };
-
-const USER_FORM_DATA_KEY = "muiiUserFormInfo";
-function getData() {
-  const data = sessionStorage.getItem(USER_FORM_DATA_KEY);
-  return JSON.parse(data);
-}
-function setData(newData) {
-  const currentData = getData();
-  const newUserForm = Object.assign(Object.assign({}, currentData), newData);
-  sessionStorage.setItem(USER_FORM_DATA_KEY, JSON.stringify(newUserForm));
-}
 
 const { state } = createStore({
   currentUserInformation: {}

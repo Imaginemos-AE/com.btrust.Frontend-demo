@@ -1,16 +1,6 @@
 import { Component, Host, h, Event, Prop } from '@stencil/core';
+import { FINANCIAL_OPTIONS } from '../../module/helper';
 import { formatNumber } from '../../utils/utils';
-const FINANCIAL_OPTIONS = {
-  mask: Number,
-  scale: 2,
-  signed: false,
-  thousandsSeparator: '.',
-  padFractionalZeros: false,
-  normalizeZeros: true,
-  radix: ',',
-  mapToRadix: [','],
-  min: 0
-};
 export class EmprenderUfFinancialInformation {
   constructor() {
     this.model = {
@@ -53,7 +43,6 @@ export class EmprenderUfFinancialInformation {
     this._setModel(targetField, total);
   }
   render() {
-    console.log("render was called");
     return (h(Host, null,
       h("section", { class: "employeeRegistration" },
         h("div", { class: "container" },

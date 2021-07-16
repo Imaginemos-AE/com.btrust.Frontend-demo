@@ -1,4 +1,5 @@
-import { Component, Host, h, State, Event } from '@stencil/core';
+import { Component, Host, h, State, Event, Prop } from '@stencil/core';
+import { FINANCIAL_OPTIONS } from '../../module/helper';
 import { COUNTRY } from '../../utils/country';
 export class EmprenderUfPersonalInformation2 {
   constructor() {
@@ -48,7 +49,7 @@ export class EmprenderUfPersonalInformation2 {
                 h("div", { class: "row" },
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { label: "Nivel acad\u00E9mico", onSelectChange: (ev) => this._setModel("academicLevel", ev.detail) },
+                      h("emprender-cl-select", { label: "Nivel acad\u00E9mico", value: this.model.academicLevel, onSelectChange: (ev) => this._setModel("academicLevel", ev.detail) },
                         h("option", { value: "primaria" }, "Primaria"),
                         h("option", { value: "bachillerato" }, "Bachillerato"),
                         h("option", { value: "tecnico_tecnologo" }, "T\u00E9cnico - Tecn\u00F3logo"),
@@ -57,7 +58,7 @@ export class EmprenderUfPersonalInformation2 {
                         h("option", { value: "ninguno" }, "Ninguno")))),
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { label: "N\u00FAmero de hijos", onSelectChange: (ev) => this._setModel("childrenNumber", ev.detail) },
+                      h("emprender-cl-select", { label: "N\u00FAmero de hijos", value: this.model.childrenNumber, onSelectChange: (ev) => this._setModel("childrenNumber", ev.detail) },
                         h("option", { value: "1" }, "1"),
                         h("option", { value: "2" }, "2"),
                         h("option", { value: "3" }, "3"),
@@ -65,7 +66,7 @@ export class EmprenderUfPersonalInformation2 {
                         h("option", { value: ">4" }, '>4')))),
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { label: "Personas a cargo", onSelectChange: (ev) => this._setModel("dependents", ev.detail) },
+                      h("emprender-cl-select", { label: "Personas a cargo", value: this.model.dependents, onSelectChange: (ev) => this._setModel("dependents", ev.detail) },
                         h("option", { value: "1" }, "1"),
                         h("option", { value: "2" }, "2"),
                         h("option", { value: "3" }, "3"),
@@ -73,9 +74,8 @@ export class EmprenderUfPersonalInformation2 {
                         h("option", { value: ">4" }, '>4')))),
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { label: "Estado civil", onSelectChange: (ev) => this._setModel("civilState", ev.detail) },
+                      h("emprender-cl-select", { label: "Estado civil", value: this.model.civilState, onSelectChange: (ev) => this._setModel("civilState", ev.detail) },
                         h("option", { value: "casado" }, "Casado"),
-                        h("option", { value: "soltero" }, "Soltero"),
                         h("option", { value: "union_libre" }, "Uni\u00F3n libre"),
                         h("option", { value: "viudo" }, "Viudo"),
                         h("option", { value: "otro" }, "Otro")))),
@@ -91,7 +91,7 @@ export class EmprenderUfPersonalInformation2 {
                             h("emprender-cl-select", { value: this.model.cityOfResidence, options: this._getSelectCitiesOptions("departmentOfResidence"), onSelectChange: (ev) => this._setModel("cityOfResidence", ev.detail) })))))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Direcci\u00F3n de la vivienda", onInputChange: (ev) => this._setModel("address", ev.detail) }))),
+                      h("emprender-cl-input", { label: "Direcci\u00F3n de la vivienda", value: this.model.address, onInputChange: (ev) => this._setModel("address", ev.detail) }))),
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
                       h("emprender-cl-select", { label: "Estrato", value: this.model.stratus, onSelectChange: (ev) => this._setModel("stratus", ev.detail) },
@@ -110,7 +110,7 @@ export class EmprenderUfPersonalInformation2 {
                         h("option", { value: "otro" }, "Otro")))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "\u00BFCu\u00E1nto pagas por arriendo?", inputOptions: { type: 'number', min: 0 }, onInputChange: (ev) => this._setModel("rent", ev.detail) }))),
+                      h("emprender-cl-input", { label: "\u00BFCu\u00E1nto pagas por arriendo?", value: this.model.rent, maskOptions: FINANCIAL_OPTIONS, onInputChange: (ev) => this._setModel("rent", ev.detail) }))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
                       h("emprender-cl-select", { label: "Tiempo de residencia", value: this.model.residenceTime, onSelectChange: (ev) => this._setModel("residenceTime", ev.detail) },
@@ -143,8 +143,30 @@ export class EmprenderUfPersonalInformation2 {
   static get styleUrls() { return {
     "$": ["emprender-uf-personal-information-2.css"]
   }; }
+  static get properties() { return {
+    "model": {
+      "type": "unknown",
+      "mutable": false,
+      "complexType": {
+        "original": "PersonalInformation2",
+        "resolved": "PersonalInformation2",
+        "references": {
+          "PersonalInformation2": {
+            "location": "import",
+            "path": "../../module/models"
+          }
+        }
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "defaultValue": "{\n    academicLevel: \"\",\n    childrenNumber: \"\",\n    dependents: \"\",\n    civilState: \"\",\n    cityOfResidence: \"\",\n    departmentOfResidence: \"\",\n    address: \"\",\n    stratus: 4,\n    dwellingType: \"\",\n    rent: 0,\n    residenceTime: \"\",\n    employment: \"\"\n  }"
+    }
+  }; }
   static get states() { return {
-    "model": {},
     "departments": {}
   }; }
   static get events() { return [{

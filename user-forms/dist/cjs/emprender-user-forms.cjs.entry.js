@@ -3,6 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const index = require('./index-203dfa5e.js');
+const helper = require('./helper-c4310d62.js');
 const utils = require('./utils-2fe1da8e.js');
 
 const appendToMap = (map, propName, value) => {
@@ -181,26 +182,15 @@ const createStore = (defaultState, shouldUpdate) => {
     return map;
 };
 
-const USER_FORM_DATA_KEY = "muiiUserFormInfo";
-function getData() {
-  const data = sessionStorage.getItem(USER_FORM_DATA_KEY);
-  return JSON.parse(data);
-}
-function setData(newData) {
-  const currentData = getData();
-  const newUserForm = Object.assign(Object.assign({}, currentData), newData);
-  sessionStorage.setItem(USER_FORM_DATA_KEY, JSON.stringify(newUserForm));
-}
-
 const { state } = createStore({
   currentUserInformation: {}
 });
 function loadDefaultData() {
-  state.currentUserInformation = getData();
+  state.currentUserInformation = helper.getData();
 }
 function setUserInformation(field, newData) {
   state.currentUserInformation = Object.assign(Object.assign({}, state.currentUserInformation), { [field]: newData });
-  setData(state.currentUserInformation);
+  helper.setData(state.currentUserInformation);
 }
 
 const emprenderUserFormsCss = ":host{display:block}";

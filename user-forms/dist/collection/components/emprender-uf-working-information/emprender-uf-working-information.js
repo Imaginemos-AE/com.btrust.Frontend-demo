@@ -1,4 +1,4 @@
-import { Component, Host, h, State, Event } from '@stencil/core';
+import { Component, Host, h, Event, Prop } from '@stencil/core';
 export class EmprenderUfWorkingInformation {
   constructor() {
     this.model = {
@@ -29,10 +29,10 @@ export class EmprenderUfWorkingInformation {
                 h("div", { class: "row mb20" },
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Nombre de la empresa donde trabajas", onInputChange: (ev) => this._setModel("companyName", ev.detail) }))),
+                      h("emprender-cl-input", { label: "Nombre de la empresa donde trabajas", value: this.model.companyName, onInputChange: (ev) => this._setModel("companyName", ev.detail) }))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Cargo en la empresa", onInputChange: (ev) => this._setModel("position", ev.detail) }))),
+                      h("emprender-cl-input", { label: "Cargo en la empresa", value: this.model.position, onInputChange: (ev) => this._setModel("position", ev.detail) }))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", { class: "flex-center-center fieldtypeOfCompany" },
                       h("label", null, "Tipo de Empresa"),
@@ -49,32 +49,60 @@ export class EmprenderUfWorkingInformation {
                             h("div", { class: "control__indicator" })))))),
                   h("div", { class: "col-md-3" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { label: "Antig\u00FCedad en la empresa", onSelectChange: (ev) => this._setModel("companySeniority", ev.detail) },
-                        h("option", { value: "less_1_year" }, "Menos de 1 a\u00F1o")))),
+                      h("emprender-cl-select", { label: "Antig\u00FCedad en la empresa", value: this.model.companySeniority, onSelectChange: (ev) => this._setModel("companySeniority", ev.detail) },
+                        h("option", { value: "<1" }, `Menos de 1 año`),
+                        h("option", { value: "1-2" }, `Entre 1 y 2 años`),
+                        h("option", { value: "2-3" }, `Entre 2 y 3 años`),
+                        h("option", { value: "3-4" }, `Entre 3 y 4 años`),
+                        h("option", { value: "4-6" }, `Entre 4 y 5 años`),
+                        h("option", { value: ">5" }, `Más de 4 años`)))),
                   h("div", { class: "col-md-3" },
                     h("fieldset", null,
                       h("label", null,
                         "Tipo de ",
                         h("span", null, "contrato")),
-                      h("emprender-cl-select", { onSelectChange: (ev) => this._setModel("contractType", ev.detail) },
-                        h("option", { value: "indefined" }, "Indefinido")))),
+                      h("emprender-cl-select", { value: this.model.contractType, onSelectChange: (ev) => this._setModel("contractType", ev.detail) },
+                        h("option", { value: "indefinido" }, "Indefinido"),
+                        h("option", { value: "fijo" }, "Fijo"),
+                        h("option", { value: "temporal" }, "Temporal"),
+                        h("option", { value: "prestacion_servicios" }, "Prestaci\u00F3n de servicios")))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { label: "Actividad de la empresa", onSelectChange: (ev) => this._setModel("companyActivity", ev.detail) },
-                        h("option", { value: "1" }, "Comercio al por mayor y al por menor; reparaci\u00F3n de veh\u00EDculos\u2026")))),
+                      h("emprender-cl-select", { label: "Actividad de la empresa", value: this.model.companyActivity, onSelectChange: (ev) => this._setModel("companyActivity", ev.detail) },
+                        h("option", { value: "comercio_al_por_mayor" }, "Comercio al por mayor y al por menor; reparaci\u00F3n de veh\u00EDculos automotores y motocicletas; transporte y almacenamiento; alojamiento y servicios de comida"),
+                        h("option", { value: "industrias_manufactureras" }, "Industrias manufactureras"),
+                        h("option", { value: "actividades_financieras" }, "Actividades financieras y de seguros"),
+                        h("option", { value: "informacion_y_comunicaciones" }, "Informaci\u00F3n y comunicaciones"),
+                        h("option", { value: "construccion" }, "Construcci\u00F3n"),
+                        h("option", { value: "agricultura_ganaderia_afines" }, "Agricultura, ganader\u00EDa, caza, silvicultura y pesca"),
+                        h("option", { value: "actividades_profesionales" }, "Actividades profesionales, cient\u00EDficas y t\u00E9cnicas; actividades de servicios administrativos y de apoyo"),
+                        h("option", { value: "actividades_inmobiliarias" }, "Actividades inmobiliarias"),
+                        h("option", { value: "actividades_artisticas" }, "Actividades art\u00EDsticas, de entretenimiento y recreaci\u00F3n y otras actividades de servicios."),
+                        h("option", { value: "administracion_publica" }, "Administraci\u00F3n p\u00FAblica y defensa; planes de seguridad social de afiliaci\u00F3n obligatoria; educaci\u00F3n; actividades de atenci\u00F3n de la salud humana y de servicios sociales"),
+                        h("option", { value: "explotacion_de_minas" }, "Explotaci\u00F3n de minas y canteras"),
+                        h("option", { value: "suministro_servicios" }, "Suministro de electricidad, gas, vapor y aire acondicionado; distribuci\u00F3n de agua; evacuaci\u00F3n y tratamiento de aguas residuales, gesti\u00F3n de desechos y actividades de saneamiento ambiental")))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { label: "Destino del pr\u00E9stamo", onSelectChange: (ev) => this._setModel("creditDestination", ev.detail) },
-                        h("option", { value: "1" }, "Compras personales")))),
+                      h("emprender-cl-select", { label: "Destino del pr\u00E9stamo", value: this.model.creditDestination, onSelectChange: (ev) => this._setModel("creditDestination", ev.detail) },
+                        h("option", { value: "compras_personales" }, "Compras personales"),
+                        h("option", { value: "educacion" }, "Educaci\u00F3n"),
+                        h("option", { value: "emergencia" }, "Emergencia"),
+                        h("option", { value: "pago_servicios" }, "Pago de servicios p\u00FAblicos"),
+                        h("option", { value: "pago_prestamos" }, "Pago de pr\u00E9stamos"),
+                        h("option", { value: "gastos_diarios" }, "Gastos diarios"),
+                        h("option", { value: "viaje" }, "Viaje"),
+                        h("option", { value: "arriendo_hipoteca" }, "Arriendo/hipoteca"),
+                        h("option", { value: "negocio_propio" }, "Negocio propio"),
+                        h("option", { value: "otro" }, "Otro")))),
                   h("div", { class: "col-md-4" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Tel\u00E9fono de la empresa", onInputChange: (ev) => this._setModel("companyPhone", ev.detail) }))),
+                      h("emprender-cl-input", { label: "Tel\u00E9fono de la empresa", value: this.model.companyPhone, onInputChange: (ev) => this._setModel("companyPhone", ev.detail) }))),
                   h("div", { class: "col-md-2" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Extensi\u00F3n", onInputChange: (ev) => this._setModel("companyPhoneExtension", ev.detail) }))),
+                      h("emprender-cl-input", { label: "Extensi\u00F3n", value: this.model.companyPhoneExtension, onInputChange: (ev) => this._setModel("companyPhoneExtension", ev.detail) }))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Otro", inputOptions: { placeholder: "¿Cúal?" }, onInputChange: (ev) => this._setModel("otherPhone", ev.detail) }))))),
+                      h("emprender-cl-input", { label: "Otro", value: this.model.otherPhone, inputOptions: { placeholder: "¿Cúal?" }, onInputChange: (ev) => this._setModel("otherPhone", ev.detail) }))))),
               h("ul", { class: "inline flex-center-center mb20" },
                 h("li", null,
                   h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })),
@@ -90,8 +118,28 @@ export class EmprenderUfWorkingInformation {
   static get styleUrls() { return {
     "$": ["emprender-uf-working-information.css"]
   }; }
-  static get states() { return {
-    "model": {}
+  static get properties() { return {
+    "model": {
+      "type": "unknown",
+      "mutable": false,
+      "complexType": {
+        "original": "WorkingInformation",
+        "resolved": "WorkingInformation",
+        "references": {
+          "WorkingInformation": {
+            "location": "import",
+            "path": "../../module/models"
+          }
+        }
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "defaultValue": "{\n    companyName: \"\",\n    position: \"\",\n    companyType: \"public\",\n    companySeniority: \"\",\n    contractType: \"\",\n    companyActivity: \"\",\n    creditDestination: \"\",\n    companyPhone: \"\",\n    companyPhoneExtension: \"\",\n    otherPhone: \"\",\n  }"
+    }
   }; }
   static get events() { return [{
       "method": "infoSaved",

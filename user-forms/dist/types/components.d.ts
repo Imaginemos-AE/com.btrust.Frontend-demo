@@ -14,11 +14,13 @@ export namespace Components {
         "model": PersonalInformation;
     }
     interface EmprenderUfPersonalInformation2 {
+        "model": PersonalInformation2;
     }
     interface EmprenderUfReferences {
         "model": References;
     }
     interface EmprenderUfWorkingInformation {
+        "model": WorkingInformation;
     }
     interface EmprenderUserForms {
         "flowType": 'employee' | 'independent';
@@ -82,6 +84,7 @@ declare namespace LocalJSX {
         "onInfoSaved"?: (event: CustomEvent<PersonalInformation>) => void;
     }
     interface EmprenderUfPersonalInformation2 {
+        "model"?: PersonalInformation2;
         "onBack"?: (event: CustomEvent<PersonalInformation2>) => void;
         "onInfoSaved"?: (event: CustomEvent<PersonalInformation2>) => void;
     }
@@ -91,6 +94,7 @@ declare namespace LocalJSX {
         "onInfoSaved"?: (event: CustomEvent<References>) => void;
     }
     interface EmprenderUfWorkingInformation {
+        "model"?: WorkingInformation;
         "onBack"?: (event: CustomEvent<WorkingInformation>) => void;
         "onInfoSaved"?: (event: CustomEvent<WorkingInformation>) => void;
     }
