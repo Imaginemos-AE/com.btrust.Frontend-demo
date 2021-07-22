@@ -54,12 +54,20 @@ const EmprenderClIcon$1 = class extends HTMLElement {
     super();
     this.__registerHost();
     attachShadow(this);
+    this.path = 0;
   }
   async componentWillLoad() {
     await appendComponentStyles(this.host, ["https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/common-assets/emprender-icons.css"], true, true);
   }
+  renderPaths() {
+    const paths = [];
+    for (let index = 0; index < this.path; index++) {
+      paths.push(h("span", { class: `path${index + 1}` }));
+    }
+    return paths;
+  }
   render() {
-    return (h(Host, null, h("span", { class: `icon-${this.icon}` })));
+    return (h(Host, null, h("span", { class: `icon-${this.icon}` }, this.renderPaths())));
   }
   get host() { return this; }
   static get style() { return emprenderClIconCss; }
@@ -4253,7 +4261,7 @@ const EmprenderClSelect$1 = class extends HTMLElement {
 };
 
 const EmprenderClButton = /*@__PURE__*/proxyCustomElement(EmprenderClButton$1, [1,"emprender-cl-button",{"text":[513],"modifiers":[513],"buttonStyle":[520,"button-style"]}]);
-const EmprenderClIcon = /*@__PURE__*/proxyCustomElement(EmprenderClIcon$1, [1,"emprender-cl-icon",{"icon":[513]}]);
+const EmprenderClIcon = /*@__PURE__*/proxyCustomElement(EmprenderClIcon$1, [1,"emprender-cl-icon",{"icon":[513],"path":[514]}]);
 const EmprenderClInput = /*@__PURE__*/proxyCustomElement(EmprenderClInput$1, [1,"emprender-cl-input",{"label":[1],"inputOptions":[8,"input-options"],"requiredIndicator":[4,"required-indicator"],"maskOptions":[8,"mask-options"],"maskValue":[1,"mask-value"],"value":[1537]}]);
 const EmprenderClSelect = /*@__PURE__*/proxyCustomElement(EmprenderClSelect$1, [1,"emprender-cl-select",{"label":[1],"options":[16],"value":[1537],"selectInputOptions":[8,"select-input-options"],"requiredIndicator":[4,"required-indicator"]}]);
 const defineCustomElements = (opts) => {

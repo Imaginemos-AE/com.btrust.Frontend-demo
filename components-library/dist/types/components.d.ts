@@ -13,6 +13,7 @@ export namespace Components {
     }
     interface EmprenderClIcon {
         "icon": string;
+        "path": number;
     }
     interface EmprenderClInput {
         "inputOptions": any;
@@ -70,6 +71,7 @@ declare namespace LocalJSX {
     }
     interface EmprenderClIcon {
         "icon"?: string;
+        "path"?: number;
     }
     interface EmprenderClInput {
         "inputOptions"?: any;
