@@ -26,6 +26,47 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-calendar:before {
+  content: '\e914';
+  color: #575757;
+}
+.icon-pdf:before {
+  content: '\e915';
+  color: #e73c4a;
+}
+.icon-change_pass .path1:before {
+  content: '\e90d';
+  color: rgb(81, 33, 91);
+}
+.icon-change_pass .path2:before {
+  content: '\e90e';
+  margin-left: -1em;
+  color: rgb(231, 60, 74);
+}
+.icon-change_pass .path3:before {
+  content: '\e90f';
+  margin-left: -1em;
+  color: rgb(231, 60, 74);
+}
+.icon-logout .path1:before {
+  content: '\e910';
+  color: rgb(81, 33, 91);
+}
+.icon-logout .path2:before {
+  content: '\e911';
+  margin-left: -1em;
+  color: rgb(231, 60, 74);
+}
+.icon-logout .path3:before {
+  content: '\e912';
+  margin-left: -1em;
+  color: rgb(81, 33, 91);
+}
+.icon-logout .path4:before {
+  content: '\e913';
+  margin-left: -1em;
+  color: rgb(81, 33, 91);
+}
 .icon-plus:before {
   content: '\e90b';
 }
