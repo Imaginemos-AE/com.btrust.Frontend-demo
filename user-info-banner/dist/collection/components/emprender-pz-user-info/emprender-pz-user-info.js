@@ -1,6 +1,6 @@
-import { h, Component, Prop, Host } from "@stencil/core";
+import { h, Component, Prop, Host, Event } from "@stencil/core";
 import { loadCSS, loadScript } from '../../utils/utils';
-export class PrivateZone {
+export class PrivateZoneInfo {
   constructor() {
     this.userInfo = {
       firstName: '',
@@ -30,21 +30,21 @@ export class PrivateZone {
             h("div", { class: "col-md-5" },
               h("ul", { class: "inline" },
                 h("li", null,
-                  h("a", { href: "#" },
+                  h("a", { href: "#", onClick: () => this.changePass.emit() },
                     h("emprender-cl-icon", { icon: "change_pass", path: 4 }),
                     h("span", { class: "text" }, "Cambiar contrase\u00F1a"))),
                 h("li", null,
-                  h("a", { href: "#" },
+                  h("a", { href: "#", onClick: () => this.logout.emit() },
                     h("emprender-cl-icon", { icon: "logout", path: 4 }),
                     h("span", { class: "text" }, "Cerrar Sesi\u00F3n")))))))));
   }
-  static get is() { return "emprender-private-zone"; }
+  static get is() { return "emprender-pz-user-info"; }
   static get encapsulation() { return "shadow"; }
   static get originalStyleUrls() { return {
-    "$": ["emprender-private-zone.scss"]
+    "$": ["emprender-pz-user-info.scss"]
   }; }
   static get styleUrls() { return {
-    "$": ["emprender-private-zone.css"]
+    "$": ["emprender-pz-user-info.css"]
   }; }
   static get properties() { return {
     "userInfo": {
@@ -69,4 +69,35 @@ export class PrivateZone {
       "defaultValue": "{\r\n        firstName: '',\r\n        lastName: '',\r\n        numCredit: 0\r\n    }"
     }
   }; }
+  static get events() { return [{
+      "method": "logout",
+      "name": "logout",
+      "bubbles": true,
+      "cancelable": true,
+      "composed": true,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "complexType": {
+        "original": "any",
+        "resolved": "any",
+        "references": {}
+      }
+    }, {
+      "method": "changePass",
+      "name": "changePass",
+      "bubbles": true,
+      "cancelable": true,
+      "composed": true,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "complexType": {
+        "original": "any",
+        "resolved": "any",
+        "references": {}
+      }
+    }]; }
 }

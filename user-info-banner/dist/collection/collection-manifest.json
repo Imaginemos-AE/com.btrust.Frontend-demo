@@ -1,6 +1,6 @@
 {
   "entries": [
-    "./components/emprender-private-zone/emprender-private-zone.js"
+    "./components/emprender-pz-user-info/emprender-pz-user-info.js"
   ],
   "compiler": {
     "name": "@stencil/core",

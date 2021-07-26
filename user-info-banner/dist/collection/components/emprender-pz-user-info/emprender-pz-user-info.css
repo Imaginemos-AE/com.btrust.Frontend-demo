@@ -35,6 +35,7 @@ section.clientInfo p {
 }
 section.clientInfo ul.inline {
   font-family: var(--primary-font, "Open Sans", sans-serif);
+  display: flex;
   flex-direction: row;
   justify-content: flex-end;
   list-style: none;
@@ -45,7 +46,10 @@ section.clientInfo ul.inline li {
   margin-right: 15px;
   text-align: right;
 }
-section.clientInfo ul.inline li a span.icon {
+section.clientInfo ul.inline li a {
+  text-decoration: none;
+}
+section.clientInfo ul.inline li a emprender-cl-icon {
   display: inline-block;
   font-size: 20px;
   margin-right: 5px;
@@ -55,6 +59,7 @@ section.clientInfo ul.inline li a span.icon {
 section.clientInfo ul.inline li a span.text {
   color: var(--primary-color, #51215b);
   display: inline-block;
+  font-size: 14;
   font-weight: 600;
 }
 section.clientInfo ul.inline li:last-child {
@@ -69,10 +74,6 @@ section.clientInfo ul.inline li:last-child {
     display: block;
     margin: 0;
     text-align: right;
-  }
-
-  section.clientForms {
-    padding: 20px 0;
   }
 }
 @media (max-width: 768px) {

@@ -2,10 +2,10 @@
 
 import type { Components, JSX } from "../types/components";
 
-interface EmprenderPrivateZone extends Components.EmprenderPrivateZone, HTMLElement {}
-export const EmprenderPrivateZone: {
-  prototype: EmprenderPrivateZone;
-  new (): EmprenderPrivateZone;
+interface EmprenderPzUserInfo extends Components.EmprenderPzUserInfo, HTMLElement {}
+export const EmprenderPzUserInfo: {
+  prototype: EmprenderPzUserInfo;
+  new (): EmprenderPzUserInfo;
 };
 
 /**

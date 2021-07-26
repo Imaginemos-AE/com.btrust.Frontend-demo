@@ -7,34 +7,36 @@
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
 import { PrivateInformation } from "./module/models";
 export namespace Components {
-    interface EmprenderPrivateZone {
+    interface EmprenderPzUserInfo {
         "userInfo": PrivateInformation;
     }
 }
 declare global {
-    interface HTMLEmprenderPrivateZoneElement extends Components.EmprenderPrivateZone, HTMLStencilElement {
+    interface HTMLEmprenderPzUserInfoElement extends Components.EmprenderPzUserInfo, HTMLStencilElement {
     }
-    var HTMLEmprenderPrivateZoneElement: {
-        prototype: HTMLEmprenderPrivateZoneElement;
-        new (): HTMLEmprenderPrivateZoneElement;
+    var HTMLEmprenderPzUserInfoElement: {
+        prototype: HTMLEmprenderPzUserInfoElement;
+        new (): HTMLEmprenderPzUserInfoElement;
     };
     interface HTMLElementTagNameMap {
-        "emprender-private-zone": HTMLEmprenderPrivateZoneElement;
+        "emprender-pz-user-info": HTMLEmprenderPzUserInfoElement;
     }
 }
 declare namespace LocalJSX {
-    interface EmprenderPrivateZone {
+    interface EmprenderPzUserInfo {
+        "onChangePass"?: (event: CustomEvent<any>) => void;
+        "onLogout"?: (event: CustomEvent<any>) => void;
         "userInfo"?: PrivateInformation;
     }
     interface IntrinsicElements {
-        "emprender-private-zone": EmprenderPrivateZone;
+        "emprender-pz-user-info": EmprenderPzUserInfo;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "emprender-private-zone": LocalJSX.EmprenderPrivateZone & JSXBase.HTMLAttributes<HTMLEmprenderPrivateZoneElement>;
+            "emprender-pz-user-info": LocalJSX.EmprenderPzUserInfo & JSXBase.HTMLAttributes<HTMLEmprenderPzUserInfoElement>;
         }
     }
 }
