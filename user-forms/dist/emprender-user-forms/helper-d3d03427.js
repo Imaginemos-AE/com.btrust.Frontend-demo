@@ -3,6 +3,9 @@ function getData() {
   const data = sessionStorage.getItem(USER_FORM_DATA_KEY);
   return JSON.parse(data);
 }
+function getDataByField(field) {
+  return getData()[field];
+}
 function setData(newData) {
   const currentData = getData();
   const newUserForm = Object.assign(Object.assign({}, currentData), newData);
