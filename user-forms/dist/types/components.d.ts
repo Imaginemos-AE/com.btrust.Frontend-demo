@@ -24,6 +24,7 @@ export namespace Components {
     }
     interface EmprenderUserForms {
         "flowType": 'employee' | 'independent';
+        "loading": boolean;
         "step": number;
     }
 }
@@ -100,6 +101,7 @@ declare namespace LocalJSX {
     }
     interface EmprenderUserForms {
         "flowType"?: 'employee' | 'independent';
+        "loading"?: boolean;
         "onBackSaved"?: (event: CustomEvent<UserForm>) => void;
         "onInfoSaved"?: (event: CustomEvent<UserForm>) => void;
         "step"?: number;
