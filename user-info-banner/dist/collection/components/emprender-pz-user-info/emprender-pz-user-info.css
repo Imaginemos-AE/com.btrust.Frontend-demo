@@ -90,3 +90,6 @@ section.clientInfo ul.inline li:last-child {
     text-align: center;
   }
 }
+a.link {
+  cursor: pointer;
+}
