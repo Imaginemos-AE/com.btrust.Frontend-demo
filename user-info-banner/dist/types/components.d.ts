@@ -5,10 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
-import { PrivateInformation } from "./module/models";
 export namespace Components {
     interface EmprenderPzUserInfo {
-        "userInfo": PrivateInformation;
     }
 }
 declare global {
@@ -26,7 +24,6 @@ declare namespace LocalJSX {
     interface EmprenderPzUserInfo {
         "onChangePass"?: (event: CustomEvent<any>) => void;
         "onLogout"?: (event: CustomEvent<any>) => void;
-        "userInfo"?: PrivateInformation;
     }
     interface IntrinsicElements {
         "emprender-pz-user-info": EmprenderPzUserInfo;

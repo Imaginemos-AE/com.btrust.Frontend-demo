@@ -1,9 +1,8 @@
-import { EventEmitter } from "../../stencil-public-runtime";
-import { PrivateInformation } from '../../module/models';
+import { EventEmitter } from '../../stencil-public-runtime';
 export declare class PrivateZoneInfo {
-  userInfo: PrivateInformation;
   logout: EventEmitter;
   changePass: EventEmitter;
+  userInfo: any;
   authService: any;
   kcInstance: any;
   userCalculated: any;
