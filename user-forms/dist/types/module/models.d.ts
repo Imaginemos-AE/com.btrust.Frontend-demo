@@ -33,6 +33,7 @@ export interface PersonalInformation2 {
   cityOfResidence: string;
   departmentOfResidence: string;
   address: string;
+  address2: string;
   stratus: number;
   dwellingType: string;
   rent: number;
