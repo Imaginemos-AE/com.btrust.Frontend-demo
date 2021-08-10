@@ -29,7 +29,6 @@ const EmprenderUbHome = class {
     else {
       item = (h("div", { class: "item" }, h("span", { class: "img" }, h("img", { src: getAssetPath('./assets/img/illustration12.svg') })), h("h6", null, "Ten a mano el archivo de tu c\u00E9dula escaneada por ambos lados y en formato de imagen: png, jpeg o jpg.")));
     }
-    console.log(this.detectDevice());
     return item;
   }
   render() {

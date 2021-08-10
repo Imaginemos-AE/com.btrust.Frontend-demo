@@ -8,7 +8,7 @@ const EmprenderUbSuccess = class {
     this.continue = createEvent(this, "continue", 7);
   }
   render() {
-    return (h(Host, null, h("section", { class: "validation" }, h("div", { class: "container" }, h("div", { class: "row justify-content-center" }, h("div", { class: "col col-lg-6 col-md-8" }, h("h2", { class: "title" }, "\u00A1Todo sali\u00F3 bien!"), h("span", { class: "img" }, h("img", { src: getAssetPath("./assets/img/illustration9.svg") })), h("h4", null, "El proceso de validaci\u00F3n fue exitoso."), h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this.continue.emit() })))))));
+    return (h(Host, null, h("section", { class: "validation" }, h("div", { class: "container" }, h("div", { class: "row justify-content-center" }, h("div", { class: "col col-lg-6 col-md-8" }, h("p", null, window.location), h("h2", { class: "title" }, "\u00A1Todo sali\u00F3 bien!"), h("span", { class: "img" }, h("img", { src: getAssetPath("./assets/img/illustration9.svg") })), h("h4", null, "El proceso de validaci\u00F3n fue exitoso."), h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this.continue.emit() })))))));
   }
   static get assetsDirs() { return ["assets"]; }
 };

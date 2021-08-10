@@ -10,23 +10,23 @@ const EmprenderUserBiometricsResult = class {
     this.state = 'initial';
   }
   async componentWillLoad() {
-    await loadCSS("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Varela+Round&display=swap");
+    await loadCSS('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Varela+Round&display=swap');
     await loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
   }
   renderLoading() {
-    return h("div", null, h("h5", null, "Cargando..."));
+    return (h("div", null, h("h5", null, "Cargando...")));
   }
   renderStatus() {
-    if (["initial", "loading"].includes(this.state))
+    if (['initial', 'loading'].includes(this.state))
       return this.renderLoading();
     switch (this.state) {
       case 'initial':
       case 'loading':
         return this.renderLoading();
       case 'success':
-        return h("emprender-ub-success", { onContinue: () => this.continue.emit("success") });
+        return h("emprender-ub-success", { onContinue: () => this.continue.emit('success') });
       case 'failure':
-        return h("emprender-ub-failure", { onContinue: () => this.continue.emit("failure") });
+        return h("emprender-ub-failure", { onContinue: () => this.continue.emit('failure') });
     }
   }
   render() {
