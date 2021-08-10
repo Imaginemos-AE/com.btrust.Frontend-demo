@@ -1,4 +1,4 @@
-/* ComponentEmailInfo custom elements bundle */
+/* privatezone custom elements bundle */
 
 import type { Components, JSX } from "../types/components";
 
@@ -6,6 +6,12 @@ interface EmprenderEmailInformation extends Components.EmprenderEmailInformation
 export const EmprenderEmailInformation: {
   prototype: EmprenderEmailInformation;
   new (): EmprenderEmailInformation;
+};
+
+interface EmprenderPzUserInfo extends Components.EmprenderPzUserInfo, HTMLElement {}
+export const EmprenderPzUserInfo: {
+  prototype: EmprenderPzUserInfo;
+  new (): EmprenderPzUserInfo;
 };
 
 /**

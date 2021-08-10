@@ -8,6 +8,8 @@ import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
 export namespace Components {
     interface EmprenderEmailInformation {
     }
+    interface EmprenderPzUserInfo {
+    }
 }
 declare global {
     interface HTMLEmprenderEmailInformationElement extends Components.EmprenderEmailInformation, HTMLStencilElement {
@@ -16,15 +18,27 @@ declare global {
         prototype: HTMLEmprenderEmailInformationElement;
         new (): HTMLEmprenderEmailInformationElement;
     };
+    interface HTMLEmprenderPzUserInfoElement extends Components.EmprenderPzUserInfo, HTMLStencilElement {
+    }
+    var HTMLEmprenderPzUserInfoElement: {
+        prototype: HTMLEmprenderPzUserInfoElement;
+        new (): HTMLEmprenderPzUserInfoElement;
+    };
     interface HTMLElementTagNameMap {
         "emprender-email-information": HTMLEmprenderEmailInformationElement;
+        "emprender-pz-user-info": HTMLEmprenderPzUserInfoElement;
     }
 }
 declare namespace LocalJSX {
     interface EmprenderEmailInformation {
     }
+    interface EmprenderPzUserInfo {
+        "onChangePass"?: (event: CustomEvent<any>) => void;
+        "onLogout"?: (event: CustomEvent<any>) => void;
+    }
     interface IntrinsicElements {
         "emprender-email-information": EmprenderEmailInformation;
+        "emprender-pz-user-info": EmprenderPzUserInfo;
     }
 }
 export { LocalJSX as JSX };
@@ -32,6 +46,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "emprender-email-information": LocalJSX.EmprenderEmailInformation & JSXBase.HTMLAttributes<HTMLEmprenderEmailInformationElement>;
+            "emprender-pz-user-info": LocalJSX.EmprenderPzUserInfo & JSXBase.HTMLAttributes<HTMLEmprenderPzUserInfoElement>;
         }
     }
 }
