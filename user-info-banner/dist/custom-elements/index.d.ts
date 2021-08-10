@@ -1,11 +1,11 @@
-/* privatezone custom elements bundle */
+/* ComponentEmailInfo custom elements bundle */
 
 import type { Components, JSX } from "../types/components";
 
-interface EmprenderPzUserInfo extends Components.EmprenderPzUserInfo, HTMLElement {}
-export const EmprenderPzUserInfo: {
-  prototype: EmprenderPzUserInfo;
-  new (): EmprenderPzUserInfo;
+interface EmprenderEmailInformation extends Components.EmprenderEmailInformation, HTMLElement {}
+export const EmprenderEmailInformation: {
+  prototype: EmprenderEmailInformation;
+  new (): EmprenderEmailInformation;
 };
 
 /**
