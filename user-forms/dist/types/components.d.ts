@@ -83,6 +83,7 @@ declare namespace LocalJSX {
     interface EmprenderUfPersonalInformation {
         "model"?: PersonalInformation;
         "onInfoSaved"?: (event: CustomEvent<PersonalInformation>) => void;
+        "onSendInfo"?: (event: CustomEvent<PersonalInformation>) => void;
     }
     interface EmprenderUfPersonalInformation2 {
         "model"?: PersonalInformation2;
