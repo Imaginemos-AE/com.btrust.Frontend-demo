@@ -18,5 +18,6 @@ export declare class EmprenderUfPersonalInformation {
     name: string;
   }[];
   _selectDropdownOption(field: string, value: string, clearField: string): void;
+  function(event: any): void;
   render(): any;
 }
