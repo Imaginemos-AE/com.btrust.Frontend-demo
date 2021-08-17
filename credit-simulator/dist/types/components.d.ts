@@ -7,6 +7,8 @@
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
 import { Credit } from "./modules/credit-simulator.module";
 export namespace Components {
+    interface EmprenderCreditData {
+    }
     interface EmprenderCreditSimulator {
     }
     interface EmprenderCsItem {
@@ -30,6 +32,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLEmprenderCreditDataElement extends Components.EmprenderCreditData, HTMLStencilElement {
+    }
+    var HTMLEmprenderCreditDataElement: {
+        prototype: HTMLEmprenderCreditDataElement;
+        new (): HTMLEmprenderCreditDataElement;
+    };
     interface HTMLEmprenderCreditSimulatorElement extends Components.EmprenderCreditSimulator, HTMLStencilElement {
     }
     var HTMLEmprenderCreditSimulatorElement: {
@@ -55,6 +63,7 @@ declare global {
         new (): HTMLEmprenderMiniCalculatorElement;
     };
     interface HTMLElementTagNameMap {
+        "emprender-credit-data": HTMLEmprenderCreditDataElement;
         "emprender-credit-simulator": HTMLEmprenderCreditSimulatorElement;
         "emprender-cs-item": HTMLEmprenderCsItemElement;
         "emprender-cs-slider": HTMLEmprenderCsSliderElement;
@@ -62,6 +71,8 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface EmprenderCreditData {
+    }
     interface EmprenderCreditSimulator {
         "onCreditRequested"?: (event: CustomEvent<Credit>) => void;
     }
@@ -85,6 +96,7 @@ declare namespace LocalJSX {
     interface EmprenderMiniCalculator {
     }
     interface IntrinsicElements {
+        "emprender-credit-data": EmprenderCreditData;
         "emprender-credit-simulator": EmprenderCreditSimulator;
         "emprender-cs-item": EmprenderCsItem;
         "emprender-cs-slider": EmprenderCsSlider;
@@ -95,6 +107,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "emprender-credit-data": LocalJSX.EmprenderCreditData & JSXBase.HTMLAttributes<HTMLEmprenderCreditDataElement>;
             "emprender-credit-simulator": LocalJSX.EmprenderCreditSimulator & JSXBase.HTMLAttributes<HTMLEmprenderCreditSimulatorElement>;
             "emprender-cs-item": LocalJSX.EmprenderCsItem & JSXBase.HTMLAttributes<HTMLEmprenderCsItemElement>;
             "emprender-cs-slider": LocalJSX.EmprenderCsSlider & JSXBase.HTMLAttributes<HTMLEmprenderCsSliderElement>;

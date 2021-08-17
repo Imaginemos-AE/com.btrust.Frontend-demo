@@ -21,3 +21,4 @@ export declare function termFormatter(value: any): string;
  */
 export declare const DEFAULT_SLIDER_VALUES: Array<SliderConfig>;
 export declare const DEFAULT_CURRENCY_VALUES: Array<CurrencyValue>;
+export declare const CREDIT_DATA: Array<CurrencyValue>;

@@ -2,6 +2,12 @@
 
 import type { Components, JSX } from "../types/components";
 
+interface EmprenderCreditData extends Components.EmprenderCreditData, HTMLElement {}
+export const EmprenderCreditData: {
+  prototype: EmprenderCreditData;
+  new (): EmprenderCreditData;
+};
+
 interface EmprenderCreditSimulator extends Components.EmprenderCreditSimulator, HTMLElement {}
 export const EmprenderCreditSimulator: {
   prototype: EmprenderCreditSimulator;

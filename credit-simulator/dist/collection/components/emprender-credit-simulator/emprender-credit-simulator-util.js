@@ -88,3 +88,35 @@ export const DEFAULT_CURRENCY_VALUES = [
   //   label: 'Total',
   // }
 ];
+export const CREDIT_DATA = [
+  {
+    key: 'firstCapital',
+    label: 'Monto solicitado:',
+  },
+  {
+    key: 'guarantee',
+    label: 'Aval',
+    subLabel: "opcional",
+    space: true
+  },
+  {
+    key: 'platform',
+    label: 'Plataforma',
+    subLabel: "opcional",
+  },
+  {
+    key: 'discount',
+    label: 'Descuento',
+    subLabel: "por inclusión financiera",
+  },
+  {
+    key: 'taxes',
+    label: 'IVA',
+    subLabel: "19%",
+    space: true,
+  },
+  {
+    key: 'total',
+    label: 'Total',
+  }
+];

@@ -5,12 +5,12 @@ import { capitalize, formatNumber, loadCSS, loadScript } from '../../utils/utils
 import { DEFAULT_CURRENCY_VALUES, DEFAULT_SLIDER_VALUES, termFormatter } from './emprender-credit-simulator-util';
 export class EmprenderCreditSimulator {
   constructor() {
-    this.sliderValues = [...(DEFAULT_SLIDER_VALUES.map(_item => (Object.assign({}, _item))))];
-    this.currencyValues = [...(DEFAULT_CURRENCY_VALUES.map(_item => (Object.assign({}, _item))))];
+    this.sliderValues = [...DEFAULT_SLIDER_VALUES.map(_item => (Object.assign({}, _item)))];
+    this.currencyValues = [...DEFAULT_CURRENCY_VALUES.map(_item => (Object.assign({}, _item)))];
     this.termSliderOrder = 'daily';
   }
   async componentWillLoad() {
-    await loadCSS("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500&family=Varela+Round&display=swap");
+    await loadCSS('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500&family=Varela+Round&display=swap');
     await loadScript('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js', 'popperjs', 'text/javascript');
     await loadScript('https://code.jquery.com/jquery-3.6.0.min.js', 'jquery', 'text/javascript');
     await loadScript('https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js', 'bootstrap', 'text/javascript');
@@ -24,7 +24,7 @@ export class EmprenderCreditSimulator {
     const element = this.host.shadowRoot.querySelectorAll('[data-toggle="tooltip"]');
     const container = this.host.shadowRoot.querySelector('.details');
     $(element).tooltip({
-      container: container
+      container: container,
     });
   }
   _loadDefaultConfig() {
@@ -61,11 +61,11 @@ export class EmprenderCreditSimulator {
     // set field slider values
     const slider = this.host.shadowRoot.querySelector(`emprender-cs-slider#${sliderConfig.key}`);
     const sliderVal = resetSlider ? newSliderValue.min : null;
-    slider === null || slider === void 0 ? void 0 : slider.updateBoundaries(newSliderValue.min, newSliderValue.max, (typeof newSliderValue.step === 'number') ? newSliderValue.step : newSliderValue.step(this.termSliderOrder), newSliderValue.formatter(newSliderValue.min), newSliderValue.formatter(newSliderValue.max), sliderVal);
+    slider === null || slider === void 0 ? void 0 : slider.updateBoundaries(newSliderValue.min, newSliderValue.max, typeof newSliderValue.step === 'number' ? newSliderValue.step : newSliderValue.step(this.termSliderOrder), newSliderValue.formatter(newSliderValue.min), newSliderValue.formatter(newSliderValue.max), sliderVal);
     /** calc boundaries overflow */
     if (calcBoundaries) {
       const creditValue = state.currentCreditInfo[`credit${capitalize(sliderConfig.key)}`];
-      const overflowValue = (creditValue > boundaries[maxKey]) || (creditValue < boundaries[minKey]) ? boundaries[minKey] : -1;
+      const overflowValue = creditValue > boundaries[maxKey] || creditValue < boundaries[minKey] ? boundaries[minKey] : -1;
       if (overflowValue !== -1)
         setCreditInfo({ [`credit${capitalize(sliderConfig.key)}`]: overflowValue });
     }
@@ -76,7 +76,7 @@ export class EmprenderCreditSimulator {
   }
   getFieldSubLabel(subLabel) {
     if (subLabel) {
-      return (typeof subLabel === 'string') ? subLabel : subLabel(state.currentCreditInfo);
+      return typeof subLabel === 'string' ? subLabel : subLabel(state.currentCreditInfo);
     }
   }
   renderTotal() {
@@ -105,13 +105,12 @@ export class EmprenderCreditSimulator {
                   "Empresario / Independiente",
                   h("input", { type: "radio", checked: state.currentCreditInfo.creditTypeId === 2, name: "radio3", onClick: () => this._creditTypeChange(2) }),
                   h("div", { class: "control__indicator" }))))),
-          this.sliderValues.map(_sliderValue => h("emprender-cs-slider", { id: _sliderValue.key, label: _sliderValue.label, min: _sliderValue.min, minLabel: _sliderValue.formatter(_sliderValue.min), max: _sliderValue.max, maxLabel: _sliderValue.formatter(_sliderValue.max), step: (typeof _sliderValue.step === 'number') ? _sliderValue.step : _sliderValue.step(this.termSliderOrder), value: state.currentCreditInfo[`credit${capitalize(_sliderValue.key)}`], formatter: _sliderValue.formatter, onSliderChange: (event) => this._sliderChange(_sliderValue.key, event.detail) })),
+          this.sliderValues.map(_sliderValue => (h("emprender-cs-slider", { id: _sliderValue.key, label: _sliderValue.label, min: _sliderValue.min, minLabel: _sliderValue.formatter(_sliderValue.min), max: _sliderValue.max, maxLabel: _sliderValue.formatter(_sliderValue.max), step: typeof _sliderValue.step === 'number' ? _sliderValue.step : _sliderValue.step(this.termSliderOrder), value: state.currentCreditInfo[`credit${capitalize(_sliderValue.key)}`], formatter: _sliderValue.formatter, onSliderChange: event => this._sliderChange(_sliderValue.key, event.detail) }))),
           h("p", { class: "total" }, this.renderTotal()),
           h("p", { class: "small" }, "Este valor corresponde a una simulaci\u00F3n de tu cr\u00E9dito seg\u00FAn los datos seleccionados por ti."),
           h("div", { class: "details" }, this.currencyValues.map(_currencyValue => {
             var _a;
-            return h("emprender-cs-item", { text: (typeof _currencyValue.label === 'string') ? _currencyValue.label : _currencyValue.label(this.termSliderOrder), subText: this.getFieldSubLabel(_currencyValue.subLabel), value: (_a = state.currentCreditInfo[`credit${capitalize(_currencyValue.key)}`]) !== null && _a !== void 0 ? _a : 0, space: _currencyValue.space }, _currencyValue.tooltip &&
-              h("emprender-cl-icon", { "data-toggle": "tooltip", "data-placement": "top", title: _currencyValue.tooltip, class: "tooltipWhite", icon: "info" }));
+            return (h("emprender-cs-item", { text: typeof _currencyValue.label === 'string' ? _currencyValue.label : _currencyValue.label(this.termSliderOrder), subText: this.getFieldSubLabel(_currencyValue.subLabel), value: (_a = state.currentCreditInfo[`credit${capitalize(_currencyValue.key)}`]) !== null && _a !== void 0 ? _a : 0, space: _currencyValue.space }, _currencyValue.tooltip && (h("emprender-cl-icon", { "data-toggle": "tooltip", "data-placement": "top", title: _currencyValue.tooltip, class: "tooltipWhite", icon: "info" }))));
           })),
           h("div", { class: "contcenter" },
             h("emprender-cl-button", { text: "Solicita tu cr\u00E9dito", modifiers: "medium primary", onclick: () => this.creditRequested.emit(state.currentCreditInfo) }))))));
