@@ -22,7 +22,7 @@ export class EmprenderCreditSimulator {
     var _a, _b, _c, _d, _e, _f;
     return (h(Host, null,
       h("div", { class: "confirmCreditInformation" },
-        h("div", { class: "col col-lg-8" },
+        h("div", null,
           h("h2", { class: "title" }, "Confirma la informaci\u00F3n de tu cr\u00E9dito"),
           h("div", { class: "details" },
             h("div", { class: "item highlighted" },
