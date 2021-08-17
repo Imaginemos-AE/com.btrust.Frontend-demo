@@ -5,5 +5,6 @@ export declare class EmprenderCreditSimulator implements ComponentInterface {
   currencyValues: Array<CurrencyValue>;
   getFieldSubLabel(subLabel: string | ((credit: Credit) => string)): string;
   getPayDay(days: any): string;
+  componentWillLoad(): void;
   render(): any;
 }

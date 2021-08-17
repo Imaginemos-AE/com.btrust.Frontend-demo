@@ -1,6 +1,6 @@
 import { h, Host, Component, State } from '@stencil/core';
 import { CREDIT_DATA } from '../emprender-credit-simulator/emprender-credit-simulator-util';
-import state from '../../store/credit-simulator.store';
+import state, { loadDefaultData } from '../../store/credit-simulator.store';
 import { capitalize, formatNumber } from '../../utils/utils';
 export class EmprenderCreditSimulator {
   constructor() {
@@ -17,6 +17,9 @@ export class EmprenderCreditSimulator {
     today.setDate(today.getDate() + days);
     let mesActual = new Intl.DateTimeFormat('es-ES', { month: 'long' }).format(today);
     return `${week[today.getUTCDay() - 1]} ${today.getDate()} de ${capitalize(mesActual)}`;
+  }
+  componentWillLoad() {
+    loadDefaultData();
   }
   render() {
     var _a, _b, _c, _d, _e, _f;

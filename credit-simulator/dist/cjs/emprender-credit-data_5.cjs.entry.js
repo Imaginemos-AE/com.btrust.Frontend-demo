@@ -462,6 +462,9 @@ const EmprenderCreditSimulator$1 = class {
     let mesActual = new Intl.DateTimeFormat('es-ES', { month: 'long' }).format(today);
     return `${week[today.getUTCDay() - 1]} ${today.getDate()} de ${capitalize(mesActual)}`;
   }
+  componentWillLoad() {
+    loadDefaultData();
+  }
   render() {
     var _a, _b, _c, _d, _e, _f;
     return (index.h(index.Host, null, index.h("div", { class: "confirmCreditInformation" }, index.h("div", null, index.h("h2", { class: "title" }, "Confirma la informaci\u00F3n de tu cr\u00E9dito"), index.h("div", { class: "details" }, index.h("div", { class: "item highlighted" }, index.h("label", null, "Monto final solicitado:"), index.h("p", { class: "value" }, formatNumber((_b = (_a = state.currentCreditInfo) === null || _a === void 0 ? void 0 : _a.creditFirstCapital) !== null && _b !== void 0 ? _b : 0))), index.h("div", { class: "item" }, this.currencyValues.map(_currencyValue => {
