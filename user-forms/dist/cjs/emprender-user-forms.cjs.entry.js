@@ -1,6 +1,10 @@
-import { g as getRenderingRef, i as forceUpdate, r as registerInstance, e as createEvent, h, f as Host } from './index-fa4376ad.js';
-import { g as getData, s as setData } from './helper-d3d03427.js';
-import { l as loadCSS, a as loadScript } from './utils-84851d0f.js';
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+const index = require('./index-62986d8d.js');
+const helper = require('./helper-c4310d62.js');
+const utils = require('./utils-2fe1da8e.js');
 
 const appendToMap = (map, propName, value) => {
     const items = map.get(propName);
@@ -41,14 +45,14 @@ const cleanupElements = debounce((map) => {
 }, 2000);
 const stencilSubscription = ({ on }) => {
     const elmsToUpdate = new Map();
-    if (typeof getRenderingRef === 'function') {
+    if (typeof index.getRenderingRef === 'function') {
         // If we are not in a stencil project, we do nothing.
         // This function is not really exported by @stencil/core.
         on('dispose', () => {
             elmsToUpdate.clear();
         });
         on('get', (propName) => {
-            const elm = getRenderingRef();
+            const elm = index.getRenderingRef();
             if (elm) {
                 appendToMap(elmsToUpdate, propName, elm);
             }
@@ -56,12 +60,12 @@ const stencilSubscription = ({ on }) => {
         on('set', (propName) => {
             const elements = elmsToUpdate.get(propName);
             if (elements) {
-                elmsToUpdate.set(propName, elements.filter(forceUpdate));
+                elmsToUpdate.set(propName, elements.filter(index.forceUpdate));
             }
             cleanupElements(elmsToUpdate);
         });
         on('reset', () => {
-            elmsToUpdate.forEach((elms) => elms.forEach(forceUpdate));
+            elmsToUpdate.forEach((elms) => elms.forEach(index.forceUpdate));
             cleanupElements(elmsToUpdate);
         });
     }
@@ -182,11 +186,11 @@ const { state } = createStore({
   currentUserInformation: {}
 });
 function loadDefaultData() {
-  state.currentUserInformation = getData();
+  state.currentUserInformation = helper.getData();
 }
 function setUserInformation(field, newData) {
   state.currentUserInformation = Object.assign(Object.assign({}, state.currentUserInformation), { [field]: newData });
-  setData(state.currentUserInformation);
+  helper.setData(state.currentUserInformation);
 }
 
 const emprenderUserFormsCss = ":host{display:block}.prueba{min-height:50VH;position:relative}.lds-dual-ring{display:inline-block;position:absolute;left:50%;top:50%;transform:translate(-50%, -50%);width:80px;height:80px}.lds-dual-ring:after{content:\" \";display:block;width:64px;height:64px;margin:8px;border-radius:50%;border:6px solid #51215b;border-color:#51215b transparent #51215b transparent;animation:lds-dual-ring 1.2s linear infinite}@keyframes lds-dual-ring{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}";
@@ -207,19 +211,19 @@ const INDEPENDENT_FLOW = [
 ];
 const EmprenderUserForms = class {
   constructor(hostRef) {
-    registerInstance(this, hostRef);
-    this.infoSaved = createEvent(this, "infoSaved", 7);
-    this.backSaved = createEvent(this, "backSaved", 7);
+    index.registerInstance(this, hostRef);
+    this.infoSaved = index.createEvent(this, "infoSaved", 7);
+    this.backSaved = index.createEvent(this, "backSaved", 7);
     this.flowType = 'employee';
     this.step = 0;
     this.loading = false;
     this._getFlow = () => (this.flowType === 'employee' ? EMPLOYEE_FLOW : INDEPENDENT_FLOW);
     this._getData = (field) => { var _a; return ((_a = state.currentUserInformation) !== null && _a !== void 0 ? _a : {})[field]; };
-    this.getLoadingGif = () => h("div", { class: "lds-dual-ring" });
+    this.getLoadingGif = () => index.h("div", { class: "lds-dual-ring" });
   }
   async componentWillLoad() {
-    await loadCSS('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500&family=Varela+Round&display=swap');
-    await loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
+    await utils.loadCSS('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500&family=Varela+Round&display=swap');
+    await utils.loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
     loadDefaultData();
   }
   isLoading() {
@@ -229,7 +233,7 @@ const EmprenderUserForms = class {
     if (this.step >= 0 && this.step < this._getFlow().length) {
       const { tag, field } = this._getFlow()[this.step];
       const _tag = `emprender-uf-${tag}`;
-      return (h(_tag, { model: this._getData(field), flow: this.flowType, onInfoSaved: ev => this.saveInfo(field, ev.detail), onBack: ev => this.onBackPressed(field, ev.detail) }));
+      return (index.h(_tag, { model: this._getData(field), flow: this.flowType, onInfoSaved: ev => this.saveInfo(field, ev.detail), onBack: ev => this.onBackPressed(field, ev.detail) }));
     }
   }
   _updateStep(direction) {
@@ -256,9 +260,9 @@ const EmprenderUserForms = class {
     this.isLoading();
   }
   render() {
-    return (h(Host, null, h("div", { class: "prueba" }, this.loading ? this._renderCurrentStep() : this.getLoadingGif())));
+    return (index.h(index.Host, null, index.h("div", { class: "prueba" }, this.loading ? this._renderCurrentStep() : this.getLoadingGif())));
   }
 };
 EmprenderUserForms.style = emprenderUserFormsCss;
 
-export { EmprenderUserForms as emprender_user_forms };
+exports.emprender_user_forms = EmprenderUserForms;
