@@ -1,4 +1,4 @@
-import { Component, h, State, Host, Event, Prop, Listen } from '@stencil/core';
+import { Component, h, State, Host, Event, Prop } from '@stencil/core';
 import { COUNTRY } from '../../utils/country';
 export class EmprenderUfPersonalInformation {
   constructor() {
@@ -41,18 +41,8 @@ export class EmprenderUfPersonalInformation {
     this._setModel(field, value);
     this._setModel(clearField, "");
   }
-  function(event) {
-    console.log(event);
-    console.log("te envio un evento");
-    this._setModel("firstName", 'Melyssa');
-  }
   componentWillRender() {
     this.sendInfo.emit(this.model);
-    console.log(this.model);
-  }
-  componentDidLoad() {
-    this.sendInfo.emit(this.model);
-    console.log(this.model);
   }
   render() {
     return (h(Host, null,
@@ -209,12 +199,5 @@ export class EmprenderUfPersonalInformation {
           }
         }
       }
-    }]; }
-  static get listeners() { return [{
-      "name": "pruebaForms",
-      "method": "function",
-      "target": undefined,
-      "capture": false,
-      "passive": false
     }]; }
 }

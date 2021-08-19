@@ -158,18 +158,8 @@ const EmprenderUfPersonalInformation$1 = class extends HTMLElement {
     this._setModel(field, value);
     this._setModel(clearField, "");
   }
-  function(event) {
-    console.log(event);
-    console.log("te envio un evento");
-    this._setModel("firstName", 'Melyssa');
-  }
   componentWillRender() {
     this.sendInfo.emit(this.model);
-    console.log(this.model);
-  }
-  componentDidLoad() {
-    this.sendInfo.emit(this.model);
-    console.log(this.model);
   }
   render() {
     return (h(Host, null, h("section", { class: "employeeRegistration" }, h("div", { class: "container" }, h("div", { class: "row justify-content-center" }, h("div", { class: "col" }, h("h2", { class: "title" }, "Informaci\u00F3n Personal"), h("h4", null, "Completa la siguiente informaci\u00F3n"), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-6" }, h("fieldset", null, h("emprender-cl-input", { label: "Primer nombre", value: this.model.firstName, onInputChange: (ev) => this._setModel("firstName", ev.detail) }))), h("div", { class: "col-6" }, h("fieldset", null, h("emprender-cl-input", { label: "Segundo nombre", value: this.model.middleName, onInputChange: (ev) => this._setModel("middleName", ev.detail) }))), h("div", { class: "col-6" }, h("fieldset", null, h("emprender-cl-input", { label: "Primer apellido", value: this.model.surName, onInputChange: (ev) => this._setModel("surName", ev.detail) }))), h("div", { class: "col-6" }, h("fieldset", null, h("emprender-cl-input", { label: "Segundo apellido", value: this.model.secondSurName, onInputChange: (ev) => this._setModel("secondSurName", ev.detail) }))), h("div", { class: "col-md-6 col-lg-4" }, h("fieldset", { class: "mb17" }, h("emprender-cl-select", { label: "Tipo de Documento", value: this.model.documentType, onSelectChange: (ev) => this._setModel("documentType", ev.detail) }, h("option", { value: "cedula_ciudadania" }, "C\u00E9dula de ciudadan\u00EDa"), h("option", { value: "cedula_extranjeria" }, "C\u00E9dula de extranjer\u00EDa"), h("option", { value: "nit" }, "NIT")))), h("div", { class: "col-md-6 col-lg-4" }, h("fieldset", { class: "mb17" }, h("emprender-cl-input", { label: "N\u00FAmero de documento", value: this.model.documentNumber, onInputChange: (ev) => this._setModel("documentNumber", ev.detail) }))), h("div", { class: "col-lg-4" }, h("fieldset", { class: "mb17" }, h("emprender-cl-input", { label: "Fecha de expedici\u00F3n", value: this.model.expeditionDate, inputOptions: { type: 'date' }, onInputChange: (ev) => this._setModel("expeditionDate", ev.detail) }))), h("div", { class: "col-lg-6" }, h("fieldset", { class: "mb2" }, h("label", null, "Departamento y ciudad de expedici\u00F3n del documento"), h("div", { class: "row" }, h("div", { class: "col-6" }, h("fieldset", null, h("emprender-cl-select", { value: this.model.expeditionDepartment, options: this._getSelectDepartmentOptions(), onSelectChange: (ev) => this._selectDropdownOption("expeditionDepartment", ev.detail, "expeditionCity") }))), h("div", { class: "col-6" }, h("fieldset", null, h("emprender-cl-select", { value: this.model.expeditionCity, options: this._getSelectCitiesOptions("expeditionDepartment"), onSelectChange: (ev) => this._setModel("expeditionCity", ev.detail) })))))), h("div", { class: "col-6 col-lg-3" }, h("fieldset", null, h("emprender-cl-input", { label: "Celular", value: this.model.mobilePhone, onInputChange: (ev) => this._setModel("mobilePhone", ev.detail) }))), h("div", { class: "col-6 col-lg-3" }, h("fieldset", null, h("emprender-cl-input", { label: "Tel\u00E9fono", value: this.model.phone, onInputChange: (ev) => this._setModel("phone", ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { label: "Correo electr\u00F3nico", inputOptions: { type: 'email' }, value: this.model.email, onInputChange: (ev) => this._setModel("email", ev.detail) }))), h("div", { class: "col-md-6 col-lg-3" }, h("fieldset", null, h("emprender-cl-input", { label: "Fecha de nacimiento", inputOptions: { type: 'date' }, value: this.model.birthDate, onInputChange: (ev) => this._setModel("birthDate", ev.detail) }))), h("div", { class: "col-lg-3" }, h("fieldset", null, h("emprender-cl-input", { label: "Nacionalidad",
@@ -548,7 +538,7 @@ const EmprenderUserForms$1 = class extends HTMLElement {
 };
 
 const EmprenderUfFinancialInformation = /*@__PURE__*/proxyCustomElement(EmprenderUfFinancialInformation$1, [1,"emprender-uf-financial-information",{"model":[1040]}]);
-const EmprenderUfPersonalInformation = /*@__PURE__*/proxyCustomElement(EmprenderUfPersonalInformation$1, [1,"emprender-uf-personal-information",{"model":[1040],"departments":[32]},[[0,"pruebaForms","function"]]]);
+const EmprenderUfPersonalInformation = /*@__PURE__*/proxyCustomElement(EmprenderUfPersonalInformation$1, [1,"emprender-uf-personal-information",{"model":[1040],"departments":[32]}]);
 const EmprenderUfPersonalInformation2 = /*@__PURE__*/proxyCustomElement(EmprenderUfPersonalInformation2$1, [1,"emprender-uf-personal-information-2",{"model":[16],"departments":[32]}]);
 const EmprenderUfReferences = /*@__PURE__*/proxyCustomElement(EmprenderUfReferences$1, [1,"emprender-uf-references",{"model":[1040]}]);
 const EmprenderUfWorkingInformation = /*@__PURE__*/proxyCustomElement(EmprenderUfWorkingInformation$1, [1,"emprender-uf-working-information",{"model":[16]}]);
