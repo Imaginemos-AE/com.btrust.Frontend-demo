@@ -75,3 +75,8 @@ export interface References {
   friendContactPhone: string;
   friendContactRelationship: string;
 }
+export interface BankInformation {
+  bankName: string;
+  accountType: string;
+  accountNumber: string;
+}

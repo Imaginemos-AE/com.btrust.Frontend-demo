@@ -13,18 +13,19 @@ export class EmprenderUfWorkingInformation {
       companyPhoneExtension: "",
       otherPhone: "",
     };
+    this.viewRegistration = true;
   }
   _setModel(field, value) {
     this.model = Object.assign(Object.assign({}, this.model), { [field]: value });
   }
   render() {
     return (h(Host, null,
-      h("section", { class: "employeeRegistration" },
+      h("section", { class: this.viewRegistration ? 'employeeRegistration' : 'clientForms' },
         h("div", { class: "container" },
           h("div", { class: "row justify-content-center" },
             h("div", { class: "col" },
-              h("h2", { class: "title" }, "Informaci\u00F3n Laboral"),
-              h("h4", null, "Completa la siguiente informaci\u00F3n"),
+              h("h2", { class: "title" }, this.viewRegistration ? 'Información Laboral' : '2. Información Laboral'),
+              this.viewRegistration ? h("h4", null, "Completa la siguiente informaci\u00F3n") : '',
               h("div", { class: "boxForm form p5" },
                 h("div", { class: "row mb20" },
                   h("div", { class: "col-md-6" },
@@ -106,6 +107,8 @@ export class EmprenderUfWorkingInformation {
               h("ul", { class: "inline flex-center-center mb20" },
                 h("li", null,
                   h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })),
+                this.viewRegistration ? '' : h("li", null,
+                  h("emprender-cl-button", { text: "Actualizar", modifiers: "medium quaternary", onclick: () => this.upgradeInfo.emit(this.model) })),
                 h("li", null,
                   h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this.infoSaved.emit(this.model) }))),
               h("slot", null)))))));
@@ -139,6 +142,24 @@ export class EmprenderUfWorkingInformation {
         "text": ""
       },
       "defaultValue": "{\r\n    companyName: \"\",\r\n    position: \"\",\r\n    companyType: \"public\",\r\n    companySeniority: \"\",\r\n    contractType: \"\",\r\n    companyActivity: \"\",\r\n    creditDestination: \"\",\r\n    companyPhone: \"\",\r\n    companyPhoneExtension: \"\",\r\n    otherPhone: \"\",\r\n  }"
+    },
+    "viewRegistration": {
+      "type": "boolean",
+      "mutable": false,
+      "complexType": {
+        "original": "boolean",
+        "resolved": "boolean",
+        "references": {}
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "view-registration",
+      "reflect": false,
+      "defaultValue": "true"
     }
   }; }
   static get events() { return [{
@@ -164,6 +185,26 @@ export class EmprenderUfWorkingInformation {
     }, {
       "method": "back",
       "name": "back",
+      "bubbles": true,
+      "cancelable": true,
+      "composed": true,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "complexType": {
+        "original": "WorkingInformation",
+        "resolved": "WorkingInformation",
+        "references": {
+          "WorkingInformation": {
+            "location": "import",
+            "path": "../../module/models"
+          }
+        }
+      }
+    }, {
+      "method": "upgradeInfo",
+      "name": "upgradeInfo",
       "bubbles": true,
       "cancelable": true,
       "composed": true,

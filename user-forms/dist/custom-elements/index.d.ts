@@ -20,6 +20,12 @@ export const EmprenderUfPersonalInformation2: {
   new (): EmprenderUfPersonalInformation2;
 };
 
+interface EmprenderUfPersonalInformation3 extends Components.EmprenderUfPersonalInformation3, HTMLElement {}
+export const EmprenderUfPersonalInformation3: {
+  prototype: EmprenderUfPersonalInformation3;
+  new (): EmprenderUfPersonalInformation3;
+};
+
 interface EmprenderUfReferences extends Components.EmprenderUfReferences, HTMLElement {}
 export const EmprenderUfReferences: {
   prototype: EmprenderUfReferences;
@@ -36,6 +42,12 @@ interface EmprenderUserForms extends Components.EmprenderUserForms, HTMLElement 
 export const EmprenderUserForms: {
   prototype: EmprenderUserForms;
   new (): EmprenderUserForms;
+};
+
+interface EmprenderUserProfile extends Components.EmprenderUserProfile, HTMLElement {}
+export const EmprenderUserProfile: {
+  prototype: EmprenderUserProfile;
+  new (): EmprenderUserProfile;
 };
 
 /**

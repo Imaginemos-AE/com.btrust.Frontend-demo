@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
-import { FinancialInformation, PersonalInformation, PersonalInformation2, References, UserForm, WorkingInformation } from "./module/models";
+import { BankInformation, FinancialInformation, PersonalInformation, PersonalInformation2, References, UserForm, WorkingInformation } from "./module/models";
 export namespace Components {
     interface EmprenderUfFinancialInformation {
         "model": FinancialInformation;
@@ -16,13 +16,26 @@ export namespace Components {
     interface EmprenderUfPersonalInformation2 {
         "model": PersonalInformation2;
     }
+    interface EmprenderUfPersonalInformation3 {
+        "model": PersonalInformation;
+        "model2": PersonalInformation2;
+        "model3": BankInformation;
+    }
     interface EmprenderUfReferences {
         "model": References;
+        "viewRegistration": boolean;
     }
     interface EmprenderUfWorkingInformation {
         "model": WorkingInformation;
+        "viewRegistration": boolean;
     }
     interface EmprenderUserForms {
+        "flowType": 'employee' | 'independent';
+        "loading": boolean;
+        "step": number;
+    }
+    interface EmprenderUserProfile {
+        "barState": string;
         "flowType": 'employee' | 'independent';
         "loading": boolean;
         "step": number;
@@ -47,6 +60,12 @@ declare global {
         prototype: HTMLEmprenderUfPersonalInformation2Element;
         new (): HTMLEmprenderUfPersonalInformation2Element;
     };
+    interface HTMLEmprenderUfPersonalInformation3Element extends Components.EmprenderUfPersonalInformation3, HTMLStencilElement {
+    }
+    var HTMLEmprenderUfPersonalInformation3Element: {
+        prototype: HTMLEmprenderUfPersonalInformation3Element;
+        new (): HTMLEmprenderUfPersonalInformation3Element;
+    };
     interface HTMLEmprenderUfReferencesElement extends Components.EmprenderUfReferences, HTMLStencilElement {
     }
     var HTMLEmprenderUfReferencesElement: {
@@ -65,13 +84,21 @@ declare global {
         prototype: HTMLEmprenderUserFormsElement;
         new (): HTMLEmprenderUserFormsElement;
     };
+    interface HTMLEmprenderUserProfileElement extends Components.EmprenderUserProfile, HTMLStencilElement {
+    }
+    var HTMLEmprenderUserProfileElement: {
+        prototype: HTMLEmprenderUserProfileElement;
+        new (): HTMLEmprenderUserProfileElement;
+    };
     interface HTMLElementTagNameMap {
         "emprender-uf-financial-information": HTMLEmprenderUfFinancialInformationElement;
         "emprender-uf-personal-information": HTMLEmprenderUfPersonalInformationElement;
         "emprender-uf-personal-information-2": HTMLEmprenderUfPersonalInformation2Element;
+        "emprender-uf-personal-information-3": HTMLEmprenderUfPersonalInformation3Element;
         "emprender-uf-references": HTMLEmprenderUfReferencesElement;
         "emprender-uf-working-information": HTMLEmprenderUfWorkingInformationElement;
         "emprender-user-forms": HTMLEmprenderUserFormsElement;
+        "emprender-user-profile": HTMLEmprenderUserProfileElement;
     }
 }
 declare namespace LocalJSX {
@@ -90,17 +117,36 @@ declare namespace LocalJSX {
         "onBack"?: (event: CustomEvent<PersonalInformation2>) => void;
         "onInfoSaved"?: (event: CustomEvent<PersonalInformation2>) => void;
     }
+    interface EmprenderUfPersonalInformation3 {
+        "model"?: PersonalInformation;
+        "model2"?: PersonalInformation2;
+        "model3"?: BankInformation;
+        "onInfoSaved"?: (event: CustomEvent<PersonalInformation>) => void;
+        "onUpgradeInfo"?: (event: CustomEvent<[PersonalInformation,PersonalInformation2,BankInformation, string]>) => void;
+    }
     interface EmprenderUfReferences {
         "model"?: References;
         "onBack"?: (event: CustomEvent<References>) => void;
         "onInfoSaved"?: (event: CustomEvent<References>) => void;
+        "onUpgradeInfo"?: (event: CustomEvent<References>) => void;
+        "viewRegistration"?: boolean;
     }
     interface EmprenderUfWorkingInformation {
         "model"?: WorkingInformation;
         "onBack"?: (event: CustomEvent<WorkingInformation>) => void;
         "onInfoSaved"?: (event: CustomEvent<WorkingInformation>) => void;
+        "onUpgradeInfo"?: (event: CustomEvent<WorkingInformation>) => void;
+        "viewRegistration"?: boolean;
     }
     interface EmprenderUserForms {
+        "flowType"?: 'employee' | 'independent';
+        "loading"?: boolean;
+        "onBackSaved"?: (event: CustomEvent<UserForm>) => void;
+        "onInfoSaved"?: (event: CustomEvent<UserForm>) => void;
+        "step"?: number;
+    }
+    interface EmprenderUserProfile {
+        "barState"?: string;
         "flowType"?: 'employee' | 'independent';
         "loading"?: boolean;
         "onBackSaved"?: (event: CustomEvent<UserForm>) => void;
@@ -111,9 +157,11 @@ declare namespace LocalJSX {
         "emprender-uf-financial-information": EmprenderUfFinancialInformation;
         "emprender-uf-personal-information": EmprenderUfPersonalInformation;
         "emprender-uf-personal-information-2": EmprenderUfPersonalInformation2;
+        "emprender-uf-personal-information-3": EmprenderUfPersonalInformation3;
         "emprender-uf-references": EmprenderUfReferences;
         "emprender-uf-working-information": EmprenderUfWorkingInformation;
         "emprender-user-forms": EmprenderUserForms;
+        "emprender-user-profile": EmprenderUserProfile;
     }
 }
 export { LocalJSX as JSX };
@@ -123,9 +171,11 @@ declare module "@stencil/core" {
             "emprender-uf-financial-information": LocalJSX.EmprenderUfFinancialInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfFinancialInformationElement>;
             "emprender-uf-personal-information": LocalJSX.EmprenderUfPersonalInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfPersonalInformationElement>;
             "emprender-uf-personal-information-2": LocalJSX.EmprenderUfPersonalInformation2 & JSXBase.HTMLAttributes<HTMLEmprenderUfPersonalInformation2Element>;
+            "emprender-uf-personal-information-3": LocalJSX.EmprenderUfPersonalInformation3 & JSXBase.HTMLAttributes<HTMLEmprenderUfPersonalInformation3Element>;
             "emprender-uf-references": LocalJSX.EmprenderUfReferences & JSXBase.HTMLAttributes<HTMLEmprenderUfReferencesElement>;
             "emprender-uf-working-information": LocalJSX.EmprenderUfWorkingInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfWorkingInformationElement>;
             "emprender-user-forms": LocalJSX.EmprenderUserForms & JSXBase.HTMLAttributes<HTMLEmprenderUserFormsElement>;
+            "emprender-user-profile": LocalJSX.EmprenderUserProfile & JSXBase.HTMLAttributes<HTMLEmprenderUserProfileElement>;
         }
     }
 }

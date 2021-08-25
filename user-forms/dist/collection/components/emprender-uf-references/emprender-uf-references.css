@@ -331,6 +331,172 @@ fieldset label.control input {
   background: #7b7b7b;
 }
 
+section.clientForms {
+  padding: 40px 0;
+}
+section.clientForms h2.title {
+  color: #4A4A4A;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-family: "Open Sans", sans-serif;
+}
+section.clientForms .boxForm {
+  background-color: #FFFFFF;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  padding: 20px 25px;
+  margin-bottom: 30px;
+}
+section.clientForms .wallet {
+  padding-top: 20px;
+}
+section.clientForms .wallet .br {
+  border-right: 1px solid #CFCFCF;
+}
+section.clientForms .wallet .walletMUII {
+  padding-right: 20px;
+}
+section.clientForms .wallet .walletMUII h6 {
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+section.clientForms .wallet .walletMUII p.italic {
+  font-style: italic;
+  text-align: center;
+  line-height: 19px;
+}
+section.clientForms .wallet .walletMUII fieldset input.text {
+  display: block;
+  width: 300px;
+  margin: 0 auto;
+  max-width: 100%;
+}
+section.clientForms .wallet .bankAccountForm {
+  padding-left: 20px;
+}
+section.clientForms .wallet .bankAccountForm .boxForm {
+  margin-bottom: 20px;
+}
+section.clientForms .wallet .bankAccountForm h6 {
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+section.clientForms .wallet .bankAccountForm p.italic {
+  font-style: italic;
+  text-align: center;
+  line-height: 19px;
+}
+
+/* Steos
+============================================================ */
+.steps {
+  padding-left: 50px;
+  position: relative;
+}
+.steps .icon {
+  color: #51215b;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 40px;
+}
+.steps .cont p {
+  color: #51215b;
+  margin-bottom: 5px;
+  font-weight: 600;
+  text-align: left;
+  font-style: italic;
+}
+.steps .cont p span.number {
+  display: block;
+  float: left;
+  font-weight: 700;
+  font-size: 25px;
+  display: inline-block;
+  margin-right: 7px;
+  position: relative;
+  top: -2px;
+}
+.steps .cont .progress {
+  background-color: #EFEFEF;
+  border-radius: 6px;
+  height: 10px;
+  max-width: 400px;
+}
+.steps .cont .progress-bar {
+  background-color: #51215b;
+}
+
+.multiStep {
+  margin-bottom: 30px;
+}
+.multiStep ul.info {
+  display: flex;
+  margin-bottom: 10px;
+  padding-left: 0;
+  justify-content: space-between;
+}
+.multiStep ul.info span.bgPrimary {
+  background-color: #51215b !important;
+}
+.multiStep ul.info span.bgTertiary {
+  background-color: #00779a !important;
+}
+.multiStep ul.info span.bgQuaternary {
+  background-color: #e13d4c !important;
+}
+.multiStep ul.info li {
+  list-style: none;
+}
+.multiStep ul.info li span.number {
+  font-family: "Open Sans", sans-serif;
+  border-radius: 100%;
+  color: #FFFFFF;
+  display: block;
+  font-size: 20px;
+  float: left;
+  height: 27px;
+  width: 27px;
+  line-height: 27px;
+  text-align: center;
+  margin-right: 5px;
+  font-style: italic;
+  font-weight: 700;
+}
+.multiStep ul.info li span.text {
+  font-family: "Open Sans", sans-serif;
+  color: #4A4A4A;
+  font-weight: 600;
+  display: block;
+  float: left;
+  font-style: italic;
+  position: relative;
+  top: 3px;
+}
+.multiStep .progress {
+  background-color: #EFEFEF;
+  border-radius: 6px;
+  height: 10px;
+}
+.multiStep .progress-bar {
+  background-color: #51215b;
+}
+.multiStep .bar0 {
+  width: 25%;
+}
+.multiStep .bar1 {
+  width: 50%;
+}
+.multiStep .bar2 {
+  width: 100%;
+}
+
 section.employeeRegistration {
   padding: 40px 0 20px 0;
   text-align: center;
