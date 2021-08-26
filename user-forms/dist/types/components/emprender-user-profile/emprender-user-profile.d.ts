@@ -7,6 +7,7 @@ export declare class EmprenderUserForms implements ComponentInterface {
   infoSaved: EventEmitter<UserForm>;
   backSaved: EventEmitter<UserForm>;
   barState: string;
+  alarmUpgrade: boolean;
   componentWillLoad(): Promise<void>;
   _getFlow: () => {
     tag: string;

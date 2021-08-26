@@ -676,7 +676,7 @@ ul.inline li emprender-cl-button {
 }
 
 .prueba {
-  min-height: 50VH;
+  min-height: 50vh;
   position: relative;
 }
 
@@ -709,4 +709,42 @@ ul.inline li emprender-cl-button {
   100% {
     transform: rotate(360deg);
   }
+}
+.alert {
+  width: 25%;
+  height: 30px;
+  right: 10px;
+  left: auto;
+  margin: 20px auto;
+  padding: 30px;
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 0 0 15px 5px #ccc;
+  background-color: #fff;
+  border-left: 5px solid #51215b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.alert h3 {
+  font-family: "Varela Round", sans-serif;
+  font-size: 20px;
+  color: #4A4A4A;
+}
+.alert .close {
+  width: 25px;
+  height: 25px;
+  opacity: 0.5;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 50%;
+  margin-right: 0;
+  margin-left: auto;
+  left: 15px;
+  top: 25px;
+  text-align: center;
+  font-size: 1.3em;
+  cursor: pointer;
+  border-color: #51215b;
+  color: #51215b;
 }

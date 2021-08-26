@@ -48,8 +48,8 @@ export class EmprenderUfReferences {
                   h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })),
                 this.viewRegistration ? '' : h("li", null,
                   h("emprender-cl-button", { text: "Terminar", modifiers: "medium quaternary", onclick: () => this.upgradeInfo.emit(this.model) })),
-                h("li", null,
-                  h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this.infoSaved.emit(this.model) }))),
+                this.viewRegistration ? h("li", null,
+                  h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this.infoSaved.emit(this.model) })) : ''),
               h("slot", null)))))));
   }
   static get is() { return "emprender-uf-references"; }

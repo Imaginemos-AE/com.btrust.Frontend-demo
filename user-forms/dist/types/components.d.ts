@@ -35,6 +35,7 @@ export namespace Components {
         "step": number;
     }
     interface EmprenderUserProfile {
+        "alarmUpgrade": boolean;
         "barState": string;
         "flowType": 'employee' | 'independent';
         "loading": boolean;
@@ -146,6 +147,7 @@ declare namespace LocalJSX {
         "step"?: number;
     }
     interface EmprenderUserProfile {
+        "alarmUpgrade"?: boolean;
         "barState"?: string;
         "flowType"?: 'employee' | 'independent';
         "loading"?: boolean;

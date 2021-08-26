@@ -17,6 +17,7 @@ export class EmprenderUserForms {
     this.step = 0;
     this.loading = false;
     this.barState = 'bar0';
+    this.alarmUpgrade = false;
     this._getFlow = () => (this.flowType === 'employee' ? EMPLOYEE_FLOW : INDEPENDENT_FLOW);
     this._getData = (field) => { var _a; return ((_a = state.currentUserInformation) !== null && _a !== void 0 ? _a : {})[field]; };
     this.getLoadingGif = () => h("div", { class: "lds-dual-ring" });
@@ -38,6 +39,7 @@ export class EmprenderUserForms {
   }
   _updateStep(direction) {
     this.loading = false;
+    this.alarmUpgrade = false;
     if (direction === 'up') {
       const max = this._getFlow().length - 1;
       this.step = this.step < max ? this.step + 1 : max;
@@ -53,11 +55,13 @@ export class EmprenderUserForms {
     this.infoSaved.emit(state.currentUserInformation);
   }
   upgradeInfo(field, data) {
+    this.alarmUpgrade = true;
     if (Array.isArray(data)) {
       setUserInformation('personalInformation', data[0]);
       setUserInformation('personalInformation2', data[1]);
       setUserInformation('bankInformation', data[2]);
       if (data[3] === 'up') {
+        this.alarmUpgrade = false;
         this._updateStep('up');
         this.infoSaved.emit(state.currentUserInformation);
       }
@@ -89,7 +93,11 @@ export class EmprenderUserForms {
             h("span", { class: "text" }, "Referencias"))),
         h("div", { class: "progress" },
           h("div", { class: `progress-bar ${this.barState}`, role: "progressbar", "aria-valuenow": "25", "aria-valuemin": "0", "aria-valuemax": "4" }))),
-      h("div", { class: "prueba" }, this.loading ? this._renderCurrentStep() : this.getLoadingGif())));
+      h("div", { class: "prueba" },
+        this.alarmUpgrade ? (h("div", { class: "alert simple-alert", role: "alert" },
+          h("h3", null, "Actualizado"),
+          h("a", { class: "close", onClick: () => this.alarmUpgrade = false }, "\u00D7"))) : (''),
+        this.loading ? this._renderCurrentStep() : this.getLoadingGif())));
   }
   static get is() { return "emprender-user-profile"; }
   static get encapsulation() { return "shadow"; }
@@ -171,6 +179,24 @@ export class EmprenderUserForms {
       "attribute": "bar-state",
       "reflect": true,
       "defaultValue": "'bar0'"
+    },
+    "alarmUpgrade": {
+      "type": "boolean",
+      "mutable": true,
+      "complexType": {
+        "original": "boolean",
+        "resolved": "boolean",
+        "references": {}
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "alarm-upgrade",
+      "reflect": true,
+      "defaultValue": "false"
     }
   }; }
   static get events() { return [{
