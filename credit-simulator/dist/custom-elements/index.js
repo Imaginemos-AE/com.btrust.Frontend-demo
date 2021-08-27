@@ -459,7 +459,8 @@ const EmprenderCreditSimulator$2 = class extends HTMLElement {
     let week = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
     today.setDate(today.getDate() + days);
     let mesActual = new Intl.DateTimeFormat('es-ES', { month: 'long' }).format(today);
-    return `${week[today.getUTCDay() - 1]} ${today.getDate()} de ${capitalize(mesActual)}`;
+    console.log(today.getUTCDay());
+    return `${week[today.getUTCDay()]} ${today.getDate()} de ${capitalize(mesActual)}`;
   }
   componentWillLoad() {
     loadDefaultData();
