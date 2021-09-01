@@ -13,16 +13,16 @@ export interface PersonalInformation {
   secondSurName: string;
   documentType: string;
   documentNumber: string;
+  birthDate: string;
   expeditionDate: string;
+  nationality: string;
+  departmentOfBirth: string;
+  cityOfBirth: string;
   expeditionDepartment: string;
   expeditionCity: string;
   mobilePhone: string;
   phone: string;
   email: string;
-  birthDate: string;
-  nationality: string;
-  cityOfBirth: string;
-  departmentOfBirth: string;
   gender: string;
 }
 export interface PersonalInformation2 {
@@ -30,8 +30,8 @@ export interface PersonalInformation2 {
   childrenNumber: string;
   dependents: string;
   civilState: string;
-  cityOfResidence: string;
   departmentOfResidence: string;
+  cityOfResidence: string;
   address: string;
   address2: string;
   stratus: number;
@@ -49,20 +49,20 @@ export interface WorkingInformation {
   companyActivity: string;
   creditDestination: string;
   companyPhone: string;
-  companyPhoneExtension: string;
   otherPhone: string;
+  companyPhoneExtension: string;
 }
 export interface FinancialInformation {
   salaryIncome: number;
-  variableSalaryIncome: number;
   otherIncomes: number;
+  variableSalaryIncome: number;
   otherIncomesDescription: string;
-  totalIncomes: number;
   personalExpenses: number;
   rentExpenses: number;
   debtExpenses: number;
   otherExpenses: number;
   otherExpensesDescription: string;
+  totalIncomes: number;
   totalExpenses: number;
   totalAssets: number;
   totalLiabilities: number;
