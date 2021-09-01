@@ -177,90 +177,82 @@ const createStore = (defaultState, shouldUpdate) => {
     return map;
 };
 
-const informacionPersonalModel = {
-  primerNombre: '',
-  segundoNombre: '',
-  primerApellido: '',
-  segundoApellido: '',
-  tipoDocumento: '',
-  documento: '',
-  fechaExpedicion: '',
-  fechaNacimiento: '',
-  nacionalidad: '',
-  departamentoNacimiento: '',
-  ciudadNacimiento: '',
-  departamentoExpedicion: '',
-  municipioExpedicion: '',
-  telefono: '',
-  celular: '',
-  correo: '',
-  genero: '',
-};
-const infoSocioDemograficaModel = {
-  nivelAcademico: '',
-  numHijos: '',
-  personasACargo: '',
-  estadoCivil: '',
-  departamentoResidencia: '',
-  municipioRecidencia: '',
-  direccion: '',
-  torre_Apt: '',
-  estrato: 0,
-  tipoVivienda: '',
-  arriendo: 0,
-  tiempo: '',
-  ocupacion: '',
-};
-const infoLaboralModel = {
-  nombreEmpresa: '',
-  cargo: '',
-  esPublica: '',
-  antiguedad: '',
-  tipoontrato: '',
-  actividad: '',
-  destinoPrestamo: '',
-  telefono: '',
-  otroNumero: '',
-  extencion: '',
-};
-const infoEconomicaModel = {
-  ingresosSalario: 0,
-  ingresosOtros: 0,
-  ingresosSalarioVariable: 0,
-  descripcionIngresos: '',
-  egresos: 0,
-  arriendo: 0,
-  egresosDeudas: 0,
-  otrosEgresos: 0,
-  descripcionEgresos: '',
-  activos: 0,
-  pasivos: 0,
-  totalIngresos: 0,
-  totalGastos: 0,
-};
-function setInformationFormat(data, newData) {
-  const keysCollect = Object.keys(newData);
-  let index = 0;
-  for (let i in data) {
-    data[i] = typeof data[i] === 'number' ? numericFormat(newData[keysCollect[index]]) : newData[keysCollect[index]];
-    index++;
-  }
-  return data;
+function getInformacionPersonal(data) {
+  return {
+    primerNombre: data['firstName'],
+    segundoNombre: data['middleName'],
+    primerApellido: data['surName'],
+    segundoApellido: data['secondSurName'],
+    tipoDocumento: data['documentType'],
+    documento: data['documentNumber'],
+    fechaExpedicion: data['expeditionDate'],
+    fechaNacimiento: data['birthDate'],
+    nacionalidad: data['nationality'],
+    departamentoNacimiento: data['departmentOfBirth'],
+    ciudadNacimiento: data['cityOfBirth'],
+    departamentoExpedicion: data['expeditionDepartment'],
+    municipioExpedicion: data['expeditionCity'],
+    telefono: data['mobilePhone'],
+    celular: data['phone'],
+    correo: data['email'],
+    genero: data['gender'],
+  };
 }
-function numericFormat(num) {
-  return num === null ? 0 : parseFloat(num);
+function getInfoSocioDemografica(data) {
+  var _a, _b;
+  return {
+    nivelAcademico: data['academicLevel'],
+    numHijos: data['childrenNumber'],
+    personasACargo: data['dependents'],
+    estadoCivil: data['civilState'],
+    departamentoResidencia: data['departmentOfResidence'],
+    municipioRecidencia: data['cityOfResidence'],
+    direccion: data['address'],
+    torre_Apt: data['address2'],
+    estrato: (_a = data['stratus']) !== null && _a !== void 0 ? _a : 0,
+    tipoVivienda: data['dwellingType'],
+    arriendo: (_b = parseFloat(data['rent'])) !== null && _b !== void 0 ? _b : 0,
+    tiempo: data['residenceTime'],
+    ocupacion: data['employment'],
+  };
+}
+function getInfoLaboral(data) {
+  return {
+    nombreEmpresa: data['companyName'],
+    cargo: data['position'],
+    esPublica: data['companyType'],
+    antiguedad: data['companySeniority'],
+    tipoontrato: data['contractType'],
+    actividad: data['companyActivity'],
+    destinoPrestamo: data['creditDestination'],
+    telefono: data['companyPhone'],
+    otroNumero: data['otherPhone'],
+    extencion: data['companyPhoneExtension'],
+  };
+}
+function getInfoEconomica(data) {
+  var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
+  return {
+    ingresosSalario: (_a = parseFloat(data['salaryIncome'])) !== null && _a !== void 0 ? _a : 0,
+    ingresosOtros: (_b = parseFloat(data['otherIncomes'])) !== null && _b !== void 0 ? _b : 0,
+    ingresosSalarioVariable: (_c = parseFloat(data['variableSalaryIncome'])) !== null && _c !== void 0 ? _c : 0,
+    descripcionIngresos: data['otherIncomesDescription'],
+    egresos: (_d = parseFloat(data['personalExpenses'])) !== null && _d !== void 0 ? _d : 0,
+    arriendo: (_e = parseFloat(data['rentExpenses'])) !== null && _e !== void 0 ? _e : 0,
+    egresosDeudas: (_f = parseFloat(data['debtExpenses'])) !== null && _f !== void 0 ? _f : 0,
+    otrosEgresos: (_g = parseFloat(data['otherExpenses'])) !== null && _g !== void 0 ? _g : 0,
+    descripcionEgresos: data['otherExpensesDescription'],
+    activos: (_h = parseFloat(data['totalAssets'])) !== null && _h !== void 0 ? _h : 0,
+    pasivos: (_j = parseFloat(data['totalLiabilities'])) !== null && _j !== void 0 ? _j : 0,
+    totalIngresos: (_k = parseFloat(data['totalIncomes'])) !== null && _k !== void 0 ? _k : 0,
+    totalGastos: (_l = parseFloat(data['totalExpenses'])) !== null && _l !== void 0 ? _l : 0,
+  };
 }
 function getJsonModelData(stateData) {
-  let informacionPersonal = stateData.hasOwnProperty('personalInformation')
-    ? setInformationFormat(informacionPersonalModel, stateData['personalInformation'])
-    : informacionPersonalModel;
-  let infoSocioDemografica = stateData.hasOwnProperty('personalInformation2')
-    ? setInformationFormat(infoSocioDemograficaModel, stateData['personalInformation2'])
-    : infoSocioDemograficaModel;
-  let infoEconomica = stateData.hasOwnProperty('financialInformation') ? setInformationFormat(infoEconomicaModel, stateData['financialInformation']) : infoEconomicaModel;
-  let infoLaboral = stateData.hasOwnProperty('workingInformation') ? setInformationFormat(infoLaboralModel, stateData['workingInformation']) : infoLaboralModel;
-  infoEconomica["descripcionEgresos"] = "";
-  infoEconomica["activos"] = 0;
+  let informacionPersonal = getInformacionPersonal(stateData['personalInformation']);
+  let infoSocioDemografica = getInfoSocioDemografica(stateData['personalInformation2']);
+  let infoLaboral = getInfoLaboral(stateData['workingInformation']);
+  let infoEconomica = getInfoEconomica(stateData['financialInformation']);
   var myHeaders = new Headers();
   myHeaders.append('Access-Control-Allow-Origin', '*');
   myHeaders.append('Access-Control-Allow-Credentials', 'true');
@@ -272,10 +264,7 @@ function getJsonModelData(stateData) {
     headers: myHeaders,
     body: raw,
     redirect: 'follow',
-  })
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
+  });
 }
 
 const { state } = createStore({
@@ -287,8 +276,9 @@ function loadDefaultData() {
 function setUserInformation(field, newData) {
   state.currentUserInformation = Object.assign(Object.assign({}, state.currentUserInformation), { [field]: newData });
   setData(state.currentUserInformation);
-  // console.log(state.currentUserInformation);
+}
+function sendFetch() {
   getJsonModelData(state.currentUserInformation);
 }
 
-export { setUserInformation as a, loadDefaultData as l, state as s };
+export { setUserInformation as a, sendFetch as b, loadDefaultData as l, state as s };
