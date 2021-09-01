@@ -231,21 +231,20 @@ function getInfoLaboral(data) {
   };
 }
 function getInfoEconomica(data) {
-  var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
   return {
-    ingresosSalario: (_a = parseFloat(data['salaryIncome'])) !== null && _a !== void 0 ? _a : 0,
-    ingresosOtros: (_b = parseFloat(data['otherIncomes'])) !== null && _b !== void 0 ? _b : 0,
-    ingresosSalarioVariable: (_c = parseFloat(data['variableSalaryIncome'])) !== null && _c !== void 0 ? _c : 0,
+    ingresosSalario: data['salaryIncome'] === null ? 0 : parseFloat(data['salaryIncome']),
+    ingresosOtros: data['otherIncomes'] === null ? 0 : parseFloat(data['otherIncomes']),
+    ingresosSalarioVariable: data['variableSalaryIncome'] === null ? 0 : parseFloat(data['variableSalaryIncome']),
     descripcionIngresos: data['otherIncomesDescription'],
-    egresos: (_d = parseFloat(data['personalExpenses'])) !== null && _d !== void 0 ? _d : 0,
-    arriendo: (_e = parseFloat(data['rentExpenses'])) !== null && _e !== void 0 ? _e : 0,
-    egresosDeudas: (_f = parseFloat(data['debtExpenses'])) !== null && _f !== void 0 ? _f : 0,
-    otrosEgresos: (_g = parseFloat(data['otherExpenses'])) !== null && _g !== void 0 ? _g : 0,
+    egresos: data['personalExpenses'] === null ? 0 : parseFloat(data['personalExpenses']),
+    arriendo: data['rentExpenses'] === null ? 0 : parseFloat(data['rentExpenses']),
+    egresosDeudas: data['debtExpenses'] === null ? 0 : parseFloat(data['debtExpenses']),
+    otrosEgresos: data['otherExpenses'] === null ? 0 : parseFloat(data['otherExpenses']),
     descripcionEgresos: data['otherExpensesDescription'],
-    activos: (_h = parseFloat(data['totalAssets'])) !== null && _h !== void 0 ? _h : 0,
-    pasivos: (_j = parseFloat(data['totalLiabilities'])) !== null && _j !== void 0 ? _j : 0,
-    totalIngresos: (_k = parseFloat(data['totalIncomes'])) !== null && _k !== void 0 ? _k : 0,
-    totalGastos: (_l = parseFloat(data['totalExpenses'])) !== null && _l !== void 0 ? _l : 0,
+    activos: data['totalAssets'] === null ? 0 : parseFloat(data['totalAssets']),
+    pasivos: data['totalLiabilities'] === null ? 0 : parseFloat(data['totalLiabilities']),
+    totalIngresos: data['totalIncomes'] === null ? 0 : parseFloat(data['totalIncomes']),
+    totalGastos: data['totalExpenses'] === null ? 0 : parseFloat(data['totalExpenses']),
   };
 }
 function getJsonModelData(stateData) {
@@ -253,13 +252,14 @@ function getJsonModelData(stateData) {
   let infoSocioDemografica = getInfoSocioDemografica(stateData['personalInformation2']);
   let infoLaboral = getInfoLaboral(stateData['workingInformation']);
   let infoEconomica = getInfoEconomica(stateData['financialInformation']);
+  console.log(Object.assign(Object.assign({}, informacionPersonal), { infoSocioDemografica, infoLaboral, infoEconomica }));
   var myHeaders = new Headers();
   myHeaders.append('Access-Control-Allow-Origin', '*');
   myHeaders.append('Access-Control-Allow-Credentials', 'true');
   myHeaders.append('GET', 'POST');
   myHeaders.append('Content-Type', 'application/json');
   var raw = JSON.stringify(Object.assign(Object.assign({}, informacionPersonal), { infoSocioDemografica, infoLaboral, infoEconomica }));
-  fetch('http://localhost:5297/api/DataManager', {
+  fetch('https://credito.muii.com.co/api/DataManager/', {
     method: 'POST',
     headers: myHeaders,
     body: raw,

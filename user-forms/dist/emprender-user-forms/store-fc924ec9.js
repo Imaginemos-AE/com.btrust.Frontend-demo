@@ -231,21 +231,20 @@ function getInfoLaboral(data) {
   };
 }
 function getInfoEconomica(data) {
-  var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
   return {
-    ingresosSalario: (_a = parseFloat(data['salaryIncome'])) !== null && _a !== void 0 ? _a : 0,
-    ingresosOtros: (_b = parseFloat(data['otherIncomes'])) !== null && _b !== void 0 ? _b : 0,
-    ingresosSalarioVariable: (_c = parseFloat(data['variableSalaryIncome'])) !== null && _c !== void 0 ? _c : 0,
+    ingresosSalario: data['salaryIncome'] === null ? 0 : parseFloat(data['salaryIncome']),
+    ingresosOtros: data['otherIncomes'] === null ? 0 : parseFloat(data['otherIncomes']),
+    ingresosSalarioVariable: data['variableSalaryIncome'] === null ? 0 : parseFloat(data['variableSalaryIncome']),
     descripcionIngresos: data['otherIncomesDescription'],
-    egresos: (_d = parseFloat(data['personalExpenses'])) !== null && _d !== void 0 ? _d : 0,
-    arriendo: (_e = parseFloat(data['rentExpenses'])) !== null && _e !== void 0 ? _e : 0,
-    egresosDeudas: (_f = parseFloat(data['debtExpenses'])) !== null && _f !== void 0 ? _f : 0,
-    otrosEgresos: (_g = parseFloat(data['otherExpenses'])) !== null && _g !== void 0 ? _g : 0,
+    egresos: data['personalExpenses'] === null ? 0 : parseFloat(data['personalExpenses']),
+    arriendo: data['rentExpenses'] === null ? 0 : parseFloat(data['rentExpenses']),
+    egresosDeudas: data['debtExpenses'] === null ? 0 : parseFloat(data['debtExpenses']),
+    otrosEgresos: data['otherExpenses'] === null ? 0 : parseFloat(data['otherExpenses']),
     descripcionEgresos: data['otherExpensesDescription'],
-    activos: (_h = parseFloat(data['totalAssets'])) !== null && _h !== void 0 ? _h : 0,
-    pasivos: (_j = parseFloat(data['totalLiabilities'])) !== null && _j !== void 0 ? _j : 0,
-    totalIngresos: (_k = parseFloat(data['totalIncomes'])) !== null && _k !== void 0 ? _k : 0,
-    totalGastos: (_l = parseFloat(data['totalExpenses'])) !== null && _l !== void 0 ? _l : 0,
+    activos: data['totalAssets'] === null ? 0 : parseFloat(data['totalAssets']),
+    pasivos: data['totalLiabilities'] === null ? 0 : parseFloat(data['totalLiabilities']),
+    totalIngresos: data['totalIncomes'] === null ? 0 : parseFloat(data['totalIncomes']),
+    totalGastos: data['totalExpenses'] === null ? 0 : parseFloat(data['totalExpenses']),
   };
 }
 function getJsonModelData(stateData) {
@@ -253,14 +252,13 @@ function getJsonModelData(stateData) {
   let infoSocioDemografica = getInfoSocioDemografica(stateData['personalInformation2']);
   let infoLaboral = getInfoLaboral(stateData['workingInformation']);
   let infoEconomica = getInfoEconomica(stateData['financialInformation']);
-  // console.log( {...informacionPersonal,infoSocioDemografica,infoLaboral,infoEconomica})
   var myHeaders = new Headers();
   myHeaders.append('Access-Control-Allow-Origin', '*');
   myHeaders.append('Access-Control-Allow-Credentials', 'true');
   myHeaders.append('GET', 'POST');
   myHeaders.append('Content-Type', 'application/json');
   var raw = JSON.stringify(Object.assign(Object.assign({}, informacionPersonal), { infoSocioDemografica, infoLaboral, infoEconomica }));
-  fetch('http://localhost:5297/api/DataManager', {
+  fetch('https://credito.muii.com.co/api/DataManager/', {
     method: 'POST',
     headers: myHeaders,
     body: raw,
@@ -270,106 +268,6 @@ function getJsonModelData(stateData) {
     .then(result => console.log(JSON.parse(result)))
     .catch(error => console.log('error', error));
 }
-// const informacionPersonalModel = {
-//   primerNombre: '',
-//   segundoNombre: '',
-//   primerApellido: '',
-//   segundoApellido: '',
-//   tipoDocumento: '',
-//   documento: '',
-//   fechaExpedicion: '',
-//   fechaNacimiento: '',
-//   nacionalidad: '',
-//   departamentoNacimiento: '',
-//   ciudadNacimiento: '',
-//   departamentoExpedicion: '',
-//   municipioExpedicion: '',
-//   telefono: '',
-//   celular: '',
-//   correo: '',
-//   genero: '',
-// };
-// const infoSocioDemograficaModel = {
-//   nivelAcademico: '',
-//   numHijos: '',
-//   personasACargo: '',
-//   estadoCivil: '',
-//   departamentoResidencia: '',
-//   municipioRecidencia: '',
-//   direccion: '',
-//   torre_Apt: '',
-//   estrato: 0,
-//   tipoVivienda: '',
-//   arriendo: 0,
-//   tiempo: '',
-//   ocupacion: '',
-// };
-// const infoLaboralModel = {
-//   nombreEmpresa: '',
-//   cargo: '',
-//   esPublica: '',
-//   antiguedad: '',
-//   tipoontrato: '',
-//   actividad: '',
-//   destinoPrestamo: '',
-//   telefono: '',
-//   otroNumero: '',
-//   extencion: '',
-// };
-// const infoEconomicaModel = {
-//   ingresosSalario: 0,
-//   ingresosOtros: 0,
-//   ingresosSalarioVariable: 0,
-//   descripcionIngresos: '',
-//   egresos: 0,
-//   arriendo: 0,
-//   egresosDeudas: 0,
-//   otrosEgresos: 0,
-//   descripcionEgresos: '',
-//   activos: 0,
-//   pasivos: 0,
-//   totalIngresos: 0,
-//   totalGastos: 0,
-// };
-// function setInformationFormat(data: any, newData: any) {
-//   const keysCollect = Object.keys(newData);
-//   let index = 0;
-//   for (let i in data) {
-//     data[i] = typeof data[i] === 'number' ? numericFormat(newData[keysCollect[index]]) : newData[keysCollect[index]];
-//     index++;
-//   }
-//   return data;
-// }
-// function numericFormat(num: string) {
-//   return num === null ? 0 : parseFloat(num);
-// }
-// export function getJsonModelData(stateData: any) {
-//   let informacionPersonal = stateData.hasOwnProperty('personalInformation')
-//     ? setInformationFormat(informacionPersonalModel, stateData['personalInformation'])
-//     : informacionPersonalModel;
-//   let infoSocioDemografica = stateData.hasOwnProperty('personalInformation2')
-//     ? setInformationFormat(infoSocioDemograficaModel, stateData['personalInformation2'])
-//     : infoSocioDemograficaModel;
-//   let infoEconomica = stateData.hasOwnProperty('financialInformation') ? setInformationFormat(infoEconomicaModel, stateData['financialInformation']) : infoEconomicaModel;
-//   let infoLaboral = stateData.hasOwnProperty('workingInformation') ? setInformationFormat(infoLaboralModel, stateData['workingInformation']) : infoLaboralModel;
-//   infoEconomica["descripcionEgresos"]="";
-//   infoEconomica["activos"]=0;
-//   var myHeaders = new Headers();
-//   myHeaders.append('Access-Control-Allow-Origin', '*');
-//   myHeaders.append('Access-Control-Allow-Credentials', 'true');
-//   myHeaders.append('GET', 'POST');
-//   myHeaders.append('Content-Type', 'application/json');
-//   var raw = JSON.stringify({ ...informacionPersonal, infoSocioDemografica, infoLaboral, infoEconomica });
-//   fetch('https://credito.muii.com.co/api/DataManager/', {
-//     method: 'POST',
-//     headers: myHeaders,
-//     body: raw,
-//     redirect: 'follow',
-//   })
-//     .then(response => response.text())
-//     .then(result => console.log(result))
-//     .catch(error => console.log('error', error));
-// }
 
 const { state } = createStore({
   currentUserInformation: {}
