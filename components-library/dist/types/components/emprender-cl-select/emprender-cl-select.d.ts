@@ -8,6 +8,7 @@ export declare class EmprenderClSelect {
   value: string;
   selectInputOptions: any;
   requiredIndicator: boolean;
+  checkData: boolean;
   host: HTMLElement;
   selectChange: EventEmitter<string>;
   selectInput: HTMLSelectElement;

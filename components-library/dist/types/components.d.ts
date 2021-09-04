@@ -16,6 +16,7 @@ export namespace Components {
         "path": number;
     }
     interface EmprenderClInput {
+        "checkData": boolean;
         "inputOptions": any;
         "label": string;
         "maskOptions": any;
@@ -24,6 +25,7 @@ export namespace Components {
         "value": string;
     }
     interface EmprenderClSelect {
+        "checkData": boolean;
         "label": string;
         "options": { name: string, id: string }[];
         "requiredIndicator": boolean;
@@ -74,6 +76,7 @@ declare namespace LocalJSX {
         "path"?: number;
     }
     interface EmprenderClInput {
+        "checkData"?: boolean;
         "inputOptions"?: any;
         "label"?: string;
         "maskOptions"?: any;
@@ -83,6 +86,7 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface EmprenderClSelect {
+        "checkData"?: boolean;
         "label"?: string;
         "onSelectChange"?: (event: CustomEvent<string>) => void;
         "options"?: { name: string, id: string }[];
