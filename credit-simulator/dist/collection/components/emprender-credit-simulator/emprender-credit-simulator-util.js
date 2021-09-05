@@ -90,8 +90,10 @@ export const DEFAULT_CURRENCY_VALUES = [
 ];
 export const CREDIT_DATA = [
   {
-    key: 'firstCapital',
-    label: 'Monto solicitado:',
+    key: 'interest',
+    label: 'Intereses',
+    subLabel: (credit) => `${credit.creditAnualEffectiverate}% EA`,
+    tooltip: "El interés corriente aplicado a tu crédito es del 25%EA (Efectivo anual) sobre el capital adeudado. Esta tasa es inferior a la tasa de usura establecida por las autoridades nacionales Mayo/2021: 25.83%. Este interés se calcula diariamente por el plazo que escojas para pagar tu crédito.",
   },
   {
     key: 'guarantee',
@@ -115,8 +117,4 @@ export const CREDIT_DATA = [
     subLabel: "19%",
     space: true,
   },
-  {
-    key: 'total',
-    label: 'Total',
-  }
 ];

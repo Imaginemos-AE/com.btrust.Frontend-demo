@@ -1,5 +1,5 @@
 import { h, Host, Component, State } from '@stencil/core';
-import { CREDIT_DATA } from '../emprender-credit-simulator/emprender-credit-simulator-util';
+import { CREDIT_DATA, termFormatter } from '../emprender-credit-simulator/emprender-credit-simulator-util';
 import state, { loadDefaultData } from '../../store/credit-simulator.store';
 import { capitalize, formatNumber } from '../../utils/utils';
 export class EmprenderCreditSimulator {
@@ -11,16 +11,24 @@ export class EmprenderCreditSimulator {
       return typeof subLabel === 'string' ? subLabel : subLabel(state.currentCreditInfo);
     }
   }
-  getPayDay(days) {
+  getPayDay(totalDays) {
     let today = new Date();
-    let week = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-    today.setDate(today.getDate() + days);
-    let mesActual = new Intl.DateTimeFormat('es-ES', { month: 'long' }).format(today);
-    console.log(today.getUTCDay());
-    return `${week[today.getUTCDay()]} ${today.getDate()} de ${capitalize(mesActual)}`;
+    let week = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    let payDay = totalDays <= 30 ? totalDays : 30;
+    today.setDate(today.getDate() + payDay);
+    let currenMonth = new Intl.DateTimeFormat('es-ES', { month: 'long' }).format(today);
+    return `${week[today.getUTCDay()]} ${today.getDate()} de ${capitalize(currenMonth)}`;
   }
   componentWillLoad() {
     loadDefaultData();
+  }
+  renderTotal(days) {
+    if (days <= 30) {
+      return `Pago total: ${formatNumber(state.currentCreditInfo.creditTotal)}`;
+    }
+    else {
+      return `${termFormatter(state.currentCreditInfo.creditTerm)} de ${formatNumber(state.currentCreditInfo.creditTotal)}`;
+    }
   }
   render() {
     var _a, _b, _c, _d, _e, _f;
@@ -31,14 +39,17 @@ export class EmprenderCreditSimulator {
           h("div", { class: "details" },
             h("div", { class: "item highlighted" },
               h("label", null, "Monto final solicitado:"),
-              h("p", { class: "value" }, formatNumber((_b = (_a = state.currentCreditInfo) === null || _a === void 0 ? void 0 : _a.creditFirstCapital) !== null && _b !== void 0 ? _b : 0))),
+              h("p", { class: "value" }, formatNumber((_b = (_a = state.currentCreditInfo) === null || _a === void 0 ? void 0 : _a.creditAmount) !== null && _b !== void 0 ? _b : 0))),
+            h("div", { class: "item highlighted" },
+              h("label", null, "Plazo estipulado:"),
+              h("p", { class: "value" }, (_c = state.currentCreditInfo) === null || _c === void 0 ? void 0 :
+                _c.creditTerm,
+                " D\u00EDas")),
             h("div", { class: "item" }, this.currencyValues.map(_currencyValue => {
               var _a;
               return (h("emprender-cs-item", { text: typeof _currencyValue.label === 'string' ? _currencyValue.label : '', subText: this.getFieldSubLabel(_currencyValue.subLabel), value: (_a = state.currentCreditInfo[`credit${capitalize(_currencyValue.key)}`]) !== null && _a !== void 0 ? _a : 0, space: _currencyValue.space }));
             }))),
-          h("h5", null,
-            "Total a pagar: ",
-            formatNumber((_d = (_c = state.currentCreditInfo) === null || _c === void 0 ? void 0 : _c.creditFirstCapital) !== null && _d !== void 0 ? _d : 0)),
+          h("h5", null, this.renderTotal((_d = state.currentCreditInfo) === null || _d === void 0 ? void 0 : _d.creditTerm)),
           h("h6", { class: "mb20" },
             "Fecha pr\u00F3ximo pago: ",
             this.getPayDay((_f = (_e = state.currentCreditInfo) === null || _e === void 0 ? void 0 : _e.creditTerm) !== null && _f !== void 0 ? _f : 0))))));
