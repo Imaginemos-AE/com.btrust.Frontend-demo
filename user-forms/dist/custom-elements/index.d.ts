@@ -1,53 +1,35 @@
-/* EmprenderUserForms custom elements bundle */
+/* EmprenderCreditSimulator custom elements bundle */
 
 import type { Components, JSX } from "../types/components";
 
-interface EmprenderUfFinancialInformation extends Components.EmprenderUfFinancialInformation, HTMLElement {}
-export const EmprenderUfFinancialInformation: {
-  prototype: EmprenderUfFinancialInformation;
-  new (): EmprenderUfFinancialInformation;
+interface EmprenderCreditData extends Components.EmprenderCreditData, HTMLElement {}
+export const EmprenderCreditData: {
+  prototype: EmprenderCreditData;
+  new (): EmprenderCreditData;
 };
 
-interface EmprenderUfPersonalInformation extends Components.EmprenderUfPersonalInformation, HTMLElement {}
-export const EmprenderUfPersonalInformation: {
-  prototype: EmprenderUfPersonalInformation;
-  new (): EmprenderUfPersonalInformation;
+interface EmprenderCreditSimulator extends Components.EmprenderCreditSimulator, HTMLElement {}
+export const EmprenderCreditSimulator: {
+  prototype: EmprenderCreditSimulator;
+  new (): EmprenderCreditSimulator;
 };
 
-interface EmprenderUfPersonalInformation2 extends Components.EmprenderUfPersonalInformation2, HTMLElement {}
-export const EmprenderUfPersonalInformation2: {
-  prototype: EmprenderUfPersonalInformation2;
-  new (): EmprenderUfPersonalInformation2;
+interface EmprenderCsItem extends Components.EmprenderCsItem, HTMLElement {}
+export const EmprenderCsItem: {
+  prototype: EmprenderCsItem;
+  new (): EmprenderCsItem;
 };
 
-interface EmprenderUfPersonalInformation3 extends Components.EmprenderUfPersonalInformation3, HTMLElement {}
-export const EmprenderUfPersonalInformation3: {
-  prototype: EmprenderUfPersonalInformation3;
-  new (): EmprenderUfPersonalInformation3;
+interface EmprenderCsSlider extends Components.EmprenderCsSlider, HTMLElement {}
+export const EmprenderCsSlider: {
+  prototype: EmprenderCsSlider;
+  new (): EmprenderCsSlider;
 };
 
-interface EmprenderUfReferences extends Components.EmprenderUfReferences, HTMLElement {}
-export const EmprenderUfReferences: {
-  prototype: EmprenderUfReferences;
-  new (): EmprenderUfReferences;
-};
-
-interface EmprenderUfWorkingInformation extends Components.EmprenderUfWorkingInformation, HTMLElement {}
-export const EmprenderUfWorkingInformation: {
-  prototype: EmprenderUfWorkingInformation;
-  new (): EmprenderUfWorkingInformation;
-};
-
-interface EmprenderUserForms extends Components.EmprenderUserForms, HTMLElement {}
-export const EmprenderUserForms: {
-  prototype: EmprenderUserForms;
-  new (): EmprenderUserForms;
-};
-
-interface EmprenderUserProfile extends Components.EmprenderUserProfile, HTMLElement {}
-export const EmprenderUserProfile: {
-  prototype: EmprenderUserProfile;
-  new (): EmprenderUserProfile;
+interface EmprenderMiniCalculator extends Components.EmprenderMiniCalculator, HTMLElement {}
+export const EmprenderMiniCalculator: {
+  prototype: EmprenderMiniCalculator;
+  new (): EmprenderMiniCalculator;
 };
 
 /**
