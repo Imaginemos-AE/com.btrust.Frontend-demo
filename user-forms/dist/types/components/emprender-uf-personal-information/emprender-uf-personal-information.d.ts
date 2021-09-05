@@ -2,6 +2,7 @@ import { EventEmitter } from '../../stencil-public-runtime';
 import { PersonalInformation } from '../../module/models';
 export declare class EmprenderUfPersonalInformation {
   model: PersonalInformation;
+  requiredData: string;
   departments: {
     id: number;
     departamento: string;
@@ -20,5 +21,6 @@ export declare class EmprenderUfPersonalInformation {
   }[];
   _selectDropdownOption(field: string, value: string, clearField: string): void;
   componentWillRender(): void;
+  _checkSubmitInfo(): void;
   render(): any;
 }

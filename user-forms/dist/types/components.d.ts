@@ -9,12 +9,15 @@ import { BankInformation, FinancialInformation, PersonalInformation, PersonalInf
 export namespace Components {
     interface EmprenderUfFinancialInformation {
         "model": FinancialInformation;
+        "requiredData": string;
     }
     interface EmprenderUfPersonalInformation {
         "model": PersonalInformation;
+        "requiredData": string;
     }
     interface EmprenderUfPersonalInformation2 {
         "model": PersonalInformation2;
+        "requiredData": string;
     }
     interface EmprenderUfPersonalInformation3 {
         "model": PersonalInformation;
@@ -23,10 +26,12 @@ export namespace Components {
     }
     interface EmprenderUfReferences {
         "model": References;
+        "requiredData": string;
         "viewRegistration": boolean;
     }
     interface EmprenderUfWorkingInformation {
         "model": WorkingInformation;
+        "requiredData": string;
         "viewRegistration": boolean;
     }
     interface EmprenderUserForms {
@@ -107,16 +112,19 @@ declare namespace LocalJSX {
         "model"?: FinancialInformation;
         "onBack"?: (event: CustomEvent<FinancialInformation>) => void;
         "onInfoSaved"?: (event: CustomEvent<FinancialInformation>) => void;
+        "requiredData"?: string;
     }
     interface EmprenderUfPersonalInformation {
         "model"?: PersonalInformation;
         "onInfoSaved"?: (event: CustomEvent<PersonalInformation>) => void;
         "onSendInfo"?: (event: CustomEvent<PersonalInformation>) => void;
+        "requiredData"?: string;
     }
     interface EmprenderUfPersonalInformation2 {
         "model"?: PersonalInformation2;
         "onBack"?: (event: CustomEvent<PersonalInformation2>) => void;
         "onInfoSaved"?: (event: CustomEvent<PersonalInformation2>) => void;
+        "requiredData"?: string;
     }
     interface EmprenderUfPersonalInformation3 {
         "model"?: PersonalInformation;
@@ -130,6 +138,7 @@ declare namespace LocalJSX {
         "onBack"?: (event: CustomEvent<References>) => void;
         "onInfoSaved"?: (event: CustomEvent<References>) => void;
         "onUpgradeInfo"?: (event: CustomEvent<References>) => void;
+        "requiredData"?: string;
         "viewRegistration"?: boolean;
     }
     interface EmprenderUfWorkingInformation {
@@ -137,6 +146,7 @@ declare namespace LocalJSX {
         "onBack"?: (event: CustomEvent<WorkingInformation>) => void;
         "onInfoSaved"?: (event: CustomEvent<WorkingInformation>) => void;
         "onUpgradeInfo"?: (event: CustomEvent<WorkingInformation>) => void;
+        "requiredData"?: string;
         "viewRegistration"?: boolean;
     }
     interface EmprenderUserForms {

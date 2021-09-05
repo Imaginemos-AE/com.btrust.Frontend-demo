@@ -208,7 +208,7 @@ function getInfoSocioDemografica(data) {
     departamentoResidencia: data['departmentOfResidence'],
     municipioRecidencia: data['cityOfResidence'],
     direccion: data['address'],
-    torre_Apt: data['address2'],
+    torre_Apt: data['place'],
     estrato: (_a = data['stratus']) !== null && _a !== void 0 ? _a : 0,
     tipoVivienda: data['dwellingType'],
     arriendo: (_b = parseFloat(data['rent'])) !== null && _b !== void 0 ? _b : 0,
@@ -252,6 +252,7 @@ function getJsonModelData(stateData) {
   let infoSocioDemografica = getInfoSocioDemografica(stateData['personalInformation2']);
   let infoLaboral = getInfoLaboral(stateData['workingInformation']);
   let infoEconomica = getInfoEconomica(stateData['financialInformation']);
+  console.log(Object.assign(Object.assign({}, informacionPersonal), { infoSocioDemografica, infoLaboral, infoEconomica }));
   var myHeaders = new Headers();
   myHeaders.append('Access-Control-Allow-Origin', '*');
   myHeaders.append('Access-Control-Allow-Credentials', 'true');
@@ -263,10 +264,7 @@ function getJsonModelData(stateData) {
     headers: myHeaders,
     body: raw,
     redirect: 'follow',
-  })
-    .then(response => response.text())
-    .then(result => console.log(JSON.parse(result)))
-    .catch(error => console.log('error', error));
+  });
 }
 
 const { state } = createStore({

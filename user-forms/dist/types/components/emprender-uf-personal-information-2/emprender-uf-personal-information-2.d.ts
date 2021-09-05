@@ -7,6 +7,7 @@ export declare class EmprenderUfPersonalInformation2 {
     departamento: string;
     ciudades: string[];
   }[];
+  requiredData: string;
   infoSaved: EventEmitter<PersonalInformation2>;
   back: EventEmitter<PersonalInformation2>;
   _setModel(field: string, value: string): void;
@@ -19,5 +20,6 @@ export declare class EmprenderUfPersonalInformation2 {
     name: string;
   }[];
   _selectDropdownOption(field: string, value: string, clearField: string): void;
+  _checkSubmitInfo(): void;
   render(): any;
 }

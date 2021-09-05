@@ -208,7 +208,7 @@ function getInfoSocioDemografica(data) {
     departamentoResidencia: data['departmentOfResidence'],
     municipioRecidencia: data['cityOfResidence'],
     direccion: data['address'],
-    torre_Apt: data['address2'],
+    torre_Apt: data['place'],
     estrato: (_a = data['stratus']) !== null && _a !== void 0 ? _a : 0,
     tipoVivienda: data['dwellingType'],
     arriendo: (_b = parseFloat(data['rent'])) !== null && _b !== void 0 ? _b : 0,
@@ -232,19 +232,19 @@ function getInfoLaboral(data) {
 }
 function getInfoEconomica(data) {
   return {
-    ingresosSalario: data['salaryIncome'] ? 0 : parseFloat(data['salaryIncome']),
-    ingresosOtros: data['otherIncomes'] ? 0 : parseFloat(data['otherIncomes']),
-    ingresosSalarioVariable: data['variableSalaryIncome'] ? 0 : parseFloat(data['variableSalaryIncome']),
+    ingresosSalario: parseFloat(data['salaryIncome']),
+    ingresosOtros: data['otherIncomes'] === '' ? 0 : parseFloat(data['otherIncomes']),
+    ingresosSalarioVariable: parseFloat(data['variableSalaryIncome']),
     descripcionIngresos: data['otherIncomesDescription'],
-    egresos: data['personalExpenses'] ? 0 : parseFloat(data['personalExpenses']),
-    arriendo: data['rentExpenses'] ? 0 : parseFloat(data['rentExpenses']),
-    egresosDeudas: data['debtExpenses'] ? 0 : parseFloat(data['debtExpenses']),
-    otrosEgresos: data['otherExpenses'] ? 0 : parseFloat(data['otherExpenses']),
+    egresos: parseFloat(data['personalExpenses']),
+    arriendo: parseFloat(data['rentExpenses']),
+    egresosDeudas: parseFloat(data['debtExpenses']),
+    otrosEgresos: data['otherExpenses'] === '' ? 0 : parseFloat(data['otherExpenses']),
     descripcionEgresos: data['otherExpensesDescription'],
-    activos: data['totalAssets'] ? 0 : parseFloat(data['totalAssets']),
-    pasivos: data['totalLiabilities'] ? 0 : parseFloat(data['totalLiabilities']),
-    totalIngresos: data['totalIncomes'] ? 0 : parseFloat(data['totalIncomes']),
-    totalGastos: data['totalExpenses'] ? 0 : parseFloat(data['totalExpenses']),
+    activos: parseFloat(data['totalAssets']),
+    pasivos: parseFloat(data['totalLiabilities']),
+    totalIngresos: parseFloat(data['totalIncomes']),
+    totalGastos: parseFloat(data['totalExpenses']),
   };
 }
 function getJsonModelData(stateData) {
@@ -264,10 +264,7 @@ function getJsonModelData(stateData) {
     headers: myHeaders,
     body: raw,
     redirect: 'follow',
-  })
-    .then(response => response.text())
-    .then(result => console.log(JSON.parse(result)))
-    .catch(error => console.log('error', error));
+  });
 }
 
 const { state } = createStore({
