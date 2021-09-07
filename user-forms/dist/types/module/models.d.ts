@@ -40,6 +40,27 @@ export interface PersonalInformation2 {
   residenceTime: string;
   employment: string;
 }
+export interface CompanyInformation {
+  companyName: string;
+  companyLocation: string;
+  address: string;
+  place: string;
+  departmentOfResidence: string;
+  cityOfResidence: string;
+  stratus: number;
+  dwellingType: string;
+  rent: number;
+  companyType: string;
+  nit: string;
+  foundatingDate: string;
+  companyActivity: string;
+  point: string;
+  onlineShop: string;
+  salePercentage: string;
+  employees: string;
+  destiny: string;
+  otherDestiny: string;
+}
 export interface WorkingInformation {
   companyName: string;
   position: string;

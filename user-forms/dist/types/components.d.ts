@@ -5,8 +5,12 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
-import { BankInformation, FinancialInformation, PersonalInformation, PersonalInformation2, References, UserForm, WorkingInformation } from "./module/models";
+import { BankInformation, CompanyInformation, FinancialInformation, PersonalInformation, PersonalInformation2, References, UserForm, WorkingInformation } from "./module/models";
 export namespace Components {
+    interface EmprenderUfCompanyInformation {
+        "model": CompanyInformation;
+        "requiredData": string;
+    }
     interface EmprenderUfFinancialInformation {
         "model": FinancialInformation;
         "requiredData": string;
@@ -48,6 +52,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLEmprenderUfCompanyInformationElement extends Components.EmprenderUfCompanyInformation, HTMLStencilElement {
+    }
+    var HTMLEmprenderUfCompanyInformationElement: {
+        prototype: HTMLEmprenderUfCompanyInformationElement;
+        new (): HTMLEmprenderUfCompanyInformationElement;
+    };
     interface HTMLEmprenderUfFinancialInformationElement extends Components.EmprenderUfFinancialInformation, HTMLStencilElement {
     }
     var HTMLEmprenderUfFinancialInformationElement: {
@@ -97,6 +107,7 @@ declare global {
         new (): HTMLEmprenderUserProfileElement;
     };
     interface HTMLElementTagNameMap {
+        "emprender-uf-company-information": HTMLEmprenderUfCompanyInformationElement;
         "emprender-uf-financial-information": HTMLEmprenderUfFinancialInformationElement;
         "emprender-uf-personal-information": HTMLEmprenderUfPersonalInformationElement;
         "emprender-uf-personal-information-2": HTMLEmprenderUfPersonalInformation2Element;
@@ -108,6 +119,12 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface EmprenderUfCompanyInformation {
+        "model"?: CompanyInformation;
+        "onBack"?: (event: CustomEvent<CompanyInformation>) => void;
+        "onInfoSaved"?: (event: CustomEvent<CompanyInformation>) => void;
+        "requiredData"?: string;
+    }
     interface EmprenderUfFinancialInformation {
         "model"?: FinancialInformation;
         "onBack"?: (event: CustomEvent<FinancialInformation>) => void;
@@ -166,6 +183,7 @@ declare namespace LocalJSX {
         "step"?: number;
     }
     interface IntrinsicElements {
+        "emprender-uf-company-information": EmprenderUfCompanyInformation;
         "emprender-uf-financial-information": EmprenderUfFinancialInformation;
         "emprender-uf-personal-information": EmprenderUfPersonalInformation;
         "emprender-uf-personal-information-2": EmprenderUfPersonalInformation2;
@@ -180,6 +198,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "emprender-uf-company-information": LocalJSX.EmprenderUfCompanyInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfCompanyInformationElement>;
             "emprender-uf-financial-information": LocalJSX.EmprenderUfFinancialInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfFinancialInformationElement>;
             "emprender-uf-personal-information": LocalJSX.EmprenderUfPersonalInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfPersonalInformationElement>;
             "emprender-uf-personal-information-2": LocalJSX.EmprenderUfPersonalInformation2 & JSXBase.HTMLAttributes<HTMLEmprenderUfPersonalInformation2Element>;
