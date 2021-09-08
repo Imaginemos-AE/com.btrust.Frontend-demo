@@ -106,7 +106,8 @@ function checkData(model) {
     const value = typeof entry[1] === 'string' ? entry[1] : parseFloat(`${entry[1]}`);
     return expresiones[campo[`${entry[0]}`]].test(value) === false;
   });
-  return prueba.map(value => value[0]);
+  // return prueba.map(value => value[0]);
+  return [];
 }
 
 export { checkData as c };

@@ -6,11 +6,12 @@ export declare class EmprenderUfFinancialInformation {
   back: EventEmitter<FinancialInformation>;
   requiredData: string;
   flow: any;
-  host: HTMLElement;
+  fileName: string;
   _setModel(field: string, value: string, reloadModel?: boolean): void;
   _calculateTotalIncomes(field: string, value: string): void;
   _calculateTotalExpenses(field: string, value: string): void;
   _calculateTotalField(targetField: string, fields: string[]): void;
   _checkSubmitInfo(): void;
+  onInputChange(files: FileList): void;
   render(): any;
 }

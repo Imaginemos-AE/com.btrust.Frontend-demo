@@ -1,4 +1,4 @@
-import { i as getRenderingRef, j as forceUpdate } from './index-8801a80e.js';
+import { g as getRenderingRef, i as forceUpdate } from './index-91c8a86a.js';
 import { g as getData, s as setData } from './helper-d3d03427.js';
 
 const appendToMap = (map, propName, value) => {
@@ -253,18 +253,18 @@ function getJsonModelData(stateData) {
   let infoLaboral = getInfoLaboral(stateData['workingInformation']);
   let infoEconomica = getInfoEconomica(stateData['financialInformation']);
   console.log(Object.assign(Object.assign({}, informacionPersonal), { infoSocioDemografica, infoLaboral, infoEconomica }));
-  var myHeaders = new Headers();
-  myHeaders.append('Access-Control-Allow-Origin', '*');
-  myHeaders.append('Access-Control-Allow-Credentials', 'true');
-  myHeaders.append('GET', 'POST');
-  myHeaders.append('Content-Type', 'application/json');
-  var raw = JSON.stringify(Object.assign(Object.assign({}, informacionPersonal), { infoSocioDemografica, infoLaboral, infoEconomica }));
-  fetch('https://credito.muii.com.co/api/DataManager/', {
-    method: 'POST',
-    headers: myHeaders,
-    body: raw,
-    redirect: 'follow',
-  });
+  // var myHeaders = new Headers();
+  // myHeaders.append('Access-Control-Allow-Origin', '*');
+  // myHeaders.append('Access-Control-Allow-Credentials', 'true');
+  // myHeaders.append('GET', 'POST');
+  // myHeaders.append('Content-Type', 'application/json');
+  // var raw = JSON.stringify({ ...informacionPersonal, infoSocioDemografica, infoLaboral, infoEconomica });
+  // fetch('https://credito.muii.com.co/api/DataManager/', {
+  //   method: 'POST',
+  //   headers: myHeaders,
+  //   body: raw,
+  //   redirect: 'follow',
+  // })
 }
 
 const { state } = createStore({

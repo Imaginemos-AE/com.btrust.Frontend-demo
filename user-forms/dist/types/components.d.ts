@@ -12,6 +12,7 @@ export namespace Components {
         "requiredData": string;
     }
     interface EmprenderUfFinancialInformation {
+        "fileName": string;
         "flow": any;
         "model": FinancialInformation;
         "requiredData": string;
@@ -128,6 +129,7 @@ declare namespace LocalJSX {
         "requiredData"?: string;
     }
     interface EmprenderUfFinancialInformation {
+        "fileName"?: string;
         "flow"?: any;
         "model"?: FinancialInformation;
         "onBack"?: (event: CustomEvent<FinancialInformation>) => void;
