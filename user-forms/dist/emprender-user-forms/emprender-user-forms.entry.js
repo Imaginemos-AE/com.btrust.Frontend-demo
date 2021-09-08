@@ -1,5 +1,5 @@
-import { r as registerInstance, e as createEvent, h, f as Host } from './index-91c8a86a.js';
-import { s as state, l as loadDefaultData, a as setUserInformation, b as sendFetch } from './store-c599ba19.js';
+import { r as registerInstance, e as createEvent, h, f as Host } from './index-50b89c98.js';
+import { s as state, l as loadDefaultData, a as setUserInformation, b as sendFetch } from './store-8f64d1b0.js';
 import { l as loadCSS, a as loadScript } from './utils-84851d0f.js';
 import './helper-d3d03427.js';
 
@@ -15,9 +15,8 @@ const EMPLOYEE_FLOW = [
 const INDEPENDENT_FLOW = [
   { tag: 'personal-information', field: 'personalInformation' },
   { tag: 'company-information', field: 'companyInformation' },
-  { tag: 'working-information', field: 'workingInformation' },
-  { tag: 'financial-information', field: 'financialInformation' },
-  { tag: 'references', field: 'references' },
+  { tag: 'financial-information', field: 'financialInformation', flow: true },
+  { tag: 'references', field: 'references', flow: true }, // referencia comercial
 ];
 const EmprenderUserForms = class {
   constructor(hostRef) {

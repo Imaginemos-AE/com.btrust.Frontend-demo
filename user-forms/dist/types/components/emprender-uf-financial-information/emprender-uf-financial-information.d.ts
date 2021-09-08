@@ -5,6 +5,8 @@ export declare class EmprenderUfFinancialInformation {
   infoSaved: EventEmitter<FinancialInformation>;
   back: EventEmitter<FinancialInformation>;
   requiredData: string;
+  flow: any;
+  host: HTMLElement;
   _setModel(field: string, value: string, reloadModel?: boolean): void;
   _calculateTotalIncomes(field: string, value: string): void;
   _calculateTotalExpenses(field: string, value: string): void;

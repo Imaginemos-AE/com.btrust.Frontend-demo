@@ -95,7 +95,7 @@ const companyInformation = {
   companyActivity: 'alfanumerico',
   point: 'texto',
   onlineShop: 'texto',
-  salePercentage: 'alfanumerico',
+  salePercentage: 'numericoSimbolo',
   employees: 'alfanumerico',
   destiny: 'alfanumerico',
   otherDestiny: 'alfanumericoOpcional',

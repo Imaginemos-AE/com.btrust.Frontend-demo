@@ -10,7 +10,6 @@ export declare class EmprenderUfConpanyInformation {
   requiredData: string;
   infoSaved: EventEmitter<CompanyInformation>;
   back: EventEmitter<CompanyInformation>;
-  componentWillLoad(): Promise<void>;
   _setModel(field: string, value: string): void;
   _getSelectDepartmentOptions(): {
     id: string;
