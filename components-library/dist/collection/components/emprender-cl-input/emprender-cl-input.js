@@ -27,12 +27,11 @@ export class EmprenderClInput {
       });
     }
     if (this.typeAddress) {
-      await loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCYBy_5xXw_-nNeiMBfDqgfbXhuxB-mTQc&libraries=places', 'googleapi', 'text/javascript');
-      // var options = {
-      //   types: ['geocode'],
-      // };
-      // let prueba = this.host.shadowRoot.querySelector('.text') as any;
-      // const autocomplete = new google.maps.places.Autocomplete(prueba, options);
+      var options = {
+        types: ['geocode'],
+      };
+      let prueba = this.host.shadowRoot.querySelector('.text');
+      const _autocomplete = new google.maps.places.Autocomplete(prueba, options);
     }
   }
   onInputChange() {
@@ -46,6 +45,11 @@ export class EmprenderClInput {
   setValue(newValue) {
     this.value = newValue;
     this.inputChange.emit(this.value);
+  }
+  async componentWillLoad() {
+    if (this.typeAddress) {
+      await loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCYBy_5xXw_-nNeiMBfDqgfbXhuxB-mTQc&libraries=places', 'googleapi', 'text/javascript');
+    }
   }
   render() {
     var _a;
