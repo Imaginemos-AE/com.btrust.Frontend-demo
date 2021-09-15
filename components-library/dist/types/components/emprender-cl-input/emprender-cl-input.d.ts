@@ -6,12 +6,14 @@ export declare class EmprenderClInput implements ComponentInterface {
   inputOptions: any;
   requiredIndicator: boolean;
   maskOptions: any;
-  maskValue: "masked" | "unmasked";
+  maskValue: 'masked' | 'unmasked';
   value: string;
   checkData: boolean;
+  typeAddress: boolean;
+  host: HTMLElement;
   changeMaskValue(): void;
   inputChange: EventEmitter<string>;
-  componentDidLoad(): void;
+  componentDidLoad(): Promise<void>;
   onInputChange(): void;
   getMaskCalculatedValue(): any;
   setValue(newValue: string): void;
