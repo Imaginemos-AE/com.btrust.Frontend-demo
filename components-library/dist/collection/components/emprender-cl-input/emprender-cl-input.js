@@ -1,6 +1,5 @@
 import { Component, Host, h, Prop, Event, Watch, Element } from '@stencil/core';
 import IMask from 'imask';
-import { loadScript } from '../../utils/utils';
 export class EmprenderClInput {
   constructor() {
     this.maskValue = 'unmasked';
@@ -45,11 +44,6 @@ export class EmprenderClInput {
   setValue(newValue) {
     this.value = newValue;
     this.inputChange.emit(this.value);
-  }
-  async componentWillLoad() {
-    if (this.typeAddress) {
-      await loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCYBy_5xXw_-nNeiMBfDqgfbXhuxB-mTQc&libraries=places', 'googleapi', 'text/javascript');
-    }
   }
   render() {
     var _a;

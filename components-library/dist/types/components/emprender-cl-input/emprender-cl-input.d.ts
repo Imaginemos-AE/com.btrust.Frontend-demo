@@ -17,6 +17,5 @@ export declare class EmprenderClInput implements ComponentInterface {
   onInputChange(): void;
   getMaskCalculatedValue(): any;
   setValue(newValue: string): void;
-  componentWillLoad(): Promise<void>;
   render(): any;
 }

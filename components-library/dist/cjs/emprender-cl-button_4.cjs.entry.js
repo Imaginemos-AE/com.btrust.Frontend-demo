@@ -47,18 +47,6 @@ function appendComponentStyles(host, urls, shadow = true, loadGlobal = false) {
     resolve();
   });
 }
-function loadScript(url, id, type) {
-  return new Promise(resolve => {
-    document.body.appendChild(Object.assign(document.createElement('script'), {
-      type: type,
-      async: true,
-      defer: true,
-      id: id,
-      src: url,
-      onload: resolve
-    }));
-  });
-}
 
 const emprenderClIconCss = "";
 
@@ -4236,11 +4224,6 @@ const EmprenderClInput = class {
   setValue(newValue) {
     this.value = newValue;
     this.inputChange.emit(this.value);
-  }
-  async componentWillLoad() {
-    if (this.typeAddress) {
-      await loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCYBy_5xXw_-nNeiMBfDqgfbXhuxB-mTQc&libraries=places', 'googleapi', 'text/javascript');
-    }
   }
   render() {
     var _a;
