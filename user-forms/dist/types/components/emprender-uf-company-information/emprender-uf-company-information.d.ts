@@ -10,6 +10,7 @@ export declare class EmprenderUfConpanyInformation {
   requiredData: string;
   infoSaved: EventEmitter<CompanyInformation>;
   back: EventEmitter<CompanyInformation>;
+  host: HTMLElement;
   _setModel(field: string, value: string): void;
   _getSelectDepartmentOptions(): {
     id: string;

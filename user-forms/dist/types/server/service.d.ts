@@ -1,1 +1,1 @@
-export declare function getJsonModelData(stateData: any): void;
+export declare function getJsonModelData(stateData: any, flowType: string): void;

@@ -353,10 +353,12 @@ function calculateValues(creditAmount, term, config) {
   const creditLifeInsurance = single ? ((creditAmount / 1000000) * config.LifeInsuranceRate) / (30 / term) : ((creditAmount / 1000000) * config.LifeInsuranceRate) / calcTerm;
   const creditPlatform = single ? config.PlattformUseFee * term : config.PlattformUseFee;
   const creditAdmin = config.AdministrationFee / calcTerm;
-  const creditTaxes = ((creditPlatform + config.AdministrationFee) * (config.TaxesRate / 100)) / calcTerm;
+  const creditTaxes = ((creditPlatform + creditAdmin + creditGuarantee) * (config.TaxesRate / 100));
+  // const creditTaxes = ((creditPlatform + config.AdministrationFee) * (config.TaxesRate / 100)) / calcTerm;
   const creditTotal = creditFirstCapital + creditGuarantee + creditLifeInsurance + creditInterest + creditPlatform + creditAdmin + creditTaxes;
   const creditAnualEffectiverate = config.AnualEffectiverate;
   const creditMonthlyEffectiverate = config.MonthlyEffectiveRate;
+  // console.log(creditPlatform,creditAdmin ,creditGuarantee)
   return {
     creditInterest,
     creditPMT,
@@ -474,6 +476,7 @@ const EmprenderCreditSimulator$1 = class {
   }
   render() {
     var _a, _b, _c, _d, _e, _f;
+    console.log(state.currentCreditInfo);
     return (index.h(index.Host, null, index.h("div", { class: "confirmCreditInformation" }, index.h("div", null, index.h("h2", { class: "title" }, "Confirma la informaci\u00F3n de tu cr\u00E9dito"), index.h("div", { class: "details" }, index.h("div", { class: "item highlighted" }, index.h("label", null, "Monto final solicitado:"), index.h("p", { class: "value" }, formatNumber((_b = (_a = state.currentCreditInfo) === null || _a === void 0 ? void 0 : _a.creditAmount) !== null && _b !== void 0 ? _b : 0))), index.h("div", { class: "item highlighted" }, index.h("label", null, "Plazo estipulado:"), index.h("p", { class: "value" }, (_c = state.currentCreditInfo) === null || _c === void 0 ? void 0 :
       _c.creditTerm, " D\u00EDas")), index.h("div", { class: "item" }, this.currencyValues.map(_currencyValue => {
       var _a;

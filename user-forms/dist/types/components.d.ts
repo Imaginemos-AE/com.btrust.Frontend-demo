@@ -11,6 +11,11 @@ export namespace Components {
         "model": CompanyInformation;
         "requiredData": string;
     }
+    interface EmprenderUfCompanyProfile {
+        "model": CompanyInformation;
+        "requiredData": string;
+        "viewRegistration": boolean;
+    }
     interface EmprenderUfFinancialInformation {
         "fileName": string;
         "flow": any;
@@ -60,6 +65,12 @@ declare global {
     var HTMLEmprenderUfCompanyInformationElement: {
         prototype: HTMLEmprenderUfCompanyInformationElement;
         new (): HTMLEmprenderUfCompanyInformationElement;
+    };
+    interface HTMLEmprenderUfCompanyProfileElement extends Components.EmprenderUfCompanyProfile, HTMLStencilElement {
+    }
+    var HTMLEmprenderUfCompanyProfileElement: {
+        prototype: HTMLEmprenderUfCompanyProfileElement;
+        new (): HTMLEmprenderUfCompanyProfileElement;
     };
     interface HTMLEmprenderUfFinancialInformationElement extends Components.EmprenderUfFinancialInformation, HTMLStencilElement {
     }
@@ -111,6 +122,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "emprender-uf-company-information": HTMLEmprenderUfCompanyInformationElement;
+        "emprender-uf-company-profile": HTMLEmprenderUfCompanyProfileElement;
         "emprender-uf-financial-information": HTMLEmprenderUfFinancialInformationElement;
         "emprender-uf-personal-information": HTMLEmprenderUfPersonalInformationElement;
         "emprender-uf-personal-information-2": HTMLEmprenderUfPersonalInformation2Element;
@@ -127,6 +139,14 @@ declare namespace LocalJSX {
         "onBack"?: (event: CustomEvent<CompanyInformation>) => void;
         "onInfoSaved"?: (event: CustomEvent<CompanyInformation>) => void;
         "requiredData"?: string;
+    }
+    interface EmprenderUfCompanyProfile {
+        "model"?: CompanyInformation;
+        "onBack"?: (event: CustomEvent<CompanyInformation>) => void;
+        "onInfoSaved"?: (event: CustomEvent<CompanyInformation>) => void;
+        "onUpgradeInfo"?: (event: CustomEvent<CompanyInformation>) => void;
+        "requiredData"?: string;
+        "viewRegistration"?: boolean;
     }
     interface EmprenderUfFinancialInformation {
         "fileName"?: string;
@@ -153,7 +173,7 @@ declare namespace LocalJSX {
         "model2"?: PersonalInformation2;
         "model3"?: BankInformation;
         "onInfoSaved"?: (event: CustomEvent<PersonalInformation>) => void;
-        "onUpgradeInfo"?: (event: CustomEvent<[PersonalInformation,PersonalInformation2,BankInformation, string]>) => void;
+        "onUpgradeInfo"?: (event: CustomEvent<[PersonalInformation, PersonalInformation2, BankInformation, string]>) => void;
     }
     interface EmprenderUfReferences {
         "flow"?: any;
@@ -190,6 +210,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "emprender-uf-company-information": EmprenderUfCompanyInformation;
+        "emprender-uf-company-profile": EmprenderUfCompanyProfile;
         "emprender-uf-financial-information": EmprenderUfFinancialInformation;
         "emprender-uf-personal-information": EmprenderUfPersonalInformation;
         "emprender-uf-personal-information-2": EmprenderUfPersonalInformation2;
@@ -205,6 +226,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "emprender-uf-company-information": LocalJSX.EmprenderUfCompanyInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfCompanyInformationElement>;
+            "emprender-uf-company-profile": LocalJSX.EmprenderUfCompanyProfile & JSXBase.HTMLAttributes<HTMLEmprenderUfCompanyProfileElement>;
             "emprender-uf-financial-information": LocalJSX.EmprenderUfFinancialInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfFinancialInformationElement>;
             "emprender-uf-personal-information": LocalJSX.EmprenderUfPersonalInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfPersonalInformationElement>;
             "emprender-uf-personal-information-2": LocalJSX.EmprenderUfPersonalInformation2 & JSXBase.HTMLAttributes<HTMLEmprenderUfPersonalInformation2Element>;

@@ -32,6 +32,7 @@ export class EmprenderCreditSimulator {
   }
   render() {
     var _a, _b, _c, _d, _e, _f;
+    console.log(state.currentCreditInfo);
     return (h(Host, null,
       h("div", { class: "confirmCreditInformation" },
         h("div", null,

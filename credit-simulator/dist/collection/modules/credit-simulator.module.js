@@ -14,10 +14,12 @@ export function calculateValues(creditAmount, term, config) {
   const creditLifeInsurance = single ? ((creditAmount / 1000000) * config.LifeInsuranceRate) / (30 / term) : ((creditAmount / 1000000) * config.LifeInsuranceRate) / calcTerm;
   const creditPlatform = single ? config.PlattformUseFee * term : config.PlattformUseFee;
   const creditAdmin = config.AdministrationFee / calcTerm;
-  const creditTaxes = ((creditPlatform + config.AdministrationFee) * (config.TaxesRate / 100)) / calcTerm;
+  const creditTaxes = ((creditPlatform + creditAdmin + creditGuarantee) * (config.TaxesRate / 100));
+  // const creditTaxes = ((creditPlatform + config.AdministrationFee) * (config.TaxesRate / 100)) / calcTerm;
   const creditTotal = creditFirstCapital + creditGuarantee + creditLifeInsurance + creditInterest + creditPlatform + creditAdmin + creditTaxes;
   const creditAnualEffectiverate = config.AnualEffectiverate;
   const creditMonthlyEffectiverate = config.MonthlyEffectiveRate;
+  // console.log(creditPlatform,creditAdmin ,creditGuarantee)
   return {
     creditInterest,
     creditPMT,
