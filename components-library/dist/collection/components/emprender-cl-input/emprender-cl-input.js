@@ -1,10 +1,12 @@
 import { Component, Host, h, Prop, Event, Watch, Element } from '@stencil/core';
 import IMask from 'imask';
+import { expresiones } from '../../utils/validation';
 export class EmprenderClInput {
   constructor() {
     this.maskValue = 'unmasked';
     this.checkData = false;
     this.typeAddress = false;
+    this.dataType = "";
   }
   changeMaskValue() {
     if (this.inputMask) {
@@ -33,9 +35,12 @@ export class EmprenderClInput {
       const _autocomplete = new google.maps.places.Autocomplete(prueba, options);
     }
   }
-  onInputChange() {
+  onInputChange(ev) {
     if (!this.inputMask) {
       this.setValue(this.textInput.value);
+    }
+    if (this.dataType !== "") {
+      this.checkData = !expresiones[this.dataType].test(ev.target.value);
     }
   }
   getMaskCalculatedValue() {
@@ -51,7 +56,7 @@ export class EmprenderClInput {
       this.label && (h("label", { class: this.checkData ? 'checkData_label' : '', htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id },
         this.label,
         this.requiredIndicator && h("span", { class: "req" }, "*"))),
-      h("input", Object.assign({ class: this.checkData ? 'text checkData_input' : 'text', type: "text", ref: el => (this.textInput = el) }, this.inputOptions, { onInput: () => this.onInputChange() }))));
+      h("input", Object.assign({ class: this.checkData ? 'text checkData_input' : 'text', type: "text", ref: el => (this.textInput = el) }, this.inputOptions, { onInput: (ev) => this.onInputChange(ev) }))));
   }
   static get is() { return "emprender-cl-input"; }
   static get encapsulation() { return "shadow"; }
@@ -98,7 +103,7 @@ export class EmprenderClInput {
     },
     "requiredIndicator": {
       "type": "boolean",
-      "mutable": false,
+      "mutable": true,
       "complexType": {
         "original": "boolean",
         "resolved": "boolean",
@@ -111,7 +116,7 @@ export class EmprenderClInput {
         "text": ""
       },
       "attribute": "required-indicator",
-      "reflect": false
+      "reflect": true
     },
     "maskOptions": {
       "type": "any",
@@ -200,6 +205,24 @@ export class EmprenderClInput {
       "attribute": "type-address",
       "reflect": true,
       "defaultValue": "false"
+    },
+    "dataType": {
+      "type": "string",
+      "mutable": true,
+      "complexType": {
+        "original": "string",
+        "resolved": "string",
+        "references": {}
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "data-type",
+      "reflect": true,
+      "defaultValue": "\"\""
     }
   }; }
   static get events() { return [{

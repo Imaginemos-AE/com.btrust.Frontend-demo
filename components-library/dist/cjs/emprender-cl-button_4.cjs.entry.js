@@ -4176,6 +4176,18 @@ try {
   globalThis.IMask = IMask;
 } catch (e) {}
 
+const expresiones = {
+  alfanumerico: /^[a-zA-Z0-9\_\-\#\s\.]{1,50}$/,
+  alfanumericoOpcional: /^[a-zA-Z0-9\_\-\#\s\.]{0,50}$/,
+  texto: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+  textoOpcional: /^[a-zA-ZÀ-ÿ\s]{0,40}$/,
+  correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+  numerico: /^\d{1,14}$/,
+  numericoOpcional: /^\d{0,14}$/,
+  numericoSimbolo: /^[\d\>\<\-]{1,14}$/,
+  celular: /^\d{6,10}$/,
+};
+
 const emprenderClInputCss = "input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus{border:none;-webkit-text-fill-color:#3c516c;-webkit-box-shadow:0 0 0px 1000px #f4faff inset;transition:background-color 5000s ease-in-out 0s;outline:none !important}input[type=file]:focus,input[type=radio]:focus,input[type=checkbox]:focus{outline:none;outline-offset:-2px}input.text{background-color:#eeeeee;border:1px solid #eaeaea;box-sizing:border-box;border-radius:7px;font-size:14px;height:36px;line-height:36px;padding:0px 10px;text-align:center;width:100%}input.text:focus{box-shadow:0 0 10px rgba(0, 137, 255, 0.3) inset;border:1px solid rgba(0, 137, 255, 0.7)}label{color:var(--primary-color, #51215b);font-family:var(--secondary-font, \"Varela Round\", sans-serif);display:block;font-size:14px;line-height:16px;text-align:center;padding:0px 10px;margin-bottom:5px}label span.req{color:#e13d4c;display:inline-block;padding-left:5px}.checkData_label{color:#e13d4c}input.checkData_input{border-color:#e13d4c}.file{display:none;color:white;position:absolute}.file+label{display:flex;align-items:center;margin-bottom:0;line-height:35px}.file+label .fakebutton{display:block;margin-right:10px}.file+label .filetext{display:block;font-size:13px}";
 
 const EmprenderClInput = class {
@@ -4185,6 +4197,7 @@ const EmprenderClInput = class {
     this.maskValue = 'unmasked';
     this.checkData = false;
     this.typeAddress = false;
+    this.dataType = "";
   }
   changeMaskValue() {
     if (this.inputMask) {
@@ -4213,9 +4226,12 @@ const EmprenderClInput = class {
       new google.maps.places.Autocomplete(prueba, options);
     }
   }
-  onInputChange() {
+  onInputChange(ev) {
     if (!this.inputMask) {
       this.setValue(this.textInput.value);
+    }
+    if (this.dataType !== "") {
+      this.checkData = !expresiones[this.dataType].test(ev.target.value);
     }
   }
   getMaskCalculatedValue() {
@@ -4227,7 +4243,7 @@ const EmprenderClInput = class {
   }
   render() {
     var _a;
-    return (index.h(index.Host, null, this.label && (index.h("label", { class: this.checkData ? 'checkData_label' : '', htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && index.h("span", { class: "req" }, "*"))), index.h("input", Object.assign({ class: this.checkData ? 'text checkData_input' : 'text', type: "text", ref: el => (this.textInput = el) }, this.inputOptions, { onInput: () => this.onInputChange() }))));
+    return (index.h(index.Host, null, this.label && (index.h("label", { class: this.checkData ? 'checkData_label' : '', htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && index.h("span", { class: "req" }, "*"))), index.h("input", Object.assign({ class: this.checkData ? 'text checkData_input' : 'text', type: "text", ref: el => (this.textInput = el) }, this.inputOptions, { onInput: (ev) => this.onInputChange(ev) }))));
   }
   get host() { return index.getElement(this); }
   static get watchers() { return {

@@ -17,6 +17,7 @@ export namespace Components {
     }
     interface EmprenderClInput {
         "checkData": boolean;
+        "dataType": string;
         "inputOptions": any;
         "label": string;
         "maskOptions": any;
@@ -78,6 +79,7 @@ declare namespace LocalJSX {
     }
     interface EmprenderClInput {
         "checkData"?: boolean;
+        "dataType"?: string;
         "inputOptions"?: any;
         "label"?: string;
         "maskOptions"?: any;

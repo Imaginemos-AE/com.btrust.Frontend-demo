@@ -4177,6 +4177,18 @@ try {
   globalThis.IMask = IMask;
 } catch (e) {}
 
+const expresiones = {
+  alfanumerico: /^[a-zA-Z0-9\_\-\#\s\.]{1,50}$/,
+  alfanumericoOpcional: /^[a-zA-Z0-9\_\-\#\s\.]{0,50}$/,
+  texto: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+  textoOpcional: /^[a-zA-ZÀ-ÿ\s]{0,40}$/,
+  correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+  numerico: /^\d{1,14}$/,
+  numericoOpcional: /^\d{0,14}$/,
+  numericoSimbolo: /^[\d\>\<\-]{1,14}$/,
+  celular: /^\d{6,10}$/,
+};
+
 const emprenderClInputCss = "input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus{border:none;-webkit-text-fill-color:#3c516c;-webkit-box-shadow:0 0 0px 1000px #f4faff inset;transition:background-color 5000s ease-in-out 0s;outline:none !important}input[type=file]:focus,input[type=radio]:focus,input[type=checkbox]:focus{outline:none;outline-offset:-2px}input.text{background-color:#eeeeee;border:1px solid #eaeaea;box-sizing:border-box;border-radius:7px;font-size:14px;height:36px;line-height:36px;padding:0px 10px;text-align:center;width:100%}input.text:focus{box-shadow:0 0 10px rgba(0, 137, 255, 0.3) inset;border:1px solid rgba(0, 137, 255, 0.7)}label{color:var(--primary-color, #51215b);font-family:var(--secondary-font, \"Varela Round\", sans-serif);display:block;font-size:14px;line-height:16px;text-align:center;padding:0px 10px;margin-bottom:5px}label span.req{color:#e13d4c;display:inline-block;padding-left:5px}.checkData_label{color:#e13d4c}input.checkData_input{border-color:#e13d4c}.file{display:none;color:white;position:absolute}.file+label{display:flex;align-items:center;margin-bottom:0;line-height:35px}.file+label .fakebutton{display:block;margin-right:10px}.file+label .filetext{display:block;font-size:13px}";
 
 const EmprenderClInput$1 = class extends HTMLElement {
@@ -4188,6 +4200,7 @@ const EmprenderClInput$1 = class extends HTMLElement {
     this.maskValue = 'unmasked';
     this.checkData = false;
     this.typeAddress = false;
+    this.dataType = "";
   }
   changeMaskValue() {
     if (this.inputMask) {
@@ -4216,9 +4229,12 @@ const EmprenderClInput$1 = class extends HTMLElement {
       new google.maps.places.Autocomplete(prueba, options);
     }
   }
-  onInputChange() {
+  onInputChange(ev) {
     if (!this.inputMask) {
       this.setValue(this.textInput.value);
+    }
+    if (this.dataType !== "") {
+      this.checkData = !expresiones[this.dataType].test(ev.target.value);
     }
   }
   getMaskCalculatedValue() {
@@ -4230,7 +4246,7 @@ const EmprenderClInput$1 = class extends HTMLElement {
   }
   render() {
     var _a;
-    return (h(Host, null, this.label && (h("label", { class: this.checkData ? 'checkData_label' : '', htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && h("span", { class: "req" }, "*"))), h("input", Object.assign({ class: this.checkData ? 'text checkData_input' : 'text', type: "text", ref: el => (this.textInput = el) }, this.inputOptions, { onInput: () => this.onInputChange() }))));
+    return (h(Host, null, this.label && (h("label", { class: this.checkData ? 'checkData_label' : '', htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && h("span", { class: "req" }, "*"))), h("input", Object.assign({ class: this.checkData ? 'text checkData_input' : 'text', type: "text", ref: el => (this.textInput = el) }, this.inputOptions, { onInput: (ev) => this.onInputChange(ev) }))));
   }
   get host() { return this; }
   static get watchers() { return {
@@ -4273,7 +4289,7 @@ const EmprenderClSelect$1 = class extends HTMLElement {
 
 const EmprenderClButton = /*@__PURE__*/proxyCustomElement(EmprenderClButton$1, [1,"emprender-cl-button",{"text":[513],"modifiers":[513],"buttonStyle":[520,"button-style"]}]);
 const EmprenderClIcon = /*@__PURE__*/proxyCustomElement(EmprenderClIcon$1, [1,"emprender-cl-icon",{"icon":[513],"path":[514]}]);
-const EmprenderClInput = /*@__PURE__*/proxyCustomElement(EmprenderClInput$1, [1,"emprender-cl-input",{"label":[1],"inputOptions":[8,"input-options"],"requiredIndicator":[4,"required-indicator"],"maskOptions":[8,"mask-options"],"maskValue":[1,"mask-value"],"value":[1537],"checkData":[1540,"check-data"],"typeAddress":[1540,"type-address"]}]);
+const EmprenderClInput = /*@__PURE__*/proxyCustomElement(EmprenderClInput$1, [1,"emprender-cl-input",{"label":[1],"inputOptions":[8,"input-options"],"requiredIndicator":[1540,"required-indicator"],"maskOptions":[8,"mask-options"],"maskValue":[1,"mask-value"],"value":[1537],"checkData":[1540,"check-data"],"typeAddress":[1540,"type-address"],"dataType":[1537,"data-type"]}]);
 const EmprenderClSelect = /*@__PURE__*/proxyCustomElement(EmprenderClSelect$1, [1,"emprender-cl-select",{"label":[1],"options":[16],"value":[1537],"selectInputOptions":[8,"select-input-options"],"requiredIndicator":[4,"required-indicator"],"checkData":[1540,"check-data"]}]);
 const defineCustomElements = (opts) => {
   if (typeof customElements !== 'undefined') {

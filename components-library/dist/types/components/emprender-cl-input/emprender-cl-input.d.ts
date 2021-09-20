@@ -10,11 +10,12 @@ export declare class EmprenderClInput implements ComponentInterface {
   value: string;
   checkData: boolean;
   typeAddress: boolean;
+  dataType: string;
   host: HTMLElement;
   changeMaskValue(): void;
   inputChange: EventEmitter<string>;
   componentDidLoad(): Promise<void>;
-  onInputChange(): void;
+  onInputChange(ev: any): void;
   getMaskCalculatedValue(): any;
   setValue(newValue: string): void;
   render(): any;
