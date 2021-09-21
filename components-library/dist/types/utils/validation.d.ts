@@ -8,4 +8,5 @@ export declare const expresiones: {
   numericoOpcional: RegExp;
   numericoSimbolo: RegExp;
   celular: RegExp;
+  arriendo: RegExp;
 };

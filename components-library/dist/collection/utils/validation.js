@@ -8,4 +8,5 @@ export const expresiones = {
   numericoOpcional: /^\d{0,14}$/,
   numericoSimbolo: /^[\d\>\<\-]{1,14}$/,
   celular: /^\d{6,10}$/,
+  arriendo: /^[\d\.]{5,}$/
 };
