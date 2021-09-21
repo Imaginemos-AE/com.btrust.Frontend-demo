@@ -1,7 +1,7 @@
 import { Component, Host, h, Prop, Element, Event } from '@stencil/core';
 export class EmprenderClSelect {
   constructor() {
-    this.checkData = false;
+    this.value = "";
   }
   onSelectChange() {
     this.value = this.selectInput.value;
@@ -20,10 +20,10 @@ export class EmprenderClSelect {
   render() {
     var _a;
     return (h(Host, null,
-      this.label && h("label", { class: this.checkData ? "checkData_label" : '', htmlFor: (_a = this.selectInputOptions) === null || _a === void 0 ? void 0 : _a.id },
+      this.label && h("label", { class: this.value === "" ? "checkData_label" : '', htmlFor: (_a = this.selectInputOptions) === null || _a === void 0 ? void 0 : _a.id },
         this.label,
         this.requiredIndicator && h("span", { class: "req" }, "*")),
-      h("select", { class: this.checkData ? "form-control checkData_select" : 'form-control', ref: (el) => this.selectInput = el, onChange: () => this.onSelectChange() },
+      h("select", { class: this.value === "" ? "form-control checkData_select" : 'form-control', ref: (el) => this.selectInput = el, onChange: () => this.onSelectChange() },
         h("option", { value: "", selected: !this.value, disabled: true, hidden: true }, "Selecciona"),
         this.renderOptions(),
         this.renderSlot())));
@@ -84,7 +84,8 @@ export class EmprenderClSelect {
         "text": ""
       },
       "attribute": "value",
-      "reflect": true
+      "reflect": true,
+      "defaultValue": "\"\""
     },
     "selectInputOptions": {
       "type": "any",
@@ -135,8 +136,7 @@ export class EmprenderClSelect {
         "text": ""
       },
       "attribute": "check-data",
-      "reflect": true,
-      "defaultValue": "false"
+      "reflect": true
     }
   }; }
   static get events() { return [{

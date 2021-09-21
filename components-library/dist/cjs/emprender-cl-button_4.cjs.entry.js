@@ -4258,7 +4258,7 @@ const EmprenderClSelect = class {
   constructor(hostRef) {
     index.registerInstance(this, hostRef);
     this.selectChange = index.createEvent(this, "selectChange", 7);
-    this.checkData = false;
+    this.value = "";
   }
   onSelectChange() {
     this.value = this.selectInput.value;
@@ -4276,7 +4276,7 @@ const EmprenderClSelect = class {
   }
   render() {
     var _a;
-    return (index.h(index.Host, null, this.label && index.h("label", { class: this.checkData ? "checkData_label" : '', htmlFor: (_a = this.selectInputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && index.h("span", { class: "req" }, "*")), index.h("select", { class: this.checkData ? "form-control checkData_select" : 'form-control', ref: (el) => this.selectInput = el, onChange: () => this.onSelectChange() }, index.h("option", { value: "", selected: !this.value, disabled: true, hidden: true }, "Selecciona"), this.renderOptions(), this.renderSlot())));
+    return (index.h(index.Host, null, this.label && index.h("label", { class: this.value === "" ? "checkData_label" : '', htmlFor: (_a = this.selectInputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && index.h("span", { class: "req" }, "*")), index.h("select", { class: this.value === "" ? "form-control checkData_select" : 'form-control', ref: (el) => this.selectInput = el, onChange: () => this.onSelectChange() }, index.h("option", { value: "", selected: !this.value, disabled: true, hidden: true }, "Selecciona"), this.renderOptions(), this.renderSlot())));
   }
   get host() { return index.getElement(this); }
 };
