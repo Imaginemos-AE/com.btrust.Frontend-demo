@@ -4263,6 +4263,9 @@ const EmprenderClSelect = class {
   onSelectChange() {
     this.value = this.selectInput.value;
     this.selectChange.emit(this.value);
+    if (this.value !== "" || this.value !== undefined) {
+      this.checkData = false;
+    }
   }
   renderOptions() {
     var _a;
