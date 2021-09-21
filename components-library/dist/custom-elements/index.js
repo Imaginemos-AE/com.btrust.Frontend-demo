@@ -4263,7 +4263,7 @@ const EmprenderClSelect$1 = class extends HTMLElement {
     this.__registerHost();
     attachShadow(this);
     this.selectChange = createEvent(this, "selectChange", 7);
-    this.value = "";
+    this.checkData = false;
   }
   onSelectChange() {
     this.value = this.selectInput.value;
@@ -4281,7 +4281,7 @@ const EmprenderClSelect$1 = class extends HTMLElement {
   }
   render() {
     var _a;
-    return (h(Host, null, this.label && h("label", { class: this.value === "" ? "checkData_label" : '', htmlFor: (_a = this.selectInputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && h("span", { class: "req" }, "*")), h("select", { class: this.value === "" ? "form-control checkData_select" : 'form-control', ref: (el) => this.selectInput = el, onChange: () => this.onSelectChange() }, h("option", { value: "", selected: !this.value, disabled: true, hidden: true }, "Selecciona"), this.renderOptions(), this.renderSlot())));
+    return (h(Host, null, this.label && h("label", { class: this.checkData ? "checkData_label" : '', htmlFor: (_a = this.selectInputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && h("span", { class: "req" }, "*")), h("select", { class: this.checkData ? "form-control checkData_select" : 'form-control', ref: (el) => this.selectInput = el, onChange: () => this.onSelectChange() }, h("option", { value: "", selected: !this.value, disabled: true, hidden: true }, "Selecciona"), this.renderOptions(), this.renderSlot())));
   }
   get host() { return this; }
   static get style() { return emprenderClSelectCss; }
