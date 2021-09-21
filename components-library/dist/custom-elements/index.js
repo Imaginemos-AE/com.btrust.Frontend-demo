@@ -4263,7 +4263,6 @@ const EmprenderClSelect$1 = class extends HTMLElement {
     this.__registerHost();
     attachShadow(this);
     this.selectChange = createEvent(this, "selectChange", 7);
-    this.checkData = false;
   }
   onSelectChange() {
     this.value = this.selectInput.value;

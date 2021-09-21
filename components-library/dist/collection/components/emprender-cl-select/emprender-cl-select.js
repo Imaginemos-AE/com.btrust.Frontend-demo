@@ -1,8 +1,5 @@
 import { Component, Host, h, Prop, Element, Event } from '@stencil/core';
 export class EmprenderClSelect {
-  constructor() {
-    this.checkData = false;
-  }
   onSelectChange() {
     this.value = this.selectInput.value;
     this.selectChange.emit(this.value);
@@ -135,8 +132,7 @@ export class EmprenderClSelect {
         "text": ""
       },
       "attribute": "check-data",
-      "reflect": true,
-      "defaultValue": "false"
+      "reflect": true
     }
   }; }
   static get events() { return [{

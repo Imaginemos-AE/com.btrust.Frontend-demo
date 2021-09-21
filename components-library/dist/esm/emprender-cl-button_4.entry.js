@@ -4254,7 +4254,6 @@ const EmprenderClSelect = class {
   constructor(hostRef) {
     registerInstance(this, hostRef);
     this.selectChange = createEvent(this, "selectChange", 7);
-    this.checkData = false;
   }
   onSelectChange() {
     this.value = this.selectInput.value;
