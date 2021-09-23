@@ -48,9 +48,9 @@ const EmprenderUfPersonalInformation = class {
     this._setModel(field, value);
     this._setModel(clearField, '');
   }
-  // componentWillRender() {
-  //   this.sendInfo.emit(this.model);
-  // }
+  componentWillRender() {
+    this.sendInfo.emit(this.model);
+  }
   _checkSubmitInfo() {
     const lista = checkData(this.model);
     if (lista.length === 0) {
