@@ -4,7 +4,7 @@ export declare class EmprenderUfFinancialInformation {
   model: FinancialInformation;
   infoSaved: EventEmitter<FinancialInformation>;
   back: EventEmitter<FinancialInformation>;
-  requiredData: string;
+  requiredData: any[];
   flow: any;
   fileName: string;
   _setModel(field: string, value: string, reloadModel?: boolean): void;

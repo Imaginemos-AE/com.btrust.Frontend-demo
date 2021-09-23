@@ -42,9 +42,9 @@ export class EmprenderUfPersonalInformation {
     this._setModel(field, value);
     this._setModel(clearField, '');
   }
-  componentWillRender() {
-    this.sendInfo.emit(this.model);
-  }
+  // componentWillRender() {
+  //   this.sendInfo.emit(this.model);
+  // }
   _checkSubmitInfo() {
     const lista = checkData(this.model);
     if (lista.length === 0) {
@@ -64,16 +64,16 @@ export class EmprenderUfPersonalInformation {
                 h("div", { class: "row" },
                   h("div", { class: "col-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { checkData: this.requiredData.indexOf('firstName') > -1, label: "Primer nombre", value: this.model.firstName, onInputChange: ev => this._setModel('firstName', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "texto", checkData: this.requiredData.indexOf('firstName') > -1, label: "Primer nombre", value: this.model.firstName, onInputChange: ev => this._setModel('firstName', ev.detail) }))),
                   h("div", { class: "col-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { checkData: this.requiredData.indexOf('middleName') > -1, label: "Segundo nombre", value: this.model.middleName, onInputChange: ev => this._setModel('middleName', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "textoOpcional", checkData: this.requiredData.indexOf('middleName') > -1, label: "Segundo nombre", value: this.model.middleName, onInputChange: ev => this._setModel('middleName', ev.detail) }))),
                   h("div", { class: "col-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { checkData: this.requiredData.indexOf('surName') > -1, label: "Primer apellido", value: this.model.surName, onInputChange: ev => this._setModel('surName', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "texto", checkData: this.requiredData.indexOf('surName') > -1, label: "Primer apellido", value: this.model.surName, onInputChange: ev => this._setModel('surName', ev.detail) }))),
                   h("div", { class: "col-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { checkData: this.requiredData.indexOf('secondSurName') > -1, label: "Segundo apellido", value: this.model.secondSurName, onInputChange: ev => this._setModel('secondSurName', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "texto", checkData: this.requiredData.indexOf('secondSurName') > -1, label: "Segundo apellido", value: this.model.secondSurName, onInputChange: ev => this._setModel('secondSurName', ev.detail) }))),
                   h("div", { class: "col-md-6 col-lg-4" },
                     h("fieldset", { class: "mb17" },
                       h("emprender-cl-select", { checkData: this.requiredData.indexOf('documentType') > -1, label: "Tipo de Documento", value: this.model.documentType, onSelectChange: ev => this._setModel('documentType', ev.detail) },
@@ -82,10 +82,10 @@ export class EmprenderUfPersonalInformation {
                         h("option", { value: "nit" }, "NIT")))),
                   h("div", { class: "col-md-6 col-lg-4" },
                     h("fieldset", { class: "mb17" },
-                      h("emprender-cl-input", { label: "N\u00FAmero de documento", checkData: this.requiredData.indexOf('documentNumber') > -1, value: this.model.documentNumber, onInputChange: ev => this._setModel('documentNumber', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "numerico", label: "N\u00FAmero de documento", checkData: this.requiredData.indexOf('documentNumber') > -1, value: this.model.documentNumber, onInputChange: ev => this._setModel('documentNumber', ev.detail) }))),
                   h("div", { class: "col-lg-4" },
                     h("fieldset", { class: "mb17" },
-                      h("emprender-cl-input", { checkData: this.requiredData.indexOf('expeditionDate') > -1, label: "Fecha de expedici\u00F3n", value: this.model.expeditionDate, inputOptions: { type: 'date' }, onInputChange: ev => this._setModel('expeditionDate', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('expeditionDate') > -1, label: "Fecha de expedici\u00F3n", value: this.model.expeditionDate, inputOptions: { type: 'date' }, onInputChange: ev => this._setModel('expeditionDate', ev.detail) }))),
                   h("div", { class: "col-lg-6" },
                     h("fieldset", { class: "mb2" },
                       h("label", null, "Departamento y ciudad de expedici\u00F3n del documento"),
@@ -98,19 +98,19 @@ export class EmprenderUfPersonalInformation {
                             h("emprender-cl-select", { checkData: this.requiredData.indexOf('expeditionCity') > -1, value: this.model.expeditionCity, options: this._getSelectCitiesOptions('expeditionDepartment'), onSelectChange: ev => this._setModel('expeditionCity', ev.detail) })))))),
                   h("div", { class: "col-6 col-lg-3" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { checkData: this.requiredData.indexOf('mobilePhone') > -1, label: "Celular", value: this.model.mobilePhone, onInputChange: ev => this._setModel('mobilePhone', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "celular", checkData: this.requiredData.indexOf('mobilePhone') > -1, label: "Celular", value: this.model.mobilePhone, onInputChange: ev => this._setModel('mobilePhone', ev.detail) }))),
                   h("div", { class: "col-6 col-lg-3" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { checkData: this.requiredData.indexOf('phone') > -1, label: "Tel\u00E9fono", value: this.model.phone, onInputChange: ev => this._setModel('phone', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "celular", checkData: this.requiredData.indexOf('phone') > -1, label: "Tel\u00E9fono", value: this.model.phone, onInputChange: ev => this._setModel('phone', ev.detail) }))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { checkData: this.requiredData.indexOf('email') > -1, label: "Correo electr\u00F3nico", inputOptions: { type: 'email' }, value: this.model.email, onInputChange: ev => this._setModel('email', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "correo", checkData: this.requiredData.indexOf('email') > -1, label: "Correo electr\u00F3nico", inputOptions: { type: 'email' }, value: this.model.email, onInputChange: ev => this._setModel('email', ev.detail) }))),
                   h("div", { class: "col-md-6 col-lg-3" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { checkData: this.requiredData.indexOf('birthDate') > -1, label: "Fecha de nacimiento", inputOptions: { type: 'date' }, value: this.model.birthDate, onInputChange: ev => this._setModel('birthDate', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('birthDate') > -1, label: "Fecha de nacimiento", inputOptions: { type: 'date' }, value: this.model.birthDate, onInputChange: ev => this._setModel('birthDate', ev.detail) }))),
                   h("div", { class: "col-lg-3" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Nacionalidad", checkData: this.requiredData.indexOf('nationality') > -1, value: this.model.nationality, onInputChange: ev => this._setModel('nationality', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "texto", label: "Nacionalidad", checkData: this.requiredData.indexOf('nationality') > -1, value: this.model.nationality, onInputChange: ev => this._setModel('nationality', ev.detail) }))),
                   h("div", { class: "col-lg-6" },
                     h("fieldset", { class: "mb0" },
                       h("label", null, "Departamento y ciudad de nacimiento"),

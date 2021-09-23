@@ -1,5 +1,5 @@
 import { Component, Host, h, State, Event, Prop } from '@stencil/core';
-import { checkData } from '../../module/validation';
+import { checkData2 } from '../../module/validation';
 import { COUNTRY } from '../../utils/country';
 // import { loadScript } from '../../utils/utils';
 export class EmprenderUfConpanyInformation {
@@ -47,8 +47,8 @@ export class EmprenderUfConpanyInformation {
     this._setModel(clearField, '');
   }
   _checkSubmitInfo() {
-    const lista = checkData(this.model);
-    if (lista.length === 5) {
+    const lista = checkData2(this.model, "companyProfile");
+    if (lista.length === 0) {
       this.infoSaved.emit(this.model);
     }
     this.requiredData = lista.toString();
@@ -65,7 +65,7 @@ export class EmprenderUfConpanyInformation {
                 h("div", { class: "row" },
                   h("div", { class: "col-lg-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { checkData: this.requiredData.indexOf('companyName') > -1, label: "Nombre de la empresa/negocio", value: this.model.companyName, onInputChange: ev => this._setModel('companyName', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('companyName') > -1, label: "Nombre de la empresa/negocio", value: this.model.companyName, onInputChange: ev => this._setModel('companyName', ev.detail) }))),
                   h("div", { class: "col-lg-6" },
                     h("fieldset", null,
                       h("emprender-cl-select", { checkData: this.requiredData.indexOf('companyLocation') > -1, label: "\u00BFLa ubicaci\u00F3n de la empresa es la misma de la vivienda?", value: this.model.companyLocation, onSelectChange: ev => this._setModel('companyLocation', ev.detail) },
@@ -78,7 +78,7 @@ export class EmprenderUfConpanyInformation {
                         } }))),
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Torre/ Apto/ Conjunto", checkData: this.requiredData.indexOf('place') > -1, value: this.model.place, onInputChange: ev => this._setModel('place', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "alfanumericoOpcional", label: "Torre/ Apto/ Conjunto", checkData: this.requiredData.indexOf('place') > -1, value: this.model.place, onInputChange: ev => this._setModel('place', ev.detail) }))),
                   h("div", { class: "col-lg-6" },
                     h("fieldset", { class: "mb0" },
                       h("label", null, "Departamento y ciudad de residencia"),

@@ -4,6 +4,7 @@ export declare class EmprenderUfPersonalInformation3 {
   model: PersonalInformation;
   model2: PersonalInformation2;
   model3: BankInformation;
+  requiredData: string;
   departments: {
     id: number;
     departamento: string;
@@ -23,5 +24,6 @@ export declare class EmprenderUfPersonalInformation3 {
     name: string;
   }[];
   _selectDropdownOption(field: string, value: string, clearField: string): void;
+  _checkSubmitInfo(): void;
   render(): any;
 }

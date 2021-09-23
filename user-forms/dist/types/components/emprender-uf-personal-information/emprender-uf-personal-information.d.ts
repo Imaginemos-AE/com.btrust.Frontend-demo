@@ -20,7 +20,6 @@ export declare class EmprenderUfPersonalInformation {
     name: string;
   }[];
   _selectDropdownOption(field: string, value: string, clearField: string): void;
-  componentWillRender(): void;
   _checkSubmitInfo(): void;
   render(): any;
 }

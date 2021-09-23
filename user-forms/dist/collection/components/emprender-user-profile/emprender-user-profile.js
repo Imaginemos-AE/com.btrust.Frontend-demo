@@ -8,7 +8,7 @@ const EMPLOYEE_FLOW = [
 ];
 const INDEPENDENT_FLOW = [
   { tag: 'personal-information-3', field: 'personalInformation' },
-  { tag: 'company-profile', field: 'companyProfile' },
+  { tag: 'company-profile', field: 'companyInformation' },
   { tag: 'references', field: 'references' },
 ];
 export class EmprenderUserForms {

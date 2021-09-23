@@ -1,7 +1,7 @@
 import { Component, Host, h, State, Event, Prop, Element } from '@stencil/core';
 import { checkData } from '../../module/validation';
 import { COUNTRY } from '../../utils/country';
-// import { loadScript } from '../../utils/utils';
+import { FINANCIAL_OPTIONS } from '../../module/helper';
 export class EmprenderUfConpanyInformation {
   constructor() {
     this.model = {
@@ -46,7 +46,10 @@ export class EmprenderUfConpanyInformation {
     this._setModel(clearField, '');
   }
   _checkSubmitInfo() {
-    const lista = checkData(this.model);
+    let lista = checkData(this.model);
+    if (lista.indexOf("rent") > -1 && this.model.dwellingType !== "arrendada") {
+      lista.splice(lista.indexOf("rent"), 1);
+    }
     if (lista.length === 0) {
       this.infoSaved.emit(this.model);
     }
@@ -64,7 +67,7 @@ export class EmprenderUfConpanyInformation {
                 h("div", { class: "row" },
                   h("div", { class: "col-lg-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { checkData: this.requiredData.indexOf('companyName') > -1, label: "Nombre de la empresa/negocio", value: this.model.companyName, onInputChange: ev => this._setModel('companyName', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('companyName') > -1, label: "Nombre de la empresa/negocio", value: this.model.companyName, onInputChange: ev => this._setModel('companyName', ev.detail) }))),
                   h("div", { class: "col-lg-6" },
                     h("fieldset", null,
                       h("emprender-cl-select", { checkData: this.requiredData.indexOf('companyLocation') > -1, label: "\u00BFLa ubicaci\u00F3n de la empresa es la misma de la vivienda?", value: this.model.companyLocation, onSelectChange: ev => this._setModel('companyLocation', ev.detail) },
@@ -77,7 +80,7 @@ export class EmprenderUfConpanyInformation {
                         } }))),
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Torre/ Apto/ Conjunto", checkData: this.requiredData.indexOf('place') > -1, value: this.model.place, onInputChange: ev => this._setModel('place', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "alfanumericoOpcional", label: "Torre/ Apto/ Conjunto", checkData: this.requiredData.indexOf('place') > -1, value: this.model.place, onInputChange: ev => this._setModel('place', ev.detail) }))),
                   h("div", { class: "col-lg-6" },
                     h("fieldset", { class: "mb0" },
                       h("label", null, "Departamento y ciudad de residencia"),
@@ -106,7 +109,7 @@ export class EmprenderUfConpanyInformation {
                         h("option", { value: "otro" }, "Otro")))),
                   h("div", { class: "col-lg-4 col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { checkData: this.requiredData.indexOf('rent') > -1, label: "\u00BFCu\u00E1nto pagas por arriendo?", value: this.model.rent, onInputChange: ev => this._setModel('rent', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: this.model.dwellingType === "arrendada" ? "arriendo" : "", checkData: this.requiredData.indexOf('rent') > -1, label: "\u00BFCu\u00E1nto pagas por arriendo?", value: this.model.rent, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('rent', ev.detail) }))),
                   h("div", { class: "col-lg-4 col-md-6" },
                     h("fieldset", null,
                       h("emprender-cl-select", { checkData: this.requiredData.indexOf('companyType') > -1, label: "Tipo de empresa", value: this.model.companyType, onSelectChange: ev => this._setModel('companyType', ev.detail) },
@@ -118,10 +121,10 @@ export class EmprenderUfConpanyInformation {
                         h("option", { value: "s.c.a" }, "S.C.A.")))),
                   h("div", { class: "col-lg-4 col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { checkData: this.requiredData.indexOf('nit') > -1, label: "NIT", value: this.model.nit, onInputChange: ev => this._setModel('nit', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "numerico", checkData: this.requiredData.indexOf('nit') > -1, label: "NIT", value: this.model.nit, onInputChange: ev => this._setModel('nit', ev.detail) }))),
                   h("div", { class: "col-lg-4 col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { checkData: this.requiredData.indexOf('foundatingDate') > -1, label: "Fecha de constituci\u00F3n", value: this.model.foundatingDate, inputOptions: { type: 'date' }, onInputChange: ev => this._setModel('foundatingDate', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('foundatingDate') > -1, label: "Fecha de constituci\u00F3n", value: this.model.foundatingDate, inputOptions: { type: 'date' }, onInputChange: ev => this._setModel('foundatingDate', ev.detail) }))),
                   h("div", { class: "col-lg-4 col-md-6" },
                     h("fieldset", null,
                       h("emprender-cl-select", { checkData: this.requiredData.indexOf('companyActivity') > -1, label: "Actividad de la empresa", value: this.model.companyActivity, onSelectChange: ev => this._setModel('companyActivity', ev.detail) },
@@ -182,7 +185,7 @@ export class EmprenderUfConpanyInformation {
                         h("option", { value: "otro" }, "Otro")))),
                   h("div", { class: "col-12" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { checkData: this.requiredData.indexOf('otherDestiny') > -1, label: "Otro", value: this.model.otherDestiny, onInputChange: ev => this._setModel('otherDestiny', ev.detail) }))))),
+                      h("emprender-cl-input", { dataType: "alfanumericoOpcional", checkData: this.requiredData.indexOf('otherDestiny') > -1, label: "Otro", value: this.model.otherDestiny, onInputChange: ev => this._setModel('otherDestiny', ev.detail) }))))),
               h("ul", { class: "inline flex-center-center mb20" },
                 h("li", null,
                   h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })),

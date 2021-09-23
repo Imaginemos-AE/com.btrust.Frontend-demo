@@ -1,4 +1,5 @@
 import { Component, h, State, Host, Event, Prop } from '@stencil/core';
+import { checkData2 } from '../../module/validation';
 import { COUNTRY } from '../../utils/country';
 export class EmprenderUfPersonalInformation3 {
   constructor() {
@@ -41,6 +42,7 @@ export class EmprenderUfPersonalInformation3 {
       accountType: '',
       accountNumber: '',
     };
+    this.requiredData = '';
     this.departments = COUNTRY;
   }
   _setModel(field, value) {
@@ -56,7 +58,7 @@ export class EmprenderUfPersonalInformation3 {
     return this.departments.map(department => ({ id: department.departamento, name: department.departamento }));
   }
   _getSelectCitiesOptions(field) {
-    const department = this.departments.find(department => department.departamento === this.model[field]);
+    const department = this.departments.find(department => department.departamento === this.model2[field]);
     if (department) {
       return department.ciudades.map(city => ({ id: city, name: city }));
     }
@@ -65,6 +67,15 @@ export class EmprenderUfPersonalInformation3 {
   _selectDropdownOption(field, value, clearField) {
     this._setModel2(field, value);
     this._setModel2(clearField, '');
+  }
+  _checkSubmitInfo() {
+    //recuerda model3
+    const lista = checkData2(Object.assign(Object.assign({}, this.model), this.model2), "informationProfile");
+    if (lista.length === 0) {
+      this.upgradeInfo.emit([this.model, this.model2, this.model3, 'up']);
+    }
+    console.log(lista);
+    this.requiredData = lista.toString();
   }
   render() {
     return (h(Host, null,
@@ -77,16 +88,16 @@ export class EmprenderUfPersonalInformation3 {
                 h("div", { class: "row" },
                   h("div", { class: "col-md-4" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Nombre", value: `${this.model.firstName} ${this.model.middleName} ${this.model.surName} ${this.model.secondSurName}` }))),
+                      h("emprender-cl-input", { inputOptions: { disabled: '{this.disabled}' }, label: "Nombre", value: `${this.model.firstName} ${this.model.middleName} ${this.model.surName} ${this.model.secondSurName}` }))),
                   h("div", { class: "col-md-4" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "N\u00FAmero de tel\u00E9fono", value: this.model.phone, onInputChange: ev => this._setModel('phone', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "celular", checkData: this.requiredData.indexOf('mobilePhone') > -1, label: "N\u00FAmero de tel\u00E9fono", value: this.model.mobilePhone, onInputChange: ev => this._setModel('mobilePhone', ev.detail) }))),
                   h("div", { class: "col-md-4" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Correo electr\u00F3nico", value: this.model.email, onInputChange: ev => this._setModel('email', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "correo", checkData: this.requiredData.indexOf('email') > -1, label: "Correo electr\u00F3nico", value: this.model.email, onInputChange: ev => this._setModel('email', ev.detail) }))),
                   h("div", { class: "col-lg-3 col-md-4" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { label: "Nivel acad\u00E9mico", value: this.model2.academicLevel, onSelectChange: ev => this._setModel2('academicLevel', ev.detail) },
+                      h("emprender-cl-select", { checkData: this.requiredData.indexOf('academicLevel') > -1, label: "Nivel acad\u00E9mico", value: this.model2.academicLevel, onSelectChange: ev => this._setModel2('academicLevel', ev.detail) },
                         h("option", { value: "primaria" }, "Primaria"),
                         h("option", { value: "bachillerato" }, "Bachillerato"),
                         h("option", { value: "tecnico_tecnologo" }, "T\u00E9cnico - Tecn\u00F3logo"),
@@ -95,7 +106,7 @@ export class EmprenderUfPersonalInformation3 {
                         h("option", { value: "ninguno" }, "Ninguno")))),
                   h("div", { class: "col-lg-3 col-md-4" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { label: "N\u00FAmero de hijos", value: this.model2.childrenNumber, onSelectChange: ev => this._setModel2('childrenNumber', ev.detail) },
+                      h("emprender-cl-select", { checkData: this.requiredData.indexOf('childrenNumber') > -1, label: "N\u00FAmero de hijos", value: this.model2.childrenNumber, onSelectChange: ev => this._setModel2('childrenNumber', ev.detail) },
                         h("option", { value: "0" }, "0"),
                         h("option", { value: "1" }, "1"),
                         h("option", { value: "2" }, "2"),
@@ -104,7 +115,7 @@ export class EmprenderUfPersonalInformation3 {
                         h("option", { value: ">4" }, '>4')))),
                   h("div", { class: "col-lg-3 col-md-4" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { label: "Personas a cargo", value: this.model2.dependents, onSelectChange: ev => this._setModel2('dependents', ev.detail) },
+                      h("emprender-cl-select", { checkData: this.requiredData.indexOf('dependents') > -1, label: "Personas a cargo", value: this.model2.dependents, onSelectChange: ev => this._setModel2('dependents', ev.detail) },
                         h("option", { value: "0" }, "0"),
                         h("option", { value: "1" }, "1"),
                         h("option", { value: "2" }, "2"),
@@ -113,7 +124,7 @@ export class EmprenderUfPersonalInformation3 {
                         h("option", { value: ">4" }, '>4')))),
                   h("div", { class: "col-lg-3 col-md-4" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { label: "Estado civil", value: this.model2.civilState, onSelectChange: ev => this._setModel2('civilState', ev.detail) },
+                      h("emprender-cl-select", { checkData: this.requiredData.indexOf('civilState') > -1, label: "Estado civil", value: this.model2.civilState, onSelectChange: ev => this._setModel2('civilState', ev.detail) },
                         h("option", { value: "soltero" }, "Soltero(a)"),
                         h("option", { value: "casado" }, "Casado(a)"),
                         h("option", { value: "union_libre" }, "Uni\u00F3n libre"),
@@ -125,21 +136,21 @@ export class EmprenderUfPersonalInformation3 {
                       h("div", { class: "row" },
                         h("div", { class: "col-6" },
                           h("fieldset", null,
-                            h("emprender-cl-select", { value: this.model2.departmentOfResidence, options: this._getSelectDepartmentOptions(), onSelectChange: ev => this._selectDropdownOption('departmentOfResidence', ev.detail, 'expeditionCity') }))),
+                            h("emprender-cl-select", { checkData: this.requiredData.indexOf('departmentOfResidence') > -1, value: this.model2.departmentOfResidence, options: this._getSelectDepartmentOptions(), onSelectChange: ev => this._selectDropdownOption('departmentOfResidence', ev.detail, 'cityOfResidence') }))),
                         h("div", { class: "col-6" },
                           h("fieldset", null,
-                            h("emprender-cl-select", { value: this.model2.cityOfResidence, options: this._getSelectCitiesOptions('departmentOfResidence'), onSelectChange: ev => this._setModel2('cityOfResidence', ev.detail) })))))),
+                            h("emprender-cl-select", { checkData: this.requiredData.indexOf('cityOfResidence') > -1, value: this.model2.cityOfResidence, options: this._getSelectCitiesOptions('departmentOfResidence'), onSelectChange: ev => this._setModel('cityOfResidence', ev.detail) })))))),
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { typeAddress: true, label: "Direcci\u00F3n de la vivienda", value: this.model2.address, id: "direccion", onInputChange: ev => {
-                          this._setModel('address', ev.detail);
+                      h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('address') > -1, typeAddress: true, label: "Direcci\u00F3n de la vivienda", value: this.model2.address, id: "direccion", onInputChange: ev => {
+                          this._setModel2('address', ev.detail);
                         } }))),
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "Torre/ Apto/ Conjunto", value: this.model2.address, onInputChange: ev => this._setModel2('place', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "alfanumericoOpcional", checkData: this.requiredData.indexOf('place') > -1, label: "Torre/ Apto/ Conjunto", value: this.model2.place, onInputChange: ev => this._setModel2('place', ev.detail) }))),
                   h("div", { class: "col-md-3" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { label: "Estrato", value: this.model2.stratus, onSelectChange: ev => this._setModel2('stratus', ev.detail) },
+                      h("emprender-cl-select", { checkData: this.requiredData.indexOf('stratus') > -1, label: "Estrato", value: this.model2.stratus, onSelectChange: ev => this._setModel2('stratus', ev.detail) },
                         h("option", { value: "1" }, "1"),
                         h("option", { value: "2" }, "2"),
                         h("option", { value: "3" }, "3"),
@@ -148,7 +159,7 @@ export class EmprenderUfPersonalInformation3 {
                         h("option", { value: "6" }, "6")))),
                   h("div", { class: "col-md-3" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { label: "Tipo de vivienda", value: this.model2.dwellingType, onSelectChange: ev => this._setModel2('dwellingType', ev.detail) },
+                      h("emprender-cl-select", { checkData: this.requiredData.indexOf('dwellingType') > -1, label: "Tipo de vivienda", value: this.model2.dwellingType, onSelectChange: ev => this._setModel2('dwellingType', ev.detail) },
                         h("option", { value: "propia" }, "Propia"),
                         h("option", { value: "arrendada" }, "Arrendada"),
                         h("option", { value: "familiar" }, "Familiar"),
@@ -188,17 +199,20 @@ export class EmprenderUfPersonalInformation3 {
                         h("option", { value: "scotiabank colpatria" }, "SCOTIABANK COLPATRIA")))),
                   h("div", { class: "col-lg-3 col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { label: "Tipo de Cuenta Bancaria", value: this.model3.accountType, onSelectChange: ev => this._setModel3('accountType', ev.detail) },
+                      h("emprender-cl-select", { checkData: this.requiredData.indexOf('accountType') > -1, label: "Tipo de Cuenta Bancaria", value: this.model3.accountType, onSelectChange: ev => this._setModel3('accountType', ev.detail) },
                         h("option", { value: "ahorros" }, "Ahorro"),
                         h("option", { value: "corriente" }, "Corriente")))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: "N\u00FAmero Cuenta Bancaria", value: this.model3.accountNumber, onInputChange: ev => this._setModel3('accountNumber', ev.detail) }))))),
+                      h("emprender-cl-input", { 
+                        // dataType="numerico"
+                        // checkData={this.requiredData.indexOf('accountNumber') > -1 }
+                        label: "N\u00FAmero Cuenta Bancaria", value: this.model3.accountNumber, onInputChange: ev => this._setModel3('accountNumber', ev.detail) }))))),
               h("ul", { class: "inline flex-center-center mb20" },
                 h("li", null,
                   h("emprender-cl-button", { text: "Actualizar", modifiers: "medium quaternary", onclick: () => this.upgradeInfo.emit([this.model, this.model2, this.model3, '']) })),
                 h("li", null,
-                  h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this.upgradeInfo.emit([this.model, this.model2, this.model3, 'up']) }))),
+                  h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this._checkSubmitInfo() }))),
               h("slot", null)))))));
   }
   static get is() { return "emprender-uf-personal-information-3"; }
@@ -272,6 +286,24 @@ export class EmprenderUfPersonalInformation3 {
         "text": ""
       },
       "defaultValue": "{\r\n    bankName: '',\r\n    accountType: '',\r\n    accountNumber: '',\r\n  }"
+    },
+    "requiredData": {
+      "type": "string",
+      "mutable": true,
+      "complexType": {
+        "original": "string",
+        "resolved": "string",
+        "references": {}
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "required-data",
+      "reflect": true,
+      "defaultValue": "''"
     }
   }; }
   static get states() { return {

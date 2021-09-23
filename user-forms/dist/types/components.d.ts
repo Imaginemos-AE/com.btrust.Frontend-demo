@@ -20,7 +20,7 @@ export namespace Components {
         "fileName": string;
         "flow": any;
         "model": FinancialInformation;
-        "requiredData": string;
+        "requiredData": any[];
     }
     interface EmprenderUfPersonalInformation {
         "model": PersonalInformation;
@@ -34,6 +34,7 @@ export namespace Components {
         "model": PersonalInformation;
         "model2": PersonalInformation2;
         "model3": BankInformation;
+        "requiredData": string;
     }
     interface EmprenderUfReferences {
         "flow": any;
@@ -154,7 +155,7 @@ declare namespace LocalJSX {
         "model"?: FinancialInformation;
         "onBack"?: (event: CustomEvent<FinancialInformation>) => void;
         "onInfoSaved"?: (event: CustomEvent<FinancialInformation>) => void;
-        "requiredData"?: string;
+        "requiredData"?: any[];
     }
     interface EmprenderUfPersonalInformation {
         "model"?: PersonalInformation;
@@ -174,6 +175,7 @@ declare namespace LocalJSX {
         "model3"?: BankInformation;
         "onInfoSaved"?: (event: CustomEvent<PersonalInformation>) => void;
         "onUpgradeInfo"?: (event: CustomEvent<[PersonalInformation, PersonalInformation2, BankInformation, string]>) => void;
+        "requiredData"?: string;
     }
     interface EmprenderUfReferences {
         "flow"?: any;

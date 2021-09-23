@@ -1,5 +1,3 @@
-'use strict';
-
 const expresiones = {
   alfanumerico: /^[a-zA-Z0-9\_\-\#\s\.]{1,50}$/,
   alfanumericoOpcional: /^[a-zA-Z0-9\_\-\#\s\.]{0,50}$/,
@@ -7,9 +5,10 @@ const expresiones = {
   textoOpcional: /^[a-zA-ZÀ-ÿ\s]{0,40}$/,
   correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
   numerico: /^\d{1,14}$/,
-  numericoOpcional: /^\d{0,14}$/,
+  numericoOpcional: /^[\d\.]{0,14}$/,
   numericoSimbolo: /^[\d\>\<\-]{1,14}$/,
   celular: /^\d{6,10}$/,
+  arriendo: /^[\d\.]{5,}$/,
 };
 const personalInformation = {
   firstName: 'texto',
@@ -41,7 +40,7 @@ const personalInformation2 = {
   place: 'alfanumericoOpcional',
   stratus: 'numerico',
   dwellingType: 'texto',
-  rent: 'numerico',
+  rent: 'arriendo',
   residenceTime: 'numericoSimbolo',
   employment: 'texto',
 };
@@ -89,7 +88,7 @@ const companyInformation = {
   cityOfResidence: 'texto',
   stratus: 'numerico',
   dwellingType: 'texto',
-  rent: 'numerico',
+  rent: 'arriendo',
   companyType: 'alfanumerico',
   nit: 'numerico',
   foundatingDate: 'alfanumerico',
@@ -101,14 +100,64 @@ const companyInformation = {
   destiny: 'alfanumerico',
   otherDestiny: 'alfanumericoOpcional',
 };
+const informationProfile = {
+  firstName: 'texto',
+  middleName: 'textoOpcional',
+  surName: 'texto',
+  secondSurName: 'texto',
+  mobilePhone: 'celular',
+  email: 'correo',
+  academicLevel: 'alfanumerico',
+  childrenNumber: 'numericoSimbolo',
+  dependents: 'numericoSimbolo',
+  civilState: 'alfanumerico',
+  cityOfResidence: 'texto',
+  departmentOfResidence: 'texto',
+  address: 'alfanumerico',
+  place: 'alfanumericoOpcional',
+  stratus: 'numerico',
+  dwellingType: 'texto',
+};
+const companyProfile = {
+  companyName: 'alfanumerico',
+  companyLocation: 'texto',
+  address: 'alfanumerico',
+  place: 'alfanumericoOpcional',
+  departmentOfResidence: 'texto',
+  cityOfResidence: 'texto',
+  stratus: 'numerico',
+  dwellingType: 'texto',
+  companyActivity: 'alfanumerico',
+  point: 'texto',
+  onlineShop: 'texto',
+  employees: 'alfanumerico',
+};
 function checkData(model) {
   const campo = [personalInformation, personalInformation2, financialInformation, references, workingInformation, companyInformation].find(e => JSON.stringify(Object.keys(model)) === JSON.stringify(Object.keys(e)));
   const prueba = Object.entries(model).filter(entry => {
-    const value = typeof entry[1] === 'string' ? entry[1] : parseFloat(`${entry[1]}`);
+    const value = entry[1] === null ? '' : entry[1];
     return expresiones[campo[`${entry[0]}`]].test(value) === false;
   });
   return prueba.map(value => value[0]);
   // return [];
 }
+function checkData2(model, fieldName) {
+  const fields = {
+    personalInformation: personalInformation,
+    personalInformation2: personalInformation2,
+    financialInformation: financialInformation,
+    references: references,
+    workingInformation: workingInformation,
+    companyInformation: companyInformation,
+    informationProfile: informationProfile,
+    companyProfile: companyProfile
+  };
+  const campo = fields[fieldName];
+  const prueba = Object.entries(campo).filter(entry => {
+    return expresiones[campo[`${entry[0]}`]].test(model[`${entry[0]}`]) === false;
+  });
+  return prueba.map(value => value[0]);
+  // return [];
+}
 
-exports.checkData = checkData;
+export { checkData2 as a, checkData as c };
