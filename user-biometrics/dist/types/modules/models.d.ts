@@ -4,4 +4,6 @@ export interface ADOConfig {
   key: string;
   projectName: string;
   product: string;
+  documentType?: string;
+  documentNumber?: string;
 }

@@ -1,4 +1,4 @@
-import { g as getRenderingRef, f as forceUpdate } from './index-a3fd5ea6.js';
+import { a as getRenderingRef, f as forceUpdate } from './index-6b51ac5c.js';
 
 const appendToMap = (map, propName, value) => {
     const items = map.get(propName);

@@ -14,6 +14,12 @@ export const EmprenderUbHome: {
   new (): EmprenderUbHome;
 };
 
+interface EmprenderUbSignature extends Components.EmprenderUbSignature, HTMLElement {}
+export const EmprenderUbSignature: {
+  prototype: EmprenderUbSignature;
+  new (): EmprenderUbSignature;
+};
+
 interface EmprenderUbSuccess extends Components.EmprenderUbSuccess, HTMLElement {}
 export const EmprenderUbSuccess: {
   prototype: EmprenderUbSuccess;
