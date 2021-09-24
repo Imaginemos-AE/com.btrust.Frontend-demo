@@ -14,7 +14,7 @@ const patchEsm = () => {
 const defineCustomElements = (win, options) => {
   if (typeof window === 'undefined') return Promise.resolve();
   return patchEsm().then(() => {
-  return index.bootstrapLazy([["emprender-ub-home_2.cjs",[[1,"emprender-ub-home"],[1,"emprender-ub-signature"]]],["emprender-user-biometrics.cjs",[[1,"emprender-user-biometrics",{"adoConfig":[1,"ado-config"],"type":[1]}]]],["emprender-ub-failure_3.cjs",[[1,"emprender-user-biometrics-result",{"state":[1],"type":[1]}],[1,"emprender-ub-failure",{"type":[1]}],[1,"emprender-ub-success",{"type":[1]}]]]], options);
+  return index.bootstrapLazy([["emprender-ub-failure_6.cjs",[[1,"emprender-user-biometrics",{"adoConfig":[1,"ado-config"],"type":[1]}],[1,"emprender-user-biometrics-result",{"state":[1],"type":[1]}],[1,"emprender-ub-failure",{"type":[1]}],[1,"emprender-ub-home"],[1,"emprender-ub-signature"],[1,"emprender-ub-success",{"type":[1]}]]]], options);
   });
 };
 

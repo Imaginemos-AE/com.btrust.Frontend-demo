@@ -13,5 +13,5 @@ const patchBrowser = () => {
 };
 
 patchBrowser().then(options => {
-  return bootstrapLazy([["emprender-ub-home_2",[[1,"emprender-ub-home"],[1,"emprender-ub-signature"]]],["emprender-user-biometrics",[[1,"emprender-user-biometrics",{"adoConfig":[1,"ado-config"],"type":[1]}]]],["emprender-ub-failure_3",[[1,"emprender-user-biometrics-result",{"state":[1],"type":[1]}],[1,"emprender-ub-failure",{"type":[1]}],[1,"emprender-ub-success",{"type":[1]}]]]], options);
+  return bootstrapLazy([["emprender-ub-failure_6",[[1,"emprender-user-biometrics",{"adoConfig":[1,"ado-config"],"type":[1]}],[1,"emprender-user-biometrics-result",{"state":[1],"type":[1]}],[1,"emprender-ub-failure",{"type":[1]}],[1,"emprender-ub-home"],[1,"emprender-ub-signature"],[1,"emprender-ub-success",{"type":[1]}]]]], options);
 });
