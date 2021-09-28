@@ -46,6 +46,18 @@ function appendComponentStyles(host, urls, shadow = true, loadGlobal = false) {
     resolve();
   });
 }
+function loadScript(url, id, type) {
+  return new Promise(resolve => {
+    document.body.appendChild(Object.assign(document.createElement('script'), {
+      type: type,
+      async: true,
+      defer: true,
+      id: id,
+      src: url,
+      onload: resolve
+    }));
+  });
+}
 
 const emprenderClIconCss = "";
 
@@ -4187,6 +4199,7 @@ const expresiones = {
   numericoOpcional: /^\d{0,14}$/,
   numericoSimbolo: /^[\d\>\<\-]{1,14}$/,
   celular: /^\d{6,10}$/,
+  celularOpcional: /^(\d{7,10})*$/,
   arriendo: /^[\d\.]{5,}$/
 };
 
@@ -4201,7 +4214,8 @@ const EmprenderClInput$1 = class extends HTMLElement {
     this.maskValue = 'unmasked';
     this.checkData = false;
     this.typeAddress = false;
-    this.dataType = "";
+    this.dataType = '';
+    this.place = "";
   }
   changeMaskValue() {
     if (this.inputMask) {
@@ -4223,18 +4237,22 @@ const EmprenderClInput$1 = class extends HTMLElement {
       });
     }
     if (this.typeAddress) {
+      await loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCYBy_5xXw_-nNeiMBfDqgfbXhuxB-mTQc&libraries=places', 'googleapi', 'text/javascript');
       var options = {
         types: ['geocode'],
       };
       let prueba = this.host.shadowRoot.querySelector('.text');
-      new google.maps.places.Autocomplete(prueba, options);
+      let autocomplete = new google.maps.places.Autocomplete(prueba, options);
+      autocomplete.addListener('place_changed', function () {
+        this.inputChange.emit(autocomplete.getPlace()['formatted_address']);
+      });
     }
   }
   onInputChange(ev) {
     if (!this.inputMask) {
       this.setValue(this.textInput.value);
     }
-    if (this.dataType !== "") {
+    if (this.dataType !== '') {
       this.checkData = !expresiones[this.dataType].test(ev.target.value);
     }
   }
@@ -4247,7 +4265,7 @@ const EmprenderClInput$1 = class extends HTMLElement {
   }
   render() {
     var _a;
-    return (h(Host, null, this.label && (h("label", { class: this.checkData ? 'checkData_label' : '', htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && h("span", { class: "req" }, "*"))), h("input", Object.assign({ class: this.checkData ? 'text checkData_input' : 'text', type: "text", ref: el => (this.textInput = el) }, this.inputOptions, { onInput: (ev) => this.onInputChange(ev) }))));
+    return (h(Host, null, this.label && (h("label", { class: this.checkData ? 'checkData_label' : '', htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && h("span", { class: "req" }, "*"))), h("input", Object.assign({ class: this.checkData ? 'text checkData_input' : 'text', type: "text", ref: el => (this.textInput = el) }, this.inputOptions, { onInput: ev => this.onInputChange(ev) })), h("li", null, this.place)));
   }
   get host() { return this; }
   static get watchers() { return {
@@ -4292,7 +4310,7 @@ const EmprenderClSelect$1 = class extends HTMLElement {
 
 const EmprenderClButton = /*@__PURE__*/proxyCustomElement(EmprenderClButton$1, [1,"emprender-cl-button",{"text":[513],"modifiers":[513],"buttonStyle":[520,"button-style"]}]);
 const EmprenderClIcon = /*@__PURE__*/proxyCustomElement(EmprenderClIcon$1, [1,"emprender-cl-icon",{"icon":[513],"path":[514]}]);
-const EmprenderClInput = /*@__PURE__*/proxyCustomElement(EmprenderClInput$1, [1,"emprender-cl-input",{"label":[1],"inputOptions":[8,"input-options"],"requiredIndicator":[1540,"required-indicator"],"maskOptions":[8,"mask-options"],"maskValue":[1,"mask-value"],"value":[1537],"checkData":[1540,"check-data"],"typeAddress":[1540,"type-address"],"dataType":[1537,"data-type"]}]);
+const EmprenderClInput = /*@__PURE__*/proxyCustomElement(EmprenderClInput$1, [1,"emprender-cl-input",{"label":[1],"inputOptions":[8,"input-options"],"requiredIndicator":[1540,"required-indicator"],"maskOptions":[8,"mask-options"],"maskValue":[1,"mask-value"],"value":[1537],"checkData":[1540,"check-data"],"typeAddress":[1540,"type-address"],"dataType":[1537,"data-type"],"place":[1537]}]);
 const EmprenderClSelect = /*@__PURE__*/proxyCustomElement(EmprenderClSelect$1, [1,"emprender-cl-select",{"label":[1],"options":[16],"value":[1537],"selectInputOptions":[8,"select-input-options"],"requiredIndicator":[4,"required-indicator"],"checkData":[1540,"check-data"]}]);
 const defineCustomElements = (opts) => {
   if (typeof customElements !== 'undefined') {

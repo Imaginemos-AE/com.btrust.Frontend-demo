@@ -11,6 +11,7 @@ export declare class EmprenderClInput implements ComponentInterface {
   checkData: boolean;
   typeAddress: boolean;
   dataType: string;
+  place: string;
   host: HTMLElement;
   changeMaskValue(): void;
   inputChange: EventEmitter<string>;

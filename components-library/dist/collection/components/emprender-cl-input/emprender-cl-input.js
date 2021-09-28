@@ -1,12 +1,14 @@
 import { Component, Host, h, Prop, Event, Watch, Element } from '@stencil/core';
 import IMask from 'imask';
 import { expresiones } from '../../utils/validation';
+import { loadScript } from '../../utils/utils';
 export class EmprenderClInput {
   constructor() {
     this.maskValue = 'unmasked';
     this.checkData = false;
     this.typeAddress = false;
-    this.dataType = "";
+    this.dataType = '';
+    this.place = "";
   }
   changeMaskValue() {
     if (this.inputMask) {
@@ -28,18 +30,22 @@ export class EmprenderClInput {
       });
     }
     if (this.typeAddress) {
+      await loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCYBy_5xXw_-nNeiMBfDqgfbXhuxB-mTQc&libraries=places', 'googleapi', 'text/javascript');
       var options = {
         types: ['geocode'],
       };
       let prueba = this.host.shadowRoot.querySelector('.text');
-      const _autocomplete = new google.maps.places.Autocomplete(prueba, options);
+      let autocomplete = new google.maps.places.Autocomplete(prueba, options);
+      autocomplete.addListener('place_changed', function () {
+        this.inputChange.emit(autocomplete.getPlace()['formatted_address']);
+      });
     }
   }
   onInputChange(ev) {
     if (!this.inputMask) {
       this.setValue(this.textInput.value);
     }
-    if (this.dataType !== "") {
+    if (this.dataType !== '') {
       this.checkData = !expresiones[this.dataType].test(ev.target.value);
     }
   }
@@ -56,7 +62,8 @@ export class EmprenderClInput {
       this.label && (h("label", { class: this.checkData ? 'checkData_label' : '', htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id },
         this.label,
         this.requiredIndicator && h("span", { class: "req" }, "*"))),
-      h("input", Object.assign({ class: this.checkData ? 'text checkData_input' : 'text', type: "text", ref: el => (this.textInput = el) }, this.inputOptions, { onInput: (ev) => this.onInputChange(ev) }))));
+      h("input", Object.assign({ class: this.checkData ? 'text checkData_input' : 'text', type: "text", ref: el => (this.textInput = el) }, this.inputOptions, { onInput: ev => this.onInputChange(ev) })),
+      h("li", null, this.place)));
   }
   static get is() { return "emprender-cl-input"; }
   static get encapsulation() { return "shadow"; }
@@ -221,6 +228,24 @@ export class EmprenderClInput {
         "text": ""
       },
       "attribute": "data-type",
+      "reflect": true,
+      "defaultValue": "''"
+    },
+    "place": {
+      "type": "string",
+      "mutable": true,
+      "complexType": {
+        "original": "string",
+        "resolved": "string",
+        "references": {}
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "place",
       "reflect": true,
       "defaultValue": "\"\""
     }
