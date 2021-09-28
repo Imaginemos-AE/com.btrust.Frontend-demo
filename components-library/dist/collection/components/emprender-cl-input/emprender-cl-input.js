@@ -1,7 +1,6 @@
 import { Component, Host, h, Prop, Event, Watch, Element } from '@stencil/core';
 import IMask from 'imask';
 import { expresiones } from '../../utils/validation';
-import { loadScript } from '../../utils/utils';
 export class EmprenderClInput {
   constructor() {
     this.maskValue = 'unmasked';
@@ -29,15 +28,14 @@ export class EmprenderClInput {
       });
     }
     if (this.typeAddress) {
-      await loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCYBy_5xXw_-nNeiMBfDqgfbXhuxB-mTQc&libraries=places', 'googleapi', 'text/javascript');
       var options = {
         types: ['geocode'],
       };
       let prueba = this.host.shadowRoot.querySelector('.text');
       let autocomplete = new google.maps.places.Autocomplete(prueba, options);
-      autocomplete.addListener('place_changed', function () {
-        this.inputChange.emit(autocomplete.getPlace()['formatted_address']);
-      });
+      // autocomplete.addListener('place_changed', function () {
+      //   this.inputChange.emit(autocomplete.getPlace()['formatted_address']);
+      // });
     }
   }
   onInputChange(ev) {

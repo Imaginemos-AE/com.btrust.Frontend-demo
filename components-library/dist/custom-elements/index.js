@@ -46,18 +46,6 @@ function appendComponentStyles(host, urls, shadow = true, loadGlobal = false) {
     resolve();
   });
 }
-function loadScript(url, id, type) {
-  return new Promise(resolve => {
-    document.body.appendChild(Object.assign(document.createElement('script'), {
-      type: type,
-      async: true,
-      defer: true,
-      id: id,
-      src: url,
-      onload: resolve
-    }));
-  });
-}
 
 const emprenderClIconCss = "";
 
@@ -4236,15 +4224,14 @@ const EmprenderClInput$1 = class extends HTMLElement {
       });
     }
     if (this.typeAddress) {
-      await loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCYBy_5xXw_-nNeiMBfDqgfbXhuxB-mTQc&libraries=places', 'googleapi', 'text/javascript');
       var options = {
         types: ['geocode'],
       };
       let prueba = this.host.shadowRoot.querySelector('.text');
-      let autocomplete = new google.maps.places.Autocomplete(prueba, options);
-      autocomplete.addListener('place_changed', function () {
-        this.inputChange.emit(autocomplete.getPlace()['formatted_address']);
-      });
+      new google.maps.places.Autocomplete(prueba, options);
+      // autocomplete.addListener('place_changed', function () {
+      //   this.inputChange.emit(autocomplete.getPlace()['formatted_address']);
+      // });
     }
   }
   onInputChange(ev) {
