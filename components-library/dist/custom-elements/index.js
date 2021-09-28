@@ -4215,7 +4215,6 @@ const EmprenderClInput$1 = class extends HTMLElement {
     this.checkData = false;
     this.typeAddress = false;
     this.dataType = '';
-    this.place = "";
   }
   changeMaskValue() {
     if (this.inputMask) {
@@ -4265,7 +4264,7 @@ const EmprenderClInput$1 = class extends HTMLElement {
   }
   render() {
     var _a;
-    return (h(Host, null, this.label && (h("label", { class: this.checkData ? 'checkData_label' : '', htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && h("span", { class: "req" }, "*"))), h("input", Object.assign({ class: this.checkData ? 'text checkData_input' : 'text', type: "text", ref: el => (this.textInput = el) }, this.inputOptions, { onInput: ev => this.onInputChange(ev) })), h("li", null, this.place)));
+    return (h(Host, null, this.label && (h("label", { class: this.checkData ? 'checkData_label' : '', htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && h("span", { class: "req" }, "*"))), h("input", Object.assign({ class: this.checkData ? 'text checkData_input' : 'text', type: "text", ref: el => (this.textInput = el) }, this.inputOptions, { onInput: ev => this.onInputChange(ev) }))));
   }
   get host() { return this; }
   static get watchers() { return {
@@ -4310,7 +4309,7 @@ const EmprenderClSelect$1 = class extends HTMLElement {
 
 const EmprenderClButton = /*@__PURE__*/proxyCustomElement(EmprenderClButton$1, [1,"emprender-cl-button",{"text":[513],"modifiers":[513],"buttonStyle":[520,"button-style"]}]);
 const EmprenderClIcon = /*@__PURE__*/proxyCustomElement(EmprenderClIcon$1, [1,"emprender-cl-icon",{"icon":[513],"path":[514]}]);
-const EmprenderClInput = /*@__PURE__*/proxyCustomElement(EmprenderClInput$1, [1,"emprender-cl-input",{"label":[1],"inputOptions":[8,"input-options"],"requiredIndicator":[1540,"required-indicator"],"maskOptions":[8,"mask-options"],"maskValue":[1,"mask-value"],"value":[1537],"checkData":[1540,"check-data"],"typeAddress":[1540,"type-address"],"dataType":[1537,"data-type"],"place":[1537]}]);
+const EmprenderClInput = /*@__PURE__*/proxyCustomElement(EmprenderClInput$1, [1,"emprender-cl-input",{"label":[1],"inputOptions":[8,"input-options"],"requiredIndicator":[1540,"required-indicator"],"maskOptions":[8,"mask-options"],"maskValue":[1,"mask-value"],"value":[1537],"checkData":[1540,"check-data"],"typeAddress":[1540,"type-address"],"dataType":[1537,"data-type"]}]);
 const EmprenderClSelect = /*@__PURE__*/proxyCustomElement(EmprenderClSelect$1, [1,"emprender-cl-select",{"label":[1],"options":[16],"value":[1537],"selectInputOptions":[8,"select-input-options"],"requiredIndicator":[4,"required-indicator"],"checkData":[1540,"check-data"]}]);
 const defineCustomElements = (opts) => {
   if (typeof customElements !== 'undefined') {

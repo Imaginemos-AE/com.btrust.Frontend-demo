@@ -8,7 +8,6 @@ export class EmprenderClInput {
     this.checkData = false;
     this.typeAddress = false;
     this.dataType = '';
-    this.place = "";
   }
   changeMaskValue() {
     if (this.inputMask) {
@@ -62,8 +61,7 @@ export class EmprenderClInput {
       this.label && (h("label", { class: this.checkData ? 'checkData_label' : '', htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id },
         this.label,
         this.requiredIndicator && h("span", { class: "req" }, "*"))),
-      h("input", Object.assign({ class: this.checkData ? 'text checkData_input' : 'text', type: "text", ref: el => (this.textInput = el) }, this.inputOptions, { onInput: ev => this.onInputChange(ev) })),
-      h("li", null, this.place)));
+      h("input", Object.assign({ class: this.checkData ? 'text checkData_input' : 'text', type: "text", ref: el => (this.textInput = el) }, this.inputOptions, { onInput: ev => this.onInputChange(ev) }))));
   }
   static get is() { return "emprender-cl-input"; }
   static get encapsulation() { return "shadow"; }
@@ -230,24 +228,6 @@ export class EmprenderClInput {
       "attribute": "data-type",
       "reflect": true,
       "defaultValue": "''"
-    },
-    "place": {
-      "type": "string",
-      "mutable": true,
-      "complexType": {
-        "original": "string",
-        "resolved": "string",
-        "references": {}
-      },
-      "required": false,
-      "optional": false,
-      "docs": {
-        "tags": [],
-        "text": ""
-      },
-      "attribute": "place",
-      "reflect": true,
-      "defaultValue": "\"\""
     }
   }; }
   static get events() { return [{

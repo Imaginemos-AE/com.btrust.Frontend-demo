@@ -22,7 +22,6 @@ export namespace Components {
         "label": string;
         "maskOptions": any;
         "maskValue": 'masked' | 'unmasked';
-        "place": string;
         "requiredIndicator": boolean;
         "typeAddress": boolean;
         "value": string;
@@ -86,7 +85,6 @@ declare namespace LocalJSX {
         "maskOptions"?: any;
         "maskValue"?: 'masked' | 'unmasked';
         "onInputChange"?: (event: CustomEvent<string>) => void;
-        "place"?: string;
         "requiredIndicator"?: boolean;
         "typeAddress"?: boolean;
         "value"?: string;

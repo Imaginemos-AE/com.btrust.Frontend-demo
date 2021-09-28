@@ -4208,7 +4208,6 @@ const EmprenderClInput = class {
     this.checkData = false;
     this.typeAddress = false;
     this.dataType = '';
-    this.place = "";
   }
   changeMaskValue() {
     if (this.inputMask) {
@@ -4258,7 +4257,7 @@ const EmprenderClInput = class {
   }
   render() {
     var _a;
-    return (h(Host, null, this.label && (h("label", { class: this.checkData ? 'checkData_label' : '', htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && h("span", { class: "req" }, "*"))), h("input", Object.assign({ class: this.checkData ? 'text checkData_input' : 'text', type: "text", ref: el => (this.textInput = el) }, this.inputOptions, { onInput: ev => this.onInputChange(ev) })), h("li", null, this.place)));
+    return (h(Host, null, this.label && (h("label", { class: this.checkData ? 'checkData_label' : '', htmlFor: (_a = this.inputOptions) === null || _a === void 0 ? void 0 : _a.id }, this.label, this.requiredIndicator && h("span", { class: "req" }, "*"))), h("input", Object.assign({ class: this.checkData ? 'text checkData_input' : 'text', type: "text", ref: el => (this.textInput = el) }, this.inputOptions, { onInput: ev => this.onInputChange(ev) }))));
   }
   get host() { return getElement(this); }
   static get watchers() { return {
