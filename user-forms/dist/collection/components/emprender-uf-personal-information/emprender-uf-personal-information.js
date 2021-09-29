@@ -101,7 +101,7 @@ export class EmprenderUfPersonalInformation {
                       h("emprender-cl-input", { dataType: "celular", checkData: this.requiredData.indexOf('mobilePhone') > -1, label: "Celular", value: this.model.mobilePhone, onInputChange: ev => this._setModel('mobilePhone', ev.detail) }))),
                   h("div", { class: "col-6 col-lg-3" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { dataType: "celular", checkData: this.requiredData.indexOf('phone') > -1, label: "Tel\u00E9fono", value: this.model.phone, onInputChange: ev => this._setModel('phone', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "celularOpcional", checkData: this.requiredData.indexOf('phone') > -1, label: "Tel\u00E9fono", value: this.model.phone, onInputChange: ev => this._setModel('phone', ev.detail) }))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
                       h("emprender-cl-input", { dataType: "correo", checkData: this.requiredData.indexOf('email') > -1, label: "Correo electr\u00F3nico", inputOptions: { type: 'email' }, value: this.model.email, onInputChange: ev => this._setModel('email', ev.detail) }))),

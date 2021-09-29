@@ -41,8 +41,8 @@ export class EmprenderUfPersonalInformation2 {
   }
   _checkSubmitInfo() {
     const lista = checkData(this.model);
-    if (lista.indexOf("rent") > -1 && this.model.dwellingType !== "arrendada") {
-      lista.splice(lista.indexOf("rent"), 1);
+    if (lista.indexOf('rent') > -1 && this.model.dwellingType !== 'arrendada') {
+      lista.splice(lista.indexOf('rent'), 1);
     }
     if (lista.length === 0) {
       this.infoSaved.emit(this.model);
@@ -123,14 +123,16 @@ export class EmprenderUfPersonalInformation2 {
                         h("option", { value: "6" }, "6")))),
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { checkData: this.requiredData.indexOf('dwellingType') > -1, label: "Tipo de vivienda", value: this.model.dwellingType, onSelectChange: ev => this._setModel('dwellingType', ev.detail) },
+                      h("emprender-cl-select", { checkData: this.requiredData.indexOf('dwellingType') > -1, label: "Tipo de vivienda", value: this.model.dwellingType, onSelectChange: ev => {
+                          this._setModel('dwellingType', ev.detail);
+                        } },
                         h("option", { value: "propia" }, "Propia"),
                         h("option", { value: "arrendada" }, "Arrendada"),
                         h("option", { value: "familiar" }, "Familiar"),
                         h("option", { value: "otro" }, "Otro")))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { dataType: this.model.dwellingType === "arrendada" ? "arriendo" : "", checkData: this.requiredData.indexOf('rent') > -1, label: "\u00BFCu\u00E1nto pagas por arriendo?", value: this.model.rent, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('rent', ev.detail) }))),
+                      h("emprender-cl-input", { inputOptions: this.model.dwellingType !== 'arrendada' ? { disabled: '{this.disabled}' } : {}, dataType: this.model.dwellingType === "arrendada" ? "arriendo" : "", checkData: this.requiredData.indexOf('rent') > -1, label: "\u00BFCu\u00E1nto pagas por arriendo?", value: this.model.rent, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('rent', ev.detail) }))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
                       h("emprender-cl-select", { checkData: this.requiredData.indexOf('residenceTime') > -1, label: "Tiempo de residencia", value: this.model.residenceTime, onSelectChange: ev => this._setModel('residenceTime', ev.detail) },

@@ -74,7 +74,7 @@ export class EmprenderUfFinancialInformation {
                       h("emprender-cl-input", { label: "Otros ingresos mensuales", value: this.model.otherIncomes, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('otherIncomes', ev.detail) }))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: this.flow == 'employee' ? 'Ingresos mensuales por concepto de salario variable' : 'Ingresos mensuales por conceptos de arrendamientos', checkData: this.requiredData.indexOf('variableSalaryIncome') > -1, value: this.model.variableSalaryIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('variableSalaryIncome', ev.detail) }))),
+                      h("emprender-cl-input", { label: this.flow == 'employee' ? 'Ingresos mensuales por concepto de salario variable' : 'Ingresos mensuales por conceptos de arrendamientos', value: this.model.variableSalaryIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('variableSalaryIncome', ev.detail) }))),
                   h("div", { class: "col-md-6" }, this.model.otherIncomes && (h("fieldset", null,
                     h("emprender-cl-input", { dataType: "alfanumericoOpcional", label: "Descripci\u00F3n otros ingresos mensuales", checkData: this.requiredData.indexOf('otherIncomesDescription') > -1, value: this.model.otherIncomesDescription, inputOptions: { type: 'text' }, onInputChange: ev => this._setModel('otherIncomesDescription', ev.detail) })))),
                   this.flow === 'employee' ? (h("fieldset", { class: "totalBox mt0" },

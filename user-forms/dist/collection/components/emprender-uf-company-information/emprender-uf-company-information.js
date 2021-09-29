@@ -109,7 +109,7 @@ export class EmprenderUfConpanyInformation {
                         h("option", { value: "otro" }, "Otro")))),
                   h("div", { class: "col-lg-4 col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { dataType: this.model.dwellingType === "arrendada" ? "arriendo" : "", checkData: this.requiredData.indexOf('rent') > -1, label: "\u00BFCu\u00E1nto pagas por arriendo?", value: this.model.rent, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('rent', ev.detail) }))),
+                      h("emprender-cl-input", { inputOptions: this.model.dwellingType !== 'arrendada' ? { disabled: '{this.disabled}' } : {}, dataType: this.model.dwellingType === "arrendada" ? "arriendo" : "", checkData: this.requiredData.indexOf('rent') > -1, label: "\u00BFCu\u00E1nto pagas por arriendo?", value: this.model.rent, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('rent', ev.detail) }))),
                   h("div", { class: "col-lg-4 col-md-6" },
                     h("fieldset", null,
                       h("emprender-cl-select", { checkData: this.requiredData.indexOf('companyType') > -1, label: "Tipo de empresa", value: this.model.companyType, onSelectChange: ev => this._setModel('companyType', ev.detail) },

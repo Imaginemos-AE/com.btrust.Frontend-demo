@@ -8,6 +8,7 @@ const expresiones = {
   numericoOpcional: /^[\d\.]{0,14}$/,
   numericoSimbolo: /^[\d\>\<\-]{1,14}$/,
   celular: /^\d{6,10}$/,
+  celularOpcional: /^(\d{7,10})*$/,
   arriendo: /^[\d\.]{5,}$/,
 };
 const personalInformation = {
@@ -21,7 +22,7 @@ const personalInformation = {
   expeditionDepartment: 'texto',
   expeditionCity: 'texto',
   mobilePhone: 'celular',
-  phone: 'celular',
+  phone: 'celularOpcional',
   email: 'correo',
   birthDate: 'alfanumerico',
   nationality: 'texto',
@@ -46,7 +47,7 @@ const personalInformation2 = {
 };
 const financialInformation = {
   salaryIncome: 'numerico',
-  variableSalaryIncome: 'numerico',
+  variableSalaryIncome: 'numericoOpcional',
   otherIncomes: 'numericoOpcional',
   otherIncomesDescription: 'textoOpcional',
   totalIncomes: 'numerico',
