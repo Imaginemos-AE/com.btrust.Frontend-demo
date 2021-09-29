@@ -29,7 +29,7 @@ export class EmprenderClInput {
     }
     if (this.typeAddress) {
       var options = {
-        types: ['geocode'],
+        componentRestrictions: { country: 'co' },
       };
       let prueba = this.host.shadowRoot.querySelector('.text');
       let autocomplete = new google.maps.places.Autocomplete(prueba, options);

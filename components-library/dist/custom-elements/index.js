@@ -4225,7 +4225,7 @@ const EmprenderClInput$1 = class extends HTMLElement {
     }
     if (this.typeAddress) {
       var options = {
-        types: ['geocode'],
+        componentRestrictions: { country: 'co' },
       };
       let prueba = this.host.shadowRoot.querySelector('.text');
       new google.maps.places.Autocomplete(prueba, options);
