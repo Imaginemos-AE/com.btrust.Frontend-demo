@@ -125,6 +125,10 @@ export class EmprenderUfPersonalInformation2 {
                     h("fieldset", null,
                       h("emprender-cl-select", { checkData: this.requiredData.indexOf('dwellingType') > -1, label: "Tipo de vivienda", value: this.model.dwellingType, onSelectChange: ev => {
                           this._setModel('dwellingType', ev.detail);
+                          if (this.model.dwellingType !== 'arrendada') {
+                            this._setModel('rent', "0");
+                          }
+                          ;
                         } },
                         h("option", { value: "propia" }, "Propia"),
                         h("option", { value: "arrendada" }, "Arrendada"),

@@ -29,7 +29,7 @@ export class EmprenderUfReferences {
       return this.viewRegistration ? 'Referencia Comercial' : '3. Referencia Comercial';
     }
     else {
-      return this.viewRegistration ? 'Referencia Familiar' : '3. Referencia Personal';
+      return this.viewRegistration ? 'Referencia Personal' : '3. Referencia Personal';
     }
   }
   render() {

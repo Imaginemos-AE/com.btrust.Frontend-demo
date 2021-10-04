@@ -1,6 +1,6 @@
 const USER_FORM_DATA_KEY = "muiiUserFormInfo";
 export function getData() {
-  const data = sessionStorage.getItem(USER_FORM_DATA_KEY);
+  const data = localStorage.getItem(USER_FORM_DATA_KEY);
   return JSON.parse(data);
 }
 export function getDataByField(field) {
@@ -9,7 +9,7 @@ export function getDataByField(field) {
 export function setData(newData) {
   const currentData = getData();
   const newUserForm = Object.assign(Object.assign({}, currentData), newData);
-  sessionStorage.setItem(USER_FORM_DATA_KEY, JSON.stringify(newUserForm));
+  localStorage.setItem(USER_FORM_DATA_KEY, JSON.stringify(newUserForm));
 }
 export const FINANCIAL_OPTIONS = {
   mask: Number,
