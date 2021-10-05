@@ -106,7 +106,7 @@ export class EmprenderUfPersonalInformation2 {
                             h("emprender-cl-select", { checkData: this.requiredData.indexOf('cityOfResidence') > -1, value: this.model.cityOfResidence, options: this._getSelectCitiesOptions('departmentOfResidence'), onSelectChange: ev => this._setModel('cityOfResidence', ev.detail) })))))),
                   h("div", { class: "col-lg-3 col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { typeAddress: true, checkData: this.requiredData.indexOf('address') > -1, label: "Direcci\u00F3n de la vivienda", value: this.model.address, id: "direccion", onInputChange: ev => {
+                      h("emprender-cl-input", { dataType: "alfanumerico", typeAddress: true, checkData: this.requiredData.indexOf('address') > -1, label: "Direcci\u00F3n de la vivienda", value: this.model.address, id: "direccion", onInputChange: ev => {
                           this._setModel('address', ev.detail);
                         } }))),
                   h("div", { class: "col-lg-3 col-md-6" },

@@ -234,7 +234,7 @@ function getInfoEconomica(data) {
   return {
     ingresosSalario: parseFloat(data['salaryIncome']),
     ingresosOtros: data['otherIncomes'] === '' || data['otherIncomes'] === null ? 0 : parseFloat(data['otherIncomes']),
-    ingresosSalarioVariable: parseFloat(data['variableSalaryIncome']),
+    ingresosSalarioVariable: data['variableSalaryIncome'] === '' || data['variableSalaryIncome'] === null ? 0 : parseFloat(data['variableSalaryIncome']),
     descripcionIngresos: data['otherIncomesDescription'],
     egresos: parseFloat(data['personalExpenses']),
     arriendo: parseFloat(data['rentExpenses']),
@@ -295,6 +295,7 @@ function getJsonModelData(stateData, flowType) {
     let informacionCompania = getCompanyInformation(stateData['companyInformation']);
     data = Object.assign(Object.assign({}, informacionPersonal), { referencias, infoEconomica, informacionCompania });
   }
+  // console.log(JSON.stringify(data))
   console.log(data);
   var myHeaders = new Headers();
   myHeaders.append('Access-Control-Allow-Origin', '*');
