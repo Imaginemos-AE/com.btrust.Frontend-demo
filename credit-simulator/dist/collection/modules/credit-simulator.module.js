@@ -19,7 +19,6 @@ export function calculateValues(creditAmount, term, config) {
   const creditTotal = creditFirstCapital + creditGuarantee + creditLifeInsurance + creditInterest + creditPlatform + creditAdmin + creditTaxes;
   const creditAnualEffectiverate = config.AnualEffectiverate;
   const creditMonthlyEffectiverate = config.MonthlyEffectiveRate;
-  // console.log(creditPlatform,creditAdmin ,creditGuarantee)
   return {
     creditInterest,
     creditPMT,
