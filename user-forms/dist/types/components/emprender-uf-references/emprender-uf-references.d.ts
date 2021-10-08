@@ -11,5 +11,6 @@ export declare class EmprenderUfReferences {
   _setModel(field: string, value: string): void;
   _checkSubmitInfo(): void;
   _getSecondTitle(): "Referencia Comercial" | "3. Referencia Comercial" | "Referencia Personal" | "3. Referencia Personal";
+  getSecondReferencie(): any;
   render(): any;
 }

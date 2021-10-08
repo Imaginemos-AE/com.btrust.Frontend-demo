@@ -1,1 +1,0 @@
-function o(){const o=localStorage.getItem("muiiUserFormInfo");return JSON.parse(o)}function a(a){const r=o(),s=Object.assign(Object.assign({},r),a);localStorage.setItem("muiiUserFormInfo",JSON.stringify(s))}const r={mask:Number,scale:2,signed:!1,thousandsSeparator:".",padFractionalZeros:!1,normalizeZeros:!0,radix:",",mapToRadix:[","],min:0};export{r as F,o as g,a as s}

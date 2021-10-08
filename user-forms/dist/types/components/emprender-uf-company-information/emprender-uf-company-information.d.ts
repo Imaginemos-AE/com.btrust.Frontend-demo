@@ -21,6 +21,8 @@ export declare class EmprenderUfConpanyInformation {
     name: string;
   }[];
   _selectDropdownOption(field: string, value: string, clearField: string): void;
+  componentWillRender(): void;
+  _changeLocationInformation(field: string, value: string): void;
   _checkSubmitInfo(): void;
   render(): any;
 }
