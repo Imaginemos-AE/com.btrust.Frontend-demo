@@ -1,5 +1,5 @@
 import { r as registerInstance, c as createEvent, h, H as Host, a as getElement } from './index-cb4f5f75.js';
-import { c as checkData } from './validation-f4102edb.js';
+import { c as checkData } from './validation-861f146f.js';
 import { C as COUNTRY } from './country-aead0a8e.js';
 import { F as FINANCIAL_OPTIONS } from './helper-4359d01c.js';
 import { s as state } from './store-d30864f9.js';
@@ -70,7 +70,6 @@ const EmprenderUfConpanyInformation = class {
     else {
       fields.forEach(e => (e === 'rent' ? this._setModel(e, '0') : e === 'stratus' ? this._setModel(e, '4') : this._setModel(e, '')));
     }
-    console.log(this.model);
   }
   _changeLocationInformation(field, value) {
     state.currentUserInformation['personalInformation2'][field] = value;

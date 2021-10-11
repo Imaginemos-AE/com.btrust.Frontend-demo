@@ -64,7 +64,6 @@ export class EmprenderUfConpanyInformation {
     else {
       fields.forEach(e => (e === 'rent' ? this._setModel(e, '0') : e === 'stratus' ? this._setModel(e, '4') : this._setModel(e, '')));
     }
-    console.log(this.model);
   }
   _changeLocationInformation(field, value) {
     state.currentUserInformation['personalInformation2'][field] = value;

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const index = require('./index-c760922b.js');
-const validation = require('./validation-9d4800e9.js');
+const validation = require('./validation-a48519e3.js');
 const country = require('./country-748426dd.js');
 const helper = require('./helper-a6aaafb9.js');
 const store = require('./store-5b0180ce.js');
@@ -74,7 +74,6 @@ const EmprenderUfConpanyInformation = class {
     else {
       fields.forEach(e => (e === 'rent' ? this._setModel(e, '0') : e === 'stratus' ? this._setModel(e, '4') : this._setModel(e, '')));
     }
-    console.log(this.model);
   }
   _changeLocationInformation(field, value) {
     store.state.currentUserInformation['personalInformation2'][field] = value;

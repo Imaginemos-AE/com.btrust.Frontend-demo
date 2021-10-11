@@ -11,6 +11,7 @@ export declare class EmprenderUfFinancialInformation {
   _calculateTotalIncomes(field: string, value: string): void;
   _calculateTotalExpenses(field: string, value: string): void;
   _calculateTotalField(targetField: string, fields: string[]): void;
+  _validateOtherInformation(field: string): boolean;
   _checkSubmitInfo(): void;
   onInputChange(files: FileList): void;
   render(): any;

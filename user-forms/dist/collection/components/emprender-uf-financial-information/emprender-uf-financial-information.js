@@ -45,13 +45,26 @@ export class EmprenderUfFinancialInformation {
     }, 0);
     this._setModel(targetField, total);
   }
+  _validateOtherInformation(field) {
+    var _a, _b, _c;
+    return ((_a = this.model[field]) === null || _a === void 0 ? void 0 : _a.toString()) === '' || ((_b = this.model[field]) === null || _b === void 0 ? void 0 : _b.toString()) === '0' || ((_c = this.model[field]) === null || _c === void 0 ? void 0 : _c.toString()) === undefined;
+  }
   _checkSubmitInfo() {
     const lista = checkData(this.model);
+    if (this._validateOtherInformation('otherIncomes')) {
+      if (lista.indexOf('otherIncomesDescription') > -1)
+        lista.splice(lista.indexOf('otherIncomesDescription'), 1);
+      this._setModel('otherIncomesDescription', '');
+    }
+    if (this._validateOtherInformation('otherExpenses')) {
+      if (lista.indexOf('otherExpensesDescription') > -1)
+        lista.splice(lista.indexOf('otherExpensesDescription'), 1);
+      this._setModel('otherExpensesDescription', '');
+    }
     if (lista.length === 0) {
       this.infoSaved.emit(this.model);
     }
     this.requiredData = lista;
-    // console.log(lista.toString());
   }
   onInputChange(files) {
     this.fileName = files.length < 1 ? 'Ningún archivo seleccionado' : files[0].name;
@@ -76,7 +89,7 @@ export class EmprenderUfFinancialInformation {
                     h("fieldset", null,
                       h("emprender-cl-input", { label: this.flow == 'employee' ? 'Ingresos mensuales por concepto de salario variable' : 'Ingresos mensuales por tu actividad', value: this.model.variableSalaryIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('variableSalaryIncome', ev.detail) }))),
                   h("div", { class: "col-md-6" }, this.model.otherIncomes && (h("fieldset", null,
-                    h("emprender-cl-input", { dataType: "alfanumericoOpcional", label: "Descripci\u00F3n otros ingresos mensuales", checkData: this.requiredData.indexOf('otherIncomesDescription') > -1, value: this.model.otherIncomesDescription, inputOptions: { type: 'text' }, onInputChange: ev => this._setModel('otherIncomesDescription', ev.detail) })))),
+                    h("emprender-cl-input", { dataType: this.model.otherIncomes !== 0 || this.model.otherIncomes !== null ? 'texto' : 'textoOpcional', label: "Descripci\u00F3n otros ingresos mensuales", checkData: this.requiredData.indexOf('otherIncomesDescription') > -1, value: this.model.otherIncomesDescription, onInputChange: ev => this._setModel('otherIncomesDescription', ev.detail) })))),
                   this.flow === 'employee' ? (h("fieldset", { class: "totalBox mt0" },
                     h("label", null,
                       "Total ingresos mensuales: ",
@@ -116,7 +129,7 @@ export class EmprenderUfFinancialInformation {
                     h("fieldset", null,
                       h("emprender-cl-input", { dataType: "alfanumericoOpcional", label: "Otros egresos mensuales", value: this.model.otherExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('otherExpenses', ev.detail) }))),
                   h("div", { class: "col-md-6" }, this.model.otherExpenses && (h("fieldset", null,
-                    h("emprender-cl-input", { dataType: "alfanumericoOpcional", label: "Descripci\u00F3n otros egresos mensuales", checkData: this.requiredData.indexOf('otherExpensesDescription') > -1, value: this.model.otherExpensesDescription, inputOptions: { type: 'text' }, onInputChange: ev => this._setModel('otherExpensesDescription', ev.detail) }))))),
+                    h("emprender-cl-input", { dataType: this.model.otherIncomes !== 0 || this.model.otherIncomes !== null ? 'texto' : 'textoOpcional', label: "Descripci\u00F3n otros egresos mensuales", checkData: this.requiredData.indexOf('otherExpensesDescription') > -1, value: this.model.otherExpensesDescription, onInputChange: ev => this._setModel('otherExpensesDescription', ev.detail) }))))),
                 h("fieldset", { class: "totalBox" },
                   h("label", null,
                     "Total egresos mensuales: ",
