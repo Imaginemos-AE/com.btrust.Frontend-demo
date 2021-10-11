@@ -4224,10 +4224,11 @@ const EmprenderClInput = class {
         types: ['geocode'],
       };
       let prueba = this.host.shadowRoot.querySelector('.text');
-      new google.maps.places.Autocomplete(prueba, options);
-      // autocomplete.addListener('place_changed', function () {
-      //   this.inputChange.emit(autocomplete.getPlace()['formatted_address']);
-      // });
+      let autocomplete = new google.maps.places.Autocomplete(prueba, options);
+      autocomplete.addListener('place_changed', () => {
+        this.setValue(autocomplete.getPlace()['formatted_address']);
+        console.log(this.value);
+      });
     }
   }
   onInputChange(ev) {

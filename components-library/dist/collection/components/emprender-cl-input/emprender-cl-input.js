@@ -36,9 +36,10 @@ export class EmprenderClInput {
       };
       let prueba = this.host.shadowRoot.querySelector('.text');
       let autocomplete = new google.maps.places.Autocomplete(prueba, options);
-      // autocomplete.addListener('place_changed', function () {
-      //   this.inputChange.emit(autocomplete.getPlace()['formatted_address']);
-      // });
+      autocomplete.addListener('place_changed', () => {
+        this.setValue(autocomplete.getPlace()['formatted_address']);
+        console.log(this.value);
+      });
     }
   }
   onInputChange(ev) {
