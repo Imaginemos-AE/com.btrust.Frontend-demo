@@ -4178,7 +4178,7 @@ try {
 } catch (e) {}
 
 const expresiones = {
-  alfanumerico: /^[a-zA-ZÀ-ÿ\_\-\#\s\.\,\a-zA-ZÀ-ÿ]{1,150}$/,
+  alfanumerico: /^[a-zA-Z0-9\_\-\#\s\.\,\a-zA-ZÀ-ÿ]{1,150}$/,
   alfanumericoOpcional: /^[a-zA-Z0-9\_\-\#\s\.\a-zA-ZÀ-ÿ]{0,50}$/,
   texto: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
   textoOpcional: /^[a-zA-ZÀ-ÿ\s]{0,40}$/,
