@@ -1,5 +1,3 @@
-'use strict';
-
 const expresiones = {
   alfanumerico: /^[a-zA-Z0-9\_\-\#\s\.\,\a-zA-ZÀ-ÿ]{1,150}$/,
   alfanumericoOpcional: /^[a-zA-Z0-9\_\-\#\s\.\a-zA-ZÀ-ÿ]{0,50}$/,
@@ -80,7 +78,7 @@ const workingInformation = {
   creditDestination: 'alfanumerico',
   companyPhone: 'celular',
   companyPhoneExtension: 'numericoOpcional',
-  otherPhone: 'alfanumericoOpcional',
+  otherPhone: 'alfanumerico',
 };
 const companyInformation = {
   companyName: 'alfanumerico',
@@ -101,7 +99,7 @@ const companyInformation = {
   salePercentage: 'numericoSimbolo',
   employees: 'alfanumerico',
   destiny: 'alfanumerico',
-  otherDestiny: 'alfanumericoOpcional',
+  otherDestiny: 'alfanumerico',
 };
 const informationProfile = {
   firstName: 'texto',
@@ -163,5 +161,4 @@ function checkData2(model, fieldName) {
   // return [];
 }
 
-exports.checkData = checkData;
-exports.checkData2 = checkData2;
+export { checkData2 as a, checkData as c };

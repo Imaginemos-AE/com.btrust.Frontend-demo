@@ -2,6 +2,7 @@
   "entries": [
     "./components/emprender-uf-company-information/emprender-uf-company-information.js",
     "./components/emprender-uf-company-profile/emprender-uf-company-profile.js",
+    "./components/emprender-uf-financial-company/emprender-uf-financial-company.js",
     "./components/emprender-uf-financial-information/emprender-uf-financial-information.js",
     "./components/emprender-uf-personal-information/emprender-uf-personal-information.js",
     "./components/emprender-uf-personal-information-2/emprender-uf-personal-information-2.js",

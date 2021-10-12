@@ -46,32 +46,30 @@ export class EmprenderUfConpanyInformation {
     this._setModel(field, value);
     this._setModel(clearField, '');
   }
-  // _setLocationInformation(value: string) {
-  //   const fields = ['cityOfResidence', 'departmentOfResidence', 'address', 'place', 'stratus', 'dwellingType', 'rent'];
-  //   if (value === 'si') {
-  //     const personalInformation2 = state.currentUserInformation['personalInformation2'];
-  //     fields.forEach(e => this._setModel(e, personalInformation2[e]));
-  //   } else {
-  //     fields.forEach(e => e==="rent"?  this._setModel(e,"0") : e==="stratus"? this._setModel(e,"4") :this._setModel(e,""));
-  //   }
-  // }
-  componentWillRender() {
+  _setLocationInformation(value) {
     const fields = ['cityOfResidence', 'departmentOfResidence', 'address', 'place', 'stratus', 'dwellingType', 'rent'];
-    if (this.model.companyLocation === 'si') {
-      const personalInformation2 = state.currentUserInformation['personalInformation2'];
-      fields.forEach(e => this._setModel(e, personalInformation2[e]));
+    if (value === 'si') {
+      const personalInformation2 = Object.assign({}, state.currentUserInformation['personalInformation2']);
+      fields.forEach(e => {
+        this._setModel(e, personalInformation2[e]);
+      });
     }
     else {
       fields.forEach(e => (e === 'rent' ? this._setModel(e, '0') : e === 'stratus' ? this._setModel(e, '4') : this._setModel(e, '')));
     }
   }
-  _changeLocationInformation(field, value) {
-    state.currentUserInformation['personalInformation2'][field] = value;
+  componentDidLoad() {
+    this._setLocationInformation(this.model.companyLocation);
   }
   _checkSubmitInfo() {
     let lista = checkData(this.model);
     if (lista.indexOf('rent') > -1 && this.model.dwellingType !== 'arrendada') {
       lista.splice(lista.indexOf('rent'), 1);
+    }
+    if (this.model.destiny !== "otro") {
+      if (lista.indexOf("otherDestiny") > -1)
+        lista.splice(lista.indexOf("otherDestiny"), 1);
+      this._setModel("otherDestiny", "");
     }
     if (lista.length === 0) {
       this.infoSaved.emit(this.model);
@@ -94,6 +92,7 @@ export class EmprenderUfConpanyInformation {
                   h("div", { class: "col-lg-6" },
                     h("fieldset", null,
                       h("emprender-cl-select", { checkData: this.requiredData.indexOf('companyLocation') > -1, label: "\u00BFLa ubicaci\u00F3n de la empresa es la misma de la vivienda?", value: this.model.companyLocation, onSelectChange: ev => {
+                          this._setLocationInformation(ev.detail);
                           this._setModel('companyLocation', ev.detail);
                         } },
                         h("option", { value: "si" }, "SI"),
@@ -104,39 +103,27 @@ export class EmprenderUfConpanyInformation {
                       h("div", { class: "row" },
                         h("div", { class: "col-6" },
                           h("fieldset", null,
-                            h("emprender-cl-select", { checkData: this.requiredData.indexOf('departmentOfResidence') > -1, value: this.model.departmentOfResidence, options: this._getSelectDepartmentOptions(), onSelectChange: ev => {
-                                if (this.model.companyLocation === 'si')
-                                  this._changeLocationInformation('departmentOfResidence', ev.detail);
+                            h("emprender-cl-select", { selectInputOptions: this.model.companyLocation === 'si' ? { disabled: '{this.disabled}' } : {}, checkData: this.requiredData.indexOf('departmentOfResidence') > -1, inputOptions: this.model.companyLocation === 'si' ? { disabled: '{this.disabled}' } : {}, value: this.model.departmentOfResidence, options: this._getSelectDepartmentOptions(), onSelectChange: ev => {
                                 this._selectDropdownOption('departmentOfResidence', ev.detail, 'cityOfResidence');
                               } }))),
                         h("div", { class: "col-6" },
                           h("fieldset", null,
-                            h("emprender-cl-select", { checkData: this.requiredData.indexOf('cityOfResidence') > -1, value: this.model.cityOfResidence, options: this._getSelectCitiesOptions('departmentOfResidence'), onSelectChange: ev => {
-                                if (this.model.companyLocation === 'si')
-                                  this._changeLocationInformation('cityOfResidence', ev.detail);
+                            h("emprender-cl-select", { selectInputOptions: this.model.companyLocation === 'si' ? { disabled: '{this.disabled}' } : {}, checkData: this.requiredData.indexOf('cityOfResidence') > -1, inputOptions: this.model.companyLocation === 'si' ? { disabled: '{this.disabled}' } : {}, value: this.model.cityOfResidence, options: this._getSelectCitiesOptions('departmentOfResidence'), onSelectChange: ev => {
                                 this._setModel('cityOfResidence', ev.detail);
                               } })))))),
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { typeAddress: true, 
-                        // ref={( el )=>{ el = this.model.address}}
-                        checkData: this.requiredData.indexOf('address') > -1, label: this.model.companyLocation === 'si' ? 'Dirección de la vivienda' : 'Dirección del negocio', value: this.model.address, id: "direccion", onInputChange: ev => {
-                          if (this.model.companyLocation === 'si')
-                            this._changeLocationInformation('address', ev.detail);
+                      h("emprender-cl-input", { typeAddress: true, inputOptions: this.model.companyLocation === 'si' ? { disabled: '{this.disabled}' } : {}, checkData: this.requiredData.indexOf('address') > -1, label: this.model.companyLocation === 'si' ? 'Dirección de la vivienda' : 'Dirección del negocio', value: this.model.address, id: "direccion", onInputChange: ev => {
                           this._setModel('address', ev.detail);
                         } }))),
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { dataType: "alfanumericoOpcional", label: "Torre/ Apto/ Conjunto", checkData: this.requiredData.indexOf('place') > -1, value: this.model.place, onInputChange: ev => {
-                          if (this.model.companyLocation === 'si')
-                            this._changeLocationInformation('place', ev.detail);
+                      h("emprender-cl-input", { inputOptions: this.model.companyLocation === 'si' ? { disabled: '{this.disabled}' } : {}, dataType: "alfanumericoOpcional", label: "Torre/ Apto/ Conjunto", checkData: this.requiredData.indexOf('place') > -1, value: this.model.place, onInputChange: ev => {
                           this._setModel('place', ev.detail);
                         } }))),
                   h("div", { class: "col-lg-3 col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { checkData: this.requiredData.indexOf('stratus') > -1, label: "Estrato", value: this.model.stratus, onSelectChange: ev => {
-                          if (this.model.companyLocation === 'si')
-                            this._changeLocationInformation('stratus', ev.detail);
+                      h("emprender-cl-select", { selectInputOptions: this.model.companyLocation === 'si' ? { disabled: '{this.disabled}' } : {}, checkData: this.requiredData.indexOf('stratus') > -1, label: "Estrato", value: this.model.stratus, onSelectChange: ev => {
                           this._setModel('stratus', ev.detail);
                         } },
                         h("option", { value: "1" }, "1"),
@@ -147,13 +134,9 @@ export class EmprenderUfConpanyInformation {
                         h("option", { value: "6" }, "6")))),
                   h("div", { class: "col-lg-5 col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { checkData: this.requiredData.indexOf('dwellingType') > -1, label: this.model.companyLocation === 'si' ? 'Tipo de vivienda' : 'Tenencia de local', value: this.model.dwellingType, onSelectChange: ev => {
-                          if (this.model.companyLocation === 'si')
-                            this._changeLocationInformation('dwellingType', ev.detail);
+                      h("emprender-cl-select", { selectInputOptions: this.model.companyLocation === 'si' ? { disabled: '{this.disabled}' } : {}, checkData: this.requiredData.indexOf('dwellingType') > -1, label: this.model.companyLocation === 'si' ? 'Tipo de vivienda' : 'Tenencia de local', value: this.model.dwellingType, onSelectChange: ev => {
                           this._setModel('dwellingType', ev.detail);
                           if (this.model.dwellingType !== 'arrendada') {
-                            if (this.model.companyLocation === 'si')
-                              this._changeLocationInformation('rent', '0');
                             this._setModel('rent', '0');
                           }
                         } },
@@ -163,9 +146,7 @@ export class EmprenderUfConpanyInformation {
                         h("option", { value: "otro" }, "Otro")))),
                   h("div", { class: "col-lg-4 col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { inputOptions: this.model.dwellingType !== 'arrendada' ? { disabled: '{this.disabled}' } : {}, dataType: this.model.dwellingType === 'arrendada' ? 'arriendo' : '', checkData: this.model.dwellingType === 'arrendada' && this.model.rent < 1000, label: "\u00BFCu\u00E1nto pagas por arriendo?", value: this.model.rent, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => {
-                          if (this.model.companyLocation === 'si')
-                            this._changeLocationInformation('rent', ev.detail);
+                      h("emprender-cl-input", { inputOptions: this.model.dwellingType !== 'arrendada' || this.model.companyLocation === 'si' ? { disabled: '{this.disabled}' } : {}, dataType: this.model.dwellingType === 'arrendada' ? 'arriendo' : '', checkData: this.model.dwellingType === 'arrendada' && this.model.rent < 1000, label: "\u00BFCu\u00E1nto pagas por arriendo?", value: this.model.rent, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => {
                           this._setModel('rent', ev.detail);
                         } }))),
                   h("div", { class: "col-lg-4 col-md-6" },
@@ -243,7 +224,7 @@ export class EmprenderUfConpanyInformation {
                         h("option", { value: "otro" }, "Otro")))),
                   this.model.destiny === 'otro' && (h("div", { class: "col-12" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { dataType: "alfanumericoOpcional", checkData: this.requiredData.indexOf('otherDestiny') > -1, label: "Otro destino del pr\u00E9stamo", inputOptions: { placeholder: '¿Cúal?' }, value: this.model.otherDestiny, onInputChange: ev => this._setModel('otherDestiny', ev.detail) })))))),
+                      h("emprender-cl-input", { dataType: this.model.destiny === "otro" ? "alfanumerico" : "alfanumericoOpcional", checkData: this.requiredData.indexOf('otherDestiny') > -1, label: "Otro destino del pr\u00E9stamo", inputOptions: { placeholder: '¿Cúal?' }, value: this.model.otherDestiny, onInputChange: ev => this._setModel('otherDestiny', ev.detail) })))))),
               h("ul", { class: "inline flex-center-center mb20" },
                 h("li", null,
                   h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })),

@@ -662,12 +662,16 @@ const postUpdateComponent = (hostRef) => {
     const tagName = hostRef.$cmpMeta$.$tagName$;
     const elm = hostRef.$hostElement$;
     const endPostUpdate = createTime('postUpdate', tagName);
+    const instance = hostRef.$lazyInstance$ ;
     const ancestorComponent = hostRef.$ancestorComponent$;
     if (!(hostRef.$flags$ & 64 /* hasLoadedComponent */)) {
         hostRef.$flags$ |= 64 /* hasLoadedComponent */;
         {
             // DOM WRITE!
             addHydratedFlag(elm);
+        }
+        {
+            safeCall(instance, 'componentDidLoad');
         }
         endPostUpdate();
         {
@@ -1111,4 +1115,4 @@ const flush = () => {
 const nextTick = /*@__PURE__*/ (cb) => promiseResolve().then(cb);
 const writeTask = /*@__PURE__*/ queueTask(queueDomWrites, true);
 
-export { Host as H, getElement as a, bootstrapLazy as b, createEvent as c, forceUpdate as f, getRenderingRef as g, h, promiseResolve as p, registerInstance as r };
+export { Host as H, getRenderingRef as a, bootstrapLazy as b, createEvent as c, forceUpdate as f, getElement as g, h, promiseResolve as p, registerInstance as r };

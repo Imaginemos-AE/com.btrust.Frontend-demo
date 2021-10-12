@@ -88,6 +88,24 @@ export interface FinancialInformation {
   totalAssets: number;
   totalLiabilities: number;
 }
+export interface FinancialCompanyInformation {
+  salesIncome: number;
+  rentIncome: number;
+  activityIncome: number;
+  otherIncomes: number;
+  otherIncomesDescription: string;
+  incomeSupport: string;
+  otherExpenses: number;
+  otherExpensesDescription: string;
+  personalExpenses: number;
+  rentExpenses: number;
+  debtExpenses: number;
+  businessExpenses: number;
+  totalIncomes: number;
+  totalExpenses: number;
+  totalAssets: number;
+  totalLiabilities: number;
+}
 export interface References {
   familyContactName: string;
   familyContactPhone: string;

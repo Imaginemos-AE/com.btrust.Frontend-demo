@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
-import { BankInformation, CompanyInformation, FinancialInformation, PersonalInformation, PersonalInformation2, References, UserForm, WorkingInformation } from "./module/models";
+import { BankInformation, CompanyInformation, FinancialCompanyInformation, FinancialInformation, PersonalInformation, PersonalInformation2, References, UserForm, WorkingInformation } from "./module/models";
 export namespace Components {
     interface EmprenderUfCompanyInformation {
         "model": CompanyInformation;
@@ -15,6 +15,11 @@ export namespace Components {
         "model": CompanyInformation;
         "requiredData": string;
         "viewRegistration": boolean;
+    }
+    interface EmprenderUfFinancialCompany {
+        "fileName": string;
+        "model": FinancialCompanyInformation;
+        "requiredData": any[];
     }
     interface EmprenderUfFinancialInformation {
         "fileName": string;
@@ -73,6 +78,12 @@ declare global {
         prototype: HTMLEmprenderUfCompanyProfileElement;
         new (): HTMLEmprenderUfCompanyProfileElement;
     };
+    interface HTMLEmprenderUfFinancialCompanyElement extends Components.EmprenderUfFinancialCompany, HTMLStencilElement {
+    }
+    var HTMLEmprenderUfFinancialCompanyElement: {
+        prototype: HTMLEmprenderUfFinancialCompanyElement;
+        new (): HTMLEmprenderUfFinancialCompanyElement;
+    };
     interface HTMLEmprenderUfFinancialInformationElement extends Components.EmprenderUfFinancialInformation, HTMLStencilElement {
     }
     var HTMLEmprenderUfFinancialInformationElement: {
@@ -124,6 +135,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "emprender-uf-company-information": HTMLEmprenderUfCompanyInformationElement;
         "emprender-uf-company-profile": HTMLEmprenderUfCompanyProfileElement;
+        "emprender-uf-financial-company": HTMLEmprenderUfFinancialCompanyElement;
         "emprender-uf-financial-information": HTMLEmprenderUfFinancialInformationElement;
         "emprender-uf-personal-information": HTMLEmprenderUfPersonalInformationElement;
         "emprender-uf-personal-information-2": HTMLEmprenderUfPersonalInformation2Element;
@@ -148,6 +160,13 @@ declare namespace LocalJSX {
         "onUpgradeInfo"?: (event: CustomEvent<CompanyInformation>) => void;
         "requiredData"?: string;
         "viewRegistration"?: boolean;
+    }
+    interface EmprenderUfFinancialCompany {
+        "fileName"?: string;
+        "model"?: FinancialCompanyInformation;
+        "onBack"?: (event: CustomEvent<FinancialCompanyInformation>) => void;
+        "onInfoSaved"?: (event: CustomEvent<FinancialCompanyInformation>) => void;
+        "requiredData"?: any[];
     }
     interface EmprenderUfFinancialInformation {
         "fileName"?: string;
@@ -213,6 +232,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "emprender-uf-company-information": EmprenderUfCompanyInformation;
         "emprender-uf-company-profile": EmprenderUfCompanyProfile;
+        "emprender-uf-financial-company": EmprenderUfFinancialCompany;
         "emprender-uf-financial-information": EmprenderUfFinancialInformation;
         "emprender-uf-personal-information": EmprenderUfPersonalInformation;
         "emprender-uf-personal-information-2": EmprenderUfPersonalInformation2;
@@ -229,6 +249,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "emprender-uf-company-information": LocalJSX.EmprenderUfCompanyInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfCompanyInformationElement>;
             "emprender-uf-company-profile": LocalJSX.EmprenderUfCompanyProfile & JSXBase.HTMLAttributes<HTMLEmprenderUfCompanyProfileElement>;
+            "emprender-uf-financial-company": LocalJSX.EmprenderUfFinancialCompany & JSXBase.HTMLAttributes<HTMLEmprenderUfFinancialCompanyElement>;
             "emprender-uf-financial-information": LocalJSX.EmprenderUfFinancialInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfFinancialInformationElement>;
             "emprender-uf-personal-information": LocalJSX.EmprenderUfPersonalInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfPersonalInformationElement>;
             "emprender-uf-personal-information-2": LocalJSX.EmprenderUfPersonalInformation2 & JSXBase.HTMLAttributes<HTMLEmprenderUfPersonalInformation2Element>;

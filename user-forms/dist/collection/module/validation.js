@@ -78,7 +78,7 @@ const workingInformation = {
   creditDestination: 'alfanumerico',
   companyPhone: 'celular',
   companyPhoneExtension: 'numericoOpcional',
-  otherPhone: 'alfanumericoOpcional',
+  otherPhone: 'alfanumerico',
 };
 const companyInformation = {
   companyName: 'alfanumerico',
@@ -99,7 +99,7 @@ const companyInformation = {
   salePercentage: 'numericoSimbolo',
   employees: 'alfanumerico',
   destiny: 'alfanumerico',
-  otherDestiny: 'alfanumericoOpcional',
+  otherDestiny: 'alfanumerico',
 };
 const informationProfile = {
   firstName: 'texto',

@@ -14,6 +14,12 @@ export const EmprenderUfCompanyProfile: {
   new (): EmprenderUfCompanyProfile;
 };
 
+interface EmprenderUfFinancialCompany extends Components.EmprenderUfFinancialCompany, HTMLElement {}
+export const EmprenderUfFinancialCompany: {
+  prototype: EmprenderUfFinancialCompany;
+  new (): EmprenderUfFinancialCompany;
+};
+
 interface EmprenderUfFinancialInformation extends Components.EmprenderUfFinancialInformation, HTMLElement {}
 export const EmprenderUfFinancialInformation: {
   prototype: EmprenderUfFinancialInformation;

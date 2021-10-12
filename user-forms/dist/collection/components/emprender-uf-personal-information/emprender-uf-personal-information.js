@@ -85,7 +85,9 @@ export class EmprenderUfPersonalInformation {
                       h("emprender-cl-input", { dataType: "numerico", label: "N\u00FAmero de documento", checkData: this.requiredData.indexOf('documentNumber') > -1, value: this.model.documentNumber, onInputChange: ev => this._setModel('documentNumber', ev.detail) }))),
                   h("div", { class: "col-lg-4" },
                     h("fieldset", { class: "mb17" },
-                      h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('expeditionDate') > -1, label: "Fecha de expedici\u00F3n", value: this.model.expeditionDate, inputOptions: { type: 'date' }, onInputChange: ev => this._setModel('expeditionDate', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('expeditionDate') > -1, label: "Fecha de expedici\u00F3n", value: this.model.expeditionDate, inputOptions: { type: 'date' }, onInputChange: ev => {
+                          this._setModel('expeditionDate', ev.detail);
+                        } }))),
                   h("div", { class: "col-lg-6" },
                     h("fieldset", { class: "mb2" },
                       h("label", null, "Departamento y ciudad de expedici\u00F3n del documento"),
