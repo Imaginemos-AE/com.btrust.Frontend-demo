@@ -1,4 +1,4 @@
-function getInformacionPersonal(data) {
+function getInformacionPersonal(data, flowType) {
   return {
     primerNombre: data['firstName'],
     segundoNombre: data['middleName'],
@@ -17,6 +17,7 @@ function getInformacionPersonal(data) {
     celular: data['phone'],
     correo: data['email'],
     genero: data['gender'],
+    tipoCliente: flowType
   };
 }
 function getInfoSocioDemografica(data) {
@@ -72,24 +73,24 @@ function getCompanyInformation(data) {
   var _a, _b;
   return {
     nombreCompania: data['companyName'],
-    Direccion: data['companyLocation'],
-    Barrio: data['address'],
-    DepartamentoResidencia: data['place'],
-    CiudadResidencia: data['departmentOfResidence'],
-    cityOfResidence: data['cityOfResidence'],
-    Estrato: (_a = data['stratus']) !== null && _a !== void 0 ? _a : 0,
-    TipoVivienda: data['dwellingType'],
-    Renta: (_b = parseFloat(data['rent'])) !== null && _b !== void 0 ? _b : 0,
-    TipoCompania: data['companyType'],
-    Nit: data['nit'],
-    FechaExposito: data['foundatingDate'],
-    ActividadCompania: data['companyActivity'],
-    Punto: data['point'],
-    TiendaOnline: data['onlineShop'],
-    PorcentajeVentas: data['salePercentage'],
-    Empleado: data['employees'],
-    Destino: data['destiny'],
-    OtroDestino: data['otherDestiny'],
+    ubicacionCompania: data['companyLocation'],
+    direccion: data['address'],
+    barrio: data['place'],
+    departamentoResidencia: data['departmentOfResidence'],
+    ciudadResidencia: data['cityOfResidence'],
+    estrato: (_a = data['stratus']) !== null && _a !== void 0 ? _a : 0,
+    tipoVivienda: data['dwellingType'],
+    renta: (_b = parseFloat(data['rent'])) !== null && _b !== void 0 ? _b : 0,
+    tipoCompania: data['companyType'],
+    nit: data['nit'],
+    fechaExposito: data['foundatingDate'],
+    actividadCompania: data['companyActivity'],
+    punto: data['point'],
+    tiendaOnline: data['onlineShop'],
+    porcentajeVentas: data['salePercentage'],
+    empleado: data['employees'],
+    destino: data['destiny'],
+    otroDestino: data['otherDestiny'],
   };
 }
 function getReferencias(data) {
@@ -102,19 +103,40 @@ function getReferencias(data) {
     relacionContactoAmigo: data['friendContactRelationship']
   };
 }
+function getInfoEconomicaCompania(data) {
+  return {
+    ingresosVentas: parseFloat(data['salesIncome']),
+    ingresosArriendo: parseFloat(data['rentIncome']),
+    ingresosActividad: parseFloat(data['activityIncome']),
+    ingresosOtros: data['otherIncomes'] === '' || data['otherIncomes'] === null ? 0 : parseFloat(data['otherIncomes']),
+    descripcionIngresos: data['otherIncomesDescription'],
+    soporte: data['incomeSupport'],
+    egresosGastosNegocio: parseFloat(data['businessExpenses']),
+    egresosArriendo: parseFloat(data['rentExpenses']),
+    egresosDeudas: parseFloat(data['debtExpenses']),
+    egresosPersonal: parseFloat(data['personalExpenses']),
+    otrosEgresos: data['otherExpenses'] === '' || data['otherExpenses'] === null ? 0 : parseFloat(data['otherExpenses']),
+    descripcionEgresos: data['otherExpensesDescription'],
+    activos: parseFloat(data['totalAssets']),
+    pasivos: parseFloat(data['totalLiabilities']),
+    totalIngresos: parseFloat(data['totalIncomes']),
+    totalGastos: parseFloat(data['totalExpenses']),
+  };
+}
 export function getJsonModelData(stateData, flowType) {
-  let informacionPersonal = getInformacionPersonal(stateData['personalInformation']);
-  let referencias = getReferencias(stateData['references']);
-  let infoEconomica = getInfoEconomica(stateData['financialInformation']);
+  let informacionPersonal = getInformacionPersonal(stateData['personalInformation'], flowType);
+  let infoReferencias = getReferencias(stateData['references']);
+  let infoSocioDemografica = getInfoSocioDemografica(stateData['personalInformation2']);
   let data;
   if (flowType === 'employee') {
-    let infoSocioDemografica = getInfoSocioDemografica(stateData['personalInformation2']);
+    let infoEconomica = getInfoEconomica(stateData['financialInformation']);
     let infoLaboral = getInfoLaboral(stateData['workingInformation']);
-    data = Object.assign(Object.assign({}, informacionPersonal), { referencias, infoEconomica, infoSocioDemografica, infoLaboral });
+    data = Object.assign(Object.assign({}, informacionPersonal), { infoReferencias, infoEconomica, infoSocioDemografica, infoLaboral });
   }
   else {
-    let informacionCompania = getCompanyInformation(stateData['companyInformation']);
-    data = Object.assign(Object.assign({}, informacionPersonal), { referencias, infoEconomica, informacionCompania });
+    let infoCompania = getCompanyInformation(stateData['companyInformation']);
+    let infoEconomicaCompania = getInfoEconomicaCompania(stateData['financialCompany']);
+    data = Object.assign(Object.assign({}, informacionPersonal), { infoReferencias, infoEconomicaCompania, infoCompania, infoSocioDemografica });
   }
   // console.log(JSON.stringify(data))
   console.log(data);

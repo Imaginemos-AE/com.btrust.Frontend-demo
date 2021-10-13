@@ -18,13 +18,12 @@ export class EmprenderUfFinancialInformation {
       rentExpenses: null,
       debtExpenses: null,
       businessExpenses: null,
-      totalIncomes: null,
-      totalExpenses: null,
+      totalIncomes: 0,
+      totalExpenses: 0,
       totalAssets: null,
       totalLiabilities: null,
     };
     this.requiredData = [];
-    this.fileName = 'Ningún archivo seleccionado';
   }
   async componentWillLoad() {
     await loadCSS('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500&family=Varela+Round&display=swap');
@@ -40,7 +39,7 @@ export class EmprenderUfFinancialInformation {
   }
   _calculateTotalIncomes(field, value) {
     this._setModel(field, value, false);
-    this._calculateTotalField('totalIncomes', ['salesIncome', 'rentIncome', 'activityIncomes', 'otherIncomes']);
+    this._calculateTotalField('totalIncomes', ['salesIncome', 'rentIncome', 'activityIncome', 'otherIncomes']);
   }
   _calculateTotalExpenses(field, value) {
     this._setModel(field, value, false);
@@ -75,7 +74,9 @@ export class EmprenderUfFinancialInformation {
     this.requiredData = lista;
   }
   onInputChange(files) {
-    this.fileName = files.length < 1 ? 'Ningún archivo seleccionado' : files[0].name;
+    if (files.length >= 1) {
+      this._setModel('incomeSupport', files[0].name);
+    }
   }
   render() {
     return (h(Host, null,
@@ -92,7 +93,7 @@ export class EmprenderUfFinancialInformation {
                       h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('salesIncome') > -1, label: 'Ingresos mensuales por concepto de ventas', value: this.model.salesIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('salesIncome', ev.detail) }))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('otherIncome') > -1, label: "Otros ingresos mensuales", value: this.model.otherIncomes, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('otherIncomes', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "alfanumericoOpcional", checkData: this.requiredData.indexOf('otherIncome') > -1, label: "Otros ingresos mensuales", value: this.model.otherIncomes, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('otherIncomes', ev.detail) }))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
                       h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('activityIncome') > -1, label: 'Ingresos mensuales por tu actividad', value: this.model.activityIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('activityIncome', ev.detail) }))),
@@ -103,12 +104,12 @@ export class EmprenderUfFinancialInformation {
                       h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('rentIncome') > -1, label: 'Ingresos por concepto de arrendamiento', value: this.model.rentIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('rentIncome', ev.detail) }))),
                   h("div", { class: "col-lg-6" },
                     h("fieldset", { class: "flex-center-center" },
-                      h("label", null, "Adjuntar soporte de ingresos (Facturas/declaraci\u00F3n de renta)"),
+                      h("label", { class: this.requiredData.indexOf('incomeSupport') > -1 ? 'checkData_label' : '' }, "Adjuntar soporte de ingresos (Facturas/declaraci\u00F3n de renta)"),
                       h("div", { class: "control" },
                         h("input", { class: "file", id: "file", type: "file", onChange: ($event) => this.onInputChange($event.target.files) }),
                         h("label", { htmlFor: "file" },
                           h("span", { class: "fakebutton button small primary block" }, "Clic para adjuntar"),
-                          h("span", { class: "filetext" }, this.fileName))))),
+                          h("span", { class: "filetext" }, this.model.incomeSupport !== '' ? this.model.incomeSupport : 'Ningún archivo seleccionado'))))),
                   h("fieldset", { class: "totalBox" },
                     h("label", null,
                       "Total ingresos mensuales: ",
@@ -182,7 +183,7 @@ export class EmprenderUfFinancialInformation {
         "tags": [],
         "text": ""
       },
-      "defaultValue": "{\r\n    salesIncome: null,\r\n    rentIncome: null,\r\n    activityIncome: null,\r\n    otherIncomes: null,\r\n    otherIncomesDescription: '',\r\n    incomeSupport: '',\r\n    otherExpenses: null,\r\n    otherExpensesDescription: '',\r\n    personalExpenses: null,\r\n    rentExpenses: null,\r\n    debtExpenses: null,\r\n    businessExpenses: null,\r\n    totalIncomes: null,\r\n    totalExpenses: null,\r\n    totalAssets: null,\r\n    totalLiabilities: null,\r\n  }"
+      "defaultValue": "{\r\n    salesIncome: null,\r\n    rentIncome: null,\r\n    activityIncome: null,\r\n    otherIncomes: null,\r\n    otherIncomesDescription: '',\r\n    incomeSupport: '',\r\n    otherExpenses: null,\r\n    otherExpensesDescription: '',\r\n    personalExpenses: null,\r\n    rentExpenses: null,\r\n    debtExpenses: null,\r\n    businessExpenses: null,\r\n    totalIncomes: 0,\r\n    totalExpenses: 0,\r\n    totalAssets: null,\r\n    totalLiabilities: null,\r\n  }"
     },
     "requiredData": {
       "type": "unknown",
@@ -199,24 +200,6 @@ export class EmprenderUfFinancialInformation {
         "text": ""
       },
       "defaultValue": "[]"
-    },
-    "fileName": {
-      "type": "string",
-      "mutable": true,
-      "complexType": {
-        "original": "string",
-        "resolved": "string",
-        "references": {}
-      },
-      "required": false,
-      "optional": false,
-      "docs": {
-        "tags": [],
-        "text": ""
-      },
-      "attribute": "file-name",
-      "reflect": true,
-      "defaultValue": "'Ning\u00FAn archivo seleccionado'"
     }
   }; }
   static get events() { return [{

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const index = require('./index-fff3a53f.js');
-const store = require('./store-2b1aea81.js');
+const store = require('./store-640edd5e.js');
 const utils = require('./utils-2fe1da8e.js');
 require('./helper-a6aaafb9.js');
 
@@ -20,7 +20,7 @@ const INDEPENDENT_FLOW = [
   { tag: 'personal-information', field: 'personalInformation' },
   { tag: 'personal-information-2', field: 'personalInformation2' },
   { tag: 'company-information', field: 'companyInformation' },
-  { tag: 'financial-information', field: 'financialInformation' },
+  { tag: 'financial-company', field: 'financialCompany' },
   { tag: 'references', field: 'references' },
 ];
 const EmprenderUserForms = class {

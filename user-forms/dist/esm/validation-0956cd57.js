@@ -1,7 +1,7 @@
 const expresiones = {
   alfanumerico: /^[a-zA-Z0-9\_\-\#\s\.\,\a-zA-ZÀ-ÿ]{1,150}$/,
   alfanumericoOpcional: /^[a-zA-Z0-9\_\-\#\s\.\a-zA-ZÀ-ÿ]{0,50}$/,
-  texto: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+  texto: /^[a-zA-ZÀ-ÿ\s]{1,100}$/,
   textoOpcional: /^[a-zA-ZÀ-ÿ\s]{0,40}$/,
   correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
   numerico: /^\d{1,14}$/,
@@ -133,8 +133,26 @@ const companyProfile = {
   onlineShop: 'texto',
   employees: 'alfanumerico',
 };
+const financialCompanyInformation = {
+  salesIncome: 'numerico',
+  rentIncome: 'numerico',
+  activityIncome: 'numericoOpcional',
+  otherIncomes: 'numericoOpcional',
+  otherIncomesDescription: 'texto',
+  incomeSupport: 'alfanumerico',
+  otherExpenses: 'numericoOpcional',
+  otherExpensesDescription: 'texto',
+  personalExpenses: 'numerico',
+  rentExpenses: 'numerico',
+  debtExpenses: 'numerico',
+  businessExpenses: 'numerico',
+  totalIncomes: 'numerico',
+  totalExpenses: 'numerico',
+  totalAssets: 'numerico',
+  totalLiabilities: 'numerico',
+};
 function checkData(model) {
-  const campo = [personalInformation, personalInformation2, financialInformation, references, workingInformation, companyInformation].find(e => JSON.stringify(Object.keys(model)) === JSON.stringify(Object.keys(e)));
+  const campo = [personalInformation, personalInformation2, financialInformation, references, workingInformation, companyInformation, financialCompanyInformation].find(e => JSON.stringify(Object.keys(model)) === JSON.stringify(Object.keys(e)));
   const prueba = Object.entries(model).filter(entry => {
     const value = entry[1] === null ? '' : entry[1];
     return expresiones[campo[`${entry[0]}`]].test(value) === false;

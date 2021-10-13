@@ -1,5 +1,5 @@
 import { r as registerInstance, c as createEvent, h, H as Host } from './index-94cfe778.js';
-import { s as state, l as loadDefaultData, a as setUserInformation, b as sendFetch } from './store-97873539.js';
+import { s as state, l as loadDefaultData, a as setUserInformation, b as sendFetch } from './store-ad06c05c.js';
 import { l as loadCSS, a as loadScript } from './utils-84851d0f.js';
 import './helper-4359d01c.js';
 
@@ -16,7 +16,7 @@ const INDEPENDENT_FLOW = [
   { tag: 'personal-information', field: 'personalInformation' },
   { tag: 'personal-information-2', field: 'personalInformation2' },
   { tag: 'company-information', field: 'companyInformation' },
-  { tag: 'financial-information', field: 'financialInformation' },
+  { tag: 'financial-company', field: 'financialCompany' },
   { tag: 'references', field: 'references' },
 ];
 const EmprenderUserForms = class {

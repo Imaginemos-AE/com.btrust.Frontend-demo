@@ -12,7 +12,7 @@ const INDEPENDENT_FLOW = [
   { tag: 'personal-information', field: 'personalInformation' },
   { tag: 'personal-information-2', field: 'personalInformation2' },
   { tag: 'company-information', field: 'companyInformation' },
-  { tag: 'financial-information', field: 'financialInformation' },
+  { tag: 'financial-company', field: 'financialCompany' },
   { tag: 'references', field: 'references' },
 ];
 export class EmprenderUserForms {

@@ -1,5 +1,6 @@
 export declare class UserForm {
-  financialInformation: FinancialInformation;
+  personalInformation: PersonalInformation;
+  personalInformation2: PersonalInformation2;
   references: References;
 }
 export declare class UserFormEmployee extends UserForm {

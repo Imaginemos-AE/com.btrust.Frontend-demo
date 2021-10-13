@@ -675,6 +675,10 @@ ul.inline li emprender-cl-button {
   --emprender-cl-button-margin: 5px;
 }
 
+.checkData_label {
+  color: #e13d4c;
+}
+
 .button {
   box-shadow: none !important;
   border: none;

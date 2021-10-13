@@ -17,13 +17,10 @@ export namespace Components {
         "viewRegistration": boolean;
     }
     interface EmprenderUfFinancialCompany {
-        "fileName": string;
         "model": FinancialCompanyInformation;
         "requiredData": any[];
     }
     interface EmprenderUfFinancialInformation {
-        "fileName": string;
-        "flow": any;
         "model": FinancialInformation;
         "requiredData": any[];
     }
@@ -162,15 +159,12 @@ declare namespace LocalJSX {
         "viewRegistration"?: boolean;
     }
     interface EmprenderUfFinancialCompany {
-        "fileName"?: string;
         "model"?: FinancialCompanyInformation;
         "onBack"?: (event: CustomEvent<FinancialCompanyInformation>) => void;
         "onInfoSaved"?: (event: CustomEvent<FinancialCompanyInformation>) => void;
         "requiredData"?: any[];
     }
     interface EmprenderUfFinancialInformation {
-        "fileName"?: string;
-        "flow"?: any;
         "model"?: FinancialInformation;
         "onBack"?: (event: CustomEvent<FinancialInformation>) => void;
         "onInfoSaved"?: (event: CustomEvent<FinancialInformation>) => void;

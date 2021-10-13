@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const index = require('./index-fff3a53f.js');
-const store = require('./store-2b1aea81.js');
+const store = require('./store-640edd5e.js');
 const utils = require('./utils-2fe1da8e.js');
 require('./helper-a6aaafb9.js');
 
@@ -16,7 +16,7 @@ const EMPLOYEE_FLOW = [
 ];
 const INDEPENDENT_FLOW = [
   { tag: 'personal-information-3', field: 'personalInformation' },
-  { tag: 'company-profile', field: 'companyProfile' },
+  { tag: 'company-profile', field: 'companyInformation' },
   { tag: 'references', field: 'references' },
 ];
 const EmprenderUserForms = class {

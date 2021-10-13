@@ -1,5 +1,7 @@
-import { a as getRenderingRef, f as forceUpdate } from './index-94cfe778.js';
-import { g as getData, s as setData } from './helper-4359d01c.js';
+'use strict';
+
+const index = require('./index-fff3a53f.js');
+const helper = require('./helper-a6aaafb9.js');
 
 const appendToMap = (map, propName, value) => {
     const items = map.get(propName);
@@ -40,14 +42,14 @@ const cleanupElements = debounce((map) => {
 }, 2000);
 const stencilSubscription = ({ on }) => {
     const elmsToUpdate = new Map();
-    if (typeof getRenderingRef === 'function') {
+    if (typeof index.getRenderingRef === 'function') {
         // If we are not in a stencil project, we do nothing.
         // This function is not really exported by @stencil/core.
         on('dispose', () => {
             elmsToUpdate.clear();
         });
         on('get', (propName) => {
-            const elm = getRenderingRef();
+            const elm = index.getRenderingRef();
             if (elm) {
                 appendToMap(elmsToUpdate, propName, elm);
             }
@@ -55,12 +57,12 @@ const stencilSubscription = ({ on }) => {
         on('set', (propName) => {
             const elements = elmsToUpdate.get(propName);
             if (elements) {
-                elmsToUpdate.set(propName, elements.filter(forceUpdate));
+                elmsToUpdate.set(propName, elements.filter(index.forceUpdate));
             }
             cleanupElements(elmsToUpdate);
         });
         on('reset', () => {
-            elmsToUpdate.forEach((elms) => elms.forEach(forceUpdate));
+            elmsToUpdate.forEach((elms) => elms.forEach(index.forceUpdate));
             cleanupElements(elmsToUpdate);
         });
     }
@@ -177,7 +179,7 @@ const createStore = (defaultState, shouldUpdate) => {
     return map;
 };
 
-function getInformacionPersonal(data) {
+function getInformacionPersonal(data, flowType) {
   return {
     primerNombre: data['firstName'],
     segundoNombre: data['middleName'],
@@ -196,6 +198,7 @@ function getInformacionPersonal(data) {
     celular: data['phone'],
     correo: data['email'],
     genero: data['gender'],
+    tipoCliente: flowType
   };
 }
 function getInfoSocioDemografica(data) {
@@ -251,24 +254,24 @@ function getCompanyInformation(data) {
   var _a, _b;
   return {
     nombreCompania: data['companyName'],
-    Direccion: data['companyLocation'],
-    Barrio: data['address'],
-    DepartamentoResidencia: data['place'],
-    CiudadResidencia: data['departmentOfResidence'],
-    cityOfResidence: data['cityOfResidence'],
-    Estrato: (_a = data['stratus']) !== null && _a !== void 0 ? _a : 0,
-    TipoVivienda: data['dwellingType'],
-    Renta: (_b = parseFloat(data['rent'])) !== null && _b !== void 0 ? _b : 0,
-    TipoCompania: data['companyType'],
-    Nit: data['nit'],
-    FechaExposito: data['foundatingDate'],
-    ActividadCompania: data['companyActivity'],
-    Punto: data['point'],
-    TiendaOnline: data['onlineShop'],
-    PorcentajeVentas: data['salePercentage'],
-    Empleado: data['employees'],
-    Destino: data['destiny'],
-    OtroDestino: data['otherDestiny'],
+    ubicacionCompania: data['companyLocation'],
+    direccion: data['address'],
+    barrio: data['place'],
+    departamentoResidencia: data['departmentOfResidence'],
+    ciudadResidencia: data['cityOfResidence'],
+    estrato: (_a = data['stratus']) !== null && _a !== void 0 ? _a : 0,
+    tipoVivienda: data['dwellingType'],
+    renta: (_b = parseFloat(data['rent'])) !== null && _b !== void 0 ? _b : 0,
+    tipoCompania: data['companyType'],
+    nit: data['nit'],
+    fechaExposito: data['foundatingDate'],
+    actividadCompania: data['companyActivity'],
+    punto: data['point'],
+    tiendaOnline: data['onlineShop'],
+    porcentajeVentas: data['salePercentage'],
+    empleado: data['employees'],
+    destino: data['destiny'],
+    otroDestino: data['otherDestiny'],
   };
 }
 function getReferencias(data) {
@@ -281,19 +284,40 @@ function getReferencias(data) {
     relacionContactoAmigo: data['friendContactRelationship']
   };
 }
+function getInfoEconomicaCompania(data) {
+  return {
+    ingresosVentas: parseFloat(data['salesIncome']),
+    ingresosArriendo: parseFloat(data['rentIncome']),
+    ingresosActividad: parseFloat(data['activityIncome']),
+    ingresosOtros: data['otherIncomes'] === '' || data['otherIncomes'] === null ? 0 : parseFloat(data['otherIncomes']),
+    descripcionIngresos: data['otherIncomesDescription'],
+    soporte: data['incomeSupport'],
+    egresosGastosNegocio: parseFloat(data['businessExpenses']),
+    egresosArriendo: parseFloat(data['rentExpenses']),
+    egresosDeudas: parseFloat(data['debtExpenses']),
+    egresosPersonal: parseFloat(data['personalExpenses']),
+    otrosEgresos: data['otherExpenses'] === '' || data['otherExpenses'] === null ? 0 : parseFloat(data['otherExpenses']),
+    descripcionEgresos: data['otherExpensesDescription'],
+    activos: parseFloat(data['totalAssets']),
+    pasivos: parseFloat(data['totalLiabilities']),
+    totalIngresos: parseFloat(data['totalIncomes']),
+    totalGastos: parseFloat(data['totalExpenses']),
+  };
+}
 function getJsonModelData(stateData, flowType) {
-  let informacionPersonal = getInformacionPersonal(stateData['personalInformation']);
-  let referencias = getReferencias(stateData['references']);
-  let infoEconomica = getInfoEconomica(stateData['financialInformation']);
+  let informacionPersonal = getInformacionPersonal(stateData['personalInformation'], flowType);
+  let infoReferencias = getReferencias(stateData['references']);
+  let infoSocioDemografica = getInfoSocioDemografica(stateData['personalInformation2']);
   let data;
   if (flowType === 'employee') {
-    let infoSocioDemografica = getInfoSocioDemografica(stateData['personalInformation2']);
+    let infoEconomica = getInfoEconomica(stateData['financialInformation']);
     let infoLaboral = getInfoLaboral(stateData['workingInformation']);
-    data = Object.assign(Object.assign({}, informacionPersonal), { referencias, infoEconomica, infoSocioDemografica, infoLaboral });
+    data = Object.assign(Object.assign({}, informacionPersonal), { infoReferencias, infoEconomica, infoSocioDemografica, infoLaboral });
   }
   else {
-    let informacionCompania = getCompanyInformation(stateData['companyInformation']);
-    data = Object.assign(Object.assign({}, informacionPersonal), { referencias, infoEconomica, informacionCompania });
+    let infoCompania = getCompanyInformation(stateData['companyInformation']);
+    let infoEconomicaCompania = getInfoEconomicaCompania(stateData['financialCompany']);
+    data = Object.assign(Object.assign({}, informacionPersonal), { infoReferencias, infoEconomicaCompania, infoCompania, infoSocioDemografica });
   }
   // console.log(JSON.stringify(data))
   console.log(data);
@@ -317,14 +341,17 @@ const { state } = createStore({
   currentUserInformation: {}
 });
 function loadDefaultData() {
-  state.currentUserInformation = getData();
+  state.currentUserInformation = helper.getData();
 }
 function setUserInformation(field, newData) {
   state.currentUserInformation = Object.assign(Object.assign({}, state.currentUserInformation), { [field]: newData });
-  setData(state.currentUserInformation);
+  helper.setData(state.currentUserInformation);
 }
 function sendFetch(flowType) {
   getJsonModelData(state.currentUserInformation, flowType);
 }
 
-export { setUserInformation as a, sendFetch as b, loadDefaultData as l, state as s };
+exports.loadDefaultData = loadDefaultData;
+exports.sendFetch = sendFetch;
+exports.setUserInformation = setUserInformation;
+exports.state = state;

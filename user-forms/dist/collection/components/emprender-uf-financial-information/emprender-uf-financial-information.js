@@ -20,7 +20,6 @@ export class EmprenderUfFinancialInformation {
       totalLiabilities: null,
     };
     this.requiredData = [];
-    this.fileName = 'Ningún archivo seleccionado';
   }
   _setModel(field, value, reloadModel = true) {
     if (reloadModel) {
@@ -66,9 +65,6 @@ export class EmprenderUfFinancialInformation {
     }
     this.requiredData = lista;
   }
-  onInputChange(files) {
-    this.fileName = files.length < 1 ? 'Ningún archivo seleccionado' : files[0].name;
-  }
   render() {
     return (h(Host, null,
       h("section", { class: "employeeRegistration" },
@@ -81,41 +77,21 @@ export class EmprenderUfFinancialInformation {
                 h("div", { class: "row" },
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('salaryIncome') > -1, label: this.flow == 'employee' ? 'Ingresos mensuales por concepto de salario fijo' : 'Ingresos mensuales por concepto de ventas', value: this.model.salaryIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('salaryIncome', ev.detail) }))),
+                      h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('salaryIncome') > -1, label: "Ingresos mensuales por concepto de salario fijo", value: this.model.salaryIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('salaryIncome', ev.detail) }))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
                       h("emprender-cl-input", { label: "Otros ingresos mensuales", value: this.model.otherIncomes, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('otherIncomes', ev.detail) }))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { label: this.flow == 'employee' ? 'Ingresos mensuales por concepto de salario variable' : 'Ingresos mensuales por tu actividad', value: this.model.variableSalaryIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('variableSalaryIncome', ev.detail) }))),
-                  h("div", { class: "col-md-6" }, this.model.otherIncomes && (h("fieldset", null,
+                      h("emprender-cl-input", { label: "Ingresos mensuales por concepto de salario variable", value: this.model.variableSalaryIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('variableSalaryIncome', ev.detail) }))),
+                  h("div", { class: "col-md-6" }, !this._validateOtherInformation('otherIncomes') && (h("fieldset", null,
                     h("emprender-cl-input", { dataType: this.model.otherIncomes !== 0 || this.model.otherIncomes !== null ? 'texto' : 'textoOpcional', label: "Descripci\u00F3n otros ingresos mensuales", checkData: this.requiredData.indexOf('otherIncomesDescription') > -1, value: this.model.otherIncomesDescription, onInputChange: ev => this._setModel('otherIncomesDescription', ev.detail) })))),
-                  this.flow === 'employee' ? (h("fieldset", { class: "totalBox mt0" },
+                  h("fieldset", { class: "totalBox mt0" },
                     h("label", null,
                       "Total ingresos mensuales: ",
-                      h("span", null, formatNumber(this.model.totalIncomes))))) : ([
-                    h("div", { class: "col-lg-6" },
-                      h("fieldset", { class: "flex-center-center" },
-                        h("label", null, "Adjuntar soporte de ingresos (Facturas/declaraci\u00F3n de renta)"),
-                        h("div", { class: "control" },
-                          h("input", { class: "file", id: "file", type: "file", onChange: ($event) => this.onInputChange($event.target.files) }),
-                          h("label", { htmlFor: "file" },
-                            h("span", { class: "fakebutton button small primary block" }, "Clic para adjuntar"),
-                            h("span", { class: "filetext" }, this.fileName))))),
-                    h("div", { class: "col-lg-6" },
-                      h("fieldset", { class: "totalBox" },
-                        h("label", null,
-                          "Total ingresos mensuales: ",
-                          h("span", null, formatNumber(this.model.totalIncomes))))),
-                  ]))),
+                      h("span", null, formatNumber(this.model.totalIncomes)))))),
               h("div", { class: "boxForm form p5" },
                 h("div", { class: "row" },
-                  this.flow == 'independent' && (h("div", { class: "col-md-6" },
-                    h("fieldset", null,
-                      h("emprender-cl-input", { dataType: "alfanumerico", label: "Egresos mensuales por costos y gastos del negocio", 
-                        // checkData={this.requiredData.indexOf('otherExpenses ') > -1 || this.requiredData.indexOf('otherExpenses,') > -1}
-                        // value={this.model.otherExpenses}
-                        inputOptions: { type: 'text' }, maskOptions: FINANCIAL_OPTIONS })))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
                       h("emprender-cl-input", { dataType: "alfanumerico", label: "Tus egresos mensuales por pago de deuda", checkData: this.requiredData.indexOf('debtExpenses') > -1, value: this.model.debtExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('debtExpenses', ev.detail) }))),
@@ -128,7 +104,7 @@ export class EmprenderUfFinancialInformation {
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
                       h("emprender-cl-input", { dataType: "alfanumericoOpcional", label: "Otros egresos mensuales", value: this.model.otherExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('otherExpenses', ev.detail) }))),
-                  h("div", { class: "col-md-6" }, this.model.otherExpenses && (h("fieldset", null,
+                  h("div", { class: "col-md-6" }, !this._validateOtherInformation('otherExpenses') && (h("fieldset", null,
                     h("emprender-cl-input", { dataType: this.model.otherIncomes !== 0 || this.model.otherIncomes !== null ? 'texto' : 'textoOpcional', label: "Descripci\u00F3n otros egresos mensuales", checkData: this.requiredData.indexOf('otherExpensesDescription') > -1, value: this.model.otherExpensesDescription, onInputChange: ev => this._setModel('otherExpensesDescription', ev.detail) }))))),
                 h("fieldset", { class: "totalBox" },
                   h("label", null,
@@ -197,41 +173,6 @@ export class EmprenderUfFinancialInformation {
         "text": ""
       },
       "defaultValue": "[]"
-    },
-    "flow": {
-      "type": "any",
-      "mutable": true,
-      "complexType": {
-        "original": "any",
-        "resolved": "any",
-        "references": {}
-      },
-      "required": false,
-      "optional": false,
-      "docs": {
-        "tags": [],
-        "text": ""
-      },
-      "attribute": "flow",
-      "reflect": true
-    },
-    "fileName": {
-      "type": "string",
-      "mutable": true,
-      "complexType": {
-        "original": "string",
-        "resolved": "string",
-        "references": {}
-      },
-      "required": false,
-      "optional": false,
-      "docs": {
-        "tags": [],
-        "text": ""
-      },
-      "attribute": "file-name",
-      "reflect": true,
-      "defaultValue": "'Ning\u00FAn archivo seleccionado'"
     }
   }; }
   static get events() { return [{
