@@ -2,12 +2,8 @@ import { creditInformation } from './userCreditInformation';
 export const requestPayment = async () => {
   let response = await authBusinessLogin();
   if (response !== '{}') {
-    const { token, processingUrl, config, paymentData } = response;
-    const aux = 'https://credito.muii.com.co/zona-privada';
-    const orderNumber = Math.floor((Math.random() * (1000000 - 10000)) + 10000);
-    const urlRedirect = config.commerceReturnUrl === "https://midominio.com/url-de-retorno-al-comercio" ? aux : config.commerceReturnUrl;
-    const urlNotification = config.resultNotificationUrl === "https://midominio.com/url-de-notificacion-del-resultado" ? aux : config.resultNotificationUrl;
-    const urlPago = `${processingUrl}?metodo_pago=${config.paymentMethod}&token=${token}&nit_comercio=800114798&valor=200000&iva=${paymentData.iva}&moneda=${paymentData.currency}&numero_orden=${orderNumber}&url_retorno_comercio=${urlRedirect}&url_notificacion_resultado=${urlNotification}`;
+    const { reference, token, processingUrl, config, paymentData } = response;
+    const urlPago = `${processingUrl}?metodo_pago=${config.paymentMethod}&token=${token}&nit_comercio=800114798&valor=${paymentData.amount}&iva=${paymentData.iva}&moneda=${paymentData.currency}&numero_orden=${reference}&url_retorno_comercio=${config.commerceReturnUrl}&url_notificacion_resultado=${config.resultNotificationUrl}`;
     var form = document.createElement('form');
     document.body.appendChild(form);
     form.method = 'POST';
@@ -24,7 +20,7 @@ export const authBusinessLogin = async () => {
     myHeaders.append('GET', 'POST');
     myHeaders.append('Content-Type', 'application/json');
     const raw = await creditInformation();
-    let result = await fetch('https://localhost:44339/Payment', {
+    let result = await fetch('https://credito.muii.com.co/api/Payment/', {
       method: 'POST',
       headers: myHeaders,
       body: raw,
