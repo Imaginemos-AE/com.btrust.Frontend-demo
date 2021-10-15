@@ -1,4 +1,4 @@
-function loadCSS(url, rel) {
+export function loadCSS(url, rel) {
   return new Promise(resolve => {
     const links = document.getElementsByTagName('link');
     const exist = Array.from(links).some(_link => _link.href === url);
@@ -14,7 +14,7 @@ function loadCSS(url, rel) {
     }
   });
 }
-function loadScript(url, id, type) {
+export function loadScript(url, id, type) {
   return new Promise(resolve => {
     document.body.appendChild(Object.assign(document.createElement('script'), {
       type: type,
@@ -26,5 +26,3 @@ function loadScript(url, id, type) {
     }));
   });
 }
-
-export { loadScript as a, loadCSS as l };
