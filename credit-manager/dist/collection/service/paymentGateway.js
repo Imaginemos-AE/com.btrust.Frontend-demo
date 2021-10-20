@@ -1,6 +1,7 @@
 import { creditInformation } from './userCreditInformation';
 export const requestPayment = async () => {
   let response = await authBusinessLogin();
+  console.log(response);
   if (response !== '{}') {
     const { reference, token, processingUrl, config, paymentData } = response;
     const urlPago = `${processingUrl}?metodo_pago=${config.paymentMethod}&token=${token}&nit_comercio=800114798&valor=${paymentData.amount}&iva=${paymentData.iva}&moneda=${paymentData.currency}&numero_orden=${reference}&url_retorno_comercio=${config.commerceReturnUrl}&url_notificacion_resultado=${config.resultNotificationUrl}`;

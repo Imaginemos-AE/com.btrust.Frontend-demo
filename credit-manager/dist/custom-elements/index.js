@@ -95,6 +95,7 @@ const creditInformation = async () => {
 
 const requestPayment = async () => {
   let response = await authBusinessLogin();
+  console.log(response);
   if (response !== '{}') {
     const { reference, token, processingUrl, config, paymentData } = response;
     const urlPago = `${processingUrl}?metodo_pago=${config.paymentMethod}&token=${token}&nit_comercio=800114798&valor=${paymentData.amount}&iva=${paymentData.iva}&moneda=${paymentData.currency}&numero_orden=${reference}&url_retorno_comercio=${config.commerceReturnUrl}&url_notificacion_resultado=${config.resultNotificationUrl}`;
@@ -155,7 +156,7 @@ let EmprenderUserBiometrics = class extends HTMLElement {
     await loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
   }
   render() {
-    return (h(Host, null, h("h3", { class: "colorTertiary" }, "Informaci\u00F3n de Cr\u00E9dito Activo"), h("div", { class: "details" }, h("div", { class: "item" }, h("label", null, "Monto desembolsado:"), h("p", { class: "value" }, "$380.000")), h("div", { class: "item" }, h("label", null, "Plazo:"), h("p", { class: "value" }, "12 meses")), h("div", { class: "item" }, h("label", null, "Valor total a pagar"), h("p", { class: "value" }, "$ 389.594")), h("div", { class: "item" }, h("label", null, "Valor cuota pactada"), h("p", { class: "value" }, "$ 23.500")), h("div", { class: "item" }, h("label", null, "Fecha pr\u00F3ximo pago programado"), h("p", { class: "value" }, "03/11/2021"))), h("ul", { class: "buttons" }, h("li", null, h("emprender-cl-button", { text: "Pagar Cuota", modifiers: "medium primary", onclick: () => requestPayment() })), h("li", null, h("emprender-cl-button", { text: "Pagar Valor Total", modifiers: "medium secondary" })), h("li", null, h("div", { class: "downloadPDF w150" }, h("span", { class: "text" }, "Descargar PDF"), h("span", { class: "icon" }, " ", h("emprender-cl-icon", { icon: "pdf", path: 3 }), "  "))))));
+    return (h(Host, null, h("h3", { class: "colorTertiary" }, "Informaci\u00F3n de Cr\u00E9dito Activo"), h("div", { class: "details" }, h("div", { class: "item" }, h("label", null, "Monto desembolsado:"), h("p", { class: "value" }, "$380.000")), h("div", { class: "item" }, h("label", null, "Plazo:"), h("p", { class: "value" }, "12 meses")), h("div", { class: "item" }, h("label", null, "Valor total a pagar"), h("p", { class: "value" }, "$ 389.594")), h("div", { class: "item" }, h("label", null, "Valor cuota pactada"), h("p", { class: "value" }, "$ 23.500")), h("div", { class: "item" }, h("label", null, "Fecha pr\u00F3ximo pago programado"), h("p", { class: "value" }, "03/11/2021"))), h("ul", { class: "buttons" }, h("li", null, h("emprender-cl-button", { text: "Pagar Cuota", modifiers: "medium primary", onclick: () => requestPayment() })), h("li", null, h("emprender-cl-button", { text: "Pagar Valor Total", modifiers: "medium secondary", onclick: () => requestPayment() })), h("li", null, h("div", { class: "downloadPDF w150" }, h("span", { class: "text" }, "Descargar PDF"), h("span", { class: "icon" }, " ", h("emprender-cl-icon", { icon: "pdf", path: 3 }), "  "))))));
   }
   static get style() { return emprenderCreditInformationCss; }
 };

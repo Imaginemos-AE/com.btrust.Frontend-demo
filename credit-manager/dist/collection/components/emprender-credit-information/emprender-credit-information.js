@@ -29,7 +29,7 @@ export class EmprenderUserBiometrics {
         h("li", null,
           h("emprender-cl-button", { text: "Pagar Cuota", modifiers: "medium primary", onclick: () => requestPayment() })),
         h("li", null,
-          h("emprender-cl-button", { text: "Pagar Valor Total", modifiers: "medium secondary" })),
+          h("emprender-cl-button", { text: "Pagar Valor Total", modifiers: "medium secondary", onclick: () => requestPayment() })),
         h("li", null,
           h("div", { class: "downloadPDF w150" },
             h("span", { class: "text" }, "Descargar PDF"),
