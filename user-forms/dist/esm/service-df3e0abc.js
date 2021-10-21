@@ -360,4 +360,4 @@ function setBankInformation(bankData) {
   // hacer un fetch PUT
 }
 
-export { setBankInformation as a, setUserInformation as b, sendFetch as c, loadDefaultData as l, state as s };
+export { state as a, setUserInformation as b, sendFetch as c, loadDefaultData as l, setBankInformation as s };
