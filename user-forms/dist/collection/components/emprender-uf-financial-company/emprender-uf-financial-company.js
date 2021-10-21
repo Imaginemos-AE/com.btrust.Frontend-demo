@@ -58,6 +58,7 @@ export class EmprenderUfFinancialInformation {
   }
   _checkSubmitInfo() {
     const lista = checkData(this.model);
+    console.log(this.model.incomeSupport);
     if (this._validateOtherInformation('otherIncomes')) {
       if (lista.indexOf('otherIncomesDescription') > -1)
         lista.splice(lista.indexOf('otherIncomesDescription'), 1);
@@ -68,6 +69,7 @@ export class EmprenderUfFinancialInformation {
         lista.splice(lista.indexOf('otherExpensesDescription'), 1);
       this._setModel('otherExpensesDescription', '');
     }
+    console.log(lista);
     if (lista.length === 0) {
       this.infoSaved.emit(this.model);
     }

@@ -1,3 +1,4 @@
+import { setUserInformation } from '../module/store';
 function getInformacionPersonal(data, flowType) {
   return {
     primerNombre: data['firstName'],
@@ -103,6 +104,13 @@ function getReferencias(data) {
     relacionContactoAmigo: data['friendContactRelationship']
   };
 }
+// function getInfoBancaria(data: any){
+//   return    {
+//     nombreBanco: data['bankName'],
+//     tipoCuenta:  data['accountType'],
+//     numeroCuenta: data['accountType'],
+//     };
+// }
 function getInfoEconomicaCompania(data) {
   return {
     ingresosVentas: parseFloat(data['salesIncome']),
@@ -154,4 +162,8 @@ export function getJsonModelData(stateData, flowType) {
     redirect: 'follow',
   })
     .then(data => console.log(data));
+}
+export function setBankInformation(bankData) {
+  setUserInformation('bankInformation', bankData);
+  // hacer un fetch PUT
 }

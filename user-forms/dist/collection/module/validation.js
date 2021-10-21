@@ -1,5 +1,5 @@
 const expresiones = {
-  alfanumerico: /^[a-zA-Z0-9\_\-\#\s\.\,\a-zA-ZÀ-ÿ]{1,150}$/,
+  alfanumerico: /^[a-zA-Z0-9\(\)\_\-\#\s\.\,\a-zA-ZÀ-ÿ]{1,150}$/,
   alfanumericoOpcional: /^[a-zA-Z0-9\_\-\#\s\.\a-zA-ZÀ-ÿ]{0,50}$/,
   texto: /^[a-zA-ZÀ-ÿ\s]{1,100}$/,
   textoOpcional: /^[a-zA-ZÀ-ÿ\s]{0,40}$/,
@@ -78,7 +78,7 @@ const workingInformation = {
   creditDestination: 'alfanumerico',
   companyPhone: 'celular',
   companyPhoneExtension: 'numericoOpcional',
-  otherPhone: 'alfanumerico',
+  otherDestiny: 'alfanumerico',
 };
 const companyInformation = {
   companyName: 'alfanumerico',
@@ -151,6 +151,11 @@ const financialCompanyInformation = {
   totalAssets: 'numerico',
   totalLiabilities: 'numerico',
 };
+const bankInformation = {
+  bankName: 'alfanumerico',
+  accountType: 'texto',
+  accountNumber: 'numerico',
+};
 export function checkData(model) {
   const campo = [personalInformation, personalInformation2, financialInformation, references, workingInformation, companyInformation, financialCompanyInformation].find(e => JSON.stringify(Object.keys(model)) === JSON.stringify(Object.keys(e)));
   const prueba = Object.entries(model).filter(entry => {
@@ -162,14 +167,15 @@ export function checkData(model) {
 }
 export function checkData2(model, fieldName) {
   const fields = {
-    personalInformation: personalInformation,
-    personalInformation2: personalInformation2,
-    financialInformation: financialInformation,
-    references: references,
-    workingInformation: workingInformation,
-    companyInformation: companyInformation,
-    informationProfile: informationProfile,
-    companyProfile: companyProfile
+    'personalInformation': personalInformation,
+    'personalInformation2': personalInformation2,
+    'financialInformation': financialInformation,
+    'references': references,
+    'workingInformation': workingInformation,
+    'companyInformation': companyInformation,
+    'informationProfile': informationProfile,
+    'companyProfile': companyProfile,
+    'bankInformation': bankInformation,
   };
   const campo = fields[fieldName];
   const prueba = Object.entries(campo).filter(entry => {

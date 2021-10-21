@@ -386,12 +386,16 @@ section.clientForms .wallet .bankAccountForm .boxForm {
   margin-bottom: 20px;
 }
 section.clientForms .wallet .bankAccountForm h6 {
+  color: #4A4A4A;
+  font-family: "Open Sans", sans-serif;
   font-weight: 600;
   font-size: 14px;
   text-align: center;
   margin-bottom: 20px;
 }
 section.clientForms .wallet .bankAccountForm p.italic {
+  color: #4A4A4A;
+  font-family: "Open Sans", sans-serif;
   font-style: italic;
   text-align: center;
   line-height: 19px;

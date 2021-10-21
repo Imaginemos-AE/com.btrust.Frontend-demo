@@ -49,6 +49,10 @@ export namespace Components {
         "requiredData": string;
         "viewRegistration": boolean;
     }
+    interface EmprenderUserBank {
+        "model": BankInformation;
+        "requiredData": string;
+    }
     interface EmprenderUserForms {
         "flowType": 'employee' | 'independent';
         "loading": boolean;
@@ -117,6 +121,12 @@ declare global {
         prototype: HTMLEmprenderUfWorkingInformationElement;
         new (): HTMLEmprenderUfWorkingInformationElement;
     };
+    interface HTMLEmprenderUserBankElement extends Components.EmprenderUserBank, HTMLStencilElement {
+    }
+    var HTMLEmprenderUserBankElement: {
+        prototype: HTMLEmprenderUserBankElement;
+        new (): HTMLEmprenderUserBankElement;
+    };
     interface HTMLEmprenderUserFormsElement extends Components.EmprenderUserForms, HTMLStencilElement {
     }
     var HTMLEmprenderUserFormsElement: {
@@ -139,6 +149,7 @@ declare global {
         "emprender-uf-personal-information-3": HTMLEmprenderUfPersonalInformation3Element;
         "emprender-uf-references": HTMLEmprenderUfReferencesElement;
         "emprender-uf-working-information": HTMLEmprenderUfWorkingInformationElement;
+        "emprender-user-bank": HTMLEmprenderUserBankElement;
         "emprender-user-forms": HTMLEmprenderUserFormsElement;
         "emprender-user-profile": HTMLEmprenderUserProfileElement;
     }
@@ -207,6 +218,10 @@ declare namespace LocalJSX {
         "requiredData"?: string;
         "viewRegistration"?: boolean;
     }
+    interface EmprenderUserBank {
+        "model"?: BankInformation;
+        "requiredData"?: string;
+    }
     interface EmprenderUserForms {
         "flowType"?: 'employee' | 'independent';
         "loading"?: boolean;
@@ -233,6 +248,7 @@ declare namespace LocalJSX {
         "emprender-uf-personal-information-3": EmprenderUfPersonalInformation3;
         "emprender-uf-references": EmprenderUfReferences;
         "emprender-uf-working-information": EmprenderUfWorkingInformation;
+        "emprender-user-bank": EmprenderUserBank;
         "emprender-user-forms": EmprenderUserForms;
         "emprender-user-profile": EmprenderUserProfile;
     }
@@ -250,6 +266,7 @@ declare module "@stencil/core" {
             "emprender-uf-personal-information-3": LocalJSX.EmprenderUfPersonalInformation3 & JSXBase.HTMLAttributes<HTMLEmprenderUfPersonalInformation3Element>;
             "emprender-uf-references": LocalJSX.EmprenderUfReferences & JSXBase.HTMLAttributes<HTMLEmprenderUfReferencesElement>;
             "emprender-uf-working-information": LocalJSX.EmprenderUfWorkingInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfWorkingInformationElement>;
+            "emprender-user-bank": LocalJSX.EmprenderUserBank & JSXBase.HTMLAttributes<HTMLEmprenderUserBankElement>;
             "emprender-user-forms": LocalJSX.EmprenderUserForms & JSXBase.HTMLAttributes<HTMLEmprenderUserFormsElement>;
             "emprender-user-profile": LocalJSX.EmprenderUserProfile & JSXBase.HTMLAttributes<HTMLEmprenderUserProfileElement>;
         }

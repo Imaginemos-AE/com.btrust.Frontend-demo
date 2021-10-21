@@ -56,6 +56,12 @@ export const EmprenderUfWorkingInformation: {
   new (): EmprenderUfWorkingInformation;
 };
 
+interface EmprenderUserBank extends Components.EmprenderUserBank, HTMLElement {}
+export const EmprenderUserBank: {
+  prototype: EmprenderUserBank;
+  new (): EmprenderUserBank;
+};
+
 interface EmprenderUserForms extends Components.EmprenderUserForms, HTMLElement {}
 export const EmprenderUserForms: {
   prototype: EmprenderUserForms;

@@ -179,6 +179,20 @@ const createStore = (defaultState, shouldUpdate) => {
     return map;
 };
 
+const { state } = createStore({
+  currentUserInformation: {}
+});
+function loadDefaultData() {
+  state.currentUserInformation = helper.getData();
+}
+function setUserInformation(field, newData) {
+  state.currentUserInformation = Object.assign(Object.assign({}, state.currentUserInformation), { [field]: newData });
+  helper.setData(state.currentUserInformation);
+}
+function sendFetch(flowType) {
+  getJsonModelData(state.currentUserInformation, flowType);
+}
+
 function getInformacionPersonal(data, flowType) {
   return {
     primerNombre: data['firstName'],
@@ -284,6 +298,13 @@ function getReferencias(data) {
     relacionContactoAmigo: data['friendContactRelationship']
   };
 }
+// function getInfoBancaria(data: any){
+//   return    {
+//     nombreBanco: data['bankName'],
+//     tipoCuenta:  data['accountType'],
+//     numeroCuenta: data['accountType'],
+//     };
+// }
 function getInfoEconomicaCompania(data) {
   return {
     ingresosVentas: parseFloat(data['salesIncome']),
@@ -336,22 +357,13 @@ function getJsonModelData(stateData, flowType) {
   })
     .then(data => console.log(data));
 }
-
-const { state } = createStore({
-  currentUserInformation: {}
-});
-function loadDefaultData() {
-  state.currentUserInformation = helper.getData();
-}
-function setUserInformation(field, newData) {
-  state.currentUserInformation = Object.assign(Object.assign({}, state.currentUserInformation), { [field]: newData });
-  helper.setData(state.currentUserInformation);
-}
-function sendFetch(flowType) {
-  getJsonModelData(state.currentUserInformation, flowType);
+function setBankInformation(bankData) {
+  setUserInformation('bankInformation', bankData);
+  // hacer un fetch PUT
 }
 
 exports.loadDefaultData = loadDefaultData;
 exports.sendFetch = sendFetch;
+exports.setBankInformation = setBankInformation;
 exports.setUserInformation = setUserInformation;
 exports.state = state;

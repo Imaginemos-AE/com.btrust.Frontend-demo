@@ -12,7 +12,7 @@ export class EmprenderUfWorkingInformation {
       creditDestination: '',
       companyPhone: '',
       companyPhoneExtension: '',
-      otherPhone: '',
+      otherDestiny: '',
     };
     this.viewRegistration = true;
     this.requiredData = '';
@@ -23,9 +23,9 @@ export class EmprenderUfWorkingInformation {
   _checkSubmitInfo() {
     const lista = checkData(this.model);
     if (this.model.creditDestination !== 'otro') {
-      if (lista.indexOf('otherPhone') > -1)
-        lista.splice(lista.indexOf('otherPhone'), 1);
-      this._setModel('otherPhone', '');
+      if (lista.indexOf('otherDestiny') > -1)
+        lista.splice(lista.indexOf('otherDestiny'), 1);
+      this._setModel('otherDestiny', '');
     }
     if (lista.length === 0) {
       this.infoSaved.emit(this.model);
@@ -119,7 +119,7 @@ export class EmprenderUfWorkingInformation {
                     h("fieldset", null,
                       h("emprender-cl-input", { 
                         /////
-                        dataType: this.model.creditDestination === 'otro' ? 'alfanumerico' : 'alfanumericoOpcional', checkData: this.requiredData.indexOf('otherPhone') > -1, label: "Otro destino del pr\u00E9stamo", value: this.model.otherPhone, inputOptions: { placeholder: '¿Cúal?' }, onInputChange: ev => this._setModel('otherPhone', ev.detail) }))))),
+                        dataType: this.model.creditDestination === 'otro' ? 'alfanumerico' : 'alfanumericoOpcional', checkData: this.requiredData.indexOf('otherDestiny') > -1, label: "Otro destino del pr\u00E9stamo", value: this.model.otherDestiny, inputOptions: { placeholder: '¿Cúal?' }, onInputChange: ev => this._setModel('otherDestiny', ev.detail) }))))),
                 this.requiredData.length === 0 ? null : (h("div", { class: "errorText" },
                   h("emprender-cl-icon", { icon: "alert", path: 0 }),
                   "Debes completar todos los campos marcados para poder continuar."))),
@@ -160,7 +160,7 @@ export class EmprenderUfWorkingInformation {
         "tags": [],
         "text": ""
       },
-      "defaultValue": "{\r\n    companyName: '',\r\n    position: '',\r\n    companyType: 'public',\r\n    companySeniority: '',\r\n    contractType: '',\r\n    companyActivity: '',\r\n    creditDestination: '',\r\n    companyPhone: '',\r\n    companyPhoneExtension: '',\r\n    otherPhone: '',\r\n  }"
+      "defaultValue": "{\r\n    companyName: '',\r\n    position: '',\r\n    companyType: 'public',\r\n    companySeniority: '',\r\n    contractType: '',\r\n    companyActivity: '',\r\n    creditDestination: '',\r\n    companyPhone: '',\r\n    companyPhoneExtension: '',\r\n    otherDestiny: '',\r\n  }"
     },
     "viewRegistration": {
       "type": "boolean",

@@ -2,6 +2,7 @@ export declare class UserForm {
   personalInformation: PersonalInformation;
   personalInformation2: PersonalInformation2;
   references: References;
+  bankInformation: BankInformation;
 }
 export declare class UserFormEmployee extends UserForm {
 }
@@ -71,7 +72,7 @@ export interface WorkingInformation {
   companyActivity: string;
   creditDestination: string;
   companyPhone: string;
-  otherPhone: string;
+  otherDestiny: string;
   companyPhoneExtension: string;
 }
 export interface FinancialInformation {
