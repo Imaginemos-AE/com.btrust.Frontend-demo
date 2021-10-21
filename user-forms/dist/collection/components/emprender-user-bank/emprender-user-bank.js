@@ -2,7 +2,7 @@ import { Component, Host, h, Prop } from '@stencil/core';
 import { checkData2 } from '../../module/validation';
 import { loadCSS, loadScript } from '../../utils/utils';
 import { setBankInformation } from '../../server/service';
-import state from '../../module/store';
+import { getDataByField } from '../../module/helper';
 export class EmprenderUfReferences {
   constructor() {
     this.model = {
@@ -13,14 +13,11 @@ export class EmprenderUfReferences {
     this.requiredData = '';
   }
   async componentWillLoad() {
-    var _a;
     await loadCSS('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500&family=Varela+Round&display=swap');
     await loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
-    // this.model=(state.currentUserInformation ?? {})['bankInformation']
-    // loadDefaultData();
-    const defaultData = ((_a = state.currentUserInformation) !== null && _a !== void 0 ? _a : {})['bankInformation'];
+    const defaultData = getDataByField('bankInformation');
     if (defaultData)
-      this.model = defaultData;
+      this.model = Object.assign({}, defaultData);
   }
   _setModel(field, value) {
     this.model = Object.assign(Object.assign({}, this.model), { [field]: value });

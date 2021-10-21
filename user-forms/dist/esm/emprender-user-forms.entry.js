@@ -1,7 +1,7 @@
 import { r as registerInstance, c as createEvent, h, H as Host } from './index-8397afa9.js';
-import { a as state, l as loadDefaultData, b as setUserInformation, c as sendFetch } from './service-df3e0abc.js';
+import { a as state, l as loadDefaultData, b as setUserInformation, c as sendFetch } from './service-d7fc81c3.js';
 import { l as loadCSS, a as loadScript } from './utils-84851d0f.js';
-import './helper-4359d01c.js';
+import './helper-11be9261.js';
 
 const emprenderUserFormsCss = ":host{display:block}.prueba{min-height:50VH;position:relative}.lds-dual-ring{display:inline-block;position:absolute;left:50%;top:50%;transform:translate(-50%, -50%);width:80px;height:80px}.lds-dual-ring:after{content:\" \";display:block;width:64px;height:64px;margin:8px;border-radius:50%;border:6px solid #51215b;border-color:#51215b transparent #51215b transparent;animation:lds-dual-ring 1.2s linear infinite}@keyframes lds-dual-ring{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}";
 

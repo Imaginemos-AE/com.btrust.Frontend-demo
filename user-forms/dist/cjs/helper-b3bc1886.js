@@ -1,7 +1,12 @@
+'use strict';
+
 const USER_FORM_DATA_KEY = "muiiUserFormInfo";
 function getData() {
   const data = localStorage.getItem(USER_FORM_DATA_KEY);
-  return JSON.parse(data);
+  return JSON.parse(data !== null && data !== void 0 ? data : "{}");
+}
+function getDataByField(field) {
+  return getData()[field];
 }
 function setData(newData) {
   const currentData = getData();
@@ -20,4 +25,7 @@ const FINANCIAL_OPTIONS = {
   min: 0
 };
 
-export { FINANCIAL_OPTIONS as F, getData as g, setData as s };
+exports.FINANCIAL_OPTIONS = FINANCIAL_OPTIONS;
+exports.getData = getData;
+exports.getDataByField = getDataByField;
+exports.setData = setData;

@@ -1,7 +1,7 @@
 const USER_FORM_DATA_KEY = "muiiUserFormInfo";
 export function getData() {
   const data = localStorage.getItem(USER_FORM_DATA_KEY);
-  return JSON.parse(data);
+  return JSON.parse(data !== null && data !== void 0 ? data : "{}");
 }
 export function getDataByField(field) {
   return getData()[field];

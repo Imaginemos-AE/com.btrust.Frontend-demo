@@ -1,7 +1,5 @@
-'use strict';
-
-const index = require('./index-fff3a53f.js');
-const helper = require('./helper-a6aaafb9.js');
+import { g as getRenderingRef, f as forceUpdate } from './index-8397afa9.js';
+import { a as getData, s as setData } from './helper-11be9261.js';
 
 const appendToMap = (map, propName, value) => {
     const items = map.get(propName);
@@ -42,14 +40,14 @@ const cleanupElements = debounce((map) => {
 }, 2000);
 const stencilSubscription = ({ on }) => {
     const elmsToUpdate = new Map();
-    if (typeof index.getRenderingRef === 'function') {
+    if (typeof getRenderingRef === 'function') {
         // If we are not in a stencil project, we do nothing.
         // This function is not really exported by @stencil/core.
         on('dispose', () => {
             elmsToUpdate.clear();
         });
         on('get', (propName) => {
-            const elm = index.getRenderingRef();
+            const elm = getRenderingRef();
             if (elm) {
                 appendToMap(elmsToUpdate, propName, elm);
             }
@@ -57,12 +55,12 @@ const stencilSubscription = ({ on }) => {
         on('set', (propName) => {
             const elements = elmsToUpdate.get(propName);
             if (elements) {
-                elmsToUpdate.set(propName, elements.filter(index.forceUpdate));
+                elmsToUpdate.set(propName, elements.filter(forceUpdate));
             }
             cleanupElements(elmsToUpdate);
         });
         on('reset', () => {
-            elmsToUpdate.forEach((elms) => elms.forEach(index.forceUpdate));
+            elmsToUpdate.forEach((elms) => elms.forEach(forceUpdate));
             cleanupElements(elmsToUpdate);
         });
     }
@@ -183,11 +181,11 @@ const { state } = createStore({
   currentUserInformation: {}
 });
 function loadDefaultData() {
-  state.currentUserInformation = helper.getData();
+  state.currentUserInformation = getData();
 }
 function setUserInformation(field, newData) {
   state.currentUserInformation = Object.assign(Object.assign({}, state.currentUserInformation), { [field]: newData });
-  helper.setData(state.currentUserInformation);
+  setData(state.currentUserInformation);
 }
 function sendFetch(flowType) {
   getJsonModelData(state.currentUserInformation, flowType);
@@ -340,15 +338,12 @@ function getJsonModelData(stateData, flowType) {
     let infoEconomicaCompania = getInfoEconomicaCompania(stateData['financialCompany']);
     data = Object.assign(Object.assign({}, informacionPersonal), { infoReferencias, infoEconomicaCompania, infoCompania, infoSocioDemografica });
   }
-  // console.log(JSON.stringify(data))
-  console.log(data);
   var myHeaders = new Headers();
   myHeaders.append('Access-Control-Allow-Origin', '*');
   myHeaders.append('Access-Control-Allow-Credentials', 'true');
   myHeaders.append('GET', 'POST');
   myHeaders.append('Content-Type', 'application/json');
   var raw = JSON.stringify(data);
-  // console.log(raw)
   fetch('https://credito.muii.com.co/api/DataManager/', {
     method: 'POST',
     headers: myHeaders,
@@ -362,8 +357,4 @@ function setBankInformation(bankData) {
   // hacer un fetch PUT
 }
 
-exports.loadDefaultData = loadDefaultData;
-exports.sendFetch = sendFetch;
-exports.setBankInformation = setBankInformation;
-exports.setUserInformation = setUserInformation;
-exports.state = state;
+export { state as a, setUserInformation as b, sendFetch as c, loadDefaultData as l, setBankInformation as s };

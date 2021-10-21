@@ -146,15 +146,12 @@ export function getJsonModelData(stateData, flowType) {
     let infoEconomicaCompania = getInfoEconomicaCompania(stateData['financialCompany']);
     data = Object.assign(Object.assign({}, informacionPersonal), { infoReferencias, infoEconomicaCompania, infoCompania, infoSocioDemografica });
   }
-  // console.log(JSON.stringify(data))
-  console.log(data);
   var myHeaders = new Headers();
   myHeaders.append('Access-Control-Allow-Origin', '*');
   myHeaders.append('Access-Control-Allow-Credentials', 'true');
   myHeaders.append('GET', 'POST');
   myHeaders.append('Content-Type', 'application/json');
   var raw = JSON.stringify(data);
-  // console.log(raw)
   fetch('https://credito.muii.com.co/api/DataManager/', {
     method: 'POST',
     headers: myHeaders,
