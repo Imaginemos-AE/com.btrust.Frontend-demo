@@ -216,16 +216,18 @@ const EmprenderUbHome$1 = class {
   }
   requestToADO() {
     if (state.adoCofiguration) {
-      const { url, redirectUrl, key, projectName, product } = state.adoCofiguration;
-      const _redirect = redirectUrl !== null && redirectUrl !== void 0 ? redirectUrl : location.href;
-      const adoURL = `${url}?callback=${_redirect}&key=${key}&projectName=${projectName}&product=${product}`;
-      window.location.assign(adoURL);
-      // if (state.adoCofiguration) {
-      //   const { url, redirectUrl, key, projectName, product, documentType, documentNumber } = state.adoCofiguration;
-      //   const _redirect = redirectUrl ?? location.href;
-      //   const adoURL = `${url}?callback=${_redirect}&key=${key}&projectName=${projectName}&product=${product}&documentType=${documentType}&identificationNumber=${documentNumber}`;
-      //   window.location.assign(adoURL);
-      // }
+      if (state.adoCofiguration.hasOwnProperty("documentType")) {
+        const { url, redirectUrl, key, projectName, product, documentType, documentNumber } = state.adoCofiguration;
+        const _redirect = redirectUrl !== null && redirectUrl !== void 0 ? redirectUrl : location.href;
+        const adoURL = `${url}?callback=${_redirect}&key=${key}&projectName=${projectName}&product=${product}&documentType=${documentType}&identificationNumber=${documentNumber}`;
+        window.location.assign(adoURL);
+      }
+      else {
+        const { url, redirectUrl, key, projectName, product } = state.adoCofiguration;
+        const _redirect = redirectUrl !== null && redirectUrl !== void 0 ? redirectUrl : location.href;
+        const adoURL = `${url}?callback=${_redirect}&key=${key}&projectName=${projectName}&product=${product}`;
+        window.location.assign(adoURL);
+      }
     }
   }
   detectDevice() {
