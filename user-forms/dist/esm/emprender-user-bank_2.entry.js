@@ -30,6 +30,7 @@ const EmprenderUfReferences = class {
     const lista = checkData2(this.model, 'bankInformation');
     if (lista.length === 0) {
       setBankInformation(this.model);
+      window.location.href = "https://credito.muii.com.co/zona-privada/#/credit-result";
     }
     this.requiredData = lista.toString();
   }
