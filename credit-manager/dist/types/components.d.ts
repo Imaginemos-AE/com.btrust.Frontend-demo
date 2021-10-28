@@ -33,7 +33,6 @@ declare global {
 }
 declare namespace LocalJSX {
     interface EmprenderCiResult {
-        "onContinue"?: (event: CustomEvent<void>) => void;
         "status"?: 'initial' | 'approved' | 'rejected';
     }
     interface EmprenderCreditInformation {

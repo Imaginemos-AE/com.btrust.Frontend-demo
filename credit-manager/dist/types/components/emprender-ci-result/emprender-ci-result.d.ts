@@ -1,10 +1,10 @@
-import { ComponentInterface, EventEmitter } from '../../stencil-public-runtime';
+import { ComponentInterface } from '../../stencil-public-runtime';
 export declare class EmprenderUserBiometrics implements ComponentInterface {
   status: 'initial' | 'approved' | 'rejected';
-  continue: EventEmitter<void>;
   componentWillLoad(): Promise<void>;
   _renderStatus(): any;
   _renderAppoved(): any;
+  _changeWindowLocation(): void;
   _renderRejected(): any;
   render(): any;
 }
