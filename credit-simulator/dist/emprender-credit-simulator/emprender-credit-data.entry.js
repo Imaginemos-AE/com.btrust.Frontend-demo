@@ -45,7 +45,8 @@ const EmprenderCreditSimulator = class {
       _c.creditTerm, " D\u00EDas")), h("div", { class: "item" }, this.currencyValues.map(_currencyValue => {
       var _a;
       return (h("emprender-cs-item", { text: typeof _currencyValue.label === 'string' ? _currencyValue.label : '', subText: this.getFieldSubLabel(_currencyValue.subLabel), value: (_a = state.currentCreditInfo[`credit${capitalize(_currencyValue.key)}`]) !== null && _a !== void 0 ? _a : 0, space: _currencyValue.space }));
-    }))), this.currentCreditInfo ? null : h("div", null, h("h5", null, this.renderTotal((_d = state.currentCreditInfo) === null || _d === void 0 ? void 0 : _d.creditTerm)), h("h6", { class: "mb20" }, "Fecha pr\u00F3ximo pago: ", this.getPayDay((_f = (_e = state.currentCreditInfo) === null || _e === void 0 ? void 0 : _e.creditTerm) !== null && _f !== void 0 ? _f : 0)))))));
+    }))), h("h5", null, this.renderTotal((_d = state.currentCreditInfo) === null || _d === void 0 ? void 0 : _d.creditTerm)), this.currentCreditInfo ? null :
+      h("h6", { class: "mb20" }, "Fecha pr\u00F3ximo pago: ", this.getPayDay((_f = (_e = state.currentCreditInfo) === null || _e === void 0 ? void 0 : _e.creditTerm) !== null && _f !== void 0 ? _f : 0))))));
   }
 };
 EmprenderCreditSimulator.style = emprenderCreditDataCss;
