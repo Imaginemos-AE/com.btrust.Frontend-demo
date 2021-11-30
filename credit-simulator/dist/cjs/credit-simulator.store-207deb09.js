@@ -1,4 +1,43 @@
-import { g as getRenderingRef, f as forceUpdate } from './index-d5c71035.js';
+'use strict';
+
+const index = require('./index-2092dd48.js');
+
+function formatNumber(num, signSpace = false) {
+  return `$${signSpace ? ' ' : ''}${num.toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}`;
+}
+function capitalize(s) {
+  if (typeof s !== 'string')
+    return '';
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+function loadScript(url, id, type) {
+  return new Promise(resolve => {
+    document.body.appendChild(Object.assign(document.createElement('script'), {
+      type: type,
+      async: true,
+      defer: true,
+      id: id,
+      src: url,
+      onload: resolve
+    }));
+  });
+}
+function loadCSS(url) {
+  return new Promise(resolve => {
+    const links = document.getElementsByTagName('link');
+    const exist = Array.from(links).some(_link => _link.href === url);
+    if (!exist) {
+      const link = document.createElement('link');
+      link.onload = resolve;
+      link.href = url;
+      link.rel = 'stylesheet';
+      document.head.appendChild(link);
+    }
+    else {
+      resolve(true);
+    }
+  });
+}
 
 const appendToMap = (map, propName, value) => {
     const items = map.get(propName);
@@ -39,14 +78,14 @@ const cleanupElements = debounce((map) => {
 }, 2000);
 const stencilSubscription = ({ on }) => {
     const elmsToUpdate = new Map();
-    if (typeof getRenderingRef === 'function') {
+    if (typeof index.getRenderingRef === 'function') {
         // If we are not in a stencil project, we do nothing.
         // This function is not really exported by @stencil/core.
         on('dispose', () => {
             elmsToUpdate.clear();
         });
         on('get', (propName) => {
-            const elm = getRenderingRef();
+            const elm = index.getRenderingRef();
             if (elm) {
                 appendToMap(elmsToUpdate, propName, elm);
             }
@@ -54,12 +93,12 @@ const stencilSubscription = ({ on }) => {
         on('set', (propName) => {
             const elements = elmsToUpdate.get(propName);
             if (elements) {
-                elmsToUpdate.set(propName, elements.filter(forceUpdate));
+                elmsToUpdate.set(propName, elements.filter(index.forceUpdate));
             }
             cleanupElements(elmsToUpdate);
         });
         on('reset', () => {
-            elmsToUpdate.forEach((elms) => elms.forEach(forceUpdate));
+            elmsToUpdate.forEach((elms) => elms.forEach(index.forceUpdate));
             cleanupElements(elmsToUpdate);
         });
     }
@@ -259,7 +298,6 @@ function loadDefaultData() {
   else {
     setCreditInfo({});
   }
-  ;
 }
 function setCreditInfo(newData) {
   const initialData = Object.assign(Object.assign({}, state.currentCreditInfo), newData);
@@ -282,4 +320,15 @@ function getConfigurationById(configId) {
   return state.configurations.find(_config => _config.id === configId);
 }
 
-export { setCreditInfo as a, setCurrentConfiguration as b, getConfigurationById as c, getAmountBoundaries as d, getTermBoundaries as e, getCreditConfigurations as g, loadDefaultData as l, state as s };
+exports.capitalize = capitalize;
+exports.formatNumber = formatNumber;
+exports.getAmountBoundaries = getAmountBoundaries;
+exports.getConfigurationById = getConfigurationById;
+exports.getCreditConfigurations = getCreditConfigurations;
+exports.getTermBoundaries = getTermBoundaries;
+exports.loadCSS = loadCSS;
+exports.loadDefaultData = loadDefaultData;
+exports.loadScript = loadScript;
+exports.setCreditInfo = setCreditInfo;
+exports.setCurrentConfiguration = setCurrentConfiguration;
+exports.state = state;

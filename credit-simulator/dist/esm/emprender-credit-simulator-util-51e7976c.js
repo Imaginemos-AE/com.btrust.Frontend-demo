@@ -1,4 +1,4 @@
-import { f as formatNumber } from './utils-06099684.js';
+import { f as formatNumber } from './credit-simulator.store-bb93fa5b.js';
 
 const TERM_MODULE = 30;
 function termFormatter(value) {
