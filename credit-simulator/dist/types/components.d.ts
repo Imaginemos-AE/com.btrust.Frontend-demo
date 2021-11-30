@@ -8,6 +8,7 @@ import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
 import { Credit } from "./modules/credit-simulator.module";
 export namespace Components {
     interface EmprenderCreditData {
+        "currentCreditInfo": string;
     }
     interface EmprenderCreditSimulator {
     }
@@ -72,6 +73,7 @@ declare global {
 }
 declare namespace LocalJSX {
     interface EmprenderCreditData {
+        "currentCreditInfo"?: string;
     }
     interface EmprenderCreditSimulator {
         "onCreditRequested"?: (event: CustomEvent<Credit>) => void;

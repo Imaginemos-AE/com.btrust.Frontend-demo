@@ -1,13 +1,14 @@
-import { formatNumber } from '../../utils/utils';
+import { f as formatNumber } from './utils-06099684.js';
+
 const TERM_MODULE = 30;
-export function termFormatter(value) {
+function termFormatter(value) {
   const terms = Math.ceil(value / TERM_MODULE);
   return `${terms} cuota${terms > 1 ? 's' : ''}`;
 }
 /**
  * variables
  */
-export const DEFAULT_SLIDER_VALUES = [
+const DEFAULT_SLIDER_VALUES = [
   {
     key: 'amount',
     label: '¿Cuánto dinero necesitas?',
@@ -35,7 +36,7 @@ export const DEFAULT_SLIDER_VALUES = [
     },
   },
 ];
-export const DEFAULT_CURRENCY_VALUES = [
+const DEFAULT_CURRENCY_VALUES = [
   {
     key: 'firstCapital',
     label: (config) => (config === 'monthly' ? 'Capital 1a. cuota:' : 'Monto solicitado:'),
@@ -88,7 +89,7 @@ export const DEFAULT_CURRENCY_VALUES = [
   //   label: 'Total',
   // }
 ];
-export const CREDIT_DATA = [
+const CREDIT_DATA = [
   {
     key: 'interest',
     label: 'Intereses',
@@ -126,3 +127,5 @@ export const CREDIT_DATA = [
     space: true,
   },
 ];
+
+export { CREDIT_DATA as C, DEFAULT_SLIDER_VALUES as D, DEFAULT_CURRENCY_VALUES as a, termFormatter as t };
