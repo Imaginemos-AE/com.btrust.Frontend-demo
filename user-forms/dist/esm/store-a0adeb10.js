@@ -1,7 +1,5 @@
-'use strict';
-
-const index = require('./index-fff3a53f.js');
-const helper = require('./helper-b3bc1886.js');
+import { g as getRenderingRef, f as forceUpdate } from './index-8397afa9.js';
+import { a as getData, s as setData } from './helper-11be9261.js';
 
 const appendToMap = (map, propName, value) => {
     const items = map.get(propName);
@@ -42,14 +40,14 @@ const cleanupElements = debounce((map) => {
 }, 2000);
 const stencilSubscription = ({ on }) => {
     const elmsToUpdate = new Map();
-    if (typeof index.getRenderingRef === 'function') {
+    if (typeof getRenderingRef === 'function') {
         // If we are not in a stencil project, we do nothing.
         // This function is not really exported by @stencil/core.
         on('dispose', () => {
             elmsToUpdate.clear();
         });
         on('get', (propName) => {
-            const elm = index.getRenderingRef();
+            const elm = getRenderingRef();
             if (elm) {
                 appendToMap(elmsToUpdate, propName, elm);
             }
@@ -57,12 +55,12 @@ const stencilSubscription = ({ on }) => {
         on('set', (propName) => {
             const elements = elmsToUpdate.get(propName);
             if (elements) {
-                elmsToUpdate.set(propName, elements.filter(index.forceUpdate));
+                elmsToUpdate.set(propName, elements.filter(forceUpdate));
             }
             cleanupElements(elmsToUpdate);
         });
         on('reset', () => {
-            elmsToUpdate.forEach((elms) => elms.forEach(index.forceUpdate));
+            elmsToUpdate.forEach((elms) => elms.forEach(forceUpdate));
             cleanupElements(elmsToUpdate);
         });
     }
@@ -179,20 +177,6 @@ const createStore = (defaultState, shouldUpdate) => {
     return map;
 };
 
-const { state } = createStore({
-  currentUserInformation: {}
-});
-function loadDefaultData() {
-  state.currentUserInformation = helper.getData();
-}
-function setUserInformation(field, newData) {
-  state.currentUserInformation = Object.assign(Object.assign({}, state.currentUserInformation), { [field]: newData });
-  helper.setData(state.currentUserInformation);
-}
-function sendFetch(flowType) {
-  getJsonModelData(state.currentUserInformation, flowType);
-}
-
 function getInformacionPersonal(data, flowType) {
   return {
     primerNombre: data['firstName'],
@@ -298,13 +282,6 @@ function getReferencias(data) {
     relacionContactoAmigo: data['friendContactRelationship']
   };
 }
-// function getInfoBancaria(data: any){
-//   return    {
-//     nombreBanco: data['bankName'],
-//     tipoCuenta:  data['accountType'],
-//     numeroCuenta: data['accountType'],
-//     };
-// }
 function getInfoEconomicaCompania(data) {
   return {
     ingresosVentas: parseFloat(data['salesIncome']),
@@ -354,13 +331,19 @@ function getJsonModelData(stateData, flowType) {
   })
     .then(data => console.log(data));
 }
-function setBankInformation(bankData) {
-  setUserInformation('bankInformation', bankData);
-  // hacer un fetch PUT
+
+const { state } = createStore({
+  currentUserInformation: {}
+});
+function loadDefaultData() {
+  state.currentUserInformation = getData();
+}
+function setUserInformation(field, newData) {
+  state.currentUserInformation = Object.assign(Object.assign({}, state.currentUserInformation), { [field]: newData });
+  setData(state.currentUserInformation);
+}
+function sendFetch(flowType) {
+  getJsonModelData(state.currentUserInformation, flowType);
 }
 
-exports.loadDefaultData = loadDefaultData;
-exports.sendFetch = sendFetch;
-exports.setBankInformation = setBankInformation;
-exports.setUserInformation = setUserInformation;
-exports.state = state;
+export { state as a, sendFetch as b, loadDefaultData as l, setUserInformation as s };

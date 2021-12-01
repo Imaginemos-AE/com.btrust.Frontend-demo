@@ -28,6 +28,7 @@ export class EmprenderUfConpanyInformation {
     this.departments = COUNTRY;
     this.requiredData = '';
     this.viewRegistration = true;
+    this.adminZone = false;
   }
   _setModel(field, value) {
     this.model = Object.assign(Object.assign({}, this.model), { [field]: value });
@@ -47,11 +48,19 @@ export class EmprenderUfConpanyInformation {
     this._setModel(clearField, '');
   }
   _checkSubmitInfo() {
-    const lista = checkData2(this.model, "companyProfile");
+    const lista = checkData2(this.model, 'companyProfile');
     if (lista.length === 0) {
       this.infoSaved.emit(this.model);
     }
     this.requiredData = lista.toString();
+  }
+  _getTitle() {
+    if (this.adminZone) {
+      return h("h3", { class: "titleClient" }, "Informaci\u00F3n de la empresa/negocio");
+    }
+    else {
+      return h("h2", { class: "title" }, "2. Informaci\u00F3n de la empresa/negocio");
+    }
   }
   render() {
     return (h(Host, null,
@@ -59,7 +68,7 @@ export class EmprenderUfConpanyInformation {
         h("div", { class: "container" },
           h("div", { class: "row justify-content-center" },
             h("div", { class: "col" },
-              h("h2", { class: "title" }, "Informaci\u00F3n de la empresa/negocio"),
+              this._getTitle(),
               h("div", { class: "boxForm form p5" },
                 h("div", { class: "row" },
                   h("div", { class: "col-lg-6" },
@@ -72,7 +81,7 @@ export class EmprenderUfConpanyInformation {
                         h("option", { value: "no" }, "NO")))),
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { typeAddress: true, checkData: this.requiredData.indexOf('address') > -1, label: "Direcci\u00F3n de la vivienda", value: this.model.address, id: "direccion", onInputChange: ev => {
+                      h("emprender-cl-input", { typeAddress: !this.adminZone, checkData: this.requiredData.indexOf('address') > -1, label: "Direcci\u00F3n de la vivienda", value: this.model.address, id: "direccion", onInputChange: ev => {
                           this._setModel('address', ev.detail);
                         } }))),
                   h("div", { class: "col-lg-3 col-sm-6" },
@@ -143,13 +152,13 @@ export class EmprenderUfConpanyInformation {
                         h("option", { value: "9" }, "9"),
                         h("option", { value: "10" }, "10"),
                         h("option", { value: ">10" }, "M\u00E1s de 10")))))),
-              h("ul", { class: "inline flex-center-center mb20" },
+              this.adminZone || (h("ul", { class: "inline flex-center-center mb20" },
                 h("li", null,
                   h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })),
                 this.viewRegistration ? ('') : (h("li", null,
                   h("emprender-cl-button", { text: "Actualizar", modifiers: "medium quaternary", onclick: () => this.upgradeInfo.emit(this.model) }))),
                 h("li", null,
-                  h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this._checkSubmitInfo() })))))))));
+                  h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this._checkSubmitInfo() }))))))))));
   }
   static get is() { return "emprender-uf-company-profile"; }
   static get encapsulation() { return "shadow"; }
@@ -216,6 +225,24 @@ export class EmprenderUfConpanyInformation {
       "attribute": "view-registration",
       "reflect": false,
       "defaultValue": "true"
+    },
+    "adminZone": {
+      "type": "boolean",
+      "mutable": true,
+      "complexType": {
+        "original": "boolean",
+        "resolved": "boolean",
+        "references": {}
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "admin-zone",
+      "reflect": true,
+      "defaultValue": "false"
     }
   }; }
   static get states() { return {

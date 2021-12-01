@@ -12,6 +12,7 @@ export namespace Components {
         "requiredData": string;
     }
     interface EmprenderUfCompanyProfile {
+        "adminZone": boolean;
         "model": CompanyInformation;
         "requiredData": string;
         "viewRegistration": boolean;
@@ -33,12 +34,14 @@ export namespace Components {
         "requiredData": string;
     }
     interface EmprenderUfPersonalInformation3 {
+        "adminZone": boolean;
         "model": PersonalInformation;
         "model2": PersonalInformation2;
         "model3": BankInformation;
         "requiredData": string;
     }
     interface EmprenderUfReferences {
+        "adminZone": boolean;
         "flow": any;
         "model": References;
         "requiredData": string;
@@ -49,7 +52,10 @@ export namespace Components {
         "requiredData": string;
         "viewRegistration": boolean;
     }
+    interface EmprenderUserAdministrative {
+    }
     interface EmprenderUserBank {
+        "adminZone": boolean;
         "model": BankInformation;
         "requiredData": string;
     }
@@ -121,6 +127,12 @@ declare global {
         prototype: HTMLEmprenderUfWorkingInformationElement;
         new (): HTMLEmprenderUfWorkingInformationElement;
     };
+    interface HTMLEmprenderUserAdministrativeElement extends Components.EmprenderUserAdministrative, HTMLStencilElement {
+    }
+    var HTMLEmprenderUserAdministrativeElement: {
+        prototype: HTMLEmprenderUserAdministrativeElement;
+        new (): HTMLEmprenderUserAdministrativeElement;
+    };
     interface HTMLEmprenderUserBankElement extends Components.EmprenderUserBank, HTMLStencilElement {
     }
     var HTMLEmprenderUserBankElement: {
@@ -149,6 +161,7 @@ declare global {
         "emprender-uf-personal-information-3": HTMLEmprenderUfPersonalInformation3Element;
         "emprender-uf-references": HTMLEmprenderUfReferencesElement;
         "emprender-uf-working-information": HTMLEmprenderUfWorkingInformationElement;
+        "emprender-user-administrative": HTMLEmprenderUserAdministrativeElement;
         "emprender-user-bank": HTMLEmprenderUserBankElement;
         "emprender-user-forms": HTMLEmprenderUserFormsElement;
         "emprender-user-profile": HTMLEmprenderUserProfileElement;
@@ -162,6 +175,7 @@ declare namespace LocalJSX {
         "requiredData"?: string;
     }
     interface EmprenderUfCompanyProfile {
+        "adminZone"?: boolean;
         "model"?: CompanyInformation;
         "onBack"?: (event: CustomEvent<CompanyInformation>) => void;
         "onInfoSaved"?: (event: CustomEvent<CompanyInformation>) => void;
@@ -194,6 +208,7 @@ declare namespace LocalJSX {
         "requiredData"?: string;
     }
     interface EmprenderUfPersonalInformation3 {
+        "adminZone"?: boolean;
         "model"?: PersonalInformation;
         "model2"?: PersonalInformation2;
         "model3"?: BankInformation;
@@ -202,6 +217,7 @@ declare namespace LocalJSX {
         "requiredData"?: string;
     }
     interface EmprenderUfReferences {
+        "adminZone"?: boolean;
         "flow"?: any;
         "model"?: References;
         "onBack"?: (event: CustomEvent<References>) => void;
@@ -218,7 +234,10 @@ declare namespace LocalJSX {
         "requiredData"?: string;
         "viewRegistration"?: boolean;
     }
+    interface EmprenderUserAdministrative {
+    }
     interface EmprenderUserBank {
+        "adminZone"?: boolean;
         "model"?: BankInformation;
         "requiredData"?: string;
     }
@@ -248,6 +267,7 @@ declare namespace LocalJSX {
         "emprender-uf-personal-information-3": EmprenderUfPersonalInformation3;
         "emprender-uf-references": EmprenderUfReferences;
         "emprender-uf-working-information": EmprenderUfWorkingInformation;
+        "emprender-user-administrative": EmprenderUserAdministrative;
         "emprender-user-bank": EmprenderUserBank;
         "emprender-user-forms": EmprenderUserForms;
         "emprender-user-profile": EmprenderUserProfile;
@@ -266,6 +286,7 @@ declare module "@stencil/core" {
             "emprender-uf-personal-information-3": LocalJSX.EmprenderUfPersonalInformation3 & JSXBase.HTMLAttributes<HTMLEmprenderUfPersonalInformation3Element>;
             "emprender-uf-references": LocalJSX.EmprenderUfReferences & JSXBase.HTMLAttributes<HTMLEmprenderUfReferencesElement>;
             "emprender-uf-working-information": LocalJSX.EmprenderUfWorkingInformation & JSXBase.HTMLAttributes<HTMLEmprenderUfWorkingInformationElement>;
+            "emprender-user-administrative": LocalJSX.EmprenderUserAdministrative & JSXBase.HTMLAttributes<HTMLEmprenderUserAdministrativeElement>;
             "emprender-user-bank": LocalJSX.EmprenderUserBank & JSXBase.HTMLAttributes<HTMLEmprenderUserBankElement>;
             "emprender-user-forms": LocalJSX.EmprenderUserForms & JSXBase.HTMLAttributes<HTMLEmprenderUserFormsElement>;
             "emprender-user-profile": LocalJSX.EmprenderUserProfile & JSXBase.HTMLAttributes<HTMLEmprenderUserProfileElement>;

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const index = require('./index-fff3a53f.js');
-const service = require('./service-40d18c2b.js');
+const store = require('./store-0f849164.js');
 const utils = require('./utils-2fe1da8e.js');
 require('./helper-b3bc1886.js');
 
@@ -32,14 +32,14 @@ const EmprenderUserForms = class {
     this.step = 0;
     this.loading = false;
     this._getFlow = () => (this.flowType === 'employee' ? EMPLOYEE_FLOW : INDEPENDENT_FLOW);
-    this._getData = (field) => { var _a; return ((_a = service.state.currentUserInformation) !== null && _a !== void 0 ? _a : {})[field]; };
+    this._getData = (field) => { var _a; return ((_a = store.state.currentUserInformation) !== null && _a !== void 0 ? _a : {})[field]; };
     this.getLoadingGif = () => index.h("div", { class: "lds-dual-ring" });
   }
   async componentWillLoad() {
     await utils.loadCSS('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500&family=Varela+Round&display=swap');
     await utils.loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
     await utils.loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCYBy_5xXw_-nNeiMBfDqgfbXhuxB-mTQc&libraries=places', 'googleapi', 'text/javascript');
-    service.loadDefaultData();
+    store.loadDefaultData();
   }
   isLoading() {
     setTimeout(() => (this.loading = true), 800);
@@ -62,16 +62,16 @@ const EmprenderUserForms = class {
     }
   }
   saveInfo(field, data) {
-    service.setUserInformation(field, data);
+    store.setUserInformation(field, data);
     this._updateStep('up');
-    this.infoSaved.emit(service.state.currentUserInformation);
+    this.infoSaved.emit(store.state.currentUserInformation);
     if (field === 'references')
-      service.sendFetch(this.flowType);
+      store.sendFetch(this.flowType);
   }
   onBackPressed(field, data) {
-    service.setUserInformation(field, data);
+    store.setUserInformation(field, data);
     this._updateStep('down');
-    this.backSaved.emit(service.state.currentUserInformation);
+    this.backSaved.emit(store.state.currentUserInformation);
   }
   componentWillRender() {
     this.isLoading();

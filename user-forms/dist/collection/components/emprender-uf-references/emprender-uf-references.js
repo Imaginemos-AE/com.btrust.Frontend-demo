@@ -12,30 +12,43 @@ export class EmprenderUfReferences {
     };
     this.viewRegistration = true;
     this.requiredData = '';
+    this.adminZone = false;
   }
   _setModel(field, value) {
     this.model = Object.assign(Object.assign({}, this.model), { [field]: value });
   }
   _checkSubmitInfo() {
-    console.log('dato: ' + this.flow);
     const lista = checkData(this.model);
     if (lista.length === 0) {
       this.infoSaved.emit(this.model);
     }
     this.requiredData = lista.toString();
   }
-  _getSecondTitle() {
+  _getFirstTitle() {
     if (this.flow === 'independent') {
-      return this.viewRegistration ? 'Referencia Comercial' : '3. Referencia Comercial';
+      if (this.adminZone) {
+        return h("h3", { class: "titleClient" }, "Referencia Comercial");
+      }
+      else {
+        return h("h2", { class: "title" }, this.viewRegistration ? 'Referencia Comercial' : '3. Referencia Comercial');
+      }
     }
     else {
-      return this.viewRegistration ? 'Referencia Personal' : '3. Referencia Personal';
+      return h("h2", { class: "title" }, this.viewRegistration ? 'Referencia Personal' : '3. Referencia Personal');
+    }
+  }
+  _getSecondTitle() {
+    if (this.adminZone) {
+      return h("h3", { class: "titleClient" }, "Referencia Familiar");
+    }
+    else {
+      return h("h2", { class: "title" }, this.viewRegistration ? 'Referencia Familiar' : '3. Referencia Familiar');
     }
   }
   getSecondReferencie() {
     return (h("div", null,
-      h("h2", { class: "title" }, this._getSecondTitle()),
-      this.viewRegistration && this.flow === "independent" ? h("h4", null, "Completa la siguiente informaci\u00F3n") : '',
+      this._getFirstTitle(),
+      this.viewRegistration && this.flow === 'independent' ? h("h4", null, "Completa la siguiente informaci\u00F3n") : '',
       h("div", { class: "boxForm form p5" },
         h("fieldset", null,
           h("emprender-cl-input", { dataType: "texto", checkData: this.requiredData.indexOf('friendContactName') > -1, label: this.flow === 'independent' ? 'Nombre contacto comercial' : 'Nombre contacto personal', value: this.model.friendContactName, onInputChange: ev => this._setModel('friendContactName', ev.detail) })),
@@ -46,7 +59,7 @@ export class EmprenderUfReferences {
           h("div", { class: "col-md-6" },
             h("fieldset", null,
               h("emprender-cl-input", { dataType: "texto", label: this.flow === 'independent' ? 'Relación' : 'Relación / Parentesco', checkData: this.requiredData.indexOf('friendContactRelationship') > -1, value: this.model.friendContactRelationship, onInputChange: ev => this._setModel('friendContactRelationship', ev.detail) })))),
-        this.requiredData.length === 0 ? (console.log(this.requiredData.length)) : (h("div", { class: "errorText" },
+        this.requiredData.length === 0 ? null : (h("div", { class: "errorText" },
           h("emprender-cl-icon", { icon: "alert", path: 0 }),
           "Debes completar todos los campos marcados para poder continuar.")))));
   }
@@ -56,9 +69,9 @@ export class EmprenderUfReferences {
         h("div", { class: "container" },
           h("div", { class: "row justify-content-center" },
             h("div", { class: "col" },
-              this.flow === "independent" && this.getSecondReferencie(),
-              h("h2", { class: "title" }, this.viewRegistration ? 'Referencia Familiar' : '3. Referencia Familiar'),
-              this.viewRegistration && this.flow === "employee" ? h("h4", null, "Completa la siguiente informaci\u00F3n") : '',
+              this.flow === 'independent' && this.getSecondReferencie(),
+              this._getSecondTitle(),
+              this.viewRegistration && this.flow === 'employee' ? h("h4", null, "Completa la siguiente informaci\u00F3n") : '',
               h("div", { class: "boxForm form p5" },
                 h("fieldset", null,
                   h("emprender-cl-input", { dataType: "texto", checkData: this.requiredData.indexOf('familyContactName') > -1, label: "Nombre contacto familiar", value: this.model.familyContactName, onInputChange: ev => this._setModel('familyContactName', ev.detail) })),
@@ -69,14 +82,14 @@ export class EmprenderUfReferences {
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
                       h("emprender-cl-input", { dataType: "texto", checkData: this.requiredData.indexOf('familyContactRelationship') > -1, label: "Relaci\u00F3n / Parentesco", value: this.model.familyContactRelationship, onInputChange: ev => this._setModel('familyContactRelationship', ev.detail) }))))),
-              this.flow === "employee" && this.getSecondReferencie(),
-              h("ul", { class: "inline flex-center-center mb20" },
+              this.flow === 'employee' && this.getSecondReferencie(),
+              this.adminZone || (h("ul", { class: "inline flex-center-center mb20" },
                 h("li", null,
                   h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })),
                 this.viewRegistration ? ('') : (h("li", null,
                   h("emprender-cl-button", { text: "Terminar", modifiers: "medium quaternary", onclick: () => this._checkSubmitInfo() }))),
                 this.viewRegistration ? (h("li", null,
-                  h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this._checkSubmitInfo() }))) : ('')),
+                  h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this._checkSubmitInfo() }))) : (''))),
               h("slot", null)))))));
   }
   static get is() { return "emprender-uf-references"; }
@@ -161,6 +174,24 @@ export class EmprenderUfReferences {
       },
       "attribute": "flow",
       "reflect": true
+    },
+    "adminZone": {
+      "type": "boolean",
+      "mutable": true,
+      "complexType": {
+        "original": "boolean",
+        "resolved": "boolean",
+        "references": {}
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "admin-zone",
+      "reflect": true,
+      "defaultValue": "false"
     }
   }; }
   static get events() { return [{

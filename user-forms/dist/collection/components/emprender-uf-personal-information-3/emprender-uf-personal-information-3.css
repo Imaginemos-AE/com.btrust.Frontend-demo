@@ -130,6 +130,16 @@ fieldset {
   margin-bottom: 0;
 }
 
+h3.titleClient {
+  color: #4a4a4a;
+  font-size: 18px;
+  font-weight: 650;
+  margin-top: 0;
+  margin-bottom: 10 px;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+}
+
 /* Forms
 ============================================================ */
 .form fieldset {
@@ -339,7 +349,7 @@ section.clientForms {
   padding: 40px 0;
 }
 section.clientForms h2.title {
-  color: #4A4A4A;
+  color: #4a4a4a;
   font-size: 20px;
   font-weight: 600;
   margin-top: 0;
@@ -347,7 +357,7 @@ section.clientForms h2.title {
   font-family: "Open Sans", sans-serif;
 }
 section.clientForms .boxForm {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   padding: 20px 25px;
@@ -357,7 +367,7 @@ section.clientForms .wallet {
   padding-top: 20px;
 }
 section.clientForms .wallet .br {
-  border-right: 1px solid #CFCFCF;
+  border-right: 1px solid #cfcfcf;
 }
 section.clientForms .wallet .walletMUII {
   padding-right: 20px;
@@ -386,7 +396,7 @@ section.clientForms .wallet .bankAccountForm .boxForm {
   margin-bottom: 20px;
 }
 section.clientForms .wallet .bankAccountForm h6 {
-  color: #4A4A4A;
+  color: #4a4a4a;
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
   font-size: 14px;
@@ -394,7 +404,7 @@ section.clientForms .wallet .bankAccountForm h6 {
   margin-bottom: 20px;
 }
 section.clientForms .wallet .bankAccountForm p.italic {
-  color: #4A4A4A;
+  color: #4a4a4a;
   font-family: "Open Sans", sans-serif;
   font-style: italic;
   text-align: center;
@@ -408,7 +418,7 @@ section.clientForms .wallet .bankAccountForm p.italic {
   margin-bottom: 20px;
 }
 .bankAccountForm h6 {
-  color: #4A4A4A;
+  color: #4a4a4a;
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
   font-size: 14px;
@@ -416,7 +426,7 @@ section.clientForms .wallet .bankAccountForm p.italic {
   margin-bottom: 20px;
 }
 .bankAccountForm p.italic {
-  color: #4A4A4A;
+  color: #4a4a4a;
   font-family: "Open Sans", sans-serif;
   font-style: italic;
   text-align: center;
@@ -454,7 +464,7 @@ section.clientForms .wallet .bankAccountForm p.italic {
   top: -2px;
 }
 .steps .cont .progress {
-  background-color: #EFEFEF;
+  background-color: #efefef;
   border-radius: 6px;
   height: 10px;
   max-width: 400px;
@@ -487,7 +497,7 @@ section.clientForms .wallet .bankAccountForm p.italic {
 .multiStep ul.info li span.number {
   font-family: "Open Sans", sans-serif;
   border-radius: 100%;
-  color: #FFFFFF;
+  color: #ffffff;
   display: block;
   font-size: 20px;
   float: left;
@@ -501,7 +511,7 @@ section.clientForms .wallet .bankAccountForm p.italic {
 }
 .multiStep ul.info li span.text {
   font-family: "Open Sans", sans-serif;
-  color: #4A4A4A;
+  color: #4a4a4a;
   font-weight: 600;
   display: block;
   float: left;
@@ -510,7 +520,7 @@ section.clientForms .wallet .bankAccountForm p.italic {
   top: 3px;
 }
 .multiStep .progress {
-  background-color: #EFEFEF;
+  background-color: #efefef;
   border-radius: 6px;
   height: 10px;
 }

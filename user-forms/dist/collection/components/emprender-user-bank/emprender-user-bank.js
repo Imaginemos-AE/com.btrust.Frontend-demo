@@ -1,7 +1,7 @@
 import { Component, Host, h, Prop } from '@stencil/core';
 import { checkData2 } from '../../module/validation';
 import { loadCSS, loadScript } from '../../utils/utils';
-import { setBankInformation } from '../../server/service';
+import { setUserInformation } from '../../module/store';
 import { getDataByField } from '../../module/helper';
 export class EmprenderUfReferences {
   constructor() {
@@ -11,6 +11,7 @@ export class EmprenderUfReferences {
       accountNumber: '',
     };
     this.requiredData = '';
+    this.adminZone = false;
   }
   async componentWillLoad() {
     await loadCSS('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500&family=Varela+Round&display=swap');
@@ -25,13 +26,15 @@ export class EmprenderUfReferences {
   _checkSubmitInfo() {
     const lista = checkData2(this.model, 'bankInformation');
     if (lista.length === 0) {
-      setBankInformation(this.model);
-      window.location.href = "https://credito.muii.com.co/zona-privada/#/credit-result";
+      setUserInformation('bankInformation', this.model);
+      //this.infoSaved.emit(this.model,"");
+      // setBankInformation(this.model);
+      //window.location.href="https://credito.muii.com.co/zona-privada/#/credit-result";
     }
     this.requiredData = lista.toString();
   }
-  render() {
-    return (h(Host, null,
+  _getFormStructure() {
+    return (h("div", null,
       h("fieldset", null,
         h("emprender-cl-select", { checkData: this.requiredData.indexOf('bankName') > -1, label: "Selecciona tu banco", value: this.model.bankName, onSelectChange: ev => this._setModel('bankName', ev.detail) },
           h("option", { value: "bancamia s.a." }, "BANCAMIA S.A."),
@@ -69,10 +72,19 @@ export class EmprenderUfReferences {
           h("option", null, "Ahorro"),
           h("option", null, "Corriente"))),
       h("fieldset", { class: "mb20" },
-        h("emprender-cl-input", { dataType: "numerico", checkData: this.requiredData.indexOf('accountNumber') > -1, label: "Ingresa el n\u00FAmero de cuenta", value: this.model.accountNumber, onInputChange: ev => this._setModel('accountNumber', ev.detail) })),
+        h("emprender-cl-input", { dataType: "numerico", checkData: this.requiredData.indexOf('accountNumber') > -1, label: "Ingresa el n\u00FAmero de cuenta", value: this.model.accountNumber, onInputChange: ev => this._setModel('accountNumber', ev.detail) }))));
+  }
+  render() {
+    return (h(Host, null, this.adminZone ? (h("section", { class: "clientForms" },
+      h("div", { class: "container" },
+        h("div", { class: "row justify-content-center" },
+          h("div", { class: "col" },
+            !this.adminZone ? null : h("h3", { class: "titleClient" }, "Informaci\u00F3n Bancaria"),
+            h("div", { class: "boxForm form p5" }, this._getFormStructure())))))) : (h("div", null,
+      this._getFormStructure(),
       h("ul", { class: "inline flex-center-center" },
         h("li", null,
-          h("emprender-cl-button", { text: "Enviar datos bancarios", modifiers: "medium primary", onClick: () => this._checkSubmitInfo() })))));
+          h("emprender-cl-button", { text: "Enviar datos bancarios", modifiers: "medium primary", onClick: () => this._checkSubmitInfo() })))))));
   }
   static get is() { return "emprender-user-bank"; }
   static get encapsulation() { return "shadow"; }
@@ -121,6 +133,24 @@ export class EmprenderUfReferences {
       "attribute": "required-data",
       "reflect": true,
       "defaultValue": "''"
+    },
+    "adminZone": {
+      "type": "boolean",
+      "mutable": false,
+      "complexType": {
+        "original": "boolean",
+        "resolved": "boolean",
+        "references": {}
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "admin-zone",
+      "reflect": false,
+      "defaultValue": "false"
     }
   }; }
 }

@@ -9,6 +9,7 @@
     "./components/emprender-uf-personal-information-3/emprender-uf-personal-information-3.js",
     "./components/emprender-uf-references/emprender-uf-references.js",
     "./components/emprender-uf-working-information/emprender-uf-working-information.js",
+    "./components/emprender-user-administrative/emprender-user-administrative.js",
     "./components/emprender-user-bank/emprender-user-bank.js",
     "./components/emprender-user-forms/emprender-user-forms.js",
     "./components/emprender-user-profile/emprender-user-profile.js"

@@ -43,6 +43,7 @@ export class EmprenderUfPersonalInformation3 {
       accountNumber: '',
     };
     this.requiredData = '';
+    this.adminZone = false;
     this.departments = COUNTRY;
   }
   _setModel(field, value) {
@@ -70,12 +71,20 @@ export class EmprenderUfPersonalInformation3 {
   }
   _checkSubmitInfo() {
     //recuerda model3
-    const lista = checkData2(Object.assign(Object.assign({}, this.model), this.model2), "informationProfile");
+    const lista = checkData2(Object.assign(Object.assign({}, this.model), this.model2), 'informationProfile');
     if (lista.length === 0) {
       this.upgradeInfo.emit([this.model, this.model2, this.model3, 'up']);
     }
     console.log(lista);
     this.requiredData = lista.toString();
+  }
+  _getTitle() {
+    if (this.adminZone) {
+      return h("h3", { class: "titleClient" }, "Informaci\u00F3n Personal");
+    }
+    else {
+      return h("h2", { class: "title" }, "1. Informaci\u00F3n Personal");
+    }
   }
   render() {
     return (h(Host, null,
@@ -83,7 +92,7 @@ export class EmprenderUfPersonalInformation3 {
         h("div", { class: "container" },
           h("div", { class: "row justify-content-center" },
             h("div", { class: "col" },
-              h("h2", { class: "title" }, "1. Informaci\u00F3n Personal"),
+              this._getTitle(),
               h("div", { class: "boxForm form p5" },
                 h("div", { class: "row" },
                   h("div", { class: "col-md-4" },
@@ -142,7 +151,7 @@ export class EmprenderUfPersonalInformation3 {
                             h("emprender-cl-select", { checkData: this.requiredData.indexOf('cityOfResidence') > -1, value: this.model2.cityOfResidence, options: this._getSelectCitiesOptions('departmentOfResidence'), onSelectChange: ev => this._setModel('cityOfResidence', ev.detail) })))))),
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('address') > -1, typeAddress: true, label: "Direcci\u00F3n de la vivienda", value: this.model2.address, id: "direccion", onInputChange: ev => {
+                      h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('address') > -1, typeAddress: !this.adminZone, label: "Direcci\u00F3n de la vivienda", value: this.model2.address, id: "direccion", onInputChange: ev => {
                           this._setModel2('address', ev.detail);
                         } }))),
                   h("div", { class: "col-lg-3 col-sm-6" },
@@ -208,11 +217,11 @@ export class EmprenderUfPersonalInformation3 {
                         // dataType="numerico"
                         // checkData={this.requiredData.indexOf('accountNumber') > -1 }
                         label: "N\u00FAmero Cuenta Bancaria", value: this.model3.accountNumber, onInputChange: ev => this._setModel3('accountNumber', ev.detail) }))))),
-              h("ul", { class: "inline flex-center-center mb20" },
+              this.adminZone || (h("ul", { class: "inline flex-center-center mb20" },
                 h("li", null,
                   h("emprender-cl-button", { text: "Actualizar", modifiers: "medium quaternary", onclick: () => this.upgradeInfo.emit([this.model, this.model2, this.model3, '']) })),
                 h("li", null,
-                  h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this._checkSubmitInfo() }))),
+                  h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this._checkSubmitInfo() })))),
               h("slot", null)))))));
   }
   static get is() { return "emprender-uf-personal-information-3"; }
@@ -304,6 +313,24 @@ export class EmprenderUfPersonalInformation3 {
       "attribute": "required-data",
       "reflect": true,
       "defaultValue": "''"
+    },
+    "adminZone": {
+      "type": "boolean",
+      "mutable": true,
+      "complexType": {
+        "original": "boolean",
+        "resolved": "boolean",
+        "references": {}
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "admin-zone",
+      "reflect": true,
+      "defaultValue": "false"
     }
   }; }
   static get states() { return {

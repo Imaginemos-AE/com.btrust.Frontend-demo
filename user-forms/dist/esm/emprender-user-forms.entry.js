@@ -1,5 +1,5 @@
 import { r as registerInstance, c as createEvent, h, H as Host } from './index-8397afa9.js';
-import { a as state, l as loadDefaultData, b as setUserInformation, c as sendFetch } from './service-d7fc81c3.js';
+import { a as state, l as loadDefaultData, s as setUserInformation, b as sendFetch } from './store-a0adeb10.js';
 import { l as loadCSS, a as loadScript } from './utils-84851d0f.js';
 import './helper-11be9261.js';
 

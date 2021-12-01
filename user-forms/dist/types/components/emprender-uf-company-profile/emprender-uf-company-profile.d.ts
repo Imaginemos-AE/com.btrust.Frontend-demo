@@ -9,6 +9,7 @@ export declare class EmprenderUfConpanyInformation {
   }[];
   requiredData: string;
   viewRegistration: boolean;
+  adminZone: boolean;
   infoSaved: EventEmitter<CompanyInformation>;
   back: EventEmitter<CompanyInformation>;
   upgradeInfo: EventEmitter<CompanyInformation>;
@@ -23,5 +24,6 @@ export declare class EmprenderUfConpanyInformation {
   }[];
   _selectDropdownOption(field: string, value: string, clearField: string): void;
   _checkSubmitInfo(): void;
+  _getTitle(): any;
   render(): any;
 }

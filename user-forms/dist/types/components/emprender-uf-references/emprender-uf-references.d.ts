@@ -5,12 +5,14 @@ export declare class EmprenderUfReferences {
   viewRegistration: boolean;
   requiredData: string;
   flow: any;
+  adminZone: boolean;
   infoSaved: EventEmitter<References>;
   back: EventEmitter<References>;
   upgradeInfo: EventEmitter<References>;
   _setModel(field: string, value: string): void;
   _checkSubmitInfo(): void;
-  _getSecondTitle(): "Referencia Comercial" | "3. Referencia Comercial" | "Referencia Personal" | "3. Referencia Personal";
+  _getFirstTitle(): any;
+  _getSecondTitle(): any;
   getSecondReferencie(): any;
   render(): any;
 }

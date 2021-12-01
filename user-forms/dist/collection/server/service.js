@@ -104,13 +104,6 @@ function getReferencias(data) {
     relacionContactoAmigo: data['friendContactRelationship']
   };
 }
-// function getInfoBancaria(data: any){
-//   return    {
-//     nombreBanco: data['bankName'],
-//     tipoCuenta:  data['accountType'],
-//     numeroCuenta: data['accountType'],
-//     };
-// }
 function getInfoEconomicaCompania(data) {
   return {
     ingresosVentas: parseFloat(data['salesIncome']),
