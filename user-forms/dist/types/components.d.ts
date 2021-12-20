@@ -18,10 +18,12 @@ export namespace Components {
         "viewRegistration": boolean;
     }
     interface EmprenderUfFinancialCompany {
+        "adminZone": boolean;
         "model": FinancialCompanyInformation;
         "requiredData": any[];
     }
     interface EmprenderUfFinancialInformation {
+        "adminZone": boolean;
         "model": FinancialInformation;
         "requiredData": any[];
     }
@@ -53,6 +55,9 @@ export namespace Components {
         "viewRegistration": boolean;
     }
     interface EmprenderUserAdministrative {
+        "documentId": string;
+        "flowType": 'employee' | 'independent';
+        "userInformation": any;
     }
     interface EmprenderUserBank {
         "adminZone": boolean;
@@ -184,12 +189,14 @@ declare namespace LocalJSX {
         "viewRegistration"?: boolean;
     }
     interface EmprenderUfFinancialCompany {
+        "adminZone"?: boolean;
         "model"?: FinancialCompanyInformation;
         "onBack"?: (event: CustomEvent<FinancialCompanyInformation>) => void;
         "onInfoSaved"?: (event: CustomEvent<FinancialCompanyInformation>) => void;
         "requiredData"?: any[];
     }
     interface EmprenderUfFinancialInformation {
+        "adminZone"?: boolean;
         "model"?: FinancialInformation;
         "onBack"?: (event: CustomEvent<FinancialInformation>) => void;
         "onInfoSaved"?: (event: CustomEvent<FinancialInformation>) => void;
@@ -235,6 +242,9 @@ declare namespace LocalJSX {
         "viewRegistration"?: boolean;
     }
     interface EmprenderUserAdministrative {
+        "documentId"?: string;
+        "flowType"?: 'employee' | 'independent';
+        "userInformation"?: any;
     }
     interface EmprenderUserBank {
         "adminZone"?: boolean;

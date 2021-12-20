@@ -34,7 +34,12 @@ export class EmprenderUfReferences {
       }
     }
     else {
-      return h("h2", { class: "title" }, this.viewRegistration ? 'Referencia Personal' : '3. Referencia Personal');
+      if (this.adminZone) {
+        return h("h3", { class: "titleClient" }, "Referencia Personal");
+      }
+      else {
+        return h("h2", { class: "title" }, this.viewRegistration ? 'Referencia Personal' : '3. Referencia Personal');
+      }
     }
   }
   _getSecondTitle() {

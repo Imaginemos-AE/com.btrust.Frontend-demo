@@ -5,6 +5,7 @@ export declare class EmprenderUfFinancialInformation {
   componentWillLoad(): Promise<void>;
   infoSaved: EventEmitter<FinancialCompanyInformation>;
   back: EventEmitter<FinancialCompanyInformation>;
+  adminZone: boolean;
   requiredData: any[];
   _setModel(field: string, value: string, reloadModel?: boolean): void;
   _calculateTotalIncomes(field: string, value: string): void;

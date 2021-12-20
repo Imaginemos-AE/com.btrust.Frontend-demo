@@ -23,6 +23,7 @@ export class EmprenderUfFinancialInformation {
       totalAssets: null,
       totalLiabilities: null,
     };
+    this.adminZone = false;
     this.requiredData = [];
   }
   async componentWillLoad() {
@@ -86,8 +87,8 @@ export class EmprenderUfFinancialInformation {
         h("div", { class: "container" },
           h("div", { class: "row justify-content-center" },
             h("div", { class: "col" },
-              h("h2", { class: "title" }, "Informaci\u00F3n Financiera"),
-              h("h4", null, "Completa la siguiente informaci\u00F3n"),
+              this.adminZone ? h("h3", { class: "titleClient" }, "Informaci\u00F3n Financiera") : h("h2", { class: "title" }, "Informaci\u00F3n Financiera"),
+              this.adminZone || h("h4", null, "Completa la siguiente informaci\u00F3n"),
               h("div", { class: "boxForm form p5" },
                 h("div", { class: "row" },
                   h("div", { class: "col-md-6" },
@@ -150,7 +151,7 @@ export class EmprenderUfFinancialInformation {
               this.requiredData.length === 0 ? null : (h("div", { class: "errorText" },
                 h("emprender-cl-icon", { icon: "alert", path: 0 }),
                 "Debes completar todos los campos marcados para poder continuar.")),
-              h("ul", { class: "inline flex-center-center mb20" },
+              this.adminZone || h("ul", { class: "inline flex-center-center mb20" },
                 h("li", null,
                   h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })),
                 h("li", null,
@@ -186,6 +187,24 @@ export class EmprenderUfFinancialInformation {
         "text": ""
       },
       "defaultValue": "{\r\n    salesIncome: null,\r\n    rentIncome: null,\r\n    activityIncome: null,\r\n    otherIncomes: null,\r\n    otherIncomesDescription: '',\r\n    incomeSupport: '',\r\n    otherExpenses: null,\r\n    otherExpensesDescription: '',\r\n    personalExpenses: null,\r\n    rentExpenses: null,\r\n    debtExpenses: null,\r\n    businessExpenses: null,\r\n    totalIncomes: 0,\r\n    totalExpenses: 0,\r\n    totalAssets: null,\r\n    totalLiabilities: null,\r\n  }"
+    },
+    "adminZone": {
+      "type": "boolean",
+      "mutable": true,
+      "complexType": {
+        "original": "boolean",
+        "resolved": "boolean",
+        "references": {}
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "admin-zone",
+      "reflect": true,
+      "defaultValue": "false"
     },
     "requiredData": {
       "type": "unknown",

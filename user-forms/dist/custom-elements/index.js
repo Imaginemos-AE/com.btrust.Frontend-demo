@@ -391,7 +391,7 @@ const createStore = (defaultState, shouldUpdate) => {
     return map;
 };
 
-function getInformacionPersonal(data, flowType) {
+function getInformacionPersonal$1(data, flowType) {
   return {
     primerNombre: data['firstName'],
     segundoNombre: data['middleName'],
@@ -413,7 +413,7 @@ function getInformacionPersonal(data, flowType) {
     tipoCliente: flowType
   };
 }
-function getInfoSocioDemografica(data) {
+function getInfoSocioDemografica$1(data) {
   var _a, _b;
   return {
     nivelAcademico: data['academicLevel'],
@@ -445,7 +445,7 @@ function getInfoLaboral(data) {
     extencion: data['companyPhoneExtension'],
   };
 }
-function getInfoEconomica(data) {
+function getInfoEconomica$1(data) {
   return {
     ingresosSalario: parseFloat(data['salaryIncome']),
     ingresosOtros: data['otherIncomes'] === '' || data['otherIncomes'] === null ? 0 : parseFloat(data['otherIncomes']),
@@ -462,7 +462,7 @@ function getInfoEconomica(data) {
     totalGastos: parseFloat(data['totalExpenses']),
   };
 }
-function getCompanyInformation(data) {
+function getCompanyInformation$1(data) {
   var _a, _b;
   return {
     nombreCompania: data['companyName'],
@@ -486,7 +486,7 @@ function getCompanyInformation(data) {
     otroDestino: data['otherDestiny'],
   };
 }
-function getReferencias(data) {
+function getReferencias$1(data) {
   return {
     nombreContactoFamiliar: data['familyContactName'],
     celularContactoFamiliar: data['familyContactPhone'],
@@ -496,7 +496,7 @@ function getReferencias(data) {
     relacionContactoAmigo: data['friendContactRelationship']
   };
 }
-function getInfoEconomicaCompania(data) {
+function getInfoEconomicaCompania$1(data) {
   return {
     ingresosVentas: parseFloat(data['salesIncome']),
     ingresosArriendo: parseFloat(data['rentIncome']),
@@ -517,18 +517,18 @@ function getInfoEconomicaCompania(data) {
   };
 }
 function getJsonModelData(stateData, flowType) {
-  let informacionPersonal = getInformacionPersonal(stateData['personalInformation'], flowType);
-  let infoReferencias = getReferencias(stateData['references']);
-  let infoSocioDemografica = getInfoSocioDemografica(stateData['personalInformation2']);
+  let informacionPersonal = getInformacionPersonal$1(stateData['personalInformation'], flowType);
+  let infoReferencias = getReferencias$1(stateData['references']);
+  let infoSocioDemografica = getInfoSocioDemografica$1(stateData['personalInformation2']);
   let data;
   if (flowType === 'employee') {
-    let infoEconomica = getInfoEconomica(stateData['financialInformation']);
+    let infoEconomica = getInfoEconomica$1(stateData['financialInformation']);
     let infoLaboral = getInfoLaboral(stateData['workingInformation']);
     data = Object.assign(Object.assign({}, informacionPersonal), { infoReferencias, infoEconomica, infoSocioDemografica, infoLaboral });
   }
   else {
-    let infoCompania = getCompanyInformation(stateData['companyInformation']);
-    let infoEconomicaCompania = getInfoEconomicaCompania(stateData['financialCompany']);
+    let infoCompania = getCompanyInformation$1(stateData['companyInformation']);
+    let infoEconomicaCompania = getInfoEconomicaCompania$1(stateData['financialCompany']);
     data = Object.assign(Object.assign({}, informacionPersonal), { infoReferencias, infoEconomicaCompania, infoCompania, infoSocioDemografica });
   }
   var myHeaders = new Headers();
@@ -802,6 +802,7 @@ const EmprenderUfFinancialInformation$2 = class extends HTMLElement {
       totalAssets: null,
       totalLiabilities: null,
     };
+    this.adminZone = false;
     this.requiredData = [];
   }
   async componentWillLoad() {
@@ -860,7 +861,7 @@ const EmprenderUfFinancialInformation$2 = class extends HTMLElement {
     }
   }
   render() {
-    return (h(Host, null, h("section", { class: "employeeRegistration" }, h("div", { class: "container" }, h("div", { class: "row justify-content-center" }, h("div", { class: "col" }, h("h2", { class: "title" }, "Informaci\u00F3n Financiera"), h("h4", null, "Completa la siguiente informaci\u00F3n"), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('salesIncome') > -1, label: 'Ingresos mensuales por concepto de ventas', value: this.model.salesIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('salesIncome', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumericoOpcional", checkData: this.requiredData.indexOf('otherIncome') > -1, label: "Otros ingresos mensuales", value: this.model.otherIncomes, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('otherIncomes', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('activityIncome') > -1, label: 'Ingresos mensuales por tu actividad', value: this.model.activityIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('activityIncome', ev.detail) }))), h("div", { class: "col-md-6" }, !this._validateOtherInformation('otherIncomes') && (h("fieldset", null, h("emprender-cl-input", { dataType: this.model.otherIncomes !== 0 || this.model.otherIncomes !== null ? 'texto' : 'textoOpcional', label: "Descripci\u00F3n otros ingresos mensuales", checkData: this.requiredData.indexOf('otherIncomesDescription') > -1, value: this.model.otherIncomesDescription, onInputChange: ev => this._setModel('otherIncomesDescription', ev.detail) })))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('rentIncome') > -1, label: 'Ingresos por concepto de arrendamiento', value: this.model.rentIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('rentIncome', ev.detail) }))), h("div", { class: "col-lg-6" }, h("fieldset", { class: "flex-center-center" }, h("label", { class: this.requiredData.indexOf('incomeSupport') > -1 && this.model.incomeSupport === "" ? 'checkData_label' : '' }, "Adjuntar soporte de ingresos (Facturas/declaraci\u00F3n de renta)"), h("div", { class: "control" }, h("input", { class: "file", id: "file", type: "file", onChange: ($event) => this.onInputChange($event.target.files) }), h("label", { htmlFor: "file" }, h("span", { class: "fakebutton button small primary block" }, "Clic para adjuntar"), h("span", { class: this.requiredData.indexOf('incomeSupport') > -1 && this.model.incomeSupport === "" ? 'filetext checkData_label' : 'filetext' }, this.model.incomeSupport !== '' ? this.model.incomeSupport : 'Ningún archivo seleccionado'))))), h("fieldset", { class: "totalBox" }, h("label", null, "Total ingresos mensuales: ", h("span", null, formatNumber(this.model.totalIncomes)))))), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Egresos mensuales por costos y gastos del negocio", checkData: this.requiredData.indexOf('businessExpenses') > -1, value: this.model.businessExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('businessExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Tus egresos mensuales por pago de deuda", checkData: this.requiredData.indexOf('debtExpenses') > -1, value: this.model.debtExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('debtExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Egresos mensuales por pago de arriendos", checkData: this.requiredData.indexOf('rentExpenses') > -1, value: this.model.rentExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('rentExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Tus egresos mensuales personales / familiares", checkData: this.requiredData.indexOf('personalExpenses') > -1, value: this.model.personalExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('personalExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumericoOpcional", label: "Otros egresos mensuales", value: this.model.otherExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('otherExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, !this._validateOtherInformation('otherExpenses') && (h("fieldset", null, h("emprender-cl-input", { dataType: this.model.otherIncomes !== 0 || this.model.otherIncomes !== null ? 'texto' : 'textoOpcional', label: "Descripci\u00F3n otros egresos mensuales", checkData: this.requiredData.indexOf('otherExpensesDescription') > -1, value: this.model.otherExpensesDescription, onInputChange: ev => this._setModel('otherExpensesDescription', ev.detail) }))))), h("fieldset", { class: "totalBox" }, h("label", null, "Total egresos mensuales: ", h("span", null, formatNumber(this.model.totalExpenses))))), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Total Activos", checkData: this.requiredData.indexOf('totalAssets') > -1, value: this.model.totalAssets, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('totalAssets', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Total Pasivos", checkData: this.requiredData.indexOf('totalLiabilities') > -1, value: this.model.totalLiabilities, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('totalLiabilities', ev.detail) }))))), this.requiredData.length === 0 ? null : (h("div", { class: "errorText" }, h("emprender-cl-icon", { icon: "alert", path: 0 }), "Debes completar todos los campos marcados para poder continuar.")), h("ul", { class: "inline flex-center-center mb20" }, h("li", null, h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })), h("li", null, h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this._checkSubmitInfo() }))), h("slot", null)))))));
+    return (h(Host, null, h("section", { class: "employeeRegistration" }, h("div", { class: "container" }, h("div", { class: "row justify-content-center" }, h("div", { class: "col" }, this.adminZone ? h("h3", { class: "titleClient" }, "Informaci\u00F3n Financiera") : h("h2", { class: "title" }, "Informaci\u00F3n Financiera"), this.adminZone || h("h4", null, "Completa la siguiente informaci\u00F3n"), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('salesIncome') > -1, label: 'Ingresos mensuales por concepto de ventas', value: this.model.salesIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('salesIncome', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumericoOpcional", checkData: this.requiredData.indexOf('otherIncome') > -1, label: "Otros ingresos mensuales", value: this.model.otherIncomes, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('otherIncomes', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('activityIncome') > -1, label: 'Ingresos mensuales por tu actividad', value: this.model.activityIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('activityIncome', ev.detail) }))), h("div", { class: "col-md-6" }, !this._validateOtherInformation('otherIncomes') && (h("fieldset", null, h("emprender-cl-input", { dataType: this.model.otherIncomes !== 0 || this.model.otherIncomes !== null ? 'texto' : 'textoOpcional', label: "Descripci\u00F3n otros ingresos mensuales", checkData: this.requiredData.indexOf('otherIncomesDescription') > -1, value: this.model.otherIncomesDescription, onInputChange: ev => this._setModel('otherIncomesDescription', ev.detail) })))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('rentIncome') > -1, label: 'Ingresos por concepto de arrendamiento', value: this.model.rentIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('rentIncome', ev.detail) }))), h("div", { class: "col-lg-6" }, h("fieldset", { class: "flex-center-center" }, h("label", { class: this.requiredData.indexOf('incomeSupport') > -1 && this.model.incomeSupport === "" ? 'checkData_label' : '' }, "Adjuntar soporte de ingresos (Facturas/declaraci\u00F3n de renta)"), h("div", { class: "control" }, h("input", { class: "file", id: "file", type: "file", onChange: ($event) => this.onInputChange($event.target.files) }), h("label", { htmlFor: "file" }, h("span", { class: "fakebutton button small primary block" }, "Clic para adjuntar"), h("span", { class: this.requiredData.indexOf('incomeSupport') > -1 && this.model.incomeSupport === "" ? 'filetext checkData_label' : 'filetext' }, this.model.incomeSupport !== '' ? this.model.incomeSupport : 'Ningún archivo seleccionado'))))), h("fieldset", { class: "totalBox" }, h("label", null, "Total ingresos mensuales: ", h("span", null, formatNumber(this.model.totalIncomes)))))), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Egresos mensuales por costos y gastos del negocio", checkData: this.requiredData.indexOf('businessExpenses') > -1, value: this.model.businessExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('businessExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Tus egresos mensuales por pago de deuda", checkData: this.requiredData.indexOf('debtExpenses') > -1, value: this.model.debtExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('debtExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Egresos mensuales por pago de arriendos", checkData: this.requiredData.indexOf('rentExpenses') > -1, value: this.model.rentExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('rentExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Tus egresos mensuales personales / familiares", checkData: this.requiredData.indexOf('personalExpenses') > -1, value: this.model.personalExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('personalExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumericoOpcional", label: "Otros egresos mensuales", value: this.model.otherExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('otherExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, !this._validateOtherInformation('otherExpenses') && (h("fieldset", null, h("emprender-cl-input", { dataType: this.model.otherIncomes !== 0 || this.model.otherIncomes !== null ? 'texto' : 'textoOpcional', label: "Descripci\u00F3n otros egresos mensuales", checkData: this.requiredData.indexOf('otherExpensesDescription') > -1, value: this.model.otherExpensesDescription, onInputChange: ev => this._setModel('otherExpensesDescription', ev.detail) }))))), h("fieldset", { class: "totalBox" }, h("label", null, "Total egresos mensuales: ", h("span", null, formatNumber(this.model.totalExpenses))))), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Total Activos", checkData: this.requiredData.indexOf('totalAssets') > -1, value: this.model.totalAssets, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('totalAssets', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Total Pasivos", checkData: this.requiredData.indexOf('totalLiabilities') > -1, value: this.model.totalLiabilities, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('totalLiabilities', ev.detail) }))))), this.requiredData.length === 0 ? null : (h("div", { class: "errorText" }, h("emprender-cl-icon", { icon: "alert", path: 0 }), "Debes completar todos los campos marcados para poder continuar.")), this.adminZone || h("ul", { class: "inline flex-center-center mb20" }, h("li", null, h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })), h("li", null, h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this._checkSubmitInfo() }))), h("slot", null)))))));
   }
   static get style() { return emprenderUfFinancialCompanyCss; }
 };
@@ -889,6 +890,7 @@ const EmprenderUfFinancialInformation$1 = class extends HTMLElement {
       totalAssets: null,
       totalLiabilities: null,
     };
+    this.adminZone = false;
     this.requiredData = [];
   }
   _setModel(field, value, reloadModel = true) {
@@ -936,7 +938,7 @@ const EmprenderUfFinancialInformation$1 = class extends HTMLElement {
     this.requiredData = lista;
   }
   render() {
-    return (h(Host, null, h("section", { class: "employeeRegistration" }, h("div", { class: "container" }, h("div", { class: "row justify-content-center" }, h("div", { class: "col" }, h("h2", { class: "title" }, "Informaci\u00F3n Financiera"), h("h4", null, "Completa la siguiente informaci\u00F3n"), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('salaryIncome') > -1, label: "Ingresos mensuales por concepto de salario fijo", value: this.model.salaryIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('salaryIncome', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { label: "Otros ingresos mensuales", value: this.model.otherIncomes, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('otherIncomes', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { label: "Ingresos mensuales por concepto de salario variable", value: this.model.variableSalaryIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('variableSalaryIncome', ev.detail) }))), h("div", { class: "col-md-6" }, !this._validateOtherInformation('otherIncomes') && (h("fieldset", null, h("emprender-cl-input", { dataType: this.model.otherIncomes !== 0 || this.model.otherIncomes !== null ? 'texto' : 'textoOpcional', label: "Descripci\u00F3n otros ingresos mensuales", checkData: this.requiredData.indexOf('otherIncomesDescription') > -1, value: this.model.otherIncomesDescription, onInputChange: ev => this._setModel('otherIncomesDescription', ev.detail) })))), h("fieldset", { class: "totalBox mt0" }, h("label", null, "Total ingresos mensuales: ", h("span", null, formatNumber(this.model.totalIncomes)))))), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Tus egresos mensuales por pago de deuda", checkData: this.requiredData.indexOf('debtExpenses') > -1, value: this.model.debtExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('debtExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Egresos mensuales por pago de arriendos", checkData: this.requiredData.indexOf('rentExpenses') > -1, value: this.model.rentExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('rentExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Tus egresos mensuales personales / familiares", checkData: this.requiredData.indexOf('personalExpenses') > -1, value: this.model.personalExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('personalExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumericoOpcional", label: "Otros egresos mensuales", value: this.model.otherExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('otherExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, !this._validateOtherInformation('otherExpenses') && (h("fieldset", null, h("emprender-cl-input", { dataType: this.model.otherIncomes !== 0 || this.model.otherIncomes !== null ? 'texto' : 'textoOpcional', label: "Descripci\u00F3n otros egresos mensuales", checkData: this.requiredData.indexOf('otherExpensesDescription') > -1, value: this.model.otherExpensesDescription, onInputChange: ev => this._setModel('otherExpensesDescription', ev.detail) }))))), h("fieldset", { class: "totalBox" }, h("label", null, "Total egresos mensuales: ", h("span", null, formatNumber(this.model.totalExpenses))))), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Total Activos", checkData: this.requiredData.indexOf('totalAssets') > -1, value: this.model.totalAssets, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('totalAssets', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Total Pasivos", checkData: this.requiredData.indexOf('totalLiabilities') > -1, value: this.model.totalLiabilities, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('totalLiabilities', ev.detail) }))))), this.requiredData.length === 0 ? null : (h("div", { class: "errorText" }, h("emprender-cl-icon", { icon: "alert", path: 0 }), "Debes completar todos los campos marcados para poder continuar.")), h("ul", { class: "inline flex-center-center mb20" }, h("li", null, h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })), h("li", null, h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this._checkSubmitInfo() }))), h("slot", null)))))));
+    return (h(Host, null, h("section", { class: "employeeRegistration" }, h("div", { class: "container" }, h("div", { class: "row justify-content-center" }, h("div", { class: "col" }, this.adminZone ? h("h3", { class: "titleClient" }, "Informaci\u00F3n Financiera") : h("h2", { class: "title" }, "Informaci\u00F3n Financiera"), this.adminZone || h("h4", null, "Completa la siguiente informaci\u00F3n"), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('salaryIncome') > -1, label: "Ingresos mensuales por concepto de salario fijo", value: this.model.salaryIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('salaryIncome', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { label: "Otros ingresos mensuales", value: this.model.otherIncomes, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('otherIncomes', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { label: "Ingresos mensuales por concepto de salario variable", value: this.model.variableSalaryIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('variableSalaryIncome', ev.detail) }))), h("div", { class: "col-md-6" }, !this._validateOtherInformation('otherIncomes') && (h("fieldset", null, h("emprender-cl-input", { dataType: this.model.otherIncomes !== 0 || this.model.otherIncomes !== null ? 'texto' : 'textoOpcional', label: "Descripci\u00F3n otros ingresos mensuales", checkData: this.requiredData.indexOf('otherIncomesDescription') > -1, value: this.model.otherIncomesDescription, onInputChange: ev => this._setModel('otherIncomesDescription', ev.detail) })))), h("fieldset", { class: "totalBox mt0" }, h("label", null, "Total ingresos mensuales: ", h("span", null, formatNumber(this.model.totalIncomes)))))), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Tus egresos mensuales por pago de deuda", checkData: this.requiredData.indexOf('debtExpenses') > -1, value: this.model.debtExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('debtExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Egresos mensuales por pago de arriendos", checkData: this.requiredData.indexOf('rentExpenses') > -1, value: this.model.rentExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('rentExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Tus egresos mensuales personales / familiares", checkData: this.requiredData.indexOf('personalExpenses') > -1, value: this.model.personalExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('personalExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumericoOpcional", label: "Otros egresos mensuales", value: this.model.otherExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('otherExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, !this._validateOtherInformation('otherExpenses') && (h("fieldset", null, h("emprender-cl-input", { dataType: this.model.otherIncomes !== 0 || this.model.otherIncomes !== null ? 'texto' : 'textoOpcional', label: "Descripci\u00F3n otros egresos mensuales", checkData: this.requiredData.indexOf('otherExpensesDescription') > -1, value: this.model.otherExpensesDescription, onInputChange: ev => this._setModel('otherExpensesDescription', ev.detail) }))))), h("fieldset", { class: "totalBox" }, h("label", null, "Total egresos mensuales: ", h("span", null, formatNumber(this.model.totalExpenses))))), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Total Activos", checkData: this.requiredData.indexOf('totalAssets') > -1, value: this.model.totalAssets, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('totalAssets', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Total Pasivos", checkData: this.requiredData.indexOf('totalLiabilities') > -1, value: this.model.totalLiabilities, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('totalLiabilities', ev.detail) }))))), this.requiredData.length === 0 ? null : (h("div", { class: "errorText" }, h("emprender-cl-icon", { icon: "alert", path: 0 }), "Debes completar todos los campos marcados para poder continuar.")), this.adminZone || (h("ul", { class: "inline flex-center-center mb20" }, h("li", null, h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })), h("li", null, h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this._checkSubmitInfo() })))), h("slot", null)))))));
   }
   static get style() { return emprenderUfFinancialInformationCss; }
 };
@@ -1220,7 +1222,12 @@ const EmprenderUfReferences$2 = class extends HTMLElement {
       }
     }
     else {
-      return h("h2", { class: "title" }, this.viewRegistration ? 'Referencia Personal' : '3. Referencia Personal');
+      if (this.adminZone) {
+        return h("h3", { class: "titleClient" }, "Referencia Personal");
+      }
+      else {
+        return h("h2", { class: "title" }, this.viewRegistration ? 'Referencia Personal' : '3. Referencia Personal');
+      }
     }
   }
   _getSecondTitle() {
@@ -1289,6 +1296,164 @@ const EmprenderUfWorkingInformation$2 = class extends HTMLElement {
   static get style() { return emprenderUfWorkingInformationCss; }
 };
 
+async function userAdminInformation(id) {
+  const myHeaders = new Headers();
+  myHeaders.append('Access-Control-Allow-Origin', '*');
+  myHeaders.append('Access-Control-Allow-Credentials', 'true');
+  myHeaders.append('Content-Type', 'application/json');
+  const result = await fetch(`https://credito.muii.com.co/api/DataManager/${id}/`, {
+    method: 'GET',
+    headers: myHeaders,
+    mode: 'cors',
+    redirect: 'follow',
+  });
+  return result.json();
+}
+function getInformacionPersonal(data) {
+  return {
+    firstName: data['primerNombre'],
+    middleName: data['segundoNombre'],
+    surName: data['primerApellido'],
+    secondSurName: data['segundoApellido'],
+    documentType: data['tipoDocumento'],
+    documentNumber: data['documento'],
+    expeditionDate: data['fechaExpedicion'],
+    birthDate: data['fechaNacimiento'],
+    nationality: data['nacionalidad'],
+    departmentOfBirth: data['departamentoNacimiento'],
+    cityOfBirth: data['ciudadNacimiento'],
+    expeditionDepartment: data['departamentoExpedicion'],
+    expeditionCity: data['municipioExpedicion'],
+    telefono: data['telefono'],
+    mobilePhone: data['celular'],
+    email: data['correo'],
+    gender: data['genero'],
+  };
+}
+function getInfoSocioDemografica(data) {
+  return {
+    academicLevel: data['nivelAcademico'],
+    childrenNumber: data['numHijos'],
+    dependents: data['personasACargo'],
+    civilState: data['estadoCivil'],
+    departmentOfResidence: data['departamentoResidencia'],
+    cityOfResidence: data['municipioRecidencia'],
+    address: data['direccion'],
+    place: data['torre_Apt'],
+    stratus: data['estrato'],
+    dwellingType: data['tipoVivienda'],
+    rent: data['arriendo'],
+    residenceTime: data['tiempo'],
+    employment: data['ocupacion'],
+  };
+}
+function getCompanyInformation(data) {
+  var _a, _b;
+  if (!data)
+    return '';
+  return {
+    companyName: data['nombreCompania'],
+    companyLocation: data['ubicacionCompania'],
+    address: data['direccion'],
+    place: data['barrio'],
+    departmentOfResidence: data['departamentoResidencia'],
+    cityOfResidence: data['ciudadResidencia'],
+    stratus: (_a = data['estrato']) !== null && _a !== void 0 ? _a : 0,
+    dwellingType: data['tipoVivienda'],
+    rent: (_b = parseFloat(data['renta'])) !== null && _b !== void 0 ? _b : 0,
+    companyType: data['tipoCompania'],
+    nit: data['nit'],
+    foundatingDate: data['fechaExposito'],
+    companyActivity: data['actividadCompania'],
+    point: data['punto'],
+    onlineShop: data['tiendaOnline'],
+    salePercentage: data['porcentajeVentas'],
+    employees: data['empleado'],
+    destiny: data['destino'],
+    otherDestiny: data['otroDestino'],
+  };
+}
+function getReferencias(data) {
+  return {
+    familyContactName: data['nombreContactoFamiliar'],
+    familyContactPhone: data['celularContactoFamiliar'],
+    familyContactRelationship: data['relacionContactoFamiliar'],
+    friendContactName: data['nombreContactoAmigo'],
+    friendContactPhone: data['celularContactoAmigo'],
+    friendContactRelationship: data['relacionContactoAmigo'],
+  };
+}
+function getInfoBancaria(data) {
+  if (!data)
+    return '';
+  return {
+    nombreBanco: data['bankName'],
+    accountType: data['tipoCuenta'],
+    accountNumber: data['numeroCuenta'],
+  };
+}
+function getInfoEconomicaCompania(data) {
+  if (!data)
+    return '';
+  return {
+    salesIncome: data['ingresosVentas'],
+    ingresosActividad: data['ingresosActividad'],
+    otherIncomes: data['activityIncome'],
+    otherIncomesDescription: data['descripcionIngresos'],
+    incomeSupport: data['soporte'],
+    businessExpenses: data['egresosGastosNegocio'],
+    egresosArriendo: data['rentExpenses'],
+    egresosDeudas: data['debtExpenses'],
+    personalExpenses: data['egresosPersonal'],
+    otherExpenses: data['otrosEgresos'],
+    otherExpensesDescription: data['descripcionEgresos'],
+    totalAssets: data['activos'],
+    totalLiabilities: data['pasivos'],
+    totalIncomes: data['totalIngresos'],
+    totalExpenses: data['totalGastos'],
+  };
+}
+function getInfoEconomica(data) {
+  if (!data)
+    return '';
+  return {
+    salaryIncome: data['ingresosSalario'],
+    otherIncomes: data['ingresosOtros'],
+    variableSalaryIncome: data['ingresosSalarioVariable'],
+    otherIncomesDescription: data['descripcionIngresos'],
+    personalExpenses: data['egresos'],
+    rentExpenses: data['arriendo'],
+    debtExpenses: data['egresosDeudas'],
+    otherExpenses: data['otrosEgresos'],
+    otherExpensesDescription: data['descripcionEgresos'],
+    totalAssets: data['activos'],
+    totalLiabilities: data['pasivos'],
+    totalIncomes: data['totalIngresos'],
+    totalExpenses: data['totalGastos'],
+  };
+}
+async function getUserModelsInformation(id) {
+  const userData = await userAdminInformation(id);
+  const flow = userData === null || userData === void 0 ? void 0 : userData.tipoCliente;
+  const informacionPersonal = getInformacionPersonal(userData);
+  const infoReferencias = getReferencias(userData['infoReferencias']);
+  const infoSocioDemografica = getInfoSocioDemografica(userData['infoSocioDemografica']);
+  const infoEconomica = getInfoEconomica(userData['infoEconomica']);
+  const infoEconomicaCompania = getInfoEconomicaCompania(userData['infoEconomicaCompania']);
+  const infoBancaria = getInfoBancaria(userData['infoBancaria']);
+  const infoCompania = getCompanyInformation(userData['infoCompania']);
+  return {
+    personalInformation: informacionPersonal,
+    personalInformation2: infoSocioDemografica,
+    companyInformation: infoCompania,
+    references: infoReferencias,
+    bankInformation: infoBancaria,
+    financialInformation: infoEconomica,
+    financialCompanyInformation: infoEconomicaCompania,
+    flow
+  };
+}
+
 const emprenderUserAdministrativeCss = "";
 
 const EmprenderUfWorkingInformation$1 = class extends HTMLElement {
@@ -1296,16 +1461,17 @@ const EmprenderUfWorkingInformation$1 = class extends HTMLElement {
     super();
     this.__registerHost();
     attachShadow(this);
+    this.documentId = '';
+    this.flowType = 'employee';
   }
-  // @Prop({ mutable: true, reflect: true }) id: string = '';
-  // @Prop({ mutable: true, reflect: true }) userInformation: any;
   async componentWillLoad() {
     await loadCSS('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500&family=Varela+Round&display=swap');
     await loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
-    // this.userInformation = userAdminInformation(this.id);
+    this.userInformation = await getUserModelsInformation(this.documentId);
   }
   render() {
-    return (h(Host, null, h("emprender-uf-personal-information-3", { adminZone: true }), h("emprender-uf-company-profile", { adminZone: true }), h("emprender-uf-references", { flow: 'independent', viewRegistration: false, adminZone: true }), h("emprender-user-bank", { adminZone: true })));
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+    return (h(Host, null, h("emprender-uf-personal-information-3", { model: (_a = this.userInformation) === null || _a === void 0 ? void 0 : _a.personalInformation, model2: (_b = this.userInformation) === null || _b === void 0 ? void 0 : _b.personalInformation2, model3: (_c = this.userInformation) === null || _c === void 0 ? void 0 : _c.bankInformation, adminZone: true }), (((_d = this.userInformation) === null || _d === void 0 ? void 0 : _d.flow) === 'employee') || h("emprender-uf-company-profile", { model: (_e = this.userInformation) === null || _e === void 0 ? void 0 : _e.companyInformation, adminZone: true }), (((_f = this.userInformation) === null || _f === void 0 ? void 0 : _f.flow) === 'independent') ? h("emprender-uf-financial-company", { adminZone: true, model: (_g = this.userInformation) === null || _g === void 0 ? void 0 : _g.financialCompanyInformation }) : h("emprender-uf-financial-information", { adminZone: true, model: (_h = this.userInformation) === null || _h === void 0 ? void 0 : _h.financialInformation }), h("emprender-uf-references", { model: (_j = this.userInformation) === null || _j === void 0 ? void 0 : _j.references, flow: (_k = this.userInformation) === null || _k === void 0 ? void 0 : _k.flow, viewRegistration: false, adminZone: true })));
   }
   static get style() { return emprenderUserAdministrativeCss; }
 };
@@ -1524,14 +1690,14 @@ const EmprenderUserForms$1 = class extends HTMLElement {
 
 const EmprenderUfCompanyInformation = /*@__PURE__*/proxyCustomElement(EmprenderUfConpanyInformation$1, [1,"emprender-uf-company-information",{"model":[1040],"requiredData":[1537,"required-data"],"departments":[32]}]);
 const EmprenderUfCompanyProfile = /*@__PURE__*/proxyCustomElement(EmprenderUfConpanyInformation, [1,"emprender-uf-company-profile",{"model":[1040],"requiredData":[1537,"required-data"],"viewRegistration":[4,"view-registration"],"adminZone":[1540,"admin-zone"],"departments":[32]}]);
-const EmprenderUfFinancialCompany = /*@__PURE__*/proxyCustomElement(EmprenderUfFinancialInformation$2, [1,"emprender-uf-financial-company",{"model":[1040],"requiredData":[1040]}]);
-const EmprenderUfFinancialInformation = /*@__PURE__*/proxyCustomElement(EmprenderUfFinancialInformation$1, [1,"emprender-uf-financial-information",{"model":[1040],"requiredData":[1040]}]);
+const EmprenderUfFinancialCompany = /*@__PURE__*/proxyCustomElement(EmprenderUfFinancialInformation$2, [1,"emprender-uf-financial-company",{"model":[1040],"adminZone":[1540,"admin-zone"],"requiredData":[1040]}]);
+const EmprenderUfFinancialInformation = /*@__PURE__*/proxyCustomElement(EmprenderUfFinancialInformation$1, [1,"emprender-uf-financial-information",{"model":[1040],"adminZone":[1540,"admin-zone"],"requiredData":[1040]}]);
 const EmprenderUfPersonalInformation = /*@__PURE__*/proxyCustomElement(EmprenderUfPersonalInformation$1, [1,"emprender-uf-personal-information",{"model":[1040],"requiredData":[1537,"required-data"],"departments":[32]}]);
 const EmprenderUfPersonalInformation2 = /*@__PURE__*/proxyCustomElement(EmprenderUfPersonalInformation2$1, [1,"emprender-uf-personal-information-2",{"model":[1040],"requiredData":[1537,"required-data"],"departments":[32]}]);
 const EmprenderUfPersonalInformation3 = /*@__PURE__*/proxyCustomElement(EmprenderUfPersonalInformation3$1, [1,"emprender-uf-personal-information-3",{"model":[1040],"model2":[1040],"model3":[1040],"requiredData":[1537,"required-data"],"adminZone":[1540,"admin-zone"],"departments":[32]}]);
 const EmprenderUfReferences = /*@__PURE__*/proxyCustomElement(EmprenderUfReferences$2, [1,"emprender-uf-references",{"model":[1040],"viewRegistration":[4,"view-registration"],"requiredData":[1537,"required-data"],"flow":[1544],"adminZone":[1540,"admin-zone"]}]);
 const EmprenderUfWorkingInformation = /*@__PURE__*/proxyCustomElement(EmprenderUfWorkingInformation$2, [1,"emprender-uf-working-information",{"model":[1040],"viewRegistration":[4,"view-registration"],"requiredData":[1537,"required-data"]}]);
-const EmprenderUserAdministrative = /*@__PURE__*/proxyCustomElement(EmprenderUfWorkingInformation$1, [1,"emprender-user-administrative"]);
+const EmprenderUserAdministrative = /*@__PURE__*/proxyCustomElement(EmprenderUfWorkingInformation$1, [1,"emprender-user-administrative",{"documentId":[1537,"document-id"],"userInformation":[1544,"user-information"],"flowType":[1537,"flow-type"]}]);
 const EmprenderUserBank = /*@__PURE__*/proxyCustomElement(EmprenderUfReferences$1, [1,"emprender-user-bank",{"model":[1040],"requiredData":[1537,"required-data"],"adminZone":[4,"admin-zone"]}]);
 const EmprenderUserForms = /*@__PURE__*/proxyCustomElement(EmprenderUserForms$2, [1,"emprender-user-forms",{"flowType":[1537,"flow-type"],"step":[1538],"loading":[1540]}]);
 const EmprenderUserProfile = /*@__PURE__*/proxyCustomElement(EmprenderUserForms$1, [1,"emprender-user-profile",{"flowType":[1,"flow-type"],"step":[1538],"loading":[1540],"barState":[1537,"bar-state"],"alarmUpgrade":[1540,"alarm-upgrade"]}]);

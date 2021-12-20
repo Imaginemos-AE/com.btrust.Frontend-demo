@@ -1,3 +1,16 @@
+async function userAdminInformation(id) {
+  const myHeaders = new Headers();
+  myHeaders.append('Access-Control-Allow-Origin', '*');
+  myHeaders.append('Access-Control-Allow-Credentials', 'true');
+  myHeaders.append('Content-Type', 'application/json');
+  const result = await fetch(`https://credito.muii.com.co/api/DataManager/${id}/`, {
+    method: 'GET',
+    headers: myHeaders,
+    mode: 'cors',
+    redirect: 'follow',
+  });
+  return result.json();
+}
 function getInformacionPersonal(data) {
   return {
     firstName: data['primerNombre'],
@@ -19,22 +32,27 @@ function getInformacionPersonal(data) {
     gender: data['genero'],
   };
 }
-function getInfoLaboral(data) {
+function getInfoSocioDemografica(data) {
   return {
-    companyName: data['nombreEmpresa'],
-    position: data['cargo'],
-    companyType: data['esPublica'],
-    companySeniority: data['antiguedad'],
-    contractType: data['tipoontrato'],
-    companyActivity: data['actividad'],
-    creditDestination: data['destinoPrestamo'],
-    companyPhone: data['telefono'],
-    otherPhone: data['otroNumero'],
-    companyPhoneExtension: data['extencion'],
+    academicLevel: data['nivelAcademico'],
+    childrenNumber: data['numHijos'],
+    dependents: data['personasACargo'],
+    civilState: data['estadoCivil'],
+    departmentOfResidence: data['departamentoResidencia'],
+    cityOfResidence: data['municipioRecidencia'],
+    address: data['direccion'],
+    place: data['torre_Apt'],
+    stratus: data['estrato'],
+    dwellingType: data['tipoVivienda'],
+    rent: data['arriendo'],
+    residenceTime: data['tiempo'],
+    employment: data['ocupacion'],
   };
 }
 function getCompanyInformation(data) {
   var _a, _b;
+  if (!data)
+    return '';
   return {
     companyName: data['nombreCompania'],
     companyLocation: data['ubicacionCompania'],
@@ -68,44 +86,72 @@ function getReferencias(data) {
   };
 }
 function getInfoBancaria(data) {
+  if (!data)
+    return '';
   return {
     nombreBanco: data['bankName'],
     accountType: data['tipoCuenta'],
     accountNumber: data['numeroCuenta'],
   };
 }
-function getUserModelsInformation(userData) {
+function getInfoEconomicaCompania(data) {
+  if (!data)
+    return '';
+  return {
+    salesIncome: data['ingresosVentas'],
+    ingresosActividad: data['ingresosActividad'],
+    otherIncomes: data['activityIncome'],
+    otherIncomesDescription: data['descripcionIngresos'],
+    incomeSupport: data['soporte'],
+    businessExpenses: data['egresosGastosNegocio'],
+    egresosArriendo: data['rentExpenses'],
+    egresosDeudas: data['debtExpenses'],
+    personalExpenses: data['egresosPersonal'],
+    otherExpenses: data['otrosEgresos'],
+    otherExpensesDescription: data['descripcionEgresos'],
+    totalAssets: data['activos'],
+    totalLiabilities: data['pasivos'],
+    totalIncomes: data['totalIngresos'],
+    totalExpenses: data['totalGastos'],
+  };
+}
+function getInfoEconomica(data) {
+  if (!data)
+    return '';
+  return {
+    salaryIncome: data['ingresosSalario'],
+    otherIncomes: data['ingresosOtros'],
+    variableSalaryIncome: data['ingresosSalarioVariable'],
+    otherIncomesDescription: data['descripcionIngresos'],
+    personalExpenses: data['egresos'],
+    rentExpenses: data['arriendo'],
+    debtExpenses: data['egresosDeudas'],
+    otherExpenses: data['otrosEgresos'],
+    otherExpensesDescription: data['descripcionEgresos'],
+    totalAssets: data['activos'],
+    totalLiabilities: data['pasivos'],
+    totalIncomes: data['totalIngresos'],
+    totalExpenses: data['totalGastos'],
+  };
+}
+export async function getUserModelsInformation(id) {
+  const userData = await userAdminInformation(id);
+  const flow = userData === null || userData === void 0 ? void 0 : userData.tipoCliente;
   const informacionPersonal = getInformacionPersonal(userData);
   const infoReferencias = getReferencias(userData['infoReferencias']);
+  const infoSocioDemografica = getInfoSocioDemografica(userData['infoSocioDemografica']);
+  const infoEconomica = getInfoEconomica(userData['infoEconomica']);
+  const infoEconomicaCompania = getInfoEconomicaCompania(userData['infoEconomicaCompania']);
+  const infoBancaria = getInfoBancaria(userData['infoBancaria']);
   const infoCompania = getCompanyInformation(userData['infoCompania']);
-  let infoLaboral = getInfoLaboral(userData['infoLaboral']);
-  let infoBancaria = getInfoBancaria(userData['infoBancaria']);
   return {
     personalInformation: informacionPersonal,
-    personalInformation2: infoLaboral,
+    personalInformation2: infoSocioDemografica,
     companyInformation: infoCompania,
     references: infoReferencias,
     bankInformation: infoBancaria,
+    financialInformation: infoEconomica,
+    financialCompanyInformation: infoEconomicaCompania,
+    flow
   };
-}
-export function userAdminInformation(id) {
-  let userInformation;
-  const myHeaders = new Headers();
-  myHeaders.append('Access-Control-Allow-Origin', '*');
-  myHeaders.append('Access-Control-Allow-Credentials', 'true');
-  myHeaders.append('GET', 'POST');
-  myHeaders.append('Content-Type', 'application/json');
-  fetch(`https://localhost:44306/api/DataManager/${id}/`, {
-    method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow',
-  })
-    .then(res => {
-    return res.json();
-  })
-    .then(data => {
-    console.log(data);
-    userInformation = getUserModelsInformation(data);
-  });
-  return userInformation;
 }
