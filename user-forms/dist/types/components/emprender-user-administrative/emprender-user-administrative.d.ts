@@ -1,7 +1,7 @@
 export declare class EmprenderUfWorkingInformation {
-  documentId: string;
+  document: string;
   userInformation: any;
-  flowType: 'employee' | 'independent';
   componentWillLoad(): Promise<void>;
+  getResponse(): any;
   render(): any;
 }

@@ -55,8 +55,7 @@ export namespace Components {
         "viewRegistration": boolean;
     }
     interface EmprenderUserAdministrative {
-        "documentId": string;
-        "flowType": 'employee' | 'independent';
+        "document": string;
         "userInformation": any;
     }
     interface EmprenderUserBank {
@@ -242,8 +241,7 @@ declare namespace LocalJSX {
         "viewRegistration"?: boolean;
     }
     interface EmprenderUserAdministrative {
-        "documentId"?: string;
-        "flowType"?: 'employee' | 'independent';
+        "document"?: string;
         "userInformation"?: any;
     }
     interface EmprenderUserBank {
