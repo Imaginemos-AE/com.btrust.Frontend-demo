@@ -55,7 +55,7 @@ export namespace Components {
         "viewRegistration": boolean;
     }
     interface EmprenderUserAdministrative {
-        "document": string;
+        "documentId": string;
         "userInformation": any;
     }
     interface EmprenderUserBank {
@@ -241,7 +241,7 @@ declare namespace LocalJSX {
         "viewRegistration"?: boolean;
     }
     interface EmprenderUserAdministrative {
-        "document"?: string;
+        "documentId"?: string;
         "userInformation"?: any;
     }
     interface EmprenderUserBank {

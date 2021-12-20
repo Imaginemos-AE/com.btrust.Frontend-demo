@@ -1,0 +1,24 @@
+{
+  "entries": [
+    "./components/emprender-uf-company-information/emprender-uf-company-information.js",
+    "./components/emprender-uf-company-profile/emprender-uf-company-profile.js",
+    "./components/emprender-uf-financial-company/emprender-uf-financial-company.js",
+    "./components/emprender-uf-financial-information/emprender-uf-financial-information.js",
+    "./components/emprender-uf-personal-information/emprender-uf-personal-information.js",
+    "./components/emprender-uf-personal-information-2/emprender-uf-personal-information-2.js",
+    "./components/emprender-uf-personal-information-3/emprender-uf-personal-information-3.js",
+    "./components/emprender-uf-references/emprender-uf-references.js",
+    "./components/emprender-uf-working-information/emprender-uf-working-information.js",
+    "./components/emprender-user-administrative/emprender-user-administrative.js",
+    "./components/emprender-user-bank/emprender-user-bank.js",
+    "./components/emprender-user-forms/emprender-user-forms.js",
+    "./components/emprender-user-profile/emprender-user-profile.js"
+  ],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "2.6.0",
+    "typescriptVersion": "4.2.3"
+  },
+  "collections": [],
+  "bundles": []
+}

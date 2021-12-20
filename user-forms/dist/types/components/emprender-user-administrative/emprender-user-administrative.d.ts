@@ -1,5 +1,5 @@
 export declare class EmprenderUfWorkingInformation {
-  document: string;
+  documentId: string;
   userInformation: any;
   componentWillLoad(): Promise<void>;
   getResponse(): any;
