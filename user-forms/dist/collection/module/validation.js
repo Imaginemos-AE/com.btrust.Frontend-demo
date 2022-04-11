@@ -162,8 +162,8 @@ export function checkData(model) {
     const value = entry[1] === null ? '' : entry[1];
     return expresiones[campo[`${entry[0]}`]].test(value) === false;
   });
+  //return [];
   return prueba.map(value => value[0]);
-  // return [];
 }
 export function checkData2(model, fieldName) {
   const fields = {
