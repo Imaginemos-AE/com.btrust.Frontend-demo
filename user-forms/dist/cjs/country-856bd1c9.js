@@ -1,7 +1,6 @@
 'use strict';
 
 const COUNTRY = [
-  { id: -1, departamento: 'Bogot\u00e1 D.C.', ciudades: ['Bogot\u00e1 D.C.'] },
   { id: 0, departamento: 'Amazonas', ciudades: ['Leticia', 'Puerto Nari\u00f1o'] },
   {
     id: 1,
@@ -1226,6 +1225,7 @@ const COUNTRY = [
   },
   { id: 30, departamento: 'Vaup\u00e9s', ciudades: ['Carur\u00fa', 'Mit\u00fa', 'Taraira'] },
   { id: 31, departamento: 'Vichada', ciudades: ['Cumaribo', 'La Primavera', 'Puerto Carre\u00f1o', 'Santa Rosal\u00eda'] },
+  { id: 32, departamento: 'Bogot\u00e1', ciudades: ['Bogot\u00e1'] },
 ];
 
 exports.COUNTRY = COUNTRY;

@@ -1,9 +1,7 @@
-'use strict';
-
 const expresiones = {
   alfanumerico: /^[a-zA-Z0-9\(\)\_\-\#\s\.\,\a-zA-ZÀ-ÿ]{1,150}$/,
   alfanumericoOpcional: /^[a-zA-Z0-9\_\-\#\s\.\a-zA-ZÀ-ÿ]{0,50}$/,
-  texto: /^[a-zA-ZÀ-ÿ\s]{1,100}$/,
+  texto: /^[a-zA-ZÀ-ÿ\.\s]{1,100}$/,
   textoOpcional: /^[a-zA-ZÀ-ÿ\s]{0,40}$/,
   correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
   numerico: /^\d{1,14}$/,
@@ -54,7 +52,7 @@ const financialInformation = {
   otherIncomesDescription: 'texto',
   totalIncomes: 'numerico',
   personalExpenses: 'numerico',
-  rentExpenses: 'numerico',
+  rentExpenses: 'numericoOpcional',
   debtExpenses: 'numerico',
   otherExpenses: 'numericoOpcional',
   otherExpensesDescription: 'texto',
@@ -164,7 +162,7 @@ function checkData(model) {
     const value = entry[1] === null ? '' : entry[1];
     return expresiones[campo[`${entry[0]}`]].test(value) === false;
   });
-  //return [];
+  console.log(prueba);
   return prueba.map(value => value[0]);
 }
 function checkData2(model, fieldName) {
@@ -187,5 +185,4 @@ function checkData2(model, fieldName) {
   // return [];
 }
 
-exports.checkData = checkData;
-exports.checkData2 = checkData2;
+export { checkData2 as a, checkData as c };

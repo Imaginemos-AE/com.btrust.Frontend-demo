@@ -4,7 +4,7 @@ export { setAssetPath, setPlatformOptions } from '@stencil/core/internal/client'
 const expresiones = {
   alfanumerico: /^[a-zA-Z0-9\(\)\_\-\#\s\.\,\a-zA-ZÀ-ÿ]{1,150}$/,
   alfanumericoOpcional: /^[a-zA-Z0-9\_\-\#\s\.\a-zA-ZÀ-ÿ]{0,50}$/,
-  texto: /^[a-zA-ZÀ-ÿ\s]{1,100}$/,
+  texto: /^[a-zA-ZÀ-ÿ\.\s]{1,100}$/,
   textoOpcional: /^[a-zA-ZÀ-ÿ\s]{0,40}$/,
   correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
   numerico: /^\d{1,14}$/,
@@ -55,7 +55,7 @@ const financialInformation = {
   otherIncomesDescription: 'texto',
   totalIncomes: 'numerico',
   personalExpenses: 'numerico',
-  rentExpenses: 'numerico',
+  rentExpenses: 'numericoOpcional',
   debtExpenses: 'numerico',
   otherExpenses: 'numericoOpcional',
   otherExpensesDescription: 'texto',
@@ -165,7 +165,7 @@ function checkData(model) {
     const value = entry[1] === null ? '' : entry[1];
     return expresiones[campo[`${entry[0]}`]].test(value) === false;
   });
-  //return [];
+  console.log(prueba);
   return prueba.map(value => value[0]);
 }
 function checkData2(model, fieldName) {
@@ -189,7 +189,6 @@ function checkData2(model, fieldName) {
 }
 
 const COUNTRY = [
-  { id: -1, departamento: 'Bogot\u00e1 D.C.', ciudades: ['Bogot\u00e1 D.C.'] },
   { id: 0, departamento: 'Amazonas', ciudades: ['Leticia', 'Puerto Nari\u00f1o'] },
   {
     id: 1,
@@ -1414,6 +1413,7 @@ const COUNTRY = [
   },
   { id: 30, departamento: 'Vaup\u00e9s', ciudades: ['Carur\u00fa', 'Mit\u00fa', 'Taraira'] },
   { id: 31, departamento: 'Vichada', ciudades: ['Cumaribo', 'La Primavera', 'Puerto Carre\u00f1o', 'Santa Rosal\u00eda'] },
+  { id: 32, departamento: 'Bogot\u00e1', ciudades: ['Bogot\u00e1'] },
 ];
 
 const USER_FORM_DATA_KEY = "muiiUserFormInfo";
