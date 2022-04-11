@@ -14,6 +14,7 @@ export interface SliderConfig {
   step: number | ((value: string) => number);
   labelType: 'currency' | 'day';
   formatter?: (value: number) => string;
+  infoLabel: boolean;
 }
 export declare function termFormatter(value: any): string;
 /**

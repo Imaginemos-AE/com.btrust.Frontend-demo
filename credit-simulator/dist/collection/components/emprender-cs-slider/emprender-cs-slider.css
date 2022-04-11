@@ -51,6 +51,14 @@
 fieldset {
   margin-bottom: 10px;
 }
+fieldset .small {
+  color: #111111;
+  font-size: 9px;
+  font-style: italic;
+  margin: 0 auto 10px;
+  line-height: 14px;
+  max-width: 260px;
+}
 fieldset label:not(.control) {
   color: var(--primary-color, #51215B);
   font-family: var(--secondary-font, "Varela Round", sans-serif);
@@ -105,7 +113,7 @@ fieldset.divslider {
 .slider .tooltip-inner {
   background-color: var(--primary-color, #51215B);
   border-radius: 15px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 12px;
   font-weight: 600;
   padding: 2px 10px;

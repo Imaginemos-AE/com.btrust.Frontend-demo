@@ -9,6 +9,7 @@ export declare class EmprenderCsSlider implements ComponentInterface {
   max: number;
   maxLabel?: string;
   step: number;
+  infoLabel: boolean;
   formatter?: (value: number) => string;
   sliderChange: EventEmitter<{
     value: number;

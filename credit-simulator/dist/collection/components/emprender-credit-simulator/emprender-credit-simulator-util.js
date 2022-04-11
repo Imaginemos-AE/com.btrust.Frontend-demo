@@ -16,6 +16,7 @@ export const DEFAULT_SLIDER_VALUES = [
     step: 10000,
     labelType: 'currency',
     formatter: value => `${formatNumber(value)}`,
+    infoLabel: false,
   },
   {
     key: 'term',
@@ -24,6 +25,7 @@ export const DEFAULT_SLIDER_VALUES = [
     max: 150,
     step: (config) => (config === 'monthly' ? TERM_MODULE : 1),
     labelType: 'day',
+    infoLabel: true,
     formatter: value => {
       return `${value} DIAS`;
       // if (value <= TERM_MODULE) {

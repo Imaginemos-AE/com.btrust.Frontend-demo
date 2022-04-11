@@ -42,7 +42,10 @@ export class EmprenderCsSlider {
     var _a, _b;
     return (h(Host, null,
       h("fieldset", { class: "divslider" },
-        h("label", null, this.label),
+        h("label", null,
+          this.label,
+          " "),
+        this.infoLabel && h("p", { class: "small" }, "Si el dinero necesitado es igual o inferior a $700.000 se podr\u00E1 pagar en 30 d\u00EDas y si es superior se podr\u00E1 pagar en 90 d\u00EDas."),
         h("input", { class: "slider", "data-slider-id": 'slider', type: "text", "data-slider-min": this.min, "data-slider-max": this.max, "data-slider-step": this.step, "data-slider-value": this.value }),
         h("span", { class: "ticksLabels left" }, (_a = this.minLabel) !== null && _a !== void 0 ? _a : this.min),
         h("span", { class: "ticksLabels right" }, (_b = this.maxLabel) !== null && _b !== void 0 ? _b : this.max))));
@@ -174,6 +177,23 @@ export class EmprenderCsSlider {
         "text": ""
       },
       "attribute": "step",
+      "reflect": true
+    },
+    "infoLabel": {
+      "type": "boolean",
+      "mutable": true,
+      "complexType": {
+        "original": "boolean",
+        "resolved": "boolean",
+        "references": {}
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "info-label",
       "reflect": true
     },
     "formatter": {

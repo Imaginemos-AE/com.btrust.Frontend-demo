@@ -20,6 +20,7 @@ export namespace Components {
     }
     interface EmprenderCsSlider {
         "formatter"?: (value: number) => string;
+        "infoLabel": boolean;
         "label": string;
         "max": number;
         "maxLabel"?: string;
@@ -86,6 +87,7 @@ declare namespace LocalJSX {
     }
     interface EmprenderCsSlider {
         "formatter"?: (value: number) => string;
+        "infoLabel"?: boolean;
         "label"?: string;
         "max"?: number;
         "maxLabel"?: string;
