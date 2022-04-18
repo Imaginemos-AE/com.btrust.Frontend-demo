@@ -1,6 +1,4 @@
-import { r as registerInstance, h, e as Host, g as getElement } from './index-8e91f2a7.js';
-
-function loadCSS(url) {
+export function loadCSS(url) {
   return new Promise(resolve => {
     const links = document.getElementsByTagName('link');
     const exist = Array.from(links).some(_link => _link.href === url);
@@ -16,7 +14,7 @@ function loadCSS(url) {
     }
   });
 }
-function appendComponentStyles(host, urls, shadow = true, loadGlobal = false) {
+export function appendComponentStyles(host, urls, shadow = true, loadGlobal = false) {
   return new Promise(resolve => {
     urls.forEach(async (url) => {
       const link = document.createElement('link');
@@ -30,7 +28,7 @@ function appendComponentStyles(host, urls, shadow = true, loadGlobal = false) {
     resolve();
   });
 }
-function loadScript(url, id, type) {
+export function loadScript(url, id, type) {
   return new Promise(resolve => {
     document.body.appendChild(Object.assign(document.createElement('script'), {
       type: type,
@@ -42,29 +40,3 @@ function loadScript(url, id, type) {
     }));
   });
 }
-
-const emprenderClIconCss = "";
-
-const EmprenderClIcon = class {
-  constructor(hostRef) {
-    registerInstance(this, hostRef);
-    this.path = 0;
-  }
-  async componentWillLoad() {
-    await appendComponentStyles(this.host, ["https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/common-assets/emprender-icons.css"], true, true);
-  }
-  renderPaths() {
-    const paths = [];
-    for (let index = 0; index < this.path; index++) {
-      paths.push(h("span", { class: `path${index + 1}` }));
-    }
-    return paths;
-  }
-  render() {
-    return (h(Host, null, h("span", { class: `icon-${this.icon}` }, this.renderPaths())));
-  }
-  get host() { return getElement(this); }
-};
-EmprenderClIcon.style = emprenderClIconCss;
-
-export { EmprenderClIcon as emprender_cl_icon };
