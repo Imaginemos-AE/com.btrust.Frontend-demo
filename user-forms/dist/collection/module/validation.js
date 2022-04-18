@@ -41,7 +41,6 @@ const personalInformation2 = {
   place: 'alfanumericoOpcional',
   stratus: 'numerico',
   dwellingType: 'texto',
-  rent: 'arriendo',
   residenceTime: 'numericoSimbolo',
   employment: 'texto',
 };
@@ -162,7 +161,6 @@ export function checkData(model) {
     const value = entry[1] === null ? '' : entry[1];
     return expresiones[campo[`${entry[0]}`]].test(value) === false;
   });
-  console.log(prueba);
   return prueba.map(value => value[0]);
 }
 export function checkData2(model, fieldName) {

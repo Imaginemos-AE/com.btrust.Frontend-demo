@@ -23,7 +23,6 @@ export namespace Components {
         "maskOptions": any;
         "maskValue": 'masked' | 'unmasked';
         "requiredIndicator": boolean;
-        "typeAddress": boolean;
         "value": string;
     }
     interface EmprenderClSelect {
@@ -86,7 +85,6 @@ declare namespace LocalJSX {
         "maskValue"?: 'masked' | 'unmasked';
         "onInputChange"?: (event: CustomEvent<string>) => void;
         "requiredIndicator"?: boolean;
-        "typeAddress"?: boolean;
         "value"?: string;
     }
     interface EmprenderClSelect {

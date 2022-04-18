@@ -70,7 +70,6 @@ export class EmprenderUfFinancialInformation {
         lista.splice(lista.indexOf('otherExpensesDescription'), 1);
       this._setModel('otherExpensesDescription', '');
     }
-    console.log(lista);
     if (lista.length === 0) {
       this.infoSaved.emit(this.model);
     }

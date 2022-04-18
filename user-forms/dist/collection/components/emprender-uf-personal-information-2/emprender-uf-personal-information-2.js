@@ -1,5 +1,4 @@
 import { Component, Host, h, State, Event, Prop } from '@stencil/core';
-import { FINANCIAL_OPTIONS } from '../../module/helper';
 import { checkData } from '../../module/validation';
 import { COUNTRY } from '../../utils/country';
 export class EmprenderUfPersonalInformation2 {
@@ -15,7 +14,6 @@ export class EmprenderUfPersonalInformation2 {
       place: '',
       stratus: 4,
       dwellingType: '',
-      rent: 0,
       residenceTime: '',
       employment: '',
     };
@@ -40,10 +38,8 @@ export class EmprenderUfPersonalInformation2 {
     this._setModel(clearField, '');
   }
   _checkSubmitInfo() {
+    console.log(this.model);
     const lista = checkData(this.model);
-    if (lista.indexOf('rent') > -1 && this.model.dwellingType !== 'arrendada') {
-      lista.splice(lista.indexOf('rent'), 1);
-    }
     if (lista.length === 0) {
       this.infoSaved.emit(this.model);
     }
@@ -106,7 +102,7 @@ export class EmprenderUfPersonalInformation2 {
                             h("emprender-cl-select", { checkData: this.requiredData.indexOf('cityOfResidence') > -1, value: this.model.cityOfResidence, options: this._getSelectCitiesOptions('departmentOfResidence'), onSelectChange: ev => this._setModel('cityOfResidence', ev.detail) })))))),
                   h("div", { class: "col-lg-3 col-md-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { dataType: "alfanumerico", typeAddress: true, checkData: this.requiredData.indexOf('address') > -1, label: "Direcci\u00F3n de la vivienda", value: this.model.address, id: "direccion", onInputChange: ev => {
+                      h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('address') > -1, label: "Direcci\u00F3n de la vivienda", value: this.model.address, id: "direccion", onInputChange: ev => {
                           this._setModel('address', ev.detail);
                         } }))),
                   h("div", { class: "col-lg-3 col-md-6" },
@@ -123,20 +119,12 @@ export class EmprenderUfPersonalInformation2 {
                         h("option", { value: "6" }, "6")))),
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
-                      h("emprender-cl-select", { checkData: this.requiredData.indexOf('dwellingType') > -1, label: "Tipo de vivienda", value: this.model.dwellingType, onSelectChange: ev => {
-                          this._setModel('dwellingType', ev.detail);
-                          if (this.model.dwellingType !== 'arrendada') {
-                            this._setModel('rent', '0');
-                          }
-                        } },
+                      h("emprender-cl-select", { checkData: this.requiredData.indexOf('dwellingType') > -1, label: "Tipo de vivienda", value: this.model.dwellingType, onSelectChange: ev => this._setModel('dwellingType', ev.detail) },
                         h("option", { value: "propia" }, "Propia"),
                         h("option", { value: "arrendada" }, "Arrendada"),
                         h("option", { value: "familiar" }, "Familiar"),
                         h("option", { value: "otro" }, "Otro")))),
-                  h("div", { class: "col-md-6" },
-                    h("fieldset", null,
-                      h("emprender-cl-input", { inputOptions: this.model.dwellingType !== 'arrendada' ? { disabled: '{this.disabled}' } : {}, dataType: this.model.dwellingType === 'arrendada' ? 'arriendo' : '', checkData: this.model.dwellingType === 'arrendada' && this.model.rent < 1000, label: "\u00BFCu\u00E1nto pagas por arriendo?", value: this.model.rent, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('rent', ev.detail) }))),
-                  h("div", { class: "col-md-6" },
+                  h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
                       h("emprender-cl-select", { checkData: this.requiredData.indexOf('residenceTime') > -1, label: "Tiempo de residencia", value: this.model.residenceTime, onSelectChange: ev => this._setModel('residenceTime', ev.detail) },
                         h("option", { value: "<1" }, `Menos de 1 año`),
@@ -144,7 +132,7 @@ export class EmprenderUfPersonalInformation2 {
                         h("option", { value: "2-3" }, `Entre 2 y 3 años`),
                         h("option", { value: "3-4" }, `Entre 3 y 4 años`),
                         h("option", { value: ">4" }, `Más de 4 años`)))),
-                  h("div", { class: "col-md-6" },
+                  h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
                       h("emprender-cl-select", { checkData: this.requiredData.indexOf('employment') > -1, label: "Ocupaci\u00F3n", value: this.model.employment, onSelectChange: ev => this._setModel('employment', ev.detail) },
                         h("option", { value: "Empleado" }, "Empleado"),
@@ -191,7 +179,7 @@ export class EmprenderUfPersonalInformation2 {
         "tags": [],
         "text": ""
       },
-      "defaultValue": "{\r\n    academicLevel: '',\r\n    childrenNumber: '',\r\n    dependents: '',\r\n    civilState: '',\r\n    cityOfResidence: '',\r\n    departmentOfResidence: '',\r\n    address: '',\r\n    place: '',\r\n    stratus: 4,\r\n    dwellingType: '',\r\n    rent: 0,\r\n    residenceTime: '',\r\n    employment: '',\r\n  }"
+      "defaultValue": "{\r\n    academicLevel: '',\r\n    childrenNumber: '',\r\n    dependents: '',\r\n    civilState: '',\r\n    cityOfResidence: '',\r\n    departmentOfResidence: '',\r\n    address: '',\r\n    place: '',\r\n    stratus: 4,\r\n    dwellingType: '',\r\n    residenceTime: '',\r\n    employment: '',\r\n  }"
     },
     "requiredData": {
       "type": "string",

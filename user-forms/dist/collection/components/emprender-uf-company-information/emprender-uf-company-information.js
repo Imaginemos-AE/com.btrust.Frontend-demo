@@ -113,7 +113,7 @@ export class EmprenderUfConpanyInformation {
                               } })))))),
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { typeAddress: true, inputOptions: this.model.companyLocation === 'si' ? { disabled: '{this.disabled}' } : {}, checkData: this.requiredData.indexOf('address') > -1, label: this.model.companyLocation === 'si' ? 'Dirección de la vivienda' : 'Dirección del negocio', value: this.model.address, id: "direccion", onInputChange: ev => {
+                      h("emprender-cl-input", { dataType: "alfanumericOpcional", inputOptions: this.model.companyLocation === 'si' ? { disabled: '{this.disabled}' } : {}, checkData: this.requiredData.indexOf('address') > -1, label: this.model.companyLocation === 'si' ? 'Dirección de la vivienda' : 'Dirección del negocio', value: this.model.address, id: "direccion", onInputChange: ev => {
                           this._setModel('address', ev.detail);
                         } }))),
                   h("div", { class: "col-lg-3 col-sm-6" },

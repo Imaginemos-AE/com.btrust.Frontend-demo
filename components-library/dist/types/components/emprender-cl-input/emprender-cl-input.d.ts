@@ -9,7 +9,6 @@ export declare class EmprenderClInput implements ComponentInterface {
   maskValue: 'masked' | 'unmasked';
   value: string;
   checkData: boolean;
-  typeAddress: boolean;
   dataType: string;
   host: HTMLElement;
   changeMaskValue(): void;

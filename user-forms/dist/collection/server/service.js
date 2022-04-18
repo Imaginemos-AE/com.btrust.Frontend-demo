@@ -22,7 +22,7 @@ function getInformacionPersonal(data, flowType) {
   };
 }
 function getInfoSocioDemografica(data) {
-  var _a, _b;
+  var _a;
   return {
     nivelAcademico: data['academicLevel'],
     numHijos: data['childrenNumber'],
@@ -34,7 +34,7 @@ function getInfoSocioDemografica(data) {
     torre_Apt: data['place'],
     estrato: (_a = data['stratus']) !== null && _a !== void 0 ? _a : 0,
     tipoVivienda: data['dwellingType'],
-    arriendo: (_b = parseFloat(data['rent'])) !== null && _b !== void 0 ? _b : 0,
+    arriendo: 0,
     tiempo: data['residenceTime'],
     ocupacion: data['employment'],
   };

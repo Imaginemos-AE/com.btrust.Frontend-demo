@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const index = require('./index-fff3a53f.js');
-const store = require('./store-0f849164.js');
+const store = require('./store-6b137416.js');
 const utils = require('./utils-2fe1da8e.js');
 require('./helper-b3bc1886.js');
 
@@ -36,7 +36,6 @@ const EmprenderUserForms = class {
   async componentWillLoad() {
     await utils.loadCSS('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500&family=Varela+Round&display=swap');
     await utils.loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
-    await utils.loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCQBC0qLLMIkQnq2d_gSqB1O4a5hNMMdyI&libraries=places', 'googleapi', 'text/javascript');
     store.loadDefaultData();
   }
   isLoading() {

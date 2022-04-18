@@ -33,7 +33,6 @@ export class EmprenderUfPersonalInformation3 {
       place: '',
       stratus: 4,
       dwellingType: '',
-      rent: 0,
       residenceTime: '',
       employment: '',
     };
@@ -75,7 +74,6 @@ export class EmprenderUfPersonalInformation3 {
     if (lista.length === 0) {
       this.upgradeInfo.emit([this.model, this.model2, this.model3, 'up']);
     }
-    console.log(lista);
     this.requiredData = lista.toString();
   }
   _getTitle() {
@@ -151,7 +149,7 @@ export class EmprenderUfPersonalInformation3 {
                             h("emprender-cl-select", { checkData: this.requiredData.indexOf('cityOfResidence') > -1, value: this.model2.cityOfResidence, options: this._getSelectCitiesOptions('departmentOfResidence'), onSelectChange: ev => this._setModel('cityOfResidence', ev.detail) })))))),
                   h("div", { class: "col-lg-3 col-sm-6" },
                     h("fieldset", null,
-                      h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('address') > -1, typeAddress: !this.adminZone, label: "Direcci\u00F3n de la vivienda", value: this.model2.address, id: "direccion", onInputChange: ev => {
+                      h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('address') > -1, label: "Direcci\u00F3n de la vivienda", value: this.model2.address, id: "direccion", onInputChange: ev => {
                           this._setModel2('address', ev.detail);
                         } }))),
                   h("div", { class: "col-lg-3 col-sm-6" },
@@ -273,7 +271,7 @@ export class EmprenderUfPersonalInformation3 {
         "tags": [],
         "text": ""
       },
-      "defaultValue": "{\r\n    academicLevel: '',\r\n    childrenNumber: '',\r\n    dependents: '',\r\n    civilState: '',\r\n    cityOfResidence: '',\r\n    departmentOfResidence: '',\r\n    address: '',\r\n    place: '',\r\n    stratus: 4,\r\n    dwellingType: '',\r\n    rent: 0,\r\n    residenceTime: '',\r\n    employment: '',\r\n  }"
+      "defaultValue": "{\r\n    academicLevel: '',\r\n    childrenNumber: '',\r\n    dependents: '',\r\n    civilState: '',\r\n    cityOfResidence: '',\r\n    departmentOfResidence: '',\r\n    address: '',\r\n    place: '',\r\n    stratus: 4,\r\n    dwellingType: '',\r\n    residenceTime: '',\r\n    employment: '',\r\n  }"
     },
     "model3": {
       "type": "unknown",

@@ -44,7 +44,6 @@ const personalInformation2 = {
   place: 'alfanumericoOpcional',
   stratus: 'numerico',
   dwellingType: 'texto',
-  rent: 'arriendo',
   residenceTime: 'numericoSimbolo',
   employment: 'texto',
 };
@@ -165,7 +164,6 @@ function checkData(model) {
     const value = entry[1] === null ? '' : entry[1];
     return expresiones[campo[`${entry[0]}`]].test(value) === false;
   });
-  console.log(prueba);
   return prueba.map(value => value[0]);
 }
 function checkData2(model, fieldName) {
@@ -189,9 +187,10 @@ function checkData2(model, fieldName) {
 }
 
 const COUNTRY = [
-  { id: 0, departamento: 'Amazonas', ciudades: ['Leticia', 'Puerto Nari\u00f1o'] },
+  { id: 0, departamento: 'Bogot\u00e1', ciudades: ['Bogot\u00e1'] },
+  { id: 1, departamento: 'Amazonas', ciudades: ['Leticia', 'Puerto Nari\u00f1o'] },
   {
-    id: 1,
+    id: 2,
     departamento: 'Antioquia',
     ciudades: [
       'Abejorral',
@@ -321,9 +320,9 @@ const COUNTRY = [
       'Zaragoza',
     ],
   },
-  { id: 2, departamento: 'Arauca', ciudades: ['Arauca', 'Arauquita', 'Cravo Norte', 'Fortul', 'Puerto Rond\u00f3n', 'Saravena', 'Tame'] },
+  { id: 3, departamento: 'Arauca', ciudades: ['Arauca', 'Arauquita', 'Cravo Norte', 'Fortul', 'Puerto Rond\u00f3n', 'Saravena', 'Tame'] },
   {
-    id: 3,
+    id: 4,
     departamento: 'Atl\u00e1ntico',
     ciudades: [
       'Baranoa',
@@ -352,7 +351,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 4,
+    id: 5,
     departamento: 'Bol\u00edvar',
     ciudades: [
       'Ach\u00ed',
@@ -405,7 +404,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 5,
+    id: 6,
     departamento: 'Boyac\u00e1',
     ciudades: [
       'Almeida',
@@ -534,7 +533,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 6,
+    id: 7,
     departamento: 'Caldas',
     ciudades: [
       'Aguadas',
@@ -567,7 +566,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 7,
+    id: 8,
     departamento: 'Caquet\u00e1',
     ciudades: [
       'Albania',
@@ -589,7 +588,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 8,
+    id: 9,
     departamento: 'Casanare',
     ciudades: [
       'Aguazul',
@@ -614,7 +613,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 9,
+    id: 10,
     departamento: 'Cauca',
     ciudades: [
       'Almaguer',
@@ -662,7 +661,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 10,
+    id: 11,
     departamento: 'Cesar',
     ciudades: [
       'Aguachica',
@@ -693,7 +692,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 11,
+    id: 12,
     departamento: 'Choc\u00f3',
     ciudades: [
       'Acand\u00ed',
@@ -729,7 +728,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 12,
+    id: 13,
     departamento: 'Cundinamarca',
     ciudades: [
       'Agua de Dios',
@@ -851,7 +850,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 13,
+    id: 14,
     departamento: 'C\u00f3rdoba',
     ciudades: [
       'Ayapel',
@@ -886,10 +885,10 @@ const COUNTRY = [
       'Valencia',
     ],
   },
-  { id: 14, departamento: 'Guain\u00eda', ciudades: ['In\u00edrida'] },
-  { id: 15, departamento: 'Guaviare', ciudades: ['Calamar', 'El Retorno', 'Miraflores', 'San Jos\u00e9 del Guaviare'] },
+  { id: 15, departamento: 'Guain\u00eda', ciudades: ['In\u00edrida'] },
+  { id: 16, departamento: 'Guaviare', ciudades: ['Calamar', 'El Retorno', 'Miraflores', 'San Jos\u00e9 del Guaviare'] },
   {
-    id: 16,
+    id: 17,
     departamento: 'Huila',
     ciudades: [
       'Acevedo',
@@ -932,7 +931,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 17,
+    id: 18,
     departamento: 'La Guajira',
     ciudades: [
       'Albania',
@@ -953,7 +952,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 18,
+    id: 19,
     departamento: 'Magdalena',
     ciudades: [
       'Algarrobo',
@@ -990,7 +989,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 19,
+    id: 20,
     departamento: 'Meta',
     ciudades: [
       'Acac\u00edas',
@@ -1025,7 +1024,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 20,
+    id: 21,
     departamento: 'Nari\u00f1o',
     ciudades: [
       'Aldana',
@@ -1095,7 +1094,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 21,
+    id: 22,
     departamento: 'Norte de Santander',
     ciudades: [
       '\u00c1brego',
@@ -1141,7 +1140,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 22,
+    id: 23,
     departamento: 'Putumayo',
     ciudades: [
       'Col\u00f3n',
@@ -1160,12 +1159,12 @@ const COUNTRY = [
     ],
   },
   {
-    id: 23,
+    id: 24,
     departamento: 'Quind\u00edo',
     ciudades: ['Armenia', 'Buenavista', 'Calarc\u00e1', 'Circasia', 'C\u00f3rdoba', 'Filandia', 'G\u00e9nova', 'La Tebaida', 'Montenegro', 'Pijao', 'Quimbaya', 'Salento'],
   },
   {
-    id: 24,
+    id: 25,
     departamento: 'Risaralda',
     ciudades: [
       'Ap\u00eda',
@@ -1184,9 +1183,9 @@ const COUNTRY = [
       'Santuario',
     ],
   },
-  { id: 25, departamento: 'San Andr\u00e9s y Providencia', ciudades: ['Providencia y Santa Catalina Islas', 'San Andr\u00e9s'] },
+  { id: 26, departamento: 'San Andr\u00e9s y Providencia', ciudades: ['Providencia y Santa Catalina Islas', 'San Andr\u00e9s'] },
   {
-    id: 26,
+    id: 27,
     departamento: 'Santander',
     ciudades: [
       'Aguada',
@@ -1279,7 +1278,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 27,
+    id: 28,
     departamento: 'Sucre',
     ciudades: [
       'Buenavista',
@@ -1311,7 +1310,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 28,
+    id: 29,
     departamento: 'Tolima',
     ciudades: [
       'Alpujarra',
@@ -1364,7 +1363,7 @@ const COUNTRY = [
     ],
   },
   {
-    id: 29,
+    id: 30,
     departamento: 'Valle del Cauca',
     ciudades: [
       'Alcal\u00e1',
@@ -1411,9 +1410,8 @@ const COUNTRY = [
       'Zarzal',
     ],
   },
-  { id: 30, departamento: 'Vaup\u00e9s', ciudades: ['Carur\u00fa', 'Mit\u00fa', 'Taraira'] },
-  { id: 31, departamento: 'Vichada', ciudades: ['Cumaribo', 'La Primavera', 'Puerto Carre\u00f1o', 'Santa Rosal\u00eda'] },
-  { id: 32, departamento: 'Bogot\u00e1', ciudades: ['Bogot\u00e1'] },
+  { id: 31, departamento: 'Vaup\u00e9s', ciudades: ['Carur\u00fa', 'Mit\u00fa', 'Taraira'] },
+  { id: 32, departamento: 'Vichada', ciudades: ['Cumaribo', 'La Primavera', 'Puerto Carre\u00f1o', 'Santa Rosal\u00eda'] },
 ];
 
 const USER_FORM_DATA_KEY = "muiiUserFormInfo";
@@ -1640,7 +1638,7 @@ function getInformacionPersonal$1(data, flowType) {
   };
 }
 function getInfoSocioDemografica$1(data) {
-  var _a, _b;
+  var _a;
   return {
     nivelAcademico: data['academicLevel'],
     numHijos: data['childrenNumber'],
@@ -1652,7 +1650,7 @@ function getInfoSocioDemografica$1(data) {
     torre_Apt: data['place'],
     estrato: (_a = data['stratus']) !== null && _a !== void 0 ? _a : 0,
     tipoVivienda: data['dwellingType'],
-    arriendo: (_b = parseFloat(data['rent'])) !== null && _b !== void 0 ? _b : 0,
+    arriendo: 0,
     tiempo: data['residenceTime'],
     ocupacion: data['employment'],
   };
@@ -1874,7 +1872,7 @@ const EmprenderUfConpanyInformation$1 = class extends HTMLElement {
         this._selectDropdownOption('departmentOfResidence', ev.detail, 'cityOfResidence');
       } }))), h("div", { class: "col-6" }, h("fieldset", null, h("emprender-cl-select", { selectInputOptions: this.model.companyLocation === 'si' ? { disabled: '{this.disabled}' } : {}, checkData: this.requiredData.indexOf('cityOfResidence') > -1, inputOptions: this.model.companyLocation === 'si' ? { disabled: '{this.disabled}' } : {}, value: this.model.cityOfResidence, options: this._getSelectCitiesOptions('departmentOfResidence'), onSelectChange: ev => {
         this._setModel('cityOfResidence', ev.detail);
-      } })))))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-input", { typeAddress: true, inputOptions: this.model.companyLocation === 'si' ? { disabled: '{this.disabled}' } : {}, checkData: this.requiredData.indexOf('address') > -1, label: this.model.companyLocation === 'si' ? 'Dirección de la vivienda' : 'Dirección del negocio', value: this.model.address, id: "direccion", onInputChange: ev => {
+      } })))))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumericOpcional", inputOptions: this.model.companyLocation === 'si' ? { disabled: '{this.disabled}' } : {}, checkData: this.requiredData.indexOf('address') > -1, label: this.model.companyLocation === 'si' ? 'Dirección de la vivienda' : 'Dirección del negocio', value: this.model.address, id: "direccion", onInputChange: ev => {
         this._setModel('address', ev.detail);
       } }))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-input", { inputOptions: this.model.companyLocation === 'si' ? { disabled: '{this.disabled}' } : {}, dataType: "alfanumericoOpcional", label: "Torre/ Apto/ Conjunto", checkData: this.requiredData.indexOf('place') > -1, value: this.model.place, onInputChange: ev => {
         this._setModel('place', ev.detail);
@@ -1962,7 +1960,7 @@ const EmprenderUfConpanyInformation = class extends HTMLElement {
     }
   }
   render() {
-    return (h(Host, null, h("section", { class: "clientForms" }, h("div", { class: "container" }, h("div", { class: "row justify-content-center" }, h("div", { class: "col" }, this._getTitle(), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-lg-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('companyName') > -1, label: "Nombre de la empresa/negocio", value: this.model.companyName, onInputChange: ev => this._setModel('companyName', ev.detail) }))), h("div", { class: "col-lg-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('companyLocation') > -1, label: "\u00BFLa ubicaci\u00F3n de la empresa es la misma de la vivienda?", value: this.model.companyLocation, onSelectChange: ev => this._setModel('companyLocation', ev.detail) }, h("option", { value: "si" }, "SI"), h("option", { value: "no" }, "NO")))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-input", { typeAddress: !this.adminZone, checkData: this.requiredData.indexOf('address') > -1, label: "Direcci\u00F3n de la vivienda", value: this.model.address, id: "direccion", onInputChange: ev => {
+    return (h(Host, null, h("section", { class: "clientForms" }, h("div", { class: "container" }, h("div", { class: "row justify-content-center" }, h("div", { class: "col" }, this._getTitle(), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-lg-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('companyName') > -1, label: "Nombre de la empresa/negocio", value: this.model.companyName, onInputChange: ev => this._setModel('companyName', ev.detail) }))), h("div", { class: "col-lg-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('companyLocation') > -1, label: "\u00BFLa ubicaci\u00F3n de la empresa es la misma de la vivienda?", value: this.model.companyLocation, onSelectChange: ev => this._setModel('companyLocation', ev.detail) }, h("option", { value: "si" }, "SI"), h("option", { value: "no" }, "NO")))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('address') > -1, label: "Direcci\u00F3n de la vivienda", value: this.model.address, id: "direccion", onInputChange: ev => {
         this._setModel('address', ev.detail);
       } }))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumericoOpcional", label: "Torre/ Apto/ Conjunto", checkData: this.requiredData.indexOf('place') > -1, value: this.model.place, onInputChange: ev => this._setModel('place', ev.detail) }))), h("div", { class: "col-lg-6" }, h("fieldset", { class: "mb0" }, h("label", null, "Departamento y ciudad de residencia"), h("div", { class: "row" }, h("div", { class: "col-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('departmentOfResidence') > -1, value: this.model.departmentOfResidence, options: this._getSelectDepartmentOptions(), onSelectChange: ev => this._selectDropdownOption('departmentOfResidence', ev.detail, 'cityOfResidence') }))), h("div", { class: "col-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('cityOfResidence') > -1, value: this.model.cityOfResidence, options: this._getSelectCitiesOptions('departmentOfResidence'), onSelectChange: ev => this._setModel('cityOfResidence', ev.detail) })))))), h("div", { class: "col-lg-3 col-md-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('stratus') > -1, label: "Estrato", value: this.model.stratus, onSelectChange: ev => this._setModel('stratus', ev.detail) }, h("option", { value: "1" }, "1"), h("option", { value: "2" }, "2"), h("option", { value: "3" }, "3"), h("option", { value: "4" }, "4"), h("option", { value: "5" }, "5"), h("option", { value: "6" }, "6")))), h("div", { class: "col-lg-5 col-md-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('dwellingType') > -1, label: "Tipo de vivienda", value: this.model.dwellingType, onSelectChange: ev => this._setModel('dwellingType', ev.detail) }, h("option", { value: "propia" }, "Propia"), h("option", { value: "arrendada" }, "Arrendada"), h("option", { value: "familiar" }, "Familiar"), h("option", { value: "otro" }, "Otro")))), h("div", { class: "col-lg-4 col-md-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('companyActivity') > -1, label: "Actividad de la empresa", value: this.model.companyActivity, onSelectChange: ev => this._setModel('companyActivity', ev.detail) }, h("option", { value: "comercio_al_por_mayor" }, "Comercio al por mayor y al por menor; reparaci\u00F3n de veh\u00EDculos automotores y motocicletas; transporte y almacenamiento; alojamiento y servicios de comida"), h("option", { value: "industrias_manufactureras" }, "Industrias manufactureras"), h("option", { value: "actividades_financieras" }, "Actividades financieras y de seguros"), h("option", { value: "informacion_y_comunicaciones" }, "Informaci\u00F3n y comunicaciones"), h("option", { value: "construccion" }, "Construcci\u00F3n"), h("option", { value: "agricultura_ganaderia_afines" }, "Agricultura, ganader\u00EDa, caza, silvicultura y pesca"), h("option", { value: "actividades_profesionales" }, "Actividades profesionales, cient\u00EDficas y t\u00E9cnicas; actividades de servicios administrativos y de apoyo"), h("option", { value: "actividades_inmobiliarias" }, "Actividades inmobiliarias"), h("option", { value: "actividades_artisticas" }, "Actividades art\u00EDsticas, de entretenimiento y recreaci\u00F3n y otras actividades de servicios."), h("option", { value: "administracion_publica" }, "Administraci\u00F3n p\u00FAblica y defensa; planes de seguridad social de afiliaci\u00F3n obligatoria; educaci\u00F3n; actividades de atenci\u00F3n de la salud humana y de servicios sociales"), h("option", { value: "explotacion_de_minas" }, "Explotaci\u00F3n de minas y canteras"), h("option", { value: "suministro_servicios" }, "Suministro de electricidad, gas, vapor y aire acondicionado; distribuci\u00F3n de agua; evacuaci\u00F3n y tratamiento de aguas residuales, gesti\u00F3n de desechos y actividades de saneamiento ambiental")))), h("div", { class: "col-lg-4 col-md-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('point') > -1, label: "Tiene punto de venta presencial (f\u00EDsico)", value: this.model.point, onSelectChange: ev => this._setModel('point', ev.detail) }, h("option", { value: "si" }, "SI"), h("option", { value: "no" }, "NO")))), h("div", { class: "col-lg-4 col-md-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('onlineShop') > -1, label: "Tiene medio de venta virtual", value: this.model.onlineShop, onSelectChange: ev => this._setModel('onlineShop', ev.detail) }, h("option", { value: "si" }, "SI"), h("option", { value: "no" }, "NO")))), h("div", { class: "col-lg-4 col-md-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('employees') > -1, label: "N\u00FAmero de empleados", value: this.model.employees, onSelectChange: ev => this._setModel('employees', ev.detail) }, h("option", { value: "1" }, "1"), h("option", { value: "2" }, "2"), h("option", { value: "3" }, "3"), h("option", { value: "4" }, "4"), h("option", { value: "5" }, "5"), h("option", { value: "6" }, "6"), h("option", { value: "7" }, "7"), h("option", { value: "8" }, "8"), h("option", { value: "9" }, "9"), h("option", { value: "10" }, "10"), h("option", { value: ">10" }, "M\u00E1s de 10")))))), this.adminZone || (h("ul", { class: "inline flex-center-center mb20" }, h("li", null, h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })), this.viewRegistration ? ('') : (h("li", null, h("emprender-cl-button", { text: "Actualizar", modifiers: "medium quaternary", onclick: () => this.upgradeInfo.emit(this.model) }))), h("li", null, h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this._checkSubmitInfo() }))))))))));
   }
@@ -2075,7 +2073,6 @@ const EmprenderUfFinancialInformation$2 = class extends HTMLElement {
         lista.splice(lista.indexOf('otherExpensesDescription'), 1);
       this._setModel('otherExpensesDescription', '');
     }
-    console.log(lista);
     if (lista.length === 0) {
       this.infoSaved.emit(this.model);
     }
@@ -2164,7 +2161,7 @@ const EmprenderUfFinancialInformation$1 = class extends HTMLElement {
     this.requiredData = lista;
   }
   render() {
-    return (h(Host, null, h("section", { class: "employeeRegistration" }, h("div", { class: "container" }, h("div", { class: "row justify-content-center" }, h("div", { class: "col" }, this.adminZone ? h("h3", { class: "titleClient" }, "Informaci\u00F3n Financiera") : h("h2", { class: "title" }, "Informaci\u00F3n Financiera"), this.adminZone || h("h4", null, "Completa la siguiente informaci\u00F3n"), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('salaryIncome') > -1, label: "Ingresos mensuales por concepto de salario fijo", value: this.model.salaryIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('salaryIncome', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { label: "Otros ingresos mensuales", value: this.model.otherIncomes, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('otherIncomes', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { label: "Ingresos mensuales por concepto de salario variable", value: this.model.variableSalaryIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('variableSalaryIncome', ev.detail) }))), h("div", { class: "col-md-6" }, !this._validateOtherInformation('otherIncomes') && (h("fieldset", null, h("emprender-cl-input", { dataType: this.model.otherIncomes !== 0 || this.model.otherIncomes !== null ? 'texto' : 'textoOpcional', label: "Descripci\u00F3n otros ingresos mensuales", checkData: this.requiredData.indexOf('otherIncomesDescription') > -1, value: this.model.otherIncomesDescription, onInputChange: ev => this._setModel('otherIncomesDescription', ev.detail) })))), h("fieldset", { class: "totalBox mt0" }, h("label", null, "Total ingresos mensuales: ", h("span", null, formatNumber(this.model.totalIncomes)))))), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Tus egresos mensuales por pago de deuda", checkData: this.requiredData.indexOf('debtExpenses') > -1, value: this.model.debtExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('debtExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Tus egresos mensuales personales / familiares", checkData: this.requiredData.indexOf('personalExpenses') > -1, value: this.model.personalExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('personalExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumericoOpcional", label: "Otros egresos mensuales", value: this.model.otherExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('otherExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, !this._validateOtherInformation('otherExpenses') && (h("fieldset", null, h("emprender-cl-input", { dataType: this.model.otherIncomes !== 0 || this.model.otherIncomes !== null ? 'texto' : 'textoOpcional', label: "Descripci\u00F3n otros egresos mensuales", checkData: this.requiredData.indexOf('otherExpensesDescription') > -1, value: this.model.otherExpensesDescription, onInputChange: ev => this._setModel('otherExpensesDescription', ev.detail) }))))), h("fieldset", { class: "totalBox" }, h("label", null, "Total egresos mensuales: ", h("span", null, formatNumber(this.model.totalExpenses))))), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Total Activos", checkData: this.requiredData.indexOf('totalAssets') > -1, value: this.model.totalAssets, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('totalAssets', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Total Pasivos", checkData: this.requiredData.indexOf('totalLiabilities') > -1, value: this.model.totalLiabilities, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('totalLiabilities', ev.detail) }))))), this.requiredData.length === 0 ? null : (h("div", { class: "errorText" }, h("emprender-cl-icon", { icon: "alert", path: 0 }), "Debes completar todos los campos marcados para poder continuar.")), this.adminZone || (h("ul", { class: "inline flex-center-center mb20" }, h("li", null, h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })), h("li", null, h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this._checkSubmitInfo() })))), h("slot", null)))))));
+    return (h(Host, null, h("section", { class: "employeeRegistration" }, h("div", { class: "container" }, h("div", { class: "row justify-content-center" }, h("div", { class: "col" }, this.adminZone ? h("h3", { class: "titleClient" }, "Informaci\u00F3n Financiera") : h("h2", { class: "title" }, "Informaci\u00F3n Financiera"), this.adminZone || h("h4", null, "Completa la siguiente informaci\u00F3n"), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('salaryIncome') > -1, label: "Ingresos mensuales por concepto de salario fijo", value: this.model.salaryIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('salaryIncome', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { label: "Otros ingresos mensuales", value: this.model.otherIncomes, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('otherIncomes', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { label: "Ingresos mensuales por concepto de salario variable", value: this.model.variableSalaryIncome, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalIncomes('variableSalaryIncome', ev.detail) }))), h("div", { class: "col-md-6" }, !this._validateOtherInformation('otherIncomes') && (h("fieldset", null, h("emprender-cl-input", { dataType: this.model.otherIncomes !== 0 || this.model.otherIncomes !== null ? 'texto' : 'textoOpcional', label: "Descripci\u00F3n otros ingresos mensuales", checkData: this.requiredData.indexOf('otherIncomesDescription') > -1, value: this.model.otherIncomesDescription, onInputChange: ev => this._setModel('otherIncomesDescription', ev.detail) })))), h("fieldset", { class: "totalBox mt0" }, h("label", null, "Total ingresos mensuales: ", h("span", null, formatNumber(this.model.totalIncomes)))))), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Tus egresos mensuales por pago de deuda", checkData: this.requiredData.indexOf('debtExpenses') > -1, value: this.model.debtExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('debtExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Egresos mensuales por pago de arriendos", checkData: this.requiredData.indexOf('rentExpenses') > -1, value: this.model.rentExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('rentExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Tus egresos mensuales personales / familiares", checkData: this.requiredData.indexOf('personalExpenses') > -1, value: this.model.personalExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('personalExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumericoOpcional", label: "Otros egresos mensuales", value: this.model.otherExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('otherExpenses', ev.detail) }))), h("div", { class: "col-md-6" }, !this._validateOtherInformation('otherExpenses') && (h("fieldset", null, h("emprender-cl-input", { dataType: this.model.otherIncomes !== 0 || this.model.otherIncomes !== null ? 'texto' : 'textoOpcional', label: "Descripci\u00F3n otros egresos mensuales", checkData: this.requiredData.indexOf('otherExpensesDescription') > -1, value: this.model.otherExpensesDescription, onInputChange: ev => this._setModel('otherExpensesDescription', ev.detail) }))))), h("fieldset", { class: "totalBox" }, h("label", null, "Total egresos mensuales: ", h("span", null, formatNumber(this.model.totalExpenses))))), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Total Activos", checkData: this.requiredData.indexOf('totalAssets') > -1, value: this.model.totalAssets, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('totalAssets', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", label: "Total Pasivos", checkData: this.requiredData.indexOf('totalLiabilities') > -1, value: this.model.totalLiabilities, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('totalLiabilities', ev.detail) }))))), this.requiredData.length === 0 ? null : (h("div", { class: "errorText" }, h("emprender-cl-icon", { icon: "alert", path: 0 }), "Debes completar todos los campos marcados para poder continuar.")), this.adminZone || (h("ul", { class: "inline flex-center-center mb20" }, h("li", null, h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })), h("li", null, h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this._checkSubmitInfo() })))), h("slot", null)))))));
   }
   static get style() { return emprenderUfFinancialInformationCss; }
 };
@@ -2255,7 +2252,6 @@ const EmprenderUfPersonalInformation2$1 = class extends HTMLElement {
       place: '',
       stratus: 4,
       dwellingType: '',
-      rent: 0,
       residenceTime: '',
       employment: '',
     };
@@ -2280,24 +2276,17 @@ const EmprenderUfPersonalInformation2$1 = class extends HTMLElement {
     this._setModel(clearField, '');
   }
   _checkSubmitInfo() {
+    console.log(this.model);
     const lista = checkData(this.model);
-    if (lista.indexOf('rent') > -1 && this.model.dwellingType !== 'arrendada') {
-      lista.splice(lista.indexOf('rent'), 1);
-    }
     if (lista.length === 0) {
       this.infoSaved.emit(this.model);
     }
     this.requiredData = lista.toString();
   }
   render() {
-    return (h(Host, null, h("section", { class: "employeeRegistration" }, h("div", { class: "container" }, h("div", { class: "row justify-content-center" }, h("div", { class: "col" }, h("h2", { class: "title" }, "Informaci\u00F3n Personal"), h("h4", null, "Completa la siguiente informaci\u00F3n"), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('academicLevel') > -1, label: "Nivel acad\u00E9mico", value: this.model.academicLevel, onSelectChange: ev => this._setModel('academicLevel', ev.detail) }, h("option", { value: "primaria" }, "Primaria"), h("option", { value: "bachillerato" }, "Bachillerato"), h("option", { value: "tecnico_tecnologo" }, "T\u00E9cnico - Tecn\u00F3logo"), h("option", { value: "universitario" }, "Universitario"), h("option", { value: "postgrado_especializacion" }, "Posgrado - Especializaci\u00F3n"), h("option", { value: "ninguno" }, "Ninguno")))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('childrenNumber') > -1, label: "N\u00FAmero de hijos", value: this.model.childrenNumber, onSelectChange: ev => this._setModel('childrenNumber', ev.detail) }, h("option", { value: "0" }, "0"), h("option", { value: "1" }, "1"), h("option", { value: "2" }, "2"), h("option", { value: "3" }, "3"), h("option", { value: "4" }, "4"), h("option", { value: ">4" }, '>4')))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('dependents') > -1, label: "Personas a cargo", value: this.model.dependents, onSelectChange: ev => this._setModel('dependents', ev.detail) }, h("option", { value: "0" }, "0"), h("option", { value: "1" }, "1"), h("option", { value: "2" }, "2"), h("option", { value: "3" }, "3"), h("option", { value: "4" }, "4"), h("option", { value: ">4" }, '>4')))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('civilState') > -1, label: "Estado civil", value: this.model.civilState, onSelectChange: ev => this._setModel('civilState', ev.detail) }, h("option", { value: "soltero" }, "Soltero(a)"), h("option", { value: "casado" }, "Casado(a)"), h("option", { value: "union_libre" }, "Uni\u00F3n libre"), h("option", { value: "viudo" }, "Viudo(a)"), h("option", { value: "otro" }, "Otro")))), h("div", { class: "col-lg-6" }, h("fieldset", { class: "mb0" }, h("label", null, "Departamento y ciudad de residencia"), h("div", { class: "row" }, h("div", { class: "col-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('departmentOfResidence') > -1, value: this.model.departmentOfResidence, options: this._getSelectDepartmentOptions(), onSelectChange: ev => this._selectDropdownOption('departmentOfResidence', ev.detail, 'cityOfResidence') }))), h("div", { class: "col-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('cityOfResidence') > -1, value: this.model.cityOfResidence, options: this._getSelectCitiesOptions('departmentOfResidence'), onSelectChange: ev => this._setModel('cityOfResidence', ev.detail) })))))), h("div", { class: "col-lg-3 col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", typeAddress: true, checkData: this.requiredData.indexOf('address') > -1, label: "Direcci\u00F3n de la vivienda", value: this.model.address, id: "direccion", onInputChange: ev => {
+    return (h(Host, null, h("section", { class: "employeeRegistration" }, h("div", { class: "container" }, h("div", { class: "row justify-content-center" }, h("div", { class: "col" }, h("h2", { class: "title" }, "Informaci\u00F3n Personal"), h("h4", null, "Completa la siguiente informaci\u00F3n"), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('academicLevel') > -1, label: "Nivel acad\u00E9mico", value: this.model.academicLevel, onSelectChange: ev => this._setModel('academicLevel', ev.detail) }, h("option", { value: "primaria" }, "Primaria"), h("option", { value: "bachillerato" }, "Bachillerato"), h("option", { value: "tecnico_tecnologo" }, "T\u00E9cnico - Tecn\u00F3logo"), h("option", { value: "universitario" }, "Universitario"), h("option", { value: "postgrado_especializacion" }, "Posgrado - Especializaci\u00F3n"), h("option", { value: "ninguno" }, "Ninguno")))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('childrenNumber') > -1, label: "N\u00FAmero de hijos", value: this.model.childrenNumber, onSelectChange: ev => this._setModel('childrenNumber', ev.detail) }, h("option", { value: "0" }, "0"), h("option", { value: "1" }, "1"), h("option", { value: "2" }, "2"), h("option", { value: "3" }, "3"), h("option", { value: "4" }, "4"), h("option", { value: ">4" }, '>4')))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('dependents') > -1, label: "Personas a cargo", value: this.model.dependents, onSelectChange: ev => this._setModel('dependents', ev.detail) }, h("option", { value: "0" }, "0"), h("option", { value: "1" }, "1"), h("option", { value: "2" }, "2"), h("option", { value: "3" }, "3"), h("option", { value: "4" }, "4"), h("option", { value: ">4" }, '>4')))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('civilState') > -1, label: "Estado civil", value: this.model.civilState, onSelectChange: ev => this._setModel('civilState', ev.detail) }, h("option", { value: "soltero" }, "Soltero(a)"), h("option", { value: "casado" }, "Casado(a)"), h("option", { value: "union_libre" }, "Uni\u00F3n libre"), h("option", { value: "viudo" }, "Viudo(a)"), h("option", { value: "otro" }, "Otro")))), h("div", { class: "col-lg-6" }, h("fieldset", { class: "mb0" }, h("label", null, "Departamento y ciudad de residencia"), h("div", { class: "row" }, h("div", { class: "col-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('departmentOfResidence') > -1, value: this.model.departmentOfResidence, options: this._getSelectDepartmentOptions(), onSelectChange: ev => this._selectDropdownOption('departmentOfResidence', ev.detail, 'cityOfResidence') }))), h("div", { class: "col-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('cityOfResidence') > -1, value: this.model.cityOfResidence, options: this._getSelectCitiesOptions('departmentOfResidence'), onSelectChange: ev => this._setModel('cityOfResidence', ev.detail) })))))), h("div", { class: "col-lg-3 col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('address') > -1, label: "Direcci\u00F3n de la vivienda", value: this.model.address, id: "direccion", onInputChange: ev => {
         this._setModel('address', ev.detail);
-      } }))), h("div", { class: "col-lg-3 col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumericoOpcional", label: "Torre/ Apto/ Conjunto", checkData: this.requiredData.indexOf('place') > -1, value: this.model.place, onInputChange: ev => this._setModel('place', ev.detail) }))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('stratus') > -1, label: "Estrato", value: this.model.stratus, onSelectChange: ev => this._setModel('stratus', ev.detail) }, h("option", { value: "1" }, "1"), h("option", { value: "2" }, "2"), h("option", { value: "3" }, "3"), h("option", { value: "4" }, "4"), h("option", { value: "5" }, "5"), h("option", { value: "6" }, "6")))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('dwellingType') > -1, label: "Tipo de vivienda", value: this.model.dwellingType, onSelectChange: ev => {
-        this._setModel('dwellingType', ev.detail);
-        if (this.model.dwellingType !== 'arrendada') {
-          this._setModel('rent', '0');
-        }
-      } }, h("option", { value: "propia" }, "Propia"), h("option", { value: "arrendada" }, "Arrendada"), h("option", { value: "familiar" }, "Familiar"), h("option", { value: "otro" }, "Otro")))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", { inputOptions: this.model.dwellingType !== 'arrendada' ? { disabled: '{this.disabled}' } : {}, dataType: this.model.dwellingType === 'arrendada' ? 'arriendo' : '', checkData: this.model.dwellingType === 'arrendada' && this.model.rent < 1000, label: "\u00BFCu\u00E1nto pagas por arriendo?", value: this.model.rent, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._setModel('rent', ev.detail) }))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('residenceTime') > -1, label: "Tiempo de residencia", value: this.model.residenceTime, onSelectChange: ev => this._setModel('residenceTime', ev.detail) }, h("option", { value: "<1" }, `Menos de 1 año`), h("option", { value: "1-2" }, `Entre 1 y 2 años`), h("option", { value: "2-3" }, `Entre 2 y 3 años`), h("option", { value: "3-4" }, `Entre 3 y 4 años`), h("option", { value: ">4" }, `Más de 4 años`)))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('employment') > -1, label: "Ocupaci\u00F3n", value: this.model.employment, onSelectChange: ev => this._setModel('employment', ev.detail) }, h("option", { value: "Empleado" }, "Empleado"), h("option", { value: "Independiente" }, "Independiente"), h("option", { value: "Pensionado" }, "Pensionado"), h("option", { value: "Rentista" }, "Rentista"), h("option", { value: "Estudiante" }, "Estudiante"), h("option", { value: "Ama de Casa" }, "Ama de Casa"))))), this.requiredData.length === 0 ? null : (h("div", { class: "errorText" }, h("emprender-cl-icon", { icon: "alert", path: 0 }), "Debes completar todos los campos marcados para poder continuar."))), h("ul", { class: "inline flex-center-center mb20" }, h("li", null, h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })), h("li", null, h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this._checkSubmitInfo() }))), h("slot", null)))))));
+      } }))), h("div", { class: "col-lg-3 col-md-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumericoOpcional", label: "Torre/ Apto/ Conjunto", checkData: this.requiredData.indexOf('place') > -1, value: this.model.place, onInputChange: ev => this._setModel('place', ev.detail) }))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('stratus') > -1, label: "Estrato", value: this.model.stratus, onSelectChange: ev => this._setModel('stratus', ev.detail) }, h("option", { value: "1" }, "1"), h("option", { value: "2" }, "2"), h("option", { value: "3" }, "3"), h("option", { value: "4" }, "4"), h("option", { value: "5" }, "5"), h("option", { value: "6" }, "6")))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('dwellingType') > -1, label: "Tipo de vivienda", value: this.model.dwellingType, onSelectChange: ev => this._setModel('dwellingType', ev.detail) }, h("option", { value: "propia" }, "Propia"), h("option", { value: "arrendada" }, "Arrendada"), h("option", { value: "familiar" }, "Familiar"), h("option", { value: "otro" }, "Otro")))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('residenceTime') > -1, label: "Tiempo de residencia", value: this.model.residenceTime, onSelectChange: ev => this._setModel('residenceTime', ev.detail) }, h("option", { value: "<1" }, `Menos de 1 año`), h("option", { value: "1-2" }, `Entre 1 y 2 años`), h("option", { value: "2-3" }, `Entre 2 y 3 años`), h("option", { value: "3-4" }, `Entre 3 y 4 años`), h("option", { value: ">4" }, `Más de 4 años`)))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('employment') > -1, label: "Ocupaci\u00F3n", value: this.model.employment, onSelectChange: ev => this._setModel('employment', ev.detail) }, h("option", { value: "Empleado" }, "Empleado"), h("option", { value: "Independiente" }, "Independiente"), h("option", { value: "Pensionado" }, "Pensionado"), h("option", { value: "Rentista" }, "Rentista"), h("option", { value: "Estudiante" }, "Estudiante"), h("option", { value: "Ama de Casa" }, "Ama de Casa"))))), this.requiredData.length === 0 ? null : (h("div", { class: "errorText" }, h("emprender-cl-icon", { icon: "alert", path: 0 }), "Debes completar todos los campos marcados para poder continuar."))), h("ul", { class: "inline flex-center-center mb20" }, h("li", null, h("emprender-cl-button", { text: "Anterior", modifiers: "medium tertiary", onclick: () => this.back.emit(this.model) })), h("li", null, h("emprender-cl-button", { text: "Continuar", modifiers: "medium primary", onclick: () => this._checkSubmitInfo() }))), h("slot", null)))))));
   }
   static get style() { return emprenderUfPersonalInformation2Css; }
 };
@@ -2341,7 +2330,6 @@ const EmprenderUfPersonalInformation3$1 = class extends HTMLElement {
       place: '',
       stratus: 4,
       dwellingType: '',
-      rent: 0,
       residenceTime: '',
       employment: '',
     };
@@ -2383,7 +2371,6 @@ const EmprenderUfPersonalInformation3$1 = class extends HTMLElement {
     if (lista.length === 0) {
       this.upgradeInfo.emit([this.model, this.model2, this.model3, 'up']);
     }
-    console.log(lista);
     this.requiredData = lista.toString();
   }
   _getTitle() {
@@ -2395,7 +2382,7 @@ const EmprenderUfPersonalInformation3$1 = class extends HTMLElement {
     }
   }
   render() {
-    return (h(Host, null, h("section", { class: "clientForms" }, h("div", { class: "container" }, h("div", { class: "row justify-content-center" }, h("div", { class: "col" }, this._getTitle(), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-4" }, h("fieldset", null, h("emprender-cl-input", { inputOptions: { disabled: '{this.disabled}' }, label: "Nombre", value: `${this.model.firstName} ${this.model.middleName} ${this.model.surName} ${this.model.secondSurName}` }))), h("div", { class: "col-md-4" }, h("fieldset", null, h("emprender-cl-input", { dataType: "celular", checkData: this.requiredData.indexOf('mobilePhone') > -1, label: "N\u00FAmero de tel\u00E9fono", value: this.model.mobilePhone, onInputChange: ev => this._setModel('mobilePhone', ev.detail) }))), h("div", { class: "col-md-4" }, h("fieldset", null, h("emprender-cl-input", { dataType: "correo", checkData: this.requiredData.indexOf('email') > -1, label: "Correo electr\u00F3nico", value: this.model.email, onInputChange: ev => this._setModel('email', ev.detail) }))), h("div", { class: "col-lg-3 col-md-4" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('academicLevel') > -1, label: "Nivel acad\u00E9mico", value: this.model2.academicLevel, onSelectChange: ev => this._setModel2('academicLevel', ev.detail) }, h("option", { value: "primaria" }, "Primaria"), h("option", { value: "bachillerato" }, "Bachillerato"), h("option", { value: "tecnico_tecnologo" }, "T\u00E9cnico - Tecn\u00F3logo"), h("option", { value: "universitario" }, "Universitario"), h("option", { value: "postgrado_especializacion" }, "Posgrado - Especializaci\u00F3n"), h("option", { value: "ninguno" }, "Ninguno")))), h("div", { class: "col-lg-3 col-md-4" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('childrenNumber') > -1, label: "N\u00FAmero de hijos", value: this.model2.childrenNumber, onSelectChange: ev => this._setModel2('childrenNumber', ev.detail) }, h("option", { value: "0" }, "0"), h("option", { value: "1" }, "1"), h("option", { value: "2" }, "2"), h("option", { value: "3" }, "3"), h("option", { value: "4" }, "4"), h("option", { value: ">4" }, '>4')))), h("div", { class: "col-lg-3 col-md-4" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('dependents') > -1, label: "Personas a cargo", value: this.model2.dependents, onSelectChange: ev => this._setModel2('dependents', ev.detail) }, h("option", { value: "0" }, "0"), h("option", { value: "1" }, "1"), h("option", { value: "2" }, "2"), h("option", { value: "3" }, "3"), h("option", { value: "4" }, "4"), h("option", { value: ">4" }, '>4')))), h("div", { class: "col-lg-3 col-md-4" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('civilState') > -1, label: "Estado civil", value: this.model2.civilState, onSelectChange: ev => this._setModel2('civilState', ev.detail) }, h("option", { value: "soltero" }, "Soltero(a)"), h("option", { value: "casado" }, "Casado(a)"), h("option", { value: "union_libre" }, "Uni\u00F3n libre"), h("option", { value: "viudo" }, "Viudo(a)"), h("option", { value: "otro" }, "Otro")))), h("div", { class: "col-lg-6 col-md-8" }, h("fieldset", { class: "mb0" }, h("label", null, "Departamento y ciudad de residencia"), h("div", { class: "row" }, h("div", { class: "col-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('departmentOfResidence') > -1, value: this.model2.departmentOfResidence, options: this._getSelectDepartmentOptions(), onSelectChange: ev => this._selectDropdownOption('departmentOfResidence', ev.detail, 'cityOfResidence') }))), h("div", { class: "col-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('cityOfResidence') > -1, value: this.model2.cityOfResidence, options: this._getSelectCitiesOptions('departmentOfResidence'), onSelectChange: ev => this._setModel('cityOfResidence', ev.detail) })))))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('address') > -1, typeAddress: !this.adminZone, label: "Direcci\u00F3n de la vivienda", value: this.model2.address, id: "direccion", onInputChange: ev => {
+    return (h(Host, null, h("section", { class: "clientForms" }, h("div", { class: "container" }, h("div", { class: "row justify-content-center" }, h("div", { class: "col" }, this._getTitle(), h("div", { class: "boxForm form p5" }, h("div", { class: "row" }, h("div", { class: "col-md-4" }, h("fieldset", null, h("emprender-cl-input", { inputOptions: { disabled: '{this.disabled}' }, label: "Nombre", value: `${this.model.firstName} ${this.model.middleName} ${this.model.surName} ${this.model.secondSurName}` }))), h("div", { class: "col-md-4" }, h("fieldset", null, h("emprender-cl-input", { dataType: "celular", checkData: this.requiredData.indexOf('mobilePhone') > -1, label: "N\u00FAmero de tel\u00E9fono", value: this.model.mobilePhone, onInputChange: ev => this._setModel('mobilePhone', ev.detail) }))), h("div", { class: "col-md-4" }, h("fieldset", null, h("emprender-cl-input", { dataType: "correo", checkData: this.requiredData.indexOf('email') > -1, label: "Correo electr\u00F3nico", value: this.model.email, onInputChange: ev => this._setModel('email', ev.detail) }))), h("div", { class: "col-lg-3 col-md-4" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('academicLevel') > -1, label: "Nivel acad\u00E9mico", value: this.model2.academicLevel, onSelectChange: ev => this._setModel2('academicLevel', ev.detail) }, h("option", { value: "primaria" }, "Primaria"), h("option", { value: "bachillerato" }, "Bachillerato"), h("option", { value: "tecnico_tecnologo" }, "T\u00E9cnico - Tecn\u00F3logo"), h("option", { value: "universitario" }, "Universitario"), h("option", { value: "postgrado_especializacion" }, "Posgrado - Especializaci\u00F3n"), h("option", { value: "ninguno" }, "Ninguno")))), h("div", { class: "col-lg-3 col-md-4" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('childrenNumber') > -1, label: "N\u00FAmero de hijos", value: this.model2.childrenNumber, onSelectChange: ev => this._setModel2('childrenNumber', ev.detail) }, h("option", { value: "0" }, "0"), h("option", { value: "1" }, "1"), h("option", { value: "2" }, "2"), h("option", { value: "3" }, "3"), h("option", { value: "4" }, "4"), h("option", { value: ">4" }, '>4')))), h("div", { class: "col-lg-3 col-md-4" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('dependents') > -1, label: "Personas a cargo", value: this.model2.dependents, onSelectChange: ev => this._setModel2('dependents', ev.detail) }, h("option", { value: "0" }, "0"), h("option", { value: "1" }, "1"), h("option", { value: "2" }, "2"), h("option", { value: "3" }, "3"), h("option", { value: "4" }, "4"), h("option", { value: ">4" }, '>4')))), h("div", { class: "col-lg-3 col-md-4" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('civilState') > -1, label: "Estado civil", value: this.model2.civilState, onSelectChange: ev => this._setModel2('civilState', ev.detail) }, h("option", { value: "soltero" }, "Soltero(a)"), h("option", { value: "casado" }, "Casado(a)"), h("option", { value: "union_libre" }, "Uni\u00F3n libre"), h("option", { value: "viudo" }, "Viudo(a)"), h("option", { value: "otro" }, "Otro")))), h("div", { class: "col-lg-6 col-md-8" }, h("fieldset", { class: "mb0" }, h("label", null, "Departamento y ciudad de residencia"), h("div", { class: "row" }, h("div", { class: "col-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('departmentOfResidence') > -1, value: this.model2.departmentOfResidence, options: this._getSelectDepartmentOptions(), onSelectChange: ev => this._selectDropdownOption('departmentOfResidence', ev.detail, 'cityOfResidence') }))), h("div", { class: "col-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('cityOfResidence') > -1, value: this.model2.cityOfResidence, options: this._getSelectCitiesOptions('departmentOfResidence'), onSelectChange: ev => this._setModel('cityOfResidence', ev.detail) })))))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumerico", checkData: this.requiredData.indexOf('address') > -1, label: "Direcci\u00F3n de la vivienda", value: this.model2.address, id: "direccion", onInputChange: ev => {
         this._setModel2('address', ev.detail);
       } }))), h("div", { class: "col-lg-3 col-sm-6" }, h("fieldset", null, h("emprender-cl-input", { dataType: "alfanumericoOpcional", checkData: this.requiredData.indexOf('place') > -1, label: "Torre/ Apto/ Conjunto", value: this.model2.place, onInputChange: ev => this._setModel2('place', ev.detail) }))), h("div", { class: "col-md-3" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('stratus') > -1, label: "Estrato", value: this.model2.stratus, onSelectChange: ev => this._setModel2('stratus', ev.detail) }, h("option", { value: "1" }, "1"), h("option", { value: "2" }, "2"), h("option", { value: "3" }, "3"), h("option", { value: "4" }, "4"), h("option", { value: "5" }, "5"), h("option", { value: "6" }, "6")))), h("div", { class: "col-md-3" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('dwellingType') > -1, label: "Tipo de vivienda", value: this.model2.dwellingType, onSelectChange: ev => this._setModel2('dwellingType', ev.detail) }, h("option", { value: "propia" }, "Propia"), h("option", { value: "arrendada" }, "Arrendada"), h("option", { value: "familiar" }, "Familiar"), h("option", { value: "otro" }, "Otro")))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-select", { label: "Informaci\u00F3n Cuenta Bancaria", value: this.model3.bankName, onSelectChange: ev => this._setModel3('bankName', ev.detail) }, h("option", { value: "bancamia s.a." }, "BANCAMIA S.A."), h("option", { value: "banco agrario" }, "BANCO AGRARIO"), h("option", { value: "banco av villas" }, "BANCO AV VILLAS"), h("option", { value: "banco bbva colombia s.a." }, "BANCO BBVA COLOMBIA S.A."), h("option", { value: "banco caja social" }, "BANCO CAJA SOCIAL"), h("option", { value: "banco cooperativo coopcentral" }, "BANCO COOPERATIVO COOPCENTRAL"), h("option", { value: "banco credifinanciera" }, "BANCO CREDIFINANCIERA"), h("option", { value: "banco davivienda" }, "BANCO DAVIVIENDA"), h("option", { value: "banco de bogota" }, "BANCO DE BOGOTA"), h("option", { value: "banco de occidente" }, "BANCO DE OCCIDENTE"), h("option", { value: "banco falabella" }, "BANCO FALABELLA"), h("option", { value: "banco gnb sudameris" }, "BANCO GNB SUDAMERIS"), h("option", { value: "banco itau" }, "BANCO ITAU"), h("option", { value: "banco pichincha s.a." }, "BANCO PICHINCHA S.A."), h("option", { value: "banco popular" }, "BANCO POPULAR"), h("option", { value: "banco santander colombia" }, "BANCO SANTANDER COLOMBIA"), h("option", { value: "banco serfinanza" }, "BANCO SERFINANZA"), h("option", { value: "bancolombia" }, "BANCOLOMBIA"), h("option", { value: "bancoomeva s.a." }, "BANCOOMEVA S.A."), h("option", { value: "cfa cooperativa financiera" }, "CFA COOPERATIVA FINANCIERA"), h("option", { value: "citibank" }, "CITIBANK"), h("option", { value: "coltefinanciera" }, "COLTEFINANCIERA"), h("option", { value: "confiar cooperativa financiera" }, "CONFIAR COOPERATIVA FINANCIERA"), h("option", { value: "cotrafa" }, "COTRAFA"), h("option", { value: "daviplata" }, "DAVIPLATA"), h("option", { value: "giros y finanzas compa\u00F1ia de financiamiento s.a." }, "GIROS Y FINANZAS COMPA\u00D1IA DE FINANCIAMIENTO S.A."), h("option", { value: "movii s.a." }, "MOVII S.A."), h("option", { value: "nequi" }, "NEQUI"), h("option", { value: "rappipay" }, "RAPPIPAY"), h("option", { value: "scotiabank colpatria" }, "SCOTIABANK COLPATRIA")))), h("div", { class: "col-lg-3 col-md-6" }, h("fieldset", null, h("emprender-cl-select", { checkData: this.requiredData.indexOf('accountType') > -1, label: "Tipo de Cuenta Bancaria", value: this.model3.accountType, onSelectChange: ev => this._setModel3('accountType', ev.detail) }, h("option", { value: "ahorros" }, "Ahorro"), h("option", { value: "corriente" }, "Corriente")))), h("div", { class: "col-md-6" }, h("fieldset", null, h("emprender-cl-input", {
       // dataType="numerico"
@@ -2527,6 +2514,7 @@ async function userAdminInformation(id) {
   myHeaders.append('Access-Control-Allow-Origin', '*');
   myHeaders.append('Access-Control-Allow-Credentials', 'true');
   myHeaders.append('Content-Type', 'application/json');
+  console.log(id);
   try {
     const result = await fetch(`https://credito.muii.com.co/api/DataManager/${id}/`, {
       method: 'GET',
@@ -2578,7 +2566,6 @@ function getInfoSocioDemografica(data) {
     place: data['torre_Apt'],
     stratus: data['estrato'],
     dwellingType: data['tipoVivienda'],
-    rent: data['arriendo'],
     residenceTime: data['tiempo'],
     employment: data['ocupacion'],
   };
@@ -2801,7 +2788,6 @@ const EmprenderUserForms$2 = class extends HTMLElement {
   async componentWillLoad() {
     await loadCSS('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500&family=Varela+Round&display=swap');
     await loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
-    await loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCQBC0qLLMIkQnq2d_gSqB1O4a5hNMMdyI&libraries=places', 'googleapi', 'text/javascript');
     loadDefaultData();
   }
   isLoading() {
@@ -2876,7 +2862,6 @@ const EmprenderUserForms$1 = class extends HTMLElement {
   async componentWillLoad() {
     await loadCSS('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500&family=Varela+Round&display=swap');
     await loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
-    await loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCQBC0qLLMIkQnq2d_gSqB1O4a5hNMMdyI&libraries=places', 'googleapi', 'text/javascript');
     loadDefaultData();
   }
   isLoading() {

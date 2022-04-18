@@ -38,7 +38,6 @@ export interface PersonalInformation2 {
   place: string;
   stratus: number;
   dwellingType: string;
-  rent: number;
   residenceTime: string;
   employment: string;
 }

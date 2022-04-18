@@ -1,7 +1,8 @@
 export const COUNTRY = [
-  { id: 0, departamento: 'Amazonas', ciudades: ['Leticia', 'Puerto Nari\u00f1o'] },
+  { id: 0, departamento: 'Bogot\u00e1', ciudades: ['Bogot\u00e1'] },
+  { id: 1, departamento: 'Amazonas', ciudades: ['Leticia', 'Puerto Nari\u00f1o'] },
   {
-    id: 1,
+    id: 2,
     departamento: 'Antioquia',
     ciudades: [
       'Abejorral',
@@ -131,9 +132,9 @@ export const COUNTRY = [
       'Zaragoza',
     ],
   },
-  { id: 2, departamento: 'Arauca', ciudades: ['Arauca', 'Arauquita', 'Cravo Norte', 'Fortul', 'Puerto Rond\u00f3n', 'Saravena', 'Tame'] },
+  { id: 3, departamento: 'Arauca', ciudades: ['Arauca', 'Arauquita', 'Cravo Norte', 'Fortul', 'Puerto Rond\u00f3n', 'Saravena', 'Tame'] },
   {
-    id: 3,
+    id: 4,
     departamento: 'Atl\u00e1ntico',
     ciudades: [
       'Baranoa',
@@ -162,7 +163,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 4,
+    id: 5,
     departamento: 'Bol\u00edvar',
     ciudades: [
       'Ach\u00ed',
@@ -215,7 +216,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 5,
+    id: 6,
     departamento: 'Boyac\u00e1',
     ciudades: [
       'Almeida',
@@ -344,7 +345,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 6,
+    id: 7,
     departamento: 'Caldas',
     ciudades: [
       'Aguadas',
@@ -377,7 +378,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 7,
+    id: 8,
     departamento: 'Caquet\u00e1',
     ciudades: [
       'Albania',
@@ -399,7 +400,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 8,
+    id: 9,
     departamento: 'Casanare',
     ciudades: [
       'Aguazul',
@@ -424,7 +425,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 9,
+    id: 10,
     departamento: 'Cauca',
     ciudades: [
       'Almaguer',
@@ -472,7 +473,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 10,
+    id: 11,
     departamento: 'Cesar',
     ciudades: [
       'Aguachica',
@@ -503,7 +504,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 11,
+    id: 12,
     departamento: 'Choc\u00f3',
     ciudades: [
       'Acand\u00ed',
@@ -539,7 +540,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 12,
+    id: 13,
     departamento: 'Cundinamarca',
     ciudades: [
       'Agua de Dios',
@@ -661,7 +662,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 13,
+    id: 14,
     departamento: 'C\u00f3rdoba',
     ciudades: [
       'Ayapel',
@@ -696,10 +697,10 @@ export const COUNTRY = [
       'Valencia',
     ],
   },
-  { id: 14, departamento: 'Guain\u00eda', ciudades: ['In\u00edrida'] },
-  { id: 15, departamento: 'Guaviare', ciudades: ['Calamar', 'El Retorno', 'Miraflores', 'San Jos\u00e9 del Guaviare'] },
+  { id: 15, departamento: 'Guain\u00eda', ciudades: ['In\u00edrida'] },
+  { id: 16, departamento: 'Guaviare', ciudades: ['Calamar', 'El Retorno', 'Miraflores', 'San Jos\u00e9 del Guaviare'] },
   {
-    id: 16,
+    id: 17,
     departamento: 'Huila',
     ciudades: [
       'Acevedo',
@@ -742,7 +743,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 17,
+    id: 18,
     departamento: 'La Guajira',
     ciudades: [
       'Albania',
@@ -763,7 +764,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 18,
+    id: 19,
     departamento: 'Magdalena',
     ciudades: [
       'Algarrobo',
@@ -800,7 +801,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 19,
+    id: 20,
     departamento: 'Meta',
     ciudades: [
       'Acac\u00edas',
@@ -835,7 +836,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 20,
+    id: 21,
     departamento: 'Nari\u00f1o',
     ciudades: [
       'Aldana',
@@ -905,7 +906,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 21,
+    id: 22,
     departamento: 'Norte de Santander',
     ciudades: [
       '\u00c1brego',
@@ -951,7 +952,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 22,
+    id: 23,
     departamento: 'Putumayo',
     ciudades: [
       'Col\u00f3n',
@@ -970,12 +971,12 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 23,
+    id: 24,
     departamento: 'Quind\u00edo',
     ciudades: ['Armenia', 'Buenavista', 'Calarc\u00e1', 'Circasia', 'C\u00f3rdoba', 'Filandia', 'G\u00e9nova', 'La Tebaida', 'Montenegro', 'Pijao', 'Quimbaya', 'Salento'],
   },
   {
-    id: 24,
+    id: 25,
     departamento: 'Risaralda',
     ciudades: [
       'Ap\u00eda',
@@ -994,9 +995,9 @@ export const COUNTRY = [
       'Santuario',
     ],
   },
-  { id: 25, departamento: 'San Andr\u00e9s y Providencia', ciudades: ['Providencia y Santa Catalina Islas', 'San Andr\u00e9s'] },
+  { id: 26, departamento: 'San Andr\u00e9s y Providencia', ciudades: ['Providencia y Santa Catalina Islas', 'San Andr\u00e9s'] },
   {
-    id: 26,
+    id: 27,
     departamento: 'Santander',
     ciudades: [
       'Aguada',
@@ -1089,7 +1090,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 27,
+    id: 28,
     departamento: 'Sucre',
     ciudades: [
       'Buenavista',
@@ -1121,7 +1122,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 28,
+    id: 29,
     departamento: 'Tolima',
     ciudades: [
       'Alpujarra',
@@ -1174,7 +1175,7 @@ export const COUNTRY = [
     ],
   },
   {
-    id: 29,
+    id: 30,
     departamento: 'Valle del Cauca',
     ciudades: [
       'Alcal\u00e1',
@@ -1221,7 +1222,6 @@ export const COUNTRY = [
       'Zarzal',
     ],
   },
-  { id: 30, departamento: 'Vaup\u00e9s', ciudades: ['Carur\u00fa', 'Mit\u00fa', 'Taraira'] },
-  { id: 31, departamento: 'Vichada', ciudades: ['Cumaribo', 'La Primavera', 'Puerto Carre\u00f1o', 'Santa Rosal\u00eda'] },
-  { id: 32, departamento: 'Bogot\u00e1', ciudades: ['Bogot\u00e1'] },
+  { id: 31, departamento: 'Vaup\u00e9s', ciudades: ['Carur\u00fa', 'Mit\u00fa', 'Taraira'] },
+  { id: 32, departamento: 'Vichada', ciudades: ['Cumaribo', 'La Primavera', 'Puerto Carre\u00f1o', 'Santa Rosal\u00eda'] },
 ];
