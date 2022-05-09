@@ -23,4 +23,4 @@ const FINANCIAL_OPTIONS = {
   min: 0
 };
 
-export { FINANCIAL_OPTIONS as F, getDataByField as a, getData as g, setData as s };
+export { FINANCIAL_OPTIONS as F, getData as a, getDataByField as g, setData as s };

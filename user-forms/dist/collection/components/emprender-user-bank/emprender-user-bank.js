@@ -29,7 +29,7 @@ export class EmprenderUfReferences {
       setUserInformation('bankInformation', this.model);
       //this.infoSaved.emit(this.model,"");
       // setBankInformation(this.model);
-      //window.location.href="https://credito.muii.com.co/zona-privada/#/credit-result";
+      window.location.href = "https://credito.muii.com.co/zona-privada/#/credit-result";
     }
     this.requiredData = lista.toString();
   }

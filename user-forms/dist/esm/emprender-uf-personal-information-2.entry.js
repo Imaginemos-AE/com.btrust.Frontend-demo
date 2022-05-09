@@ -1,4 +1,4 @@
-import { r as registerInstance, c as createEvent, h, H as Host } from './index-94cfe778.js';
+import { r as registerInstance, c as createEvent, h, H as Host } from './index-8397afa9.js';
 import { a as checkData } from './validation-7fb1b65f.js';
 import { C as COUNTRY } from './country-4d755169.js';
 
