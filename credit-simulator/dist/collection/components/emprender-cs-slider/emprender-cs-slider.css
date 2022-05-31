@@ -60,7 +60,7 @@ fieldset .small {
   max-width: 260px;
 }
 fieldset label:not(.control) {
-  color: var(--primary-color, #51215B);
+  color: var(--primary-color, #002060);
   font-family: var(--secondary-font, "Varela Round", sans-serif);
   font-size: 15px;
   text-align: center;
@@ -99,19 +99,19 @@ fieldset.divslider {
 }
 
 .slider-handle {
-  background: var(--primary-color, #51215B);
+  background: var(--primary-color, #002060);
   box-shadow: none;
   top: -2px;
 }
 
 .slider-selection {
-  background: var(--primary-color, #51215B);
+  background: var(--primary-color, #002060);
 }
 
 /* Tooltip Slider
 ============================================================ */
 .slider .tooltip-inner {
-  background-color: var(--primary-color, #51215B);
+  background-color: var(--primary-color, #002060);
   border-radius: 15px;
   color: #ffffff;
   font-size: 12px;
@@ -121,5 +121,5 @@ fieldset.divslider {
 
 .slider .bs-tooltip-auto[x-placement^=bottom] .arrow:before,
 .slider .bs-tooltip-bottom .arrow:before {
-  border-bottom-color: var(--primary-color, #51215B);
+  border-bottom-color: var(--primary-color, #002060);
 }

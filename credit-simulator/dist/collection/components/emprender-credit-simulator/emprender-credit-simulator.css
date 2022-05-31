@@ -33,7 +33,7 @@
   padding: 20px 25px;
 }
 .creditSimulator .box p.total {
-  color: #00779a;
+  color: #0073ff;
   font-family: var(--secondary-font, "Varela Round", sans-serif);
   font-size: 20px;
   margin-bottom: 5px;
@@ -50,7 +50,7 @@
   margin-bottom: 10px;
 }
 .creditSimulator .box fieldset label:not(.control) {
-  color: var(--primary-color, #51215B);
+  color: var(--primary-color, #002060);
   font-family: var(--secondary-font, "Varela Round", sans-serif);
   font-size: 15px;
   text-align: center;
@@ -141,7 +141,7 @@ fieldset {
   margin-bottom: 20px;
 }
 .form fieldset label {
-  color: var(--primary-color, #51215B);
+  color: var(--primary-color, #002060);
   display: block;
   font-size: 14px;
   font-weight: 600;
@@ -238,12 +238,12 @@ ul.inline li {
 }
 
 .control input:checked ~ .control__indicator {
-  background: var(--primary-color, #51215B);
+  background: var(--primary-color, #002060);
 }
 
 .control:hover input:not([disabled]):checked ~ .control__indicator,
 .control input:checked:focus ~ .control__indicator {
-  background: var(--primary-color, #51215B);
+  background: var(--primary-color, #002060);
 }
 
 .control input:disabled ~ .control__indicator {

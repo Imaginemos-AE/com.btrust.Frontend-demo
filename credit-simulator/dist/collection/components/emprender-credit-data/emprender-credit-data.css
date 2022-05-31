@@ -15,7 +15,7 @@
   justify-content: center;
 }
 .confirmCreditInformation h2.title {
-  color: #00779a;
+  color: #0073ff;
   font-family: "Varela Round", sans-serif;
   font-size: 26px;
   text-align: center;
@@ -23,11 +23,11 @@
   margin-bottom: 20px;
 }
 .confirmCreditInformation h5 {
-  color: #00779a;
+  color: #0073ff;
   font-weight: 600;
 }
 .confirmCreditInformation h6 {
-  color: #00779a;
+  color: #0073ff;
 }
 .confirmCreditInformation .details {
   margin-bottom: 10px;
@@ -76,11 +76,11 @@
   top: 1px;
 }
 .confirmCreditInformation .details .item.highlighted label {
-  color: #51215B;
+  color: #002060;
   font-size: 16px;
 }
 .confirmCreditInformation .details .item.highlighted p.value {
-  background-color: #51215B;
+  background-color: #002060;
   border-radius: 8px;
   color: #FFFFFF;
   text-align: center;
