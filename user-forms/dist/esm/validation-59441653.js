@@ -1,7 +1,7 @@
 const expresiones = {
   alfanumerico: /^[a-zA-Z0-9\(\)\_\-\#\s\.\,\a-zA-ZÀ-ÿ]{1,150}$/,
   alfanumericoOpcional: /^[a-zA-Z0-9\_\-\#\s\.\a-zA-ZÀ-ÿ]{0,50}$/,
-  texto: /^[a-zA-ZÀ-ÿ\.\s]{1,100}$/,
+  texto: /^[a-zA-ZÀ-ÿ\s]{1,100}$/,
   textoOpcional: /^[a-zA-ZÀ-ÿ\s]{0,40}$/,
   correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
   numerico: /^\d{1,14}$/,
@@ -41,6 +41,7 @@ const personalInformation2 = {
   place: 'alfanumericoOpcional',
   stratus: 'numerico',
   dwellingType: 'texto',
+  rent: 'arriendo',
   residenceTime: 'numericoSimbolo',
   employment: 'texto',
 };
@@ -51,7 +52,7 @@ const financialInformation = {
   otherIncomesDescription: 'texto',
   totalIncomes: 'numerico',
   personalExpenses: 'numerico',
-  rentExpenses: 'numericoOpcional',
+  rentExpenses: 'numerico',
   debtExpenses: 'numerico',
   otherExpenses: 'numericoOpcional',
   otherExpensesDescription: 'texto',
@@ -162,6 +163,7 @@ function checkData(model) {
     return expresiones[campo[`${entry[0]}`]].test(value) === false;
   });
   return prueba.map(value => value[0]);
+  // return [];
 }
 function checkData2(model, fieldName) {
   const fields = {

@@ -247,6 +247,7 @@ declare namespace LocalJSX {
     interface EmprenderUserBank {
         "adminZone"?: boolean;
         "model"?: BankInformation;
+        "onSendBankInfo"?: (event: CustomEvent<BankInformation>) => void;
         "requiredData"?: string;
     }
     interface EmprenderUserForms {

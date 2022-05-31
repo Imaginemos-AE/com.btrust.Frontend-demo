@@ -70,6 +70,7 @@ export class EmprenderUfFinancialInformation {
         lista.splice(lista.indexOf('otherExpensesDescription'), 1);
       this._setModel('otherExpensesDescription', '');
     }
+    console.log(lista);
     if (lista.length === 0) {
       this.infoSaved.emit(this.model);
     }
@@ -124,6 +125,9 @@ export class EmprenderUfFinancialInformation {
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
                       h("emprender-cl-input", { dataType: "alfanumerico", label: "Tus egresos mensuales por pago de deuda", checkData: this.requiredData.indexOf('debtExpenses') > -1, value: this.model.debtExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('debtExpenses', ev.detail) }))),
+                  h("div", { class: "col-md-6" },
+                    h("fieldset", null,
+                      h("emprender-cl-input", { dataType: "alfanumerico", label: "Egresos mensuales por pago de arriendos", checkData: this.requiredData.indexOf('rentExpenses') > -1, value: this.model.rentExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('rentExpenses', ev.detail) }))),
                   h("div", { class: "col-md-6" },
                     h("fieldset", null,
                       h("emprender-cl-input", { dataType: "alfanumerico", label: "Tus egresos mensuales personales / familiares", checkData: this.requiredData.indexOf('personalExpenses') > -1, value: this.model.personalExpenses, maskOptions: FINANCIAL_OPTIONS, onInputChange: ev => this._calculateTotalExpenses('personalExpenses', ev.detail) }))),

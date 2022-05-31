@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop } from '@stencil/core';
+import { Component, Host, h, Prop, Event } from '@stencil/core';
 import { checkData2 } from '../../module/validation';
 import { loadCSS, loadScript } from '../../utils/utils';
 import { setUserInformation } from '../../module/store';
@@ -27,9 +27,10 @@ export class EmprenderUfReferences {
     const lista = checkData2(this.model, 'bankInformation');
     if (lista.length === 0) {
       setUserInformation('bankInformation', this.model);
+      this.sendBankInfo.emit(this.model);
       //this.infoSaved.emit(this.model,"");
       // setBankInformation(this.model);
-      window.location.href = "https://credito.muii.com.co/zona-privada/#/credit-result";
+      //window.location.href="https://credito.muii.com.co/zona-privada/#/credit-result";
     }
     this.requiredData = lista.toString();
   }
@@ -153,4 +154,25 @@ export class EmprenderUfReferences {
       "defaultValue": "false"
     }
   }; }
+  static get events() { return [{
+      "method": "sendBankInfo",
+      "name": "sendBankInfo",
+      "bubbles": true,
+      "cancelable": true,
+      "composed": true,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "complexType": {
+        "original": "BankInformation",
+        "resolved": "BankInformation",
+        "references": {
+          "BankInformation": {
+            "location": "import",
+            "path": "../../module/models"
+          }
+        }
+      }
+    }]; }
 }

@@ -10,7 +10,6 @@ async function userAdminInformation(id) {
   myHeaders.append('Access-Control-Allow-Origin', '*');
   myHeaders.append('Access-Control-Allow-Credentials', 'true');
   myHeaders.append('Content-Type', 'application/json');
-  console.log(id);
   try {
     const result = await fetch(`https://credito.muii.com.co/api/DataManager/${id}/`, {
       method: 'GET',
@@ -62,6 +61,7 @@ function getInfoSocioDemografica(data) {
     place: data['torre_Apt'],
     stratus: data['estrato'],
     dwellingType: data['tipoVivienda'],
+    rent: data['arriendo'],
     residenceTime: data['tiempo'],
     employment: data['ocupacion'],
   };

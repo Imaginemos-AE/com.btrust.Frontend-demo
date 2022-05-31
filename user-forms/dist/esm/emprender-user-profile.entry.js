@@ -1,5 +1,5 @@
 import { r as registerInstance, c as createEvent, h, H as Host } from './index-8397afa9.js';
-import { a as state, l as loadDefaultData, s as setUserInformation } from './store-3c975a74.js';
+import { a as state, l as loadDefaultData, s as setUserInformation } from './store-a0adeb10.js';
 import { l as loadCSS, a as loadScript } from './utils-84851d0f.js';
 import './helper-11be9261.js';
 
@@ -32,6 +32,7 @@ const EmprenderUserForms = class {
   async componentWillLoad() {
     await loadCSS('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500&family=Varela+Round&display=swap');
     await loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
+    await loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCYBy_5xXw_-nNeiMBfDqgfbXhuxB-mTQc&libraries=places', 'googleapi', 'text/javascript');
     loadDefaultData();
   }
   isLoading() {
