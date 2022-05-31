@@ -34,7 +34,7 @@ select.form-control {
 }
 
 label {
-  color: var(--primary-color, #51215b);
+  color: var(--primary-color, #002060);
   font-family: var(--secondary-font, "Varela Round", sans-serif);
   display: block;
   font-size: 14px;
