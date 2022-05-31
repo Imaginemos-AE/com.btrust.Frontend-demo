@@ -8,7 +8,7 @@ export class EmprenderUserBiometrics {
   async componentWillLoad() {
     state.adoCofiguration = JSON.parse(this.adoConfig);
     await loadCSS('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Varela+Round&display=swap');
-    await loadScript('https://imaginemos-ae.github.io/com.emprender.FrontEnd-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
+    await loadScript('https://imaginemos-ae.github.io/com.btrust.Frontend-demo/components-library/dist/emprender-components-library/emprender-components-library.esm.js', 'emprender-components-library', 'module');
   }
   render() {
     return (h(Host, null, this.type === 'validate' ? h("emprender-ub-home", null) : h("emprender-ub-signature", null)));
