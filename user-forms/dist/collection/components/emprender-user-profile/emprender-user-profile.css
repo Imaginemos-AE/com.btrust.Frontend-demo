@@ -102,7 +102,7 @@ fieldset {
 /*
 ============================================================ */
 .link {
-  color: var(--tertiary-color, #00779a) !important;
+  color: var(--tertiary-color, #0073ff) !important;
   display: inline-block;
   font-weight: 600;
   font-size: 13px;
@@ -150,7 +150,7 @@ fieldset {
   margin-bottom: 15px;
 }
 fieldset label {
-  color: var(--primary-color, #51215b);
+  color: var(--primary-color, #002060);
   font-family: var(--secondary-font, "Varela Round", sans-serif);
   display: block;
   font-size: 14px;
@@ -219,7 +219,7 @@ fieldset.password .showpassword {
   height: 15px;
 }
 fieldset.password .showpassword:hover {
-  color: var(--primary-color, #51215b);
+  color: var(--primary-color, #002060);
 }
 
 /* Input type file
@@ -294,12 +294,12 @@ fieldset label.control input {
 }
 
 .control input:checked ~ .control__indicator {
-  background: var(--primary-color, #51215b);
+  background: var(--primary-color, #002060);
 }
 
 .control:hover input:not([disabled]):checked ~ .control__indicator,
 .control input:checked:focus ~ .control__indicator {
-  background: var(--primary-color, #51215b);
+  background: var(--primary-color, #002060);
 }
 
 .control input:disabled ~ .control__indicator {
@@ -542,7 +542,7 @@ section.employeeRegistration {
   text-align: center;
 }
 section.employeeRegistration h2.title {
-  color: var(--tertiary-color, #00779a);
+  color: var(--tertiary-color, #0073ff);
   font-family: var(--secondary-font, "Varela Round", sans-serif);
   font-size: 26px;
   text-align: center;
@@ -661,15 +661,15 @@ section.employeeRegistration .boxForm .fieldtypeOfCompany label.control {
 }
 
 .colorPrimary {
-  color: var(--primary-color, #51215b) !important;
+  color: var(--primary-color, #002060) !important;
 }
 
 .colorSecondary {
-  color: var(--secondary-color, #f8b23f) !important;
+  color: var(--secondary-color, #ffff) !important;
 }
 
 .colorTertiary {
-  color: var(--tertiary-color, #00779a) !important;
+  color: var(--tertiary-color, #0073ff) !important;
 }
 
 .colorQuaternary {
