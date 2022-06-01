@@ -1,0 +1,13 @@
+{
+  "entries": [
+    "./components/emprender-email-information/emprender-email-information.js",
+    "./components/emprender-pz-user-info/emprender-pz-user-info.js"
+  ],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "2.6.0",
+    "typescriptVersion": "4.2.3"
+  },
+  "collections": [],
+  "bundles": []
+}
